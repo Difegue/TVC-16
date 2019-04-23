@@ -1,0 +1,13 @@
+{% extends "index.html" %}
+
+{% block title %}{{ SITENAME }} - Articles by {{ author }}{% endblock %}
+
+{% block content_title %}
+<h2><a class="containerBox">
+          <img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/img/button2.svg" class="img-responsive">
+          <div class="text-box pink-button">
+            <span class=" button-text pink-shadow">{{ author }}</span>
+          </div>
+    </a></h2>
+{% endblock %}
+
