@@ -7,6 +7,16 @@ var TO_RADIANS = Math.PI / 180;
 var colors = ['#32cd32', '#7d4071', '#f1c711'];
 var accent_color = colors[Math.floor(Math.random() * colors.length)];
 
+//grab uptimes from the textfile
+$.get("uptime", function (result) {
+  $("#uptime").html(result);
+});
+
+$.get("uptimedetail", function (result) {
+
+  $(".footer-container").attr("title", "This COOL SYSTEM has been running " + result);
+});
+
 //SVG elements
 var imgArray = new Array();
 
