@@ -21,8 +21,11 @@ AUTHOR_FEED_RSS = None
 
 # Blogroll
 MENUITEMS = (('Projects', '/projects.html'),
-         ('All Articles', '/'),
+         ('Articles', '/'),
          ('Categories', '/categories.html'),)
+
+# custom page generated with a jinja2 template
+TEMPLATE_PAGES = {'projects.html': 'projects.html'}
 
 # Social widget
 SOCIAL = (('You can add links in your config file', '#'),

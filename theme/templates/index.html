@@ -2,15 +2,19 @@
 {% block content %}
 <section id="content">
 {% block content_title %}
-<h2 class="">
-    <a class="containerBox">
-          <img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/img/button2.svg" class="img-responsive">
-          <div class="text-box pink-button">
-            <span class=" button-text pink-shadow">All Articles</span>
-          </div>
-    </a></h2>
+<a class="containerBox">
+    <img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/img/button2.svg" class="img-responsive">
+    <div class="text-box pink-button">
+    <span class=" button-text pink-shadow">Articles</span>
+    </div>
+</a>
 {% endblock %}
-<br/><br/><br/><br/><br/><br/><br/><br/>
+<span class="terminal-text">
+    Thank you for dialing into TVC-16!
+    <br>We hope this system will bring you entire satisfaction.
+</span><br/><br/>
+This is where I write tech stuff so I don't forget what I did when I inevitably get to redo it.<br/><br/>
+...I really have nothing else to write here for the moment.<br/><span style="font-family:monospace">( ´･･)ﾉ(._.`)</span>
 <ol id="post-list">
 {% for article in articles_page.object_list %}
         <li style="list-style-type: none;"><article class="hentry">

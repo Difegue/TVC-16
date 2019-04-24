@@ -75,7 +75,7 @@ cd ~/squashfs-root && export DISPLAY=:0.0 && ./AppRun
 
 # Caveats
 
-* WSL doesn't have GPU acceleration yet. This is entirely running in software and as you can see in the `htop` above, easily eats more CPU than those newfangled javascript terminals. 😐 
+* WSL [doesn't have GPU acceleration yet](https://github.com/Microsoft/WSL/issues/829). This is entirely running in software and as you can see in the `htop` above, easily eats more CPU than those newfangled javascript terminals. 😐 
 * Pasting text into cool-retro-term works, but copying text from it doesn't. 
 * You can encounter a segfault or two if you mess with the graphical settings too much in one session. Once a profile is saved however, I've encountered no crashes in the few hours I spent playing with this.
 

@@ -32,11 +32,11 @@
         <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js'></script>
 
 
-        <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-        <link rel="manifest" href="/site.webmanifest">
-        <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#f040b0">
+        <link rel="apple-touch-icon" sizes="180x180" href="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/apple-touch-icon.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/favicon-16x16.png">
+        <link rel="manifest" href="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/site.webmanifest">
+        <link rel="mask-icon" href="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/safari-pinned-tab.svg" color="#f040b0">
         <meta name="msapplication-TileColor" content="#f1c711">
         <meta name="theme-color" content="#f1c711">
 
@@ -87,7 +87,9 @@
         <br/>
         <br/>
 
-        <footer id="contentinfo" class="body">
+        </div>
+
+        <footer id="contentinfo" class="body" style="position:relative; overflow:hidden">
         <div class="top-border hello-background"></div>
         <div class="wrapper hello-background">
           <div class="text">
@@ -131,6 +133,16 @@
         <br/>
         <br/>
         <br/>
+
+        
+
+        <div class="footer-container" title="This COOL SYSTEM has been running 336 days, 2 hours, 30 minutes.">
+            <span class="footer-text">Uptime:
+              <br>
+              <span id="uptime">336 days </span>
+            </span>
+            <img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/img/footer.svg" class="footer-image">
+        </div>
 
         <script src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/index.js"></script>
 </body>

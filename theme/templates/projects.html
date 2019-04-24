@@ -1,17 +1,51 @@
 {% extends "base.html" %}
 
-{% block title %}{{ SITENAME }} - Categories{% endblock %}
+{% block title %}{{ SITENAME }} - Projects{% endblock %}
 
 {% block content %}
-    <h2><a class="containerBox" style="margin-right:60px">
+    <a class="containerBox" style="margin-right:60px">
           <img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/img/button2.svg" class="img-responsive">
           <div class="text-box pink-button">
-            <span class=" button-text pink-shadow">Categories</span>
+            <span class=" button-text pink-shadow">Projects</span>
           </div>
-    </a></h2>
-    <ul>
-    {% for category, articles in categories|sort %}
-        <li><a href="{{ SITEURL }}/{{ category.url }}">{{ category }}</a> ({{ articles|count }})</li>
-    {% endfor %}
-    </ul>
+    </a>
+    <br/> I have a few personal software development projects, some active, some dead as a doornail.
+        <br/>You'll find the bigger ones down below.
+        <br/>
+        <br/>Source code for all of those can be found on my
+        <a href="https://github.com/Difegue">Github.</a>
+
+        <br/>
+        <br/>
+        <br/>
+
+        <div class="project-list">
+
+          <div>
+            <a href="https://lrr.tvc-16.science/">
+              <img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/img/lrr.svg" style="float:left; margin-right:10px; width: 100px" /> LANraragi
+            </a> is a web manager for manga/doujinshi archives, with a built-in reader and namespace/tag support.
+            <br/> It's built using Perl and the excellent Mojolicious Framework.
+          </div>
+
+          <br/>
+          <br/>
+          <br/>
+
+          <a href="https://diy.tvc-16.science/">
+            <img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/img/fc-cart.svg" style="float:right; margin-left:10px; width: 100px" /> DoujinSoft
+          </a> is a browseable archive for content made for the 2010 Nintendo DS game WarioWare DIY.
+          <br/> It's built in Java, leveraging the reverse-engineering efforts made on the game.
+
+          <br/>
+          <br/>
+          <br/>
+
+          <a href="https://www.microsoft.com/store/apps/9NBLGGH50ZLR">
+            <img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/img/rsslt.svg" style="float:left; margin-right:10px; width: 100px" /> RSS Live Tiles
+          </a> is a Universal Windows Platform application made for displaying entirely customizable content in Start Menu
+          Live Tiles, using RSS feeds as data sources.
+          <br/> It uses C# and serves as my testbed for new stuff landing on the Windows 10 SDK.
+
+        </div>
 {% endblock %}

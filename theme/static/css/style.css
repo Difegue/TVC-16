@@ -107,6 +107,8 @@ pre {
 
 .project-background {
     background-color: #f1c711;
+    z-index: 1;
+    position: relative;
 }
 
 .wrapper {
@@ -227,7 +229,10 @@ pre {
     .entry-title {
         font-size: 40px;
     }
- 
+
+    .footer-container {
+        z-index: 0 !important;
+    }
  }
 
 @-moz-keyframes spin { 100% { -moz-transform: rotate(360deg); } }
@@ -287,14 +292,16 @@ pre {
     bottom:0;
     width:200px;
     height:100px;
+    z-index: 2;
 }
 
 .footer-text {
     display: inline-block;
     font-family: 'Lemon Milk';
     position:absolute; 
-    left: 30%;
+    left: 50%;
     top: 30%;
+    margin-left: -49px;
     z-index: 10;
     font-size:22px;
     text-shadow: 4px 4px #000;
