@@ -1,5 +1,6 @@
 Title: Running cool-retro-term in Windows through WSL
 Date: 2019-04-21 20:00
+Modified: 2019-04-26 00:00
 Category: WSL
 Tags: wsl, cool-retro-term, xming, terminal
 Slug: cool-retro-term-wsl
@@ -44,8 +45,7 @@ Close your Linux CLI for now.
 # Boot 'er up with Xming
 👉 Download and install [Xming](https://sourceforge.net/projects/xming/) on the Windows side.  
 
-vcXsrv is another port of the X server to Windows that's often recommended in [X-on-WSL blogposts](https://www.ctrl.blog/entry/how-to-x-on-wsl), but it didn't work with CRT during my experiments.  
-What kind of X server works on what program/WSL version combo is pretty hard to pin down, so if you get an error that looks like `failed to create screen resources` it's probably coming from there.  
+vcXsrv is another port of the X server to Windows that's often recommended in [X-on-WSL blogposts](https://www.ctrl.blog/entry/how-to-x-on-wsl), but it didn't work with CRT during my experiments. You can also try [FreeXer](https://sourceforge.net/projects/freexer/), or Cygwin's X server.  
 
 Once installed, just start it up and go back to Linux:  
 ~~~~
