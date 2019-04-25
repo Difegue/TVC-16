@@ -6,5 +6,4 @@ Slug: blogopolis-docker
 Authors: Difegue
 Summary: I'm mostly writing this so I can actually test that the git hooks work properly.
 
-haha 
-#yes 
+Coming soon I swear lads
