@@ -13,7 +13,7 @@ For blog articles though, I wanted to have something easier on the server mainte
 
 I decided to use a static site generator like all the nerds instead and went with [Pelican](https://blog.getpelican.com/).
 
-Classic stuff so far, but I don't think many people are using [Github Actions](https://github.com/features/actions/) for their deployments yet despite the fact that it's **rad**! <sub><sup>well the fact it's in beta might be a blocker too for some people</sup></sub>
+Classic stuff so far, but I don't think many people are using [Github Actions](https://github.com/features/actions/) for their deploying yet despite the fact that it's **rad**! <sub><sup>well the fact it's in beta might be a blocker too for some people</sup></sub>
 
 # Building in Pelican
 I didn't do anything out of the ordinary in the Pelican side -- this is a hella standard blog if you ignore the theme. (Which I wholelifted from the previous nonblog version, so I can thank 2018 myself for putting in all the CSS work).  
@@ -48,15 +48,15 @@ This building process is triggered on every push to _master_ and is as simple as
 
 The output branch is named _gh-pages_ because I conveniently re-used an [existing Action](https://github.com/JasonEtco/push-to-gh-pages) to go faster. I don't actually use Github Pages but hey, no harm done!
 
-Another integration I made is through the comment system -- The way Microsoft made its MSDN comment system [basically just Github Issues](https://docs.microsoft.com/en-us/teamblog/a-new-feedback-system-is-coming-to-docs) is pretty inspiring.  
-[Utterances](https://utteranc.es/) is an open source variant which I added to my Pelican template in about 5 seconds.  
+🔮 Another integration I made is with the comment system: The way Microsoft made its MSDN comment system [basically just Github Issues](https://docs.microsoft.com/en-us/teamblog/a-new-feedback-system-is-coming-to-docs) is pretty inspiring.  
+[Utterances](https://utteranc.es/) is an open source variant I added to my Pelican template in about 5 seconds.  
 
-As a result, all the blog's data is backed up on Github. If I ever had to switch to another Git repo provider I'd likely lose the comments, but I'm banking on those not being too important.
+As a result, both articles and comments are backed up on Github. If I ever have to switch to another Git repo provider I'd likely lose the comments, but I'm banking on those not being too important.
 
 # Deploying on TVC-16 through Caddy
 
 A friend recently told me that I was being an old fart by still using Apache2 in _the current year_, so I swapped it out for [Caddy](https://caddyserver.com/).  
-Caddy's big advantage here lies in its [`http.git`](https://caddyserver.com/docs/http.git)  plugin, which automagically pulls the latest built version of the website from Github.  
+Caddy's big advantage here lies in its [`http.git`](https://caddyserver.com/docs/http.git) plugin, which automagically pulls the latest built version of the website from Github.  
 
 Here's the Caddyfile I use:
 
@@ -75,7 +75,8 @@ The biggest issue I encountered here was that http.git does a `git clone` when d
 
 What I'm pulling however is the already-built website, which is force-pushed by the Github Actions bot every time. As such, the Git history is getting continuously broken, making regular Git pulls fail instantly.
 
-Adding the pull arguments you see above is enough to tell git "it's alright just stop caring". It's a bit weird using `rebase` here, but it masterfully dodges merge conflicts by using the new remote as a base and then replaying my "work" (aka nothing at all) on top of it.  
+Adding the pull arguments you see above is enough to tell Git "it's alright just stop caring".  
+It's a bit weird using `rebase` here, but it masterfully dodges merge conflicts by using the new remote as a base and then replaying my "work" (aka nothing at all) on top of it.  
 
 # Possible enhancements
 
