@@ -15,6 +15,14 @@
     <meta name="description" content="{{article.description}}" />
   {% endif %}
 
+  {% block open-graph %}
+        <meta property="og:title" content="{{ article.title }} - Blogopolis" />
+        <meta property="og:type" content="article" />
+        <meta property="og:description" content="{{article.description}}" />
+        <meta property="og:url" content="{{ SITEURL }}/{{ article.url }}" />
+        <meta property="og:image" content="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/android-chrome-384x384.png" />
+  {% endblock %}
+
   {% for tag in article.tags %}
     <meta name="tags" content="{{tag}}" />
   {% endfor %}

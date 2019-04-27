@@ -41,6 +41,14 @@
         <meta name="msapplication-TileColor" content="#f1c711">
         <meta name="theme-color" content="#f1c711">
 
+        {% block open-graph %}
+        <meta property="og:title" content="Blogopolis @TVC-16" />
+        <meta property="og:type" content="summary" />
+        <meta property="og:description" content="WELCOME TO BLOGOPOLIS" />
+        <meta property="og:url" content="{{ SITEURL }}" />
+        <meta property="og:image" content="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/android-chrome-384x384.png" />
+        {% endblock %}
+        
         <link href="https://fonts.googleapis.com/css?family=Monoton" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css?family=VT323" rel="stylesheet">
         <link rel="stylesheet" href="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/css/style.css">
@@ -137,10 +145,10 @@
 
         
 
-        <div class="footer-container" title="This COOL SYSTEM has been running 336 days, 2 hours, 30 minutes.">
+        <div class="footer-container" title="This COOL SYSTEM has been running...for some time now.">
             <span class="footer-text">Uptime:
               <br>
-              <span id="uptime">336 days </span>
+              <span id="uptime">XXX days </span>
             </span>
             <img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/img/footer.svg" class="footer-image">
         </div>
