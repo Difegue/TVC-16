@@ -72,6 +72,8 @@ tvc-16.science, www.tvc-16.science {
 }
 ~~~~
 
+When adding in the webhook on the Github side, make sure to set the Content-Type to `application/json`, your hooks will fail otherwise.
+
 The biggest issue I encountered here was that http.git does a `git clone` when deploying your website for the first time, then only does `git pull` to update it. Which is very sane if you're pulling the sources, then building the website on the server itself.  
 
 What I'm pulling however is the already-built website, which is force-pushed by the Github Actions bot every time. As such, the Git history is getting continuously broken, making regular Git pulls fail instantly.
