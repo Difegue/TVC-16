@@ -67,6 +67,7 @@ tvc-16.science, www.tvc-16.science {
         repo     github.com/difegue/TVC-16
 	    branch   gh-pages
         pull-args --allow-unrelated-histories -s recursive -X theirs
+        hook /webhook mywebhooksecret
     }
 }
 ~~~~
@@ -77,8 +78,12 @@ What I'm pulling however is the already-built website, which is force-pushed by 
 
 Adding the pull arguments you see above fixes this, by telling Git to disregard history and always use remote files in case of conflict.
 
-# Possible enhancements
+# Final thoughts
 
-http.git in its base configuration pulls from the remote repo every hour. You can add a webhook pretty easily to have it only trigger on pushes, but I haven't bothered yet.  
+I found out about the [Github Zen endpoint](https://api.github.com/zen) when adding in webhooks. It just spits out fortune cookie sentences on each call.  
+
+
+
+
 
 
