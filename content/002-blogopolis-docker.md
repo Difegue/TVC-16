@@ -66,7 +66,7 @@ tvc-16.science, www.tvc-16.science {
     git {
         repo     github.com/difegue/TVC-16
 	    branch   gh-pages
-        pull-args --rebase --allow-unrelated-histories
+        pull-args --allow-unrelated-histories -s recursive -X theirs
     }
 }
 ~~~~
@@ -75,8 +75,7 @@ The biggest issue I encountered here was that http.git does a `git clone` when d
 
 What I'm pulling however is the already-built website, which is force-pushed by the Github Actions bot every time. As such, the Git history is getting continuously broken, making regular Git pulls fail instantly.
 
-Adding the pull arguments you see above is enough to tell Git "it's alright just stop caring".  
-It's a bit weird using `rebase` here, but it masterfully dodges merge conflicts by using the new remote as a base and then replaying my "work" (aka nothing at all) on top of it.  
+Adding the pull arguments you see above fixes this, by telling Git to disregard history and always use remote files in case of conflict.
 
 # Possible enhancements
 
