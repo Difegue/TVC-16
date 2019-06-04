@@ -19,16 +19,17 @@ Lovely, but hey it worked! Until some dude strolled along with his Shift-JIS enc
 ![i fucking hate codepages]({static}/images/coolmeme.jpg)  
 Then Mojolicious itself dropped Windows support, I switched some Perl packages to add features and said packages didn't have readymade Windows ports, and I pretty much killed the thing because it wasn't even standing on its own anymore.  
 
-Meanwhile, WSL was making some good progress and I was pretty much using it full-time for developing the server, but that's pretty much all it was good for in my mind: Developing. Then I read [this blogpost](https://medium.com/@hoxunn/wsl-docker-custom-distro-2-0-730fd97fe72e), which put a pretty crazy spin on the concept in my head.  
+Meanwhile, [WSL](https://docs.microsoft.com/en-us/windows/wsl/about) was making some fantastic progress to the point I was using it full-time for developing the server, but that's pretty much all it was good for in my mind: Developing.  
+Then I read [this blogpost](https://medium.com/@hoxunn/wsl-docker-custom-distro-2-0-730fd97fe72e), which put a pretty crazy spin on the concept in my head.  
 Generating lightweight WSL distros out of Docker images sounded easily doable with my current workflow, and past that it'd just be a matter of providing users an easy, Windows-like interface to it.  
 
 I was itching for some WPF anyways so:  
 
 ## The plan, then:
 
-👉 **Build** a WSL distro (basically just a Linux rootfs) out of my existing Docker image
-👉 **Register** said distro on the user's computer through the WSL API, and install a basic GUI tool 
-👉 Use the GUI tool to **interop** with the distro, mapping Windows directories and settings to the Linux world and starting the webserver
+👉 **Build** a WSL distro (basically just a Linux rootfs) out of my existing Docker image  
+👉 **Register** said distro on the user's computer through the WSL API, and install a basic GUI tool   
+👉 Use the GUI tool to **interop** with the distro, mapping Windows directories and settings to the Linux world and starting the webserver  
 
 I'll spoil you the results by saying it _totally heckin' works_ and is currently out in beta:    
 ![bazinger z]({static}/images/karen.jpg)  
@@ -39,7 +40,8 @@ I'll dedicate the rest of this blogpost - and its followup - to depicting the ma
 # Building the WSL distro in Github Actions  
 
 I do all the continuous integration for LANraragi in [Github Actions](https://github.com/features/actions) these days, so it seemed an easy choice to add the WSL distro build to it.  
-According to Nunix's blogpost, it's really just a matter of running [`docker export`](https://docs.docker.com/engine/reference/commandline/export/) on the images I'm already building. Said command gives out a .tar containing the full Linux filesystem, for readymade import into WSL. Should be easy, righ-
+According to Nunix's blogpost, it's really just a matter of running [`docker export`](https://docs.docker.com/engine/reference/commandline/export/) on the images I'm already building.  
+Said command gives out a .tar containing the full Linux filesystem, for readymade import into WSL. Should be easy, righ-
 ~~~~
 Error response from daemon: This Docker operation is forbidden by GitHub Actions,
 you can find documentation at https://developer.github.com/actions/
@@ -49,8 +51,8 @@ There's actually no warning about this anywhere in the Actions documentation, bu
 And of course, the all-essential `export` is part of those. I had to switch to using [`docker save`](https://docs.docker.com/engine/reference/commandline/save/), which also exports your image as a .tar archive, but **not** as a ready-to-use filesystem.  
 Instead, it exports each layer of the Docker image as a separate .tar, then bundles up all of those.  
 
-
-Which is convenient for reimporting, but not at all for what I want here.  
+![bazinger z]({static}/images/export_vs_save.png)  
+This is convenient for reimporting into Docker itself, but not at all for what I want here.  
 
 The hackjob solution I ended up using was to manually squash all the layers post-save:  
 
@@ -59,6 +61,7 @@ The hackjob solution I ended up using was to manually squash all the layers post
 docker save --output save.tar difegue/lanraragi
 tar -xf save.tar --wildcards "*.tar"
 mkdir squashed
+
 # Find all .tar files, and export them to the same squashed folder, then repack this as a .tar
 find . -mindepth 2 -type f -iname "*.tar" -print0 -exec tar -xf {} -C squashed \; 
 find squashed -printf "%P\n" -type f -o -type l -o -type d | tar -cf package.tar --no-recursion -C squashed -T -
@@ -77,13 +80,13 @@ I haven't bothered wrapping those in proper executable installers, since Microso
 I initially wrote the scripts fully using `wsl.exe` to unregister/register/terminate the LANraragi distro, but quickly realized that as nice as `wsl.exe` was, it's completely useless in Windows 10 versions under 1903, the April 2019 Update.  
 Here's a quick breakdown of available WSL command tools in Win10 and their featureset alongside versions.  
 
-| Win10 version/Tool  | wsl.exe                                           | wslconfig.exe                            | wslapi.h                                    | lxrun                                   |
+| Win10 version/Tool  | wsl.exe                                           | wslconfig.exe                            | wslapi.h (direct API call)                  | lxrun                                   |
 |---------------------|---------------------------------------------------|------------------------------------------|---------------------------------------------|-----------------------------------------|
 | 1709 (Fall CU)      | Execute commands in a distro                      | List distros, unregister, set as default | List, register/unregister, execute commands | (Ubuntu only) Install/Uninstall, Update |
 | 1803 (RS4)          | Nothing new                                       | Terminate a running distro               | Nothing new                                 | Dead                                    |
 | 1903 (You are here) | List distros, register/unregister, set as default | Nothing new                              | Nothing new...                              | Dead                                    |  
 
-"Registering" a distro in WSL terms means basically unpacking the Linux filesystem somewhere and registering the folder as containing a Linux distribution.  
+"Registering" a distro in WSL terms means basically unpacking the Linux filesystem somewhere and registering the resulting folder as containing a Linux distribution.  
 
 `wslconfig.exe` is a more capable alternative for older Windows versions, but it doesn't allow registering a distro.  
 As for direct API calls, the [registration function](https://docs.microsoft.com/en-us/windows/desktop/api/wslapi/nf-wslapi-wslregisterdistribution) doesn't allow you to pick a folder to unpack the distro to.  
