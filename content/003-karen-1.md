@@ -1,6 +1,6 @@
 Title: Masquerading a WSL Distro as a Windows Application, Part 1
-Date: 2019-04-21 20:00
-Modified: 2019-04-26 00:00
+Date: 2019-06-05 00:00
+Modified: 2019-06-05 00:00
 Category: LANraragi
 Tags: wsl, github actions
 Slug: wsl-karen-1
