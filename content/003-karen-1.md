@@ -20,13 +20,15 @@ Lovely, but hey it worked! Until some dude strolled along with his Shift-JIS enc
 Then Mojolicious itself dropped Windows support, I switched some Perl packages to add features and said packages didn't have readymade Windows ports, and I pretty much killed the thing because it wasn't even standing on its own anymore.  
 
 Meanwhile, WSL was making some good progress and I was pretty much using it full-time for developing the server, but that's pretty much all it was good for in my mind: Developing. Then I read [this blogpost](https://medium.com/@hoxunn/wsl-docker-custom-distro-2-0-730fd97fe72e), which put a pretty crazy spin on the concept in my head.  
-Generating lightweight WSL distros out of Docker images sounded easily doable with my current workflow, and past that it'd just be a matter of providing users an easy, Windows-like interface to it. I was itching for some WPF anyways so:  
+Generating lightweight WSL distros out of Docker images sounded easily doable with my current workflow, and past that it'd just be a matter of providing users an easy, Windows-like interface to it.  
+
+I was itching for some WPF anyways so:  
 
 ## The plan, then:
 
-* Build a WSL distro (basically just a Linux rootfs) out of my existing Docker images, already built nightly
-* Register said distro on the user's computer through the WSL API, and install a basic GUI tool 
-* Use the GUI tool to interop with the distro, mapping directories and settings to the Linux world and starting the webserver
+👉 **Build** a WSL distro (basically just a Linux rootfs) out of my existing Docker image
+👉 **Register** said distro on the user's computer through the WSL API, and install a basic GUI tool 
+👉 Use the GUI tool to **interop** with the distro, mapping Windows directories and settings to the Linux world and starting the webserver
 
 I'll spoil you the results by saying it _totally heckin' works_ and is currently out in beta:    
 ![bazinger z]({static}/images/karen.jpg)  
@@ -36,13 +38,19 @@ I'll dedicate the rest of this blogpost - and its followup - to depicting the ma
 
 # Building the WSL distro in Github Actions  
 
-I do all the continuous integration for LANraragi in [Github Actions](https://github.com/features/actions) these days, so it seemed an easy choice to add the WSL distro build to it. According to Nunix's blogpost, it's really just a matter of running `docker export` on the images I'm already building. Said command gives out a .tar containing the full Linux filesystem, for readymade import into WSL. Should be easy, righ-
+I do all the continuous integration for LANraragi in [Github Actions](https://github.com/features/actions) these days, so it seemed an easy choice to add the WSL distro build to it.  
+According to Nunix's blogpost, it's really just a matter of running [`docker export`](https://docs.docker.com/engine/reference/commandline/export/) on the images I'm already building. Said command gives out a .tar containing the full Linux filesystem, for readymade import into WSL. Should be easy, righ-
 ~~~~
 Error response from daemon: This Docker operation is forbidden by GitHub Actions,
 you can find documentation at https://developer.github.com/actions/
 ~~~~
 There's actually no warning about this anywhere in the Actions documentation, but since Actions run in premade Docker environments, a few Docker commands are [locked out](https://github.com/actions/docker/issues/7#issuecomment-459808907) to prevent potential sandbox escapes.  
-And of course the all-essential `export` is part of those. I had to switch to using `docker save`, which also exports your image as a .tar archive, but **not** as a ready-to-use filesystem. Instead, it exports each layer of the Docker image as a separate .tar, then bundles up all of those. Which is convenient for reimporting, but not at all for what I want here.  
+
+And of course, the all-essential `export` is part of those. I had to switch to using [`docker save`](https://docs.docker.com/engine/reference/commandline/save/), which also exports your image as a .tar archive, but **not** as a ready-to-use filesystem.  
+Instead, it exports each layer of the Docker image as a separate .tar, then bundles up all of those.  
+
+
+Which is convenient for reimporting, but not at all for what I want here.  
 
 The hackjob solution I ended up using was to manually squash all the layers post-save:  
 
@@ -64,21 +72,25 @@ Unlike with my previous foray, I didn't bother supporting Windows 7 or 8 here.
 It's straight bleedin' edge Windows 10, which means **PowerShell** is free game instead of wrangling old .bat scripts.  
 
 You can check the full source for the install/uninstall scripts [here](https://github.com/Difegue/Karen/blob/master/Karen/Karen-Installer.ps1)  and [here.](https://github.com/Difegue/Karen/blob/master/Karen/Karen-Uninstaller.ps1)  
-I haven't bothered wrapping those in proper .MSI installers yet - Writing Installers is a damn bore.  
-I don't envy macOS devs often, but I sure could use something like [Platypus](https://sveinbjorn.org/platypus) to quickly wrap scripts in nice-looking executables.
+I haven't bothered wrapping those in proper executable installers, since Microsoft doesn't seem interested in providing easy ways to write .msis. I don't envy macOS devs often, but I sure could use something like [Platypus](https://sveinbjorn.org/platypus) to quickly wrap scripts in nice-looking executables.
 
 I initially wrote the scripts fully using `wsl.exe` to unregister/register/terminate the LANraragi distro, but quickly realized that as nice as `wsl.exe` was, it's completely useless in Windows 10 versions under 1903, the April 2019 Update.  
+Here's a quick breakdown of available WSL command tools in Win10 and their featureset alongside versions.  
 
 | Win10 version/Tool  | wsl.exe                                           | wslconfig.exe                            | wslapi.h                                    | lxrun                                   |
 |---------------------|---------------------------------------------------|------------------------------------------|---------------------------------------------|-----------------------------------------|
 | 1709 (Fall CU)      | Execute commands in a distro                      | List distros, unregister, set as default | List, register/unregister, execute commands | (Ubuntu only) Install/Uninstall, Update |
 | 1803 (RS4)          | Nothing new                                       | Terminate a running distro               | Nothing new                                 | Dead                                    |
-| 1903 (You are here) | List distros, register/unregister, set as default | Nothing new (?)                          | Nothing new...                              | Dead                                    |  
+| 1903 (You are here) | List distros, register/unregister, set as default | Nothing new                              | Nothing new...                              | Dead                                    |  
 
-`wslconfig.exe` is a nice alternative, but it doesn't allow registering a distro. As for direct API calls, while I do use them in the GUI tool (more on that later), the registering function doesn't allow you to pick a folder to unpack the distro to.  
-Since I wanted to target at least 1803, the latest LTSC release, I ended up bundling (LxRunOffline)[https://github.com/DDoSolitary/LxRunOffline] with the installer to perform the distro registering easily. It also features a nice progress bar `wsl.exe` doesn't have, so at least it looks good. 👀  
+"Registering" a distro in WSL terms means basically unpacking the Linux filesystem somewhere and registering the folder as containing a Linux distribution.  
 
-# Building a GUI wrapper/bootstrapper for the WSL distro
+`wslconfig.exe` is a more capable alternative for older Windows versions, but it doesn't allow registering a distro.  
+As for direct API calls, the [registration function](https://docs.microsoft.com/en-us/windows/desktop/api/wslapi/nf-wslapi-wslregisterdistribution) doesn't allow you to pick a folder to unpack the distro to.  
 
-More on that in the next blog post!
+Since I wanted to target at least 1803, the latest LTSC release, I ended up bundling [LxRunOffline](https://github.com/DDoSolitary/LxRunOffline) alongside the installer to perform the distro registration easily. It also features a nice progress bar `wsl.exe` doesn't have, so at least it looks good. 👀  
+
+Past this, I'm basically just doing usual Installer-y things: Copying the GUI executable to a designated folder in AppData, adding a Start Menu shortcut, checking WSL is installed and that we're on a 64-bit OS, the works.
+
+More on the GUI tool itself in the next blog post!
 
