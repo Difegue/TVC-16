@@ -89,6 +89,10 @@ code {
     font-weight: bold;
 }
 
+table {
+    border: 1px solid black;
+}
+
 .top-border {
 
     mask-image: url('../img/topbg.svg ');
