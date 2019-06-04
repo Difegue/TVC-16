@@ -21,7 +21,7 @@
 body{
   margin: 0;
   background: #eaeaea;
-  font-size: 15px;
+  font-size: 1rem;
   font-family: 'Inter', sans-serif;
   
 }
@@ -83,6 +83,10 @@ pre {
     padding-right: 14px;
     text-align: left;
     white-space: pre-wrap;
+}
+
+code {
+    font-weight: bold;
 }
 
 .top-border {

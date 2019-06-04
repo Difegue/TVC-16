@@ -19,9 +19,8 @@ Lovely, but hey it worked! Until some dude strolled along with his Shift-JIS enc
 ![i fucking hate codepages]({static}/images/coolmeme.jpg)  
 Then Mojolicious itself dropped Windows support, I switched some Perl packages to add features and said packages didn't have readymade Windows ports, and I pretty much killed the thing because it wasn't even standing on its own anymore.  
 
-Meanwhile, [WSL](https://docs.microsoft.com/en-us/windows/wsl/about) was making some fantastic progress to the point I was using it full-time for developing the server, but that's pretty much all it was good for in my mind: Developing.  
-Then I read [this blogpost](https://medium.com/@hoxunn/wsl-docker-custom-distro-2-0-730fd97fe72e), which put a pretty crazy spin on the concept in my head.  
-Generating lightweight WSL distros out of Docker images sounded easily doable with my current workflow, and past that it'd just be a matter of providing users an easy, Windows-like interface to it.  
+Meanwhile, [WSL](https://docs.microsoft.com/en-us/windows/wsl/about) was making some fantastic progress to the point I was using it full-time for developing the server, but that's pretty much all it was good for in my mind: Developing... Until I read [this blogpost](https://medium.com/@hoxunn/wsl-docker-custom-distro-2-0-730fd97fe72e), which put a crazy spin on the concept in my head.  
+Generating lightweight WSL distros out of Docker images sounded easily doable with my current workflow, and past that it'd just be a matter of providing users an easy, Windows-like interface to the server stowed away in the distro.  
 
 I was itching for some WPF anyways so:  
 
@@ -84,7 +83,7 @@ Here's a quick breakdown of available WSL command tools in Win10 and their featu
 |---------------------|---------------------------------------------------|------------------------------------------|---------------------------------------------|-----------------------------------------|
 | 1709 (Fall CU)      | Execute commands in a distro                      | List distros, unregister, set as default | List, register/unregister, execute commands | (Ubuntu only) Install/Uninstall, Update |
 | 1803 (RS4)          | Nothing new                                       | Terminate a running distro               | Nothing new                                 | Dead                                    |
-| 1903 (You are here) | List distros, register/unregister, set as default | Nothing new                              | Nothing new...                              | Dead                                    |  
+| 1903 (You are here) | List distros, register/unregister, set as default | Nothing new                              | Nothing new                                 | Dead                                    |  
 
 "Registering" a distro in WSL terms means basically unpacking the Linux filesystem somewhere and registering the resulting folder as containing a Linux distribution.  
 
