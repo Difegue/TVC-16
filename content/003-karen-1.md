@@ -81,12 +81,12 @@ I haven't bothered wrapping those in proper executable installers yet: Writing .
 I initially wrote the scripts fully using `wsl.exe` to unregister/register/terminate the LANraragi distro, but quickly realized that as nice as `wsl.exe` was, it's completely useless in Windows 10 versions under 1903, the April 2019 Update.  
 Here's a quick breakdown of available WSL command tools in Win10 and their featureset alongside versions.  
 
-| Win10 version/Tool  | wsl.exe                                                     | wslconfig.exe                            | wslapi.h (direct API call)                  | lxrun                                   |
-|---------------------|-------------------------------------------------------------|------------------------------------------|---------------------------------------------|-----------------------------------------|
-| 1709 (Fall CU)      | Execute commands in a distro                                | List distros, unregister, set as default | List, register/unregister, execute commands | (Ubuntu only) Install/Uninstall, Update |
-| 1803 (RS4)          | Nothing new                                                 | Nothing new                              | Nothing new                                 | Dead                                    |
-| 1809 (RS5)          | Nothing new                                                 | Terminate a running distro               | Nothing new                                 | Dead                                    |
-| 1903 (You are here) | List distros, register/unregister/terminate, set as default | Nothing new                              | Nothing new                                 | Dead                                    |  
+| Win10 version/Tool  | wsl.exe                                                      | wslconfig.exe                            | wslapi.h (direct API call)                  | lxrun                                   |
+|---------------------|--------------------------------------------------------------|------------------------------------------|---------------------------------------------|-----------------------------------------|
+| 1709 (Fall CU)      | Execute commands in a distro                                 | List distros, unregister, set as default | List, register/unregister, execute commands | (Ubuntu only) Install/Uninstall, Update |
+| 1803 (RS4)          | Nothing new                                                  | Nothing new                              | Nothing new                                 | Dead                                    |
+| 1809 (RS5)          | Nothing new                                                  | Terminate a running distro               | Nothing new                                 | Dead                                    |
+| 1903 (You are here) | List distros, register/unregister, terminate, set as default | Nothing new                              | Nothing new                                 | Dead                                    |  
 
 "Registering" a distro in WSL terms means basically unpacking the Linux filesystem somewhere and registering the resulting folder as containing a Linux distribution.  
 
