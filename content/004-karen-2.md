@@ -79,3 +79,5 @@ Packing up an entire WSL distribution seemed way too clumsy to pull off at first
 
 My Docker images are pretty lightweight since I went all in on Alpine a few months back, so the full downloadable Windows package clocks in at **85 MBs**, with a few more optimizations possible in the future.  
 That's less than your average Electron application. 😏  
+
+You can check the full source code for this crazy thing [here.](https://github.com/Difegue/Karen) Thanks for reading!
