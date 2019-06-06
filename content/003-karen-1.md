@@ -1,11 +1,11 @@
-Title: Masquerading a WSL Distro as a Windows Application, Part 1
+Title: Masquerading a WSL Distro as a Windows Port, Part 1
 Date: 2019-06-05 00:00
-Modified: 2019-06-05 00:00
+Modified: 2019-06-06 00:00
 Category: LANraragi
 Tags: wsl, github actions
 Slug: wsl-karen-1
 Authors: Difegue
-Summary: A bit of an explanation first, then we build the distro.
+Summary: That's cheating! But is it really seamless?
 
 One of the major complaints I often get with [LANraragi](https://github.com/Difegue/LANraragi) is that it's a major pain to install. And I tend to agree!  
 The software runs as a web server through [Mojolicious](http://mojolicious.org), paired with a Redis database.  
@@ -24,13 +24,13 @@ Generating lightweight WSL distros out of Docker images sounded easily doable wi
 
 I was itching for some WPF anyways so:  
 
-## The plan, then:
+## A simple, 3-step plan:
 
-👉 **Build** a WSL distro (basically just a Linux rootfs) out of my existing Docker image  
-👉 **Register** said distro on the user's computer through the WSL API, and install a basic GUI tool   
-👉 Use the GUI tool to **interop** with the distro, mapping Windows directories and settings to the Linux world and starting the webserver  
+* 👉 **Build** a WSL distro (basically just a Linux rootfs) out of my existing Docker image  
+* 👉 **Register** said distro on the user's computer through the WSL API, and install a basic GUI tool  
+* 👉 Use the GUI tool to **interop** with the distro, mapping Windows directories and settings to the Linux world and starting the webserver  
 
-I'll spoil you the results by saying it _totally heckin' works_ and is currently out in beta:    
+I'll spoil you the results by saying it _totally heckin' works_ and is currently out in beta:  
 ![bazinger z]({static}/images/karen.jpg)  
 
 One codebase, putting out Docker images used by both Linux and Windows users in "slightly" different ways.  
@@ -94,5 +94,4 @@ Since I wanted to target at least 1803, the latest LTSC release, I ended up bund
 
 Past this, I'm basically just doing usual Installer-y things: Copying the GUI executable to a designated folder in AppData, adding a Start Menu shortcut, checking WSL is installed and that we're on a 64-bit OS, the works.
 
-More on the GUI tool itself in the next blog post!
-
+More on the GUI tool itself in the [next blog post!]({static}/wsl-karen-2)  

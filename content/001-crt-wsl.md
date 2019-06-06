@@ -5,7 +5,7 @@ Category: Cool Tricks
 Tags: wsl, cool-retro-term, xming, terminal
 Slug: cool-retro-term-wsl
 Authors: Difegue
-Summary: It's like I'm really a hacker except it's on a nonfree corporatist OS!
+Summary: Javascript terminal emulators have nothing on this.
 
 I often work with Linux environments through SSH on my Windows machine. As most people who use the command line on a semi-regular basis, I like looking at available alternatives/customizations to the stock terminal emulator.  
 
