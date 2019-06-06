@@ -65,7 +65,7 @@ string contentFolder = "/mnt/" + Char.ToLowerInvariant(winPath[0]) + winPath.Sub
 
 * `WslLaunch` is used to start the server. I use the same customized init system as in my Docker images, so all the setup save for the symlinks done above is already there. The function requires opened STDIN/STDOUT/STDERR streams to pipe the process into, so I [create a hidden console](https://docs.microsoft.com/en-us/windows/console/allocconsole) to magically give my GUI usable console streams.
 
-* There's no API function available to terminate/stop a currently running WSL distro. While `WslLaunch` gives you the PID of the process you start in WSL, Linux processes aren't hard-tethered to their parents. I always seemed to get a bunch of child processes laying around even after killing said PID, so I added a call to `wslconfig.exe /t` to the mix.
+* There's no API function available to terminate/stop a currently running WSL distro. While `WslLaunch` gives you the PID of the process you start in WSL, Linux processes aren't hard-tethered to their parents. I always seemed to get a bunch of child processes laying around even after killing said PID, so I added a call to `wslconfig.exe /terminate` to the mix. This is the one thing that doesn't work in 1803, since [/terminate was sneakily added in an Insider build.](https://github.com/microsoft/WSL/issues/3253) ¯\_(ツ)_/¯
 
 Using an extra [NuGet](https://www.nuget.org/packages/HideConsoleOnClose/) package, I got a user-friendly Log Console without even really trying at all. 🥤😎
 
