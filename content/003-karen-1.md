@@ -98,4 +98,4 @@ Since I wanted to target at least 1803, the latest LTSC release, I ended up bund
 
 Past this, I'm basically just doing usual Installer-y things: Copying the GUI executable to a designated folder in AppData, adding a Start Menu shortcut, checking WSL is installed and that we're on a 64-bit OS, the works.
 
-More on the GUI tool itself in the [next blog post!]({static}/wsl-karen-2)  
+More on the GUI tool itself in the [next blog post!]({static}/wsl-karen-2.html)
