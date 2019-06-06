@@ -17,14 +17,15 @@ I got requests for a good Windows version often enough that at one brief point I
 It relied on a Redis port [made and subsequently abandoned by Microsoft](https://github.com/microsoftarchive/redis), and a **lot** of batch file glue.  
 Lovely, but hey it worked! Until some dude strolled along with his Shift-JIS encoded Windows OS and subsequently broke the entire archive detection code.  
 ![i fucking hate codepages]({static}/images/coolmeme.jpg)  
-Then Mojolicious itself dropped Windows support, I switched some Perl packages to add features and said packages didn't have readymade Windows ports, and I pretty much killed the thing because it wasn't even standing on its own anymore.  
+Then Mojolicious itself dropped Windows support, things happened, and I pretty much had to kill the thing because it wasn't even standing on its own anymore.  
 
-Meanwhile, [WSL](https://docs.microsoft.com/en-us/windows/wsl/about) was making some fantastic progress to the point I was using it full-time for developing the server, but that's pretty much all it was good for in my mind: Developing... Until I read [this blogpost](https://medium.com/@hoxunn/wsl-docker-custom-distro-2-0-730fd97fe72e), which put a crazy spin on the concept in my head.  
-Generating lightweight WSL distros out of Docker images sounded easily doable with my current workflow, and past that it'd just be a matter of providing users an easy, Windows-like interface to the server stowed away in the distro.  
+Meanwhile, [WSL](https://docs.microsoft.com/en-us/windows/wsl/about) was making headlines. I've been using it for a while already to do dev work on LANraragi and it's solid. I read [this blogpost](https://medium.com/@hoxunn/wsl-docker-custom-distro-2-0-730fd97fe72e) recently, which put a crazy and certainly unintended spin on the concept in my head:  
 
-I was itching for some WPF anyways so:  
+## Why not just ship WSL as a Windows port?
 
-## A simple, 3-step plan:
+Generating lightweight WSL distros out of Docker images seemed easy with my current workflow, and past that it'd just be a matter of providing users an easy, Windows-like interface to the server stowed away in the distro.  
+
+I'd basically have three big parts to work on for this:  
 
 * 👉 **Build** a WSL distro (basically just a Linux rootfs) out of my existing Docker image  
 * 👉 **Register** said distro on the user's computer through the WSL API, and install a basic GUI tool  
@@ -70,11 +71,12 @@ Well, got my distro. What now?
 
 # Installing a WSL distro seamlessly to the enduser's machine
 
-Unlike with my previous foray, I didn't bother supporting Windows 7 or 8 here.  
+Unlike with my previous foray, I didn't(couldn't) bother supporting Windows 7 or 8 here.  
 It's straight bleedin' edge Windows 10, which means **PowerShell** is free game instead of wrangling old .bat scripts.  
 
 You can check the full source for the install/uninstall scripts [here](https://github.com/Difegue/Karen/blob/master/Karen/Karen-Installer.ps1)  and [here.](https://github.com/Difegue/Karen/blob/master/Karen/Karen-Uninstaller.ps1)  
-I haven't bothered wrapping those in proper executable installers, since Microsoft doesn't seem interested in providing easy ways to write .msis. I don't envy macOS devs often, but I sure could use something like [Platypus](https://sveinbjorn.org/platypus) to quickly wrap scripts in nice-looking executables.
+I haven't bothered wrapping those in proper executable installers yet: Writing .MSIs is a pain!  
+(I don't envy macOS devs often, but I sure could use something like [Platypus](https://sveinbjorn.org/platypus) to quickly wrap scripts in nice-looking executables.)
 
 I initially wrote the scripts fully using `wsl.exe` to unregister/register/terminate the LANraragi distro, but quickly realized that as nice as `wsl.exe` was, it's completely useless in Windows 10 versions under 1903, the April 2019 Update.  
 Here's a quick breakdown of available WSL command tools in Win10 and their featureset alongside versions.  

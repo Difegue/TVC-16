@@ -8,7 +8,7 @@ Authors: Difegue
 Summary: Interacting with WSL from managed code isn't as easy as I'd thought.
 
 [Previously,]({static}/wsl-karen-1) we got to the point where we had a WSL distro installed seamlessly to the user's computer, alongside all the shortcuts, bells and whistles of a proper Windows application.  
-Let's now talk a bit about the Windows GUI part of the magic trick.  
+Let's talk a bit about the Windows GUI part of the magic trick.  
 
 ## A simple, taskbar-based GUI  
 
