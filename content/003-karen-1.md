@@ -94,6 +94,8 @@ As for direct API calls, the [registration function](https://docs.microsoft.com/
 
 Since I wanted to target at least 1803, the latest LTSC release, I ended up bundling [LxRunOffline](https://github.com/DDoSolitary/LxRunOffline) alongside the installer to perform the distro registration easily. It also features a nice progress bar `wsl.exe` doesn't have, so at least it looks good. 👀  
 
+![lookin cool unspecified open source software to use on wsl]({static}/images/ps.png)  
+
 Past this, I'm basically just doing usual Installer-y things: Copying the GUI executable to a designated folder in AppData, adding a Start Menu shortcut, checking WSL is installed and that we're on a 64-bit OS, the works.
 
 More on the GUI tool itself in the [next blog post!]({static}/wsl-karen-2)  
