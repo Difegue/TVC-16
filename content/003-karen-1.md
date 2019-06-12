@@ -5,6 +5,7 @@ Category: LANraragi
 Tags: wsl, github actions
 Slug: wsl-karen-1
 Authors: Difegue
+HeroImage: images/karen.jpg
 Summary: That's cheating! But is it really seamless?
 
 One of the major complaints I often get with [LANraragi](https://github.com/Difegue/LANraragi) is that it's a major pain to install. And I tend to agree!  

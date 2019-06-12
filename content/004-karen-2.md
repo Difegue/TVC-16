@@ -5,6 +5,7 @@ Category: LANraragi
 Tags: wsl, wpf, c#
 Slug: wsl-karen-2
 Authors: Difegue
+HeroImage: images/karen-dark.jpg
 Summary: Interacting with WSL from managed code isn't as easy as I'd thought.
 
 [Previously,]({static}/wsl-karen-1.html) we got to the point where we had a WSL distro installed seamlessly to the user's computer, alongside all the shortcuts, bells and whistles of a proper Windows application.  

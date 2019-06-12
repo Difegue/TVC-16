@@ -4,6 +4,7 @@ Category: Software
 Tags: docker, pelican, caddy, github actions
 Slug: blogopolis-docker
 Authors: Difegue
+HeroImage: theme/android-chrome-384x384.png
 Summary: Writing this also allows me to check that this continuous integration thingamabob is working as expected.
 
 The original, blogless iteration of TVC-16 was hosted on a bog-standard Apache2 server.  
