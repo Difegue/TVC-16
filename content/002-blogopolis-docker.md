@@ -85,8 +85,20 @@ Adding the pull arguments you see above fixes this, by telling Git to disregard 
 
 I found out about the [Github Zen endpoint](https://api.github.com/zen) when adding in webhooks. It just spits out fortune cookie sentences on each call.  
 
+**12/06 Edit:** While it's not very well documented, you can add custom metadata to your markdown pages and put it to work in Pelican's templates.  
+I wanted to change the OpenGraph image for each blogpost to a specific one for better `social media presence`, so I easily added a `HeroImage` property to my articles:
 
+~~~~markdown
+Title: Running cool-retro-term in Windows through WSL
+[...]
+Authors: Difegue
+HeroImage: images/crt-win.jpg
+~~~~
 
+And used it in my template.  
 
+~~~~html
+<meta property="og:image" content="{{ SITEURL }}/{{ article.heroimage }}" />
+~~~~
 
-
+Good stuff all around!

@@ -1,6 +1,5 @@
 Title: Running cool-retro-term in Windows through WSL
 Date: 2019-04-21 20:00
-Modified: 2019-04-26 00:00
 Category: Cool Tricks
 Tags: wsl, cool-retro-term, xming, terminal
 Slug: cool-retro-term-wsl

@@ -1,6 +1,5 @@
 Title: Masquerading a WSL Distro as a Windows Port, Part 2
 Date: 2019-06-06 00:00
-Modified: 2019-06-06 00:00
 Category: LANraragi
 Tags: wsl, wpf, c#
 Slug: wsl-karen-2

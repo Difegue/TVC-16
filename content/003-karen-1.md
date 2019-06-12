@@ -1,6 +1,5 @@
 Title: Masquerading a WSL Distro as a Windows Port, Part 1
 Date: 2019-06-05 00:00
-Modified: 2019-06-06 00:00
 Category: LANraragi
 Tags: wsl, github actions
 Slug: wsl-karen-1
