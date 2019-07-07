@@ -44,4 +44,4 @@ Past that, it only makes sense that users would be able to send/upload their own
 
 ![cool pic](/images/rc24.png)
 
-Since this is a tech blog, if you're interested in how WiiConnect24 ticks I've written [a fair bit about what I learned here.](./doujinsoft-rc24) Thanks for reading, and have fun using DoujinSoft!
+Since this is a tech blog, if you're interested in how WiiConnect24 ticks I've written [a fair bit about what I learned here.](./doujinsoft-rc24.html) Thanks for reading, and have fun using DoujinSoft!

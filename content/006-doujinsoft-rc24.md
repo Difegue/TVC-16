@@ -7,7 +7,7 @@ Authors: Difegue
 HeroImage: images/rc24.png
 Summary: Exploiting old Nintendo APIs for fun and profit.
 
-I've recently dug out the old DoujinSoft codebase to [interop with RiiConnect24](/doujinsoft-2).  
+I've recently dug out the old DoujinSoft codebase to [interop with RiiConnect24](/doujinsoft-2.html).  
 It's made in Java because I [use a Swing GUI application as a dependency](https://github.com/Difegue/DoujinSoft/tree/master/libs-ext/diyedit/diyedit-jar/1.0) to handle all the WarioWare proprietary file-format decoding. You expecting me to learn reverse-engineering or something? 🐱‍👓  
   
 Thanks to the RiiConnect24 guys giving me the keys to the castle (a fake Wii friend number and some debug tools), I set out to finally give people an easy way to get games from DoujinSoft **directly** to their console.  
