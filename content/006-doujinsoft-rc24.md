@@ -1,22 +1,16 @@
-Title: DoujinSoft x RiiConnect24 - WarioWare DIY Showcase Revival
-Date: 2019-07-05 00:00
+Title: DoujinSoft x RiiConnect24 - A technical breakdown
+Date: 2019-07-08 00:00
 Category: Software
 Tags: java, nintendo, wii, wiiconnect24, riiconnect24, warioware, doujinsoft, mio
 Slug: doujinsoft-rc24
 Authors: Difegue
-HeroImage: images/karen-dark.jpg
-Summary: We have to go back...to WiiConnect24!
+HeroImage: images/rc24.png
+Summary: Exploiting old Nintendo APIs for fun and profit.
 
-Remember [WarioWare D.I.Y](https://en.wikipedia.org/wiki/WarioWare_D.I.Y.)? The Nintendo DS game for making small games and playing them on your Wii.  
-
-It's turning 10 this year and stands as, in my opinion, the best in Nintendo's "_wacky user-generated content with that weird [baby face good lord what is that](https://www.youtube.com/watch?v=q_Yd2gn37AM)_" series.  (Alongside other grands like Mario Paint and both Super Mario Maker games)  
-
-I launched [the DoujinSoft Store/Archiver](https://diy.tvc-16.science/) two years ago as a way to easily catalogue all the content created with the game. It's made in Java because I [use a Swing GUI application as a dependency](https://github.com/Difegue/DoujinSoft/tree/master/libs-ext/diyedit/diyedit-jar/1.0) to handle all the proprietary file-format decoding. You expecting me to learn reverse-engineering or something? 🐱‍👓  
-
-As-is, it's a good archive of all the stuff people made back in the day, but there wasn't an easy way to play the games, save from injecting them yourself into a savefile for either the DS or Wii game.  
-
-I was approached recently by the good folks at [RiiConnect24](https://rc24.xyz/), who'd figured out how the Wii game, WarioWare DIY Showcase, allowed users to send games to each other.  
-With the keys to the castle in hand (a fake Wii friend number and the source code to the RC24 server), I set out to finally give people an easy way to get games from DoujinSoft **directly** to their console.  
+I've recently dug out the old DoujinSoft codebase to [interop with RiiConnect24](/doujinsoft-2).  
+It's made in Java because I [use a Swing GUI application as a dependency](https://github.com/Difegue/DoujinSoft/tree/master/libs-ext/diyedit/diyedit-jar/1.0) to handle all the WarioWare proprietary file-format decoding. You expecting me to learn reverse-engineering or something? 🐱‍👓  
+  
+Thanks to the RiiConnect24 guys giving me the keys to the castle (a fake Wii friend number and some debug tools), I set out to finally give people an easy way to get games from DoujinSoft **directly** to their console.  
 
 ![d i r e c t l y](images/direct.gif)  
 papa iwata this one's for you  
@@ -27,7 +21,7 @@ papa iwata this one's for you
 
 WiiConnect24 was the cool name given by Nintendo to half of the Wii's networking features. (The other half being Nintendo Wi-Fi Connection) According to marketing, all it does is download data when the Wii is in standby mode, but it actually handles a bit more than that, namely:
 
-* The entire friend system 
+* The entire friend system  
 * The [Wii Message Board](https://www.youtube.com/watch?v=afhwHfG0enY)
 * Receiving data from games or channels
 * Executing a weird variant of JavaScript to handle said data
@@ -39,7 +33,7 @@ The funny thing about WC24 is how it handles messaging: If you ever had a Wii ba
 PC users would see your Wii represented by a wxxxxxxxxxxxxxxxx@wii.com email address.  
 I always thought it was really cool of Nintendo to implement this extra layer of communication to the console! I mean, they had to do some extra work for this whole email integration to work, right?  
 
-Right?  
+<sup>Right?</sup>  
 
 The truth is a bit more grounded and the opposite of my assumptions:  
 All of WiiConnect24's messaging is handled by emails. **All of it.**
@@ -109,7 +103,8 @@ This approach requires the user to add our number to their console beforehand, w
 
 ## 🚚 Sending the goods over 🚛
 
-If you've followed the article up to now, you've probably guessed that when using WarioWare DIY Showcase to send games to your friends, it actually sends... emails.  
+If you've read the other article, you know that our final objective is to send WarioWare DIY content to other Wiis through WiiConnect24.  
+You've probably guessed then that when sending content to your friends from the game, it actually sends... emails.  
 
 The example below is for a Record, the lightest content in DIY, weighing at 8KB. Makes for a shorter email here:  
 ~~~~
@@ -170,7 +165,11 @@ zfTf9PH1Az/g
 
 --Boundary-NWC24-03BEF88900069--
 ~~~~
-You'll notice `X-Wii-AppId` changed once again alongside a new header called `X-Wii-IconNew`, this time to match the title ID of the game, DIY Showcase.  
+You'll notice `X-Wii-AppId` changed once again alongside a new header called `X-Wii-IconNew`, this time to match the title ID of the Wii game, DIY Showcase.  
+
+`X-Wii-IconNew` tells the Wii System Menu that the game's channel icon has to be updated. Here, this is used to show a small envelope when you have content incoming.  
+
+![diy showcase envelope]()
 
 The Game/Record/Comic itself is just added as an attachment to the mail. It's compressed using LZ10, a variant of the [LZSS compression algorithm](https://en.wikipedia.org/wiki/Lempel%E2%80%93Ziv%E2%80%93Storer%E2%80%93Szymanski) Nintendo likes to use in GBA/NDS games.  
 Past that, it's base64-encoded, as specified in the mail's Content-Transfer-Encoding header. (base64 encoding is a classic when doing stuff with WC24)  
@@ -188,7 +187,7 @@ Games or channels, when pushing email to the Message Board, had the option to ad
 This was a bit of an underused feature even back when the Wii was an active console, with most of Nintendo's own big games (Mario Galaxy, Smash Bros. Brawl) sending stuff with the default envelopes.  
 Some games [did use it to great effect](http://www.studiousoctopus.com/?p=1229), and it always felt a bit special to receive a custom letter.  
 
-There's little documentation about the custom stationery, but studying [message board exploits](https://github.com/giantpune/mailboxbomb) quickly shows they're just email attachments as well, similar to DIY's games. 🧐  
+There's little documentation about the custom stationery, but studying [message board exploits](https://github.com/giantpune/mailboxbomb/blob/master/source/main.cpp#L173) quickly shows they're just email attachments as well, similar to DIY's games. 🧐  
 
 ~~~~
 From: w2227537699606042@rc24.xyz
@@ -237,14 +236,17 @@ The result looks like this!
 
 Really gives us that fun, almost-official flair.  
 
-## Final thoughts
+## Final spare thoughts
 
-The result 
+* The envelope notifications from `X-Wii-IconNew` take region into account, unlike(thankfully) everything else: DoujinSoft's emails are sent using the US title ID, so other regions sadly miss out on the envelope icon for their channel.  
+Luckily, the bonus custom letters kinda mitigate that by acting as a notification.  
 
-Thanks for reading, and please give it a try!  
-(After all I'm not really sure what happens if japanese showcase users show up and try having stuff sent to their version of the game...)  
+* LZ10 compression turned out to be a bitch to find proper implementations for; I used [a C library](http://www.romhacking.net/utilities/826/) which I compiled and bound to the Java code using JNA, turning the DoujinSoft server into an even bigger Frankenstein's monster. 👍  
+
+I might write a second, clean server to collect emails from users when I get around to implementing survey box responses and games sent to the store from users' Wiis.  
 
 ## References  
+
 [Wiibrew's breakdown of WC24 email](https://wiibrew.org/wiki//shared2/wc24/mbox)  
 [More WC24 details from Wiibrew](https://wiibrew.org/wiki/WiiConnect24/WC24_Content)  
 [Wii mail headers](https://bigredpimp.wordpress.com/2008/01/22/more-wii-message-header-fun/)  
