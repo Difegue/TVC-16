@@ -169,8 +169,6 @@ You'll notice `X-Wii-AppId` changed once again alongside a new header called `X-
 
 `X-Wii-IconNew` tells the Wii System Menu that the game's channel icon has to be updated. Here, this is used to show a small envelope when you have content incoming.  
 
-![diy showcase envelope]()
-
 The Game/Record/Comic itself is just added as an attachment to the mail. It's compressed using LZ10, a variant of the [LZSS compression algorithm](https://en.wikipedia.org/wiki/Lempel%E2%80%93Ziv%E2%80%93Storer%E2%80%93Szymanski) Nintendo likes to use in GBA/NDS games.  
 Past that, it's base64-encoded, as specified in the mail's Content-Transfer-Encoding header. (base64 encoding is a classic when doing stuff with WC24)  
 
