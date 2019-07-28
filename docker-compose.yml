@@ -1,0 +1,107 @@
+version: '3.2'
+
+volumes:
+  data:
+  portainer:
+
+services:
+
+  #LRR demo, bound to lrr.tvc-16.science
+  lrr-demo:
+    image: "difegue/lanraragi:latest"
+    container_name: "lanraragi"
+    ports:
+     - "127.0.0.1:3000:3000"
+    restart: always
+    volumes:
+     - type: bind
+       source: /root/lanraragi
+       target: /home/koyomi/lanraragi/content
+
+  #TT-RSS DB
+  ttrssdb:
+    image: "postgres:alpine"
+    container_name: "postgres"
+    restart: always
+    logging:
+      driver: none
+    environment:
+      POSTGRES_PASSWORD: pgpass
+      PGDATA: /data
+    volumes:
+     - data:/data
+
+  #Personal TT-RSS, bound to ttrss.tvc-16
+  ttrss:
+    image: "clue/ttrss"
+    container_name: "tt-rss"
+    restart: always
+    ports:
+     - "127.0.0.1:8000:80"
+    depends_on:
+     - ttrssdb
+    links:
+     - ttrssdb
+    environment:
+     - DB_ENV_USER=postgres
+     - DB_ENV_PASS=pgpass
+     - DB_PORT=5432
+     - DB_TYPE=pgsql
+     - DB_HOST=ttrssdb
+
+  #DoujinSoft
+  doujinsoft:
+    image: "difegue/doujinsoft:latest"
+    container_name: "doujinsoft"
+    restart: always
+    logging:
+      driver: none
+    ports:
+     - "127.0.0.1:8080:8080"
+    volumes:
+     - type: bind
+       source: /root/doujinsoft2
+       target: /home/doujinsoft
+    environment:
+     - WII_NUMBER=2227537699606042
+     - WII_FALLBACK=7475328617225276
+     - WC24_SERVER=rc24.xyz
+     - WC24_PASSWORD=[secret]
+
+  #File Browser for DoujinSoft remote admin
+  filebrowser:
+    image: "filebrowser/filebrowser"
+    container_name: "filebrowser"
+    restart: always
+    ports:
+     - "127.0.0.1:8012:80"
+    volumes:
+     - type: bind
+       source: /root/doujinsoft2
+       target: /srv
+
+  #Portainer for remote management
+  portainer:
+    image: "portainer/portainer"
+    container_name: "portainer"
+    restart: always
+    ports:
+     - "127.0.0.1:9000:9000"
+    volumes:
+      - type: bind
+        source: /var/run/docker.sock
+        target: /var/run/docker.sock
+      - type: volume
+        source: portainer
+        target: /data
+
+  #HatH, rip 
+  #hathdfug:
+  #  image: "difegue/hentaiathome"
+  #  container_name: "hentaiathome"
+  #  restart: always
+  #  ports:
+  #  - "127.0.0.1:2048:2048"
+  #  environment:
+  #  ID: 17282
+  #  KEY: [secret]

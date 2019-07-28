@@ -36,7 +36,7 @@ You'll also get nice custom letters on your Wii Message Board if you use the fea
 I'm doing the giving, so I might as well start doing the receiving!  
 DIY Showcase allows players to rate the games they receive, so there's a fun integration to be made here.  
 
-![stationery](/images/survey.jpg)  
+![surveyin](/images/survey.jpg)  
 
 Past that, it only makes sense that users would be able to send/upload their own games to DoujinSoft using their Wii consoles. It'd almost make us look like a proper online service!  
 
