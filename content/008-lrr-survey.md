@@ -20,15 +20,15 @@ So without further ado, the results! And my **hot takes and opinions** on some o
 I still thought I was being kinda niche, so it's nice and super unexpected to see the number of concurrent users reach 70+.   
 Github ⭐ count is at 130-something, which draws me ever closer to 4th place [in the mojolicious](https://github.com/topics/mojolicious) list for e-bragging rights.   
  
-Users that tried and didn't stick with LANraragi did so for the reasons I expected: Ease of installation and the fact it's not a desktop client.   
+Users that tried and didn't stick with LANraragi did so for the reasons I expected:  
+Ease of installation, and the fact it's not a desktop client.   
 The survey was made before I introduced the [new Windows installer](./karen-1.html), which I hope alleviates the pain of installing the server for Windows users.   
  
 As for the Desktop client, I could go the [HPX route](https://github.com/happypandax/desktop) and cram my front-end in Electron or something, but I hardly see the capital gain from doing that.   
 In my opinion, a Desktop app should have the matching UX (right-click context menus, higher information density), and add features that aren't possible within a browser's sandbox. (External reader support, for instance.)   
 <sup>Also the current JavaScript code powering the front-end is a _mess_ and I'd rather not twist it further to make it fit into a Desktop app 😶 </sup> 
  
-I toyed with building a proof-of-concept client on top of the current [API](https://sugoi.gitbook.io/lanraragi/extending-lanraragi/client-api) using [Avalonia](https://github.com/AvaloniaUI/Avalonia), but kinda stopped due to a lack of time.   
-It's certainly possible, though. 
+I toyed with building a proof-of-concept client on top of the current [API](https://sugoi.gitbook.io/lanraragi/extending-lanraragi/client-api) using [Avalonia](https://github.com/AvaloniaUI/Avalonia), but kinda stopped due to a lack of time. It's certainly possible, though.  
  
 Among the "other" reasons people had, not being able to easily import metadata from the OG happypanda(not X) came up a few times.   
 HP's original database is SQLite if I recall, it'd be possible to write a plugin that uses [a Perl SQLite client](https://metacpan.org/pod/DBD::SQLite) to pull the metadata from it on a file-to-file basis. Not trivial, however. HPX can consume the original HP's database as-is, so it's probably a better fit here.   
@@ -39,7 +39,8 @@ HP's original database is SQLite if I recall, it'd be possible to write a plugin
 Zero surprise here, the software is built with Linux+Docker in mind. There's been an uptick in Windows+WSL usage with the fall of the panda as well.   
  
 The "other" platforms are fun stuff like QNAP QTS NASes, ASUSTOR, Ploxmox, etc.   
-I'd like to apologize to Raspberry Pi users for not providing an ARM container image for the time being; Hopefully as [buildx](https://engineering.docker.com/2019/04/multi-arch-images/) becomes a thing, an easy way to build ARM containers on Github Actions will surface.   
+I'd like to apologize to Raspberry Pi users for not providing an ARM container image for the time being.  
+Hopefully as [buildx](https://engineering.docker.com/2019/04/multi-arch-images/) becomes a thing, an easy way to build ARM containers on Github Actions will surface.   
  
 # Storage   
  
@@ -127,24 +128,26 @@ It does remind me I still haven't implemented log rotation, though.
   
 ### 👉 Easier way to update the WSL/Karen installation
 
-I initially planned to keep the bootloader/Karen installation static and allow sideloading of new LRR package.tar releases as they come(with an update button and everything), but that was technically a bit harder so I gave up on it.  
+I initially planned to keep the bootloader/Karen installation static, and allow sideloading new LRR releases as they come(with an update button and everything). That was technically a bit harder so I gave up on it.  
 
-PowerShell scripts for installing/uninstalling aren't convenient though, and ideally I'd like to move to a proper Windows installer package further down the line. Making .msis is a pain in the ass though, so don't expect that soon.
+PowerShell scripts for installing/uninstalling aren't convenient, and ideally I'd like to move to a proper Windows installer package further down the line.  
+Making .msis is a pain in the ass though, so don't expect that soon. ¯\_(ツ)_/¯
   
 ### 👉 Miscellaneous reader UX woes
 
 Everyone has their own favorite way to read, and as such it's really hard to make a one-size fits all reader.  
 (Which is why desktop client + external reader would certainly alleviate that pain.)  
 
-Here are most of the remarks I received. The [UX improvements](https://github.com/Difegue/LANraragi/issues/114) issue also keeps growing with everyone adding in their own remarks, which makes this all rather hard to track.
-* Automatic slideshow mode with configurable timer
-* "Long strip" view from Mangadex
-* Random next/previous page
-* Easier way to copy the current image from the reader
-* Display archive tags in reader
-* Proper full-size image link for two-page mode 
+Here are most of the remarks I received. The [UX improvements](https://github.com/Difegue/LANraragi/issues/114) issue also keeps growing with everyone adding in their own remarks, which makes this all rather hard to track.  
+* Automatic slideshow mode with configurable timer  
+* "Long strip" view from Mangadex  
+* Random next/previous page  
+* Easier way to copy the current image from the reader  
+* Display archive tags in reader  
+* Proper full-size image link for two-page mode  
 
-I'll tackle some of those every now and then, probably. The reader itself is in pretty good shape as far as JavaScript goes (unlike the archive index), so it's easy to work on. 
+I'll tackle some of those every now and then, probably.  
+The reader itself is in pretty good shape as far as JavaScript goes (unlike the archive index), so it's easy to work on. 
  
 ### 👉 Provide a better discussion place for support and plugin sharing
 
