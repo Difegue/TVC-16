@@ -155,3 +155,5 @@ The reader itself is in pretty good shape as far as JavaScript goes (unlike the 
 This is interesting so I'm keeping it for last: It's true that discussion is a bit hard to track in the non-specific management threads.  
 
 There are a number of options available, like 8chan, gitter, discord(ew), IRC... I'm not sure what would be best so if you have any ideas it'd be cool to drop a comment below.  
+
+**EDIT**: I went ahead and wanked out a Discord server you can find [here.](https://discord.gg/aRQxtbg) Please enjoy!  
