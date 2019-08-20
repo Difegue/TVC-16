@@ -1,0 +1,16 @@
+on: push
+name: Build TVC-16 to gh-pages branch
+jobs:
+  buildTVC-16:
+    name: Build TVC-16
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@master
+    - name: Build TVC-16
+      uses: ./.github/action-pelican
+    - name: Push to gh-pages
+      uses: JasonEtco/push-to-gh-pages@2259c84d9e1f489f4a416053ab69beae72b0492f
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        args: output
