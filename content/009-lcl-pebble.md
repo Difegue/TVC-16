@@ -4,7 +4,7 @@ Category: Cool Tricks
 Tags: github actions, puppeteer, tesseract, pebble, rebble, timeline, epic bank hacks 
 Slug: lcl-pebble  
 Authors: Difegue  
-HeroImage: images/karen.jpg  
+HeroImage: images/dosh.jpg  
 Summary: Giving my bank account to GitHub so they can tell my watch how much money is in it? Sure!
 
 I had some [old code](https://github.com/Difegue/Chaotic-Realm/tree/master/lcl-hack) laying around to scrape the [Crédit Lyonnais](https://www.lcl.fr/) account pages and convert my account balance/details to JSON.  
@@ -171,7 +171,7 @@ Pretty easy, isn't it?
 
 # Closing thoughts
 
-The inspiration and info for this came from [WWill0's blog](https://willow.systems/integrate-pebble-with-ifttt-once-again/), although I couldn't use his IFTTT proxy as-is due to errors with non-ASCII characters. 😅  
+The inspiration and info for this came from [Will0's blog](https://willow.systems/integrate-pebble-with-ifttt-once-again/), although I couldn't use his IFTTT proxy as-is due to errors with non-ASCII characters. 😅  
 
 I used [tmate](https://github.com/marketplace/actions/debugging-with-tmate) to debug on the GitHub Actions side this time around, and it was quite convenient! Would be better if the web terminal supported pasting, however.  
 
