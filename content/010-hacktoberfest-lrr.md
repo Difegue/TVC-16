@@ -16,7 +16,7 @@ It's also about time I made my yearly sticker order for Christmas, so I thought 
 ![three billion hours in inkscape]({static}/images/stickers.jpg)  
 
 I'll ship out this `very cool` sticker set to anyone who makes a (not-crap) PR to [the LRR repo.](https://github.com/Difegue/LANraragi)  
-(Hacktoberfest PRs from the start of the month count too so hit me up)  
+(Hacktoberfest PRs from the start of the month count too so hit me up the two of you who already contributed)  
 
 I have some issues available under the [Hacktoberfest](https://github.com/Difegue/LANraragi/issues?q=is%3Aissue+is%3Aopen+label%3Ahacktoberfest) tag for would-be volunteers.  
 There are quite a few of them that [don't require](https://github.com/Difegue/LANraragi/issues/196) [writing a single line](https://github.com/Difegue/LANraragi/issues/195) [of server code](https://github.com/Difegue/LANraragi/issues/189), so I better not hear the excuse that Perl is a hindrance this time 'round.  
