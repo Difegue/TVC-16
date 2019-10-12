@@ -13,9 +13,12 @@ $.get("uptime", function (result) {
 });
 
 $.get("uptimedetail", function (result) {
-
   $(".footer-container").attr("title", "This COOL SYSTEM has been running " + result);
 });
+
+$("img").each(function() {
+  $(this).attr("title", $(this).attr("alt"))
+})
 
 //SVG elements
 var imgArray = new Array();
