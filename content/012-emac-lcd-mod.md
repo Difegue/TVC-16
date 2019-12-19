@@ -1,10 +1,11 @@
 Title: Some notes on restoring a 2003 1GHz eMac 
 Date: 2019-11-28 00:00  
-Category: Hardware 
+Update: 2019-12-19 00:00  
+Category: Hardware  
 Tags: apple, macos, emac, lcd, mod, diy
 Slug: emac-lcd-mod
 Authors: Difegue  
-HeroImage: images/emac/emac (1).jpg
+HeroImage: images/emac/emac_end.jpg
 Summary: I guess this is an Apple blog now.
 
 I recently found an old [eMac](https://en.wikipedia.org/wiki/EMac).  
@@ -82,6 +83,18 @@ Therefore, my eMac is left without a screen again. 😐
 Resetting the resolution settings [seems rather easy](http://hints.macworld.com/article.php?story=2001100114532165) if you have filesystem access, but I don't, so I'll probably have to take the machine apart again and plug in a newer screen that can handle the high rates.  
 
 If there's one warning to take from this, it's that you should probably enable Mac OS's built-in SSH/VNC servers so you can run the eMac headless -- Screen lockout happens easily!  
+
+## Update: Getting out of display rate hell
+
+The solution to the above conundrum was indeed plugging in another screen. Luckily OSX wasn't stuck at some super high rate, so a more recent LCD did the trick.  
+
+![all's right with the world thanks to switchresx]({static}/images/emac/emac_end.jpg)  
+
+I promptly installed an old version of [SwitchResX](http://www.madrau.com/index.html) in order to disable all the extra resolutions the eMac adds to account for its normal CRT screen.  
+This means no more surprises when starting a game that goes to fullscreen and tries to guess the best resolution out of what the machine offers.  
+
+And I guess I'm finally done with this machine! It took quite a while.  
+<sub><sup>The hard drive is starting to fail though so I'll probably need to clone it and drop a new IDE drive in this sucker...</sup></sub>
 
 ## Final notes  
 
