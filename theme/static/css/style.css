@@ -324,3 +324,10 @@ table {
     overflow:hidden;
     width:200px;
 }
+
+h1 {
+    border-top: dashed;
+    padding-top: 5px;
+    padding-left: 5px;
+    margin-left: -15px;
+}

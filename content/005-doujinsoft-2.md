@@ -21,7 +21,7 @@ I was approached recently by the good folks at [RiiConnect24](https://rc24.xyz/)
 Cue a bit of jolly co-operation, and I'm happy to present **DoujinSoft 2.0**, now featuring:  
 
 * A complete dump of the content that was available on the Nintendo Wi-Fi Connection before its closure:  
-That's around <h1>_185 233‬_</h1> Games/Music/Comics you can peruse! They're all pretty small so thankfully it compresses well 👀💦  
+That's around <h2>_185 233‬_</h2> Games/Music/Comics you can peruse! They're all pretty small so thankfully it compresses well 👀💦  
 * **RiiConnect24** integration, allowing you to choose games on the storefront and get them **directly** shipped to your Wii system.  
 
 ![look at that swanky modal](images/djsoft2.jpg)
