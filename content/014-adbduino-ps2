@@ -46,9 +46,29 @@ Opening it, it's all pretty simple however, no need for extra resistors or anyth
 Since I wasn't sure this stuff would actually still work, I breadboarded an abomination.  
 ![end my life]({static}/images/adbprice.png)  
 
+The original project used a Pro Micro, but the Nano I had on hand is essentially the same thing, so no problem on that front.  
 
+Hooked it up to the ol' IIvx, and heck, it works! With some caveats.  
 
 # Usage and problems encountered
+
+My first major issue came with the mouse I was using -- It was struggling to synchronize itself with the ADB bus, essentially wrecking havoc on the Mac with random movements and clicks when moved.  
+When eventually synced however(which could be helped by arcane methods such as _flipping the mouse over and repeatedly pressing caps lock_), it ran fine.  
+
+I didn't try to fix this in code since well, just switching out the mouse for an old USB model with a USB->PS/2 adapter fixed everything.  
+New PS/2 mice from AliExpress probably don't implement the spec too well.  
+
+The other big issue I had came from the keyboard occasionally staying "stuck" on the last keypress, resulting in a text a bit like thissssssssss.  
+Some debugging with the Serial monitor later, there were essentially three potential cases going on when releasing a key: 
+
+```
+A) 0x3C (key pressed) -> 0x3D (key released) 
+B) 0x3C (key pressed) -> 0xFF (keyboard error) 
+C) 0x3C (key pressed) -> 0xFF (keyboard error) -> 0x3C (key pressed)
+```  
+
+Case A is the normal one, B resulted in no key being sent to the computer, and C was causing the stuck key problem.  
+This is **totally** the keyboard's fault (heck, I've had this one since my Windows 95 days), but since this solution is about being as cheap as I can possibly be, I'd rather try to fix this through software.  
 
 
 
@@ -56,9 +76,9 @@ Since I wasn't sure this stuff would actually still work, I breadboarded an abom
 # Spare thoughts
 
 Building this thing cost me around 5$ off AliExpress to get an ADB cable (well, S-video since they use the same plug), and some PS/2 connectors.  
-The ADB connector itself was salvaged from an old destroyed PowerBook dock.  
+The ADB connector itself was salvaged from an old destroyed PowerBook dock, but any female S-video connector will do.  
 
-All around, this is much cheaper than buying a real ADB keyboard or a USB adapter, although it certainly isn't flawless.  
+All around, this is much cheaper than buying a real ADB keyboard or a USB adapter! Although it certainly isn't flawless.  
 The issues I had seem more related to my PS/2 hardware being old than the adapter itself, however.  
 
 You can find my hacked-up version of the adbduino sketch here. 
