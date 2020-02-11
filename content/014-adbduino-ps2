@@ -1,0 +1,65 @@
+Title: Using PS/2 keyboard/mice on ADB through an Arduino
+Date: 2020-02-11 00:00  
+Category: Hardware  
+Tags: apple, macintosh, mac, arduino, adb, ps/2, diy, retrocomputing
+Slug: adbuino-ps2
+Authors: Difegue  
+HeroImage: images/performa/performa8.jpg
+Summary: I ain't afraid of no CRT.  
+
+My vintage mac fleet has been progressing nicely with all the previous restorations, but I was still missing an essential piece:  
+A keyboard and mouse.  
+
+Those machines came to me keyboardless, and I initially thought it'd be no problem at all!  
+Alas, I did not know about the terrifying Apple Desktop Bus.  
+![noooooooo]({static}/images/adb.png)  
+
+ADB for short (which completely fucks up google searches now that the Android Debug Bridge is a thing),  
+this connector was used to plug keyboards, mice, joysticks and what have you into Macintoshes until USB took over.  
+
+Well, I guess I won't be able to use my old PS/2 stuff, might as well invest into some ADB devic--
+![noooooooo]({static}/images/adbprice.png)  
+
+Yup, screw that.  
+
+# A quick tour of ADB replacement solutions
+
+There surprisingly aren't many solutions to convert other devices to ADB on the market.  
+The best one seems to be the [USB-ADB Wombat](https://www.bigmessowires.com/usb-wombat), but that's even more expensive than buying an ol' AppleDesign keyboard.  
+You also have http://www.geethree.com/adb/ this thing, which seems rather old and only works for mice. Meh.  
+
+Turning to DIY solutions, most of the stuff out there is meant to use ADB keyboards on modern machines, using code from TMK. https://github.com/tmk/tmk_keyboard/tree/master/converter/adb_usb 
+Which is nice and all, but the opposite of what I need.  
+
+After a bit more searching I did end up finding a spare forum post: http://thinkclassic.org/viewtopic.php?id=630  
+PS/2 to ADB, both keyboard and mouse running off an off-the-shelf Arduino? Sounds great!  
+
+The code is available here: http://synack.net/svn/adbduino/ , so I grabbed an Arduino off the dead project pile and got to work.
+
+# Making the adbduino adapter
+
+The provided .osm file for the circuit board needs Osmond to be opened. https://www.osmondpcb.com/  
+Opening it, it's all pretty simple however, no need for extra resistors or anything:  
+
+![adbduino circuit board]({static}/images/osmond.png)  
+
+Since I wasn't sure this stuff would actually still work, I breadboarded an abomination.  
+![end my life]({static}/images/adbprice.png)  
+
+
+
+# Usage and problems encountered
+
+
+
+
+# Spare thoughts
+
+Building this thing cost me around 5$ off AliExpress to get an ADB cable (well, S-video since they use the same plug), and some PS/2 connectors.  
+The ADB connector itself was salvaged from an old destroyed PowerBook dock.  
+
+All around, this is much cheaper than buying a real ADB keyboard or a USB adapter, although it certainly isn't flawless.  
+The issues I had seem more related to my PS/2 hardware being old than the adapter itself, however.  
+
+You can find my hacked-up version of the adbduino sketch here. 
+
