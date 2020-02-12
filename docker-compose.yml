@@ -3,6 +3,7 @@ version: '3.2'
 volumes:
   data:
   portainer:
+  ovpn-data:
 
 services:
 
@@ -17,6 +18,9 @@ services:
      - type: bind
        source: /root/lanraragi
        target: /home/koyomi/lanraragi/content
+     - type: bind
+       source: /root/lanraragi
+       target: /home/koyomi/lanraragi/database
 
   #TT-RSS DB
   ttrssdb:
@@ -54,8 +58,6 @@ services:
     image: "difegue/doujinsoft:latest"
     container_name: "doujinsoft"
     restart: always
-    logging:
-      driver: none
     ports:
      - "127.0.0.1:8080:8080"
     volumes:
@@ -94,6 +96,25 @@ services:
       - type: volume
         source: portainer
         target: /data
+
+  # VPN + PiHole
+  # Init commands:
+  # docker run --rm --log-driver=none -v ovpn-data:/etc/openvpn kylemanna/openvpn ovpn_genconfig -u udp://vpn.tvc-16.science
+  # docker run --rm -it --log-driver=none -v ovpn-data:/etc/openvpn kylemanna/openvpn ovpn_initpki
+  # Client config:
+  # docker run --rm -it -v ovpn-data:/etc/openvpn --log-driver=none kylemanna/openvpn easyrsa build-client-full client nopass
+  # docker run --rm -v ovpn-data:/etc/openvpn --log-driver=none kylemanna/openvpn ovpn_getclient client > client.ovpn
+
+  vpn:
+    image: kylemanna/openvpn
+    container_name: "openvpn"
+    restart: always
+    volumes:
+      - ovpn-data:/etc/openvpn
+    cap_add:
+      - NET_ADMIN
+    ports:
+      - 1194:1194/udp
 
   #HatH, rip 
   #hathdfug:
