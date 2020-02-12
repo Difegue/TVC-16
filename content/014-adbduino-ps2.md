@@ -5,20 +5,16 @@ Tags: apple, macintosh, mac, arduino, adb, ps/2, diy, retrocomputing
 Slug: adbuino-ps2
 Authors: Difegue  
 HeroImage: images/adb/adbduino-final.jpg
-Summary: I ain't afraid of no CRT.  
+Summary: It's time to deal with ADB. Not the Android one!
 
-My vintage Mac fleet has been progressing nicely with all the previous restorations, but I was still missing an essential piece: **A keyboard and mouse.**  
-
-Those machines came to me keyboardless, and I initially thought it'd be no problem at all!  
+My Mac fleet has been progressing nicely with all the [previous](https://tvc-16.science/emac-lcd-mod.html) [restorations](https://tvc-16.science/performa-plus-display.html), but I still didn't have a way to control the pre-OSX machines. Those machines came to me keyboardless, and I initially thought it'd be no problem at all!  
 Alas, I did not know about the terrifying Apple Desktop Bus.  
 ![noooooooo]({static}/images/adb/pinout.jpg)  
-[ADB for short](https://en.wikipedia.org/wiki/Apple_Desktop_Bus) (which completely fucks up google searches now that the Android Debug Bridge is a thing),  
-this connector was used to plug keyboards, mice, joysticks and what have you into Macintoshes until USB took over.  
-
-Well, I guess I won't be able to use my old PS/2 stuff, might as well invest into some ADB devic--
+[ADB for short](https://en.wikipedia.org/wiki/Apple_Desktop_Bus), this connector was used to plug keyboards, mice, joysticks and what have you into Macintoshes until USB took over.  Since I won't be able to use my old PS/2 stuff, might as well invest into some ADB devic--
 ![the apple tax is fucking real]({static}/images/adb/ebay.jpg)  
 
-😥 I shouldn't be surprised really, but I feel bad shelling out 40€ for a yellowed keyboard/mouse combo when I already have tons of PC ones laying around.  
+## 😥 😥 😥 
+I shouldn't be surprised really, but I feel bad shelling out 40€ for a yellowed keyboard/mouse combo when I already have tons of PC ones laying around.  
 
 # A quick tour of ADB replacement solutions
 
@@ -88,6 +84,7 @@ This could be solved by sending some extra stuff on the PS/2 side of things but 
 ![I retrobright'd this powermac and it looks pretty darn good now]({static}/images/adb/adbduino-final.jpg)  
 
 Building this thing cost me around **5€** to get an ADB cable, some PS/2 connectors and the PS/2 mouse, which eventually proved itself to be useless.  
+If you don't own spare PS/2 devices or an Arduino from a dead project, the total cost probably rises to 10€ or so.  
 The ADB connector itself was salvaged from an old destroyed PowerBook dock, but any female S-video connector will do, as they both use DIN-4.  
 
 All around, this is much cheaper than buying a real ADB keyboard or a USB adapter! Although it certainly isn't flawless.  
