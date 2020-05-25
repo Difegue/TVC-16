@@ -1,3 +1,5 @@
+@import url('https://rsms.me/inter/inter.css');
+
 @font-face {
     font-family: Lemon Milk;
     src: url("LemonMilk.otf") format("opentype");
@@ -8,22 +10,12 @@
     src: url("LemonMilklight.otf") format("opentype");
     }
 
-@font-face {
-    font-family: Inter;
-    src: url("Inter-Regular.otf") format("opentype");
-    }
-
-@font-face {
-    font-family: Inter Medium;
-    src: url("Inter-Medium.otf") format("opentype");
-    }
-
 body{
   margin: 0;
   background: #eaeaea;
-  font-size: 1rem;
+  font-size: 16px;
   font-family: 'Inter', sans-serif;
-  
+  letter-spacing: -0.011em;
 }
 
 #mainText {
@@ -46,7 +38,7 @@ body{
 }
 
 .article-link {
-    font-family:"Inter Medium";
+    font-family:"Inter";
     margin-bottom:0px;
 }
 
@@ -87,6 +79,7 @@ pre {
 
 code {
     background-color: #f5f5f5;
+    font-size: 15px;
 }
 
 table {
@@ -326,8 +319,13 @@ table {
 }
 
 h1 {
-    border-top: dashed;
-    padding-top: 5px;
-    padding-left: 5px;
-    margin-left: -15px;
+    margin-bottom: -10px;
+}
+
+h1::after {
+    background-image: url('/theme/img/symbol13.svg');
+    content: "\A                               ";
+    background-size: 100px;
+    background-repeat: no-repeat;
+    white-space: pre;
 }
