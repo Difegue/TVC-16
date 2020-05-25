@@ -1,11 +1,11 @@
-Title: Using macOS' bundled libarchive in a Homebrew formula
+Title: Hacking your way around both Homebrew and macOS to use libarchive
 Date: 2020-05-25 00:00  
 Category: Cool Tricks  
-Tags: mac, macos, homebrew, libarchive, headers, apple
+Tags: macos, homebrew, libarchive, headers, apple, perl, makefile, makemaker, cflags
 Slug: homebrew-libarchive
 Authors: Difegue  
-HeroImage: images/lrr-survey/survey2-image.jpg  
-Summary: Apple has made me suffer plenty of times.
+HeroImage: images/brew-fail.png  
+Summary: I also learned more about how to build a Perl module than I actually wanted to.
 
 The LANraragi [Homebrew Port](https://formulae.brew.sh/formula/lanraragi) was recently merged into the core repository, making access to the world's only(_and therefore best_) Perl manga manager easy to all Macs.  
 
@@ -88,7 +88,7 @@ You'd think that with such similar namespaces, both would use the same installer
 Peek uses `ExtUtils::MakeMaker`, and Extract uses `Module::Build`.  
 
 So let's focus on MakeMaker for a bit.  
-You basically use it by writing a Perl-style Makefile, `Makefile.PL`, which when interpreted by Perl will spit out a regular Makefile to use with your regular make/make install combo.  
+You basically use it by writing a Perl-style Makefile, `Makefile.PL`, which when interpreted by Perl will spit out a _regular_ Makefile to use with your _regular_ make/make install combo.  
 
 When building this Makefile, MakeMaker will **not** take into account your custom CFLAGS environment variable, instead opting to use the one that was used [when your version of Perl was built.](http://coding.derkeiler.com/Archive/Perl/comp.lang.perl.misc/2005-11/msg01613.html)  
 In our case, the Perl we use comes from homebrew, and is built with esoteric include paths such as `/usr/local/Cellar/perl/5.30.2_1/lib/perl5/5.20.2/darwin-thread-multi-2level/CORE`. The horror.  
@@ -99,7 +99,8 @@ Said module's documentation is a bit [empty](https://metacpan.org/pod/Config::Au
 ```ruby
 resource("Archive::Peek::Libarchive").stage do
       inreplace "Makefile.PL" do |s|
-        s.gsub! "$autoconf->_get_extra_compiler_flags", "$autoconf->_get_extra_compiler_flags .$ENV{CFLAGS}"
+        s.gsub! "$autoconf->_get_extra_compiler_flags",  
+                "$autoconf->_get_extra_compiler_flags .$ENV{CFLAGS}"
       end
       [...]
 end
