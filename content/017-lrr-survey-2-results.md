@@ -194,5 +194,5 @@ I will try my best. 🙇‍♂️
 I can't put all the replies up in one article, but all your thank-yous are very much appreciated!  
 I'm currently working on other things so LRR is a bit on the backburner for the time being, but I'll certainly try to get some dev juice flowing for the next GH Hacktoberfest. (gotta get them stickers fam)  
 
-Until then, please enjoy the new 0.7.1 release.  
+Until then, please enjoy the new [0.7.1](https://github.com/Difegue/LANraragi/releases/tag/v.0.7.1) release.  
 \*mic drop\*  
