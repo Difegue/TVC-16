@@ -78,10 +78,15 @@ _Actually, we encourage people who redistribute free software to charge as much 
 Stylophone currently costs 5 USD on the [Microsoft Store](https://www.microsoft.com/store/apps/9NCB693428T8).  
 The entire app is free software under the MIT license so you can just compile it yourself if you don't want to pay. 👌  
 I won't provide binaries in any other fashion at the moment since distributing UWP apps is just [annoying.](https://github.com/microsoft/ProjectReunion/issues/128)  
-<sup><sub>Although if you've read the article all the way to the end, you might just deserve a [freebie!](http://go.microsoft.com/fwlink/?LinkId=532540&mstoken=CK394-4WW3G-DDJP6-2MC92-WP49Z)</sup></sub>  
+<sup><sub><strike>Although if you've read the article all the way to the end, you might just deserve a [freebie!](http://go.microsoft.com/fwlink/?LinkId=532540&mstoken=CK394-4WW3G-DDJP6-2MC92-WP49Z)</strike> It's over chief the promo code expired might make a new one someday</sup></sub>  
 
 
 Maybe in a year or so, I'll be able to port the app to Mac, Linux and mobile throught the [Uno Platform](https://platform.uno/blog/announncing-uno-platform-3-0-linux-support-fluent-material-and-more/), giving me total dominion over the MPD client space.  
 And endless anguish from having to support users from so many different platforms.  
 
 ![John Carmack's inauguration speech has some great thoughts about the current state of computing you should go watch it]({static}/images/coolmeme.jpg)
+
+**late 2020 edit**  
+I guess the total dominion thing will have to wait a bit considering how Uno fares at the moment.  
+
+<blockquote class="twitter-tweet"><p lang="en" dir="ltr">Tried cramming the Stylophone codebase into Uno Platform and it&#39;s uhhhhhhhhhhhhhhhhhhhhhhhhhhh it can play songs I guess? <a href="https://t.co/ZAmbOaN21E">pic.twitter.com/ZAmbOaN21E</a></p>&mdash; ＫＩＬＬＥＲ ＱＵＥＥＮ (@Difegue) <a href="https://twitter.com/Difegue/status/1329221609652105217?ref_src=twsrc%5Etfw">November 19, 2020</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>  
