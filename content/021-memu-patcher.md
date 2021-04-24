@@ -14,12 +14,12 @@ Besides the whole "paying for coomer JPEGs" thing, FGO often relies on heavy far
 
 While I do enjoy the gameplay to a point, repeating a battle 300 times is not fun no matter how you try to spin it.  
 For a while, the easiest way to automate farming in FGO was to throw the game on an **Android emulator** and run a [Lua script](https://github.com/29988122/Fate-Grand-Order_Lua) on it.  
-But, besides the usual mobage stuff, FGO is also quite known for its hate of **[any form of game/phone modification.](https://topjohnwu.medium.com/from-anime-game-to-android-system-security-vulnerability-9b955a182f20)**  
-(I very much recommend reading this article if you haven't already done so, it'll be more interesting than anything written here)  
+Alas, FGO is also quite known for its hate of **[any form of game/phone modification.](https://topjohnwu.medium.com/from-anime-game-to-android-system-security-vulnerability-9b955a182f20)**  
+<sup>(I very much recommend reading this article if you haven't already done so, it'll be more interesting than anything written here.)</sup>  
 
 At some point during the sweet summer of 2017, FGO stopped working on most famous emulator used to run it, [Memu](https://www.memuplay.com).  
 The developers had implemented some extra checks for it when the game launches.  
-At the time I was without a decent phone as well, so the incentive to get the bloody thing working again was quite high. <sup>Never underestimate what someone can do for his vidyagames...</sup>  
+Back then I was temporarily without a decent phone as well, so the incentive to get the bloody thing working again was quite high. <sup>Never underestimate what someone can do for his vidyagames and login streaks...</sup>  
 
 Surprisingly, the checks were quite easy to circumvent, as they were only looking for **specific identifiers**, which could be replaced in the emulator's memory directly with a hex editor:  
 <script src="https://emgithub.com/embed.js?target=https%3A%2F%2Fgithub.com%2FDifegue%2FChaotic-Realm%2Fblob%2Fmaster%2FMemuPatcher%2FUnlimitedMemuWorks%2FForm1.cs%23L20-L24&style=github&showBorder=on&showLineNumbers=on&showFileMeta=on&showCopy=on"></script>  <sub><sup>Somehow doing a grand-scale string replacement in-memory like that didn't completely crash the thing, which is kinda impressive I guess?</sub></sup>  
@@ -51,8 +51,6 @@ Releasing this thing anonymously into the wild was especially funny, with variou
 
 I never got it to reliably work on Windows 7/8, but nonetheless it seemed to be quite popular! (Looking back at the source, I suspect there's something wrong with my usage of `SYSTEM_INFO`.)  
 Most importantly, it spread the method around so other people could implement it in Cheat Engine or similar.  
-
-
 
 ## Closing thoughts
 
