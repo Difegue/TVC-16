@@ -4,7 +4,7 @@ Category: Software
 Tags: memu, android, patch, winforms, fgo
 Slug: memu-patcher
 Authors: Difegue  
-HeroImage: images/memupatcher/opengraph.jpg  
+HeroImage: images/memupatcher/about.png  
 Summary: Why yes, I was the hacker known as 4chan this entire time!
 
 I've been playing Fate/Grand Order for a pretty long time now, and have irredeemably fallen into [deep gambling addiction](https://twitter.com/Difegue/status/1289636218578378752).  
