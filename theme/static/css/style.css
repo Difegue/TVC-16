@@ -49,6 +49,10 @@ body{
     margin-bottom: 0px;
 }
 
+p > a {
+    font-weight: 600;
+}
+
 .entry-title > a {
     color: black !important;
     text-decoration: none;
@@ -107,7 +111,7 @@ table {
 }
 
 .project-background {
-    background-color: #e8cd56;
+    background-color: #E8D78E;
     z-index: 1;
     position: relative;
 }
