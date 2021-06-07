@@ -9,7 +9,7 @@ Summary: Ah yes, DMX's 2006 hit track, "Lord Give Me a Chime".
 
 I got my hands on a [Powerbook G3](https://en.wikipedia.org/wiki/PowerBook_G3#PowerBook_G3_Series_(Wallstreet_Series_I)) recently. Lovely machine!  
 
-![rare photography of LRR stickers in their natural habitat]({static}/images/powerbook/powerbook_screen.jpg)  
+![dingusbook screen]({static}/images/powerbook/powerbook_screen.jpg)  
 
 But it had a few issues I quickly noticed once the machine booted without the [usual Mac chime.](https://www.youtube.com/watch?v=7G3SXTg7gDI) 
 
