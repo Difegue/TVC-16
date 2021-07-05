@@ -91,11 +91,12 @@ As a quick refresher for how the `git` integration worked (read the Caddy 1 post
 
 * When the TVC-16 [Git repo](https://github.com/Difegue/TVC-16) is updated, GitHub sends a `POST` request to a `tvc-16.science` subdomain, triggering a pull of the updated repo's `gh-pages` branch, which contains the static HTML files for the blog, built with [Pelican](https://blog.getpelican.com/).  
 
-With Caddy v1, it was super easy to use the built-in [git plugin](https://web.archive.org/web/20190131203258/https://caddyserver.com/docs/http.git) to setup a built-in webhook endpoint that Github could then hit. Sadly, Caddy v2 doesn't bundle a git plugin anymore! 😢  
+With Caddy 1, it was super easy to use the built-in [git plugin](https://web.archive.org/web/20190131203258/https://caddyserver.com/docs/http.git) to setup a built-in webhook endpoint that Github could then hit. Sadly, Caddy 2 doesn't bundle a git plugin anymore! 😢  
 
 You can use a [community one](https://caddy.community/t/v2-git-webhooks/10207) if you build your Caddy yourself (`xcaddy` is a very nice tool to do that), but I don't really fancy rebuilding my webserver myself whenever I want to update.  
 
-I switched to a standalone endpoint, and to keep with the theme of _"well shit I guess I'm using stuff written in Go now"_, I went with [webhook.](https://github.com/adnanh/webhook) <sub>very original name and not confusing at all thanks</sub>  
+So, I switched to a **standalone server** to handle webhooks!  
+To keep with the theme of _"I guess I'm using stuff written in Go now"_, I went with [webhook.](https://github.com/adnanh/webhook) <sub>very original name and not confusing at all thanks</sub>  
 `webhook` is sadly a bit more verbose to setup than the ole Caddy integration, but the overall concept is the same:  
 
 1️⃣ Setup your hook's ID and rules in a `hooks.json` file, to run a git pull in `/var/www/html` when it's hit:  
@@ -133,14 +134,14 @@ I switched to a standalone endpoint, and to keep with the theme of _"well shit I
 ]
 ~~~~
 
-It's easier to use a bash script as the `execute-command` here since webhook doesn't accept inline arguments, but the script itself is just a one-liner:  
+It's easier to use a bash script as the `execute-command` here since `webhook` doesn't accept inline arguments, but the script itself is just a one-liner:  
 ```
 #!/bin/bash
 
 git pull --allow-unrelated-histories -s recursive -X theirs
 ```
 
-2️⃣ Start the webhook server:  
+2️⃣ Start the `webhook` server:  
 
 ```
 webhook -hooks hooks.json -port 4000 -verbose
@@ -157,14 +158,22 @@ tamamo.tvc-16.science {
 
 4️⃣ Add the webhook to your GitHub repo, and you're done!  
 
-![🦊 mikon!]({static}/images/webhook.png)  
-
 Since it goes through Caddy, you get SSL verification that _just works_ out of the box.  
+![🦊 mikon!]({static}/images/webhook.png)  
 GitHub actually sends *two* POST requests (one when `master` is pushed, and one when `gh-pages` is updated by GitHub Actions), but `webhook` will filter the first one out since it doesn't match the `refs/heads/gh-pages` rule.  
+
+```
+[webhook] 2021/07/05 23:36:50 [8a4b2a] finished handling mikon
+[webhook] 2021/07/05 23:39:01 Started POST /hooks/mikon
+[webhook] 2021/07/05 23:39:01 [b556e5] incoming HTTP request 
+[webhook] 2021/07/05 23:39:01 [b556e5] mikon got matched
+[webhook] 2021/07/05 23:39:01 [b556e5] mikon got matched, but didn't get triggered because the trigger rules were not satisfied
+[webhook] 2021/07/05 23:39:01 Completed 200 OK in 11.868297ms
+```
 
 # Closing thoughts
 
-I was kinda worried about redoing the autodeploy setup since Caddy 2 doesn't support it out of the box, but `webhook` seems to be a solid alternative.  
+I was kinda worried about redoing the autodeploy setup as Caddy 2 doesn't support it out of the box, but `webhook` seems to be a solid alternative.  
 Not having to replace it again whenever I end up re-switching HTTP servers is also a bonus!  
 
 The usual way of deploying this static blog stuff is to do the Pelican build on the host machine directly instead of using CI, but I prefer putting the grunt work outside of this woefully underpowered 3$ VPS that's already running about 5 services too many.  
