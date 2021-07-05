@@ -138,6 +138,7 @@ It's easier to use a bash script as the `execute-command` here since `webhook` d
 ```
 #!/bin/bash
 
+# This runs in /var/www/html, which already contains an initialized copy of the git repo.
 git pull --allow-unrelated-histories -s recursive -X theirs
 ```
 
