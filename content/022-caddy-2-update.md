@@ -160,15 +160,14 @@ tamamo.tvc-16.science {
 ![🦊 mikon!]({static}/images/webhook.png)  
 
 Since it goes through Caddy, you get SSL verification that _just works_ out of the box.  
+GitHub actually sends *two* POST requests (one when `master` is pushed, and one when `gh-pages` is updated by GitHub Actions), but `webhook` will filter the first one out since it doesn't match the `refs/heads/gh-pages` rule.  
 
 # Closing thoughts
 
 I was kinda worried about redoing the autodeploy setup since Caddy 2 doesn't support it out of the box, but `webhook` seems to be a solid alternative.  
 Not having to replace it again whenever I end up re-switching HTTP servers is also a bonus!  
 
-With this setup, I actually get *two* webhooks events (one when `master` is pushed, and one when `gh-pages` is updated by GitHub Actions), which is slightly-inefficient-but-I-don't-really-care.  
-
-One could circumvent this by doing the Pelican build on the host machine directly instead of using CI, but I prefer putting the grunt work outside of this woefully underpowered 3$ VPS that's already running about 5 services too many.  
+The usual way of deploying this static blog stuff is to do the Pelican build on the host machine directly instead of using CI, but I prefer putting the grunt work outside of this woefully underpowered 3$ VPS that's already running about 5 services too many.  
 
 Here's a Tamamo for having made it to the end.  
 ![UNIXCHADS win yet again!]({static}/images/tamamo.jpg)  
