@@ -1,0 +1,344 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Blogopolis - Cool Tricks</title><link href="https://tvc-16.science/" rel="alternate"></link><link href="https://tvc-16.science/feeds/cool-tricks.atom.xml" rel="self"></link><id>https://tvc-16.science/</id><updated>2020-05-25T00:00:00+02:00</updated><entry><title>Hacking your way around both Homebrew and macOS to use libarchive</title><link href="https://tvc-16.science/homebrew-libarchive.html" rel="alternate"></link><published>2020-05-25T00:00:00+02:00</published><updated>2020-05-25T00:00:00+02:00</updated><author><name>Difegue</name></author><id>tag:tvc-16.science,2020-05-25:/homebrew-libarchive.html</id><summary type="html">&lt;p&gt;I also learned more about how to build a Perl module than I actually wanted to.&lt;/p&gt;</summary><content type="html">&lt;p&gt;The LANraragi &lt;a href="https://formulae.brew.sh/formula/lanraragi"&gt;Homebrew Port&lt;/a&gt; was recently merged into the core repository, making access to the world's only(&lt;em&gt;and therefore best&lt;/em&gt;) Perl manga manager easy to all Macs.  &lt;/p&gt;
+&lt;p&gt;Getting the port to the acceptable level of standards for the core repository wasn't easy and needed one cool trick.  &lt;/p&gt;
+&lt;h1&gt;The libarchive conundrum&lt;/h1&gt;
+&lt;p&gt;LRR depends on the well-known &lt;a href="https://www.libarchive.org/"&gt;libarchive&lt;/a&gt; project to handle archives.&lt;br&gt;
+It's so well-known that Apple themselves use and bundle it in releases of macOS.  &lt;/p&gt;
+&lt;p&gt;Homebrew tries to be a good citizen by not installing dependencies which are already bundled by macOS if possible.&lt;br&gt;
+This makes sense! No need having &lt;code&gt;libarchive&lt;/code&gt; in triplicate if the system version does the job.  &lt;/p&gt;
+&lt;p&gt;Auditing the Homebrew formula henceforth gives you the following error:  &lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;Dependency &lt;span class="s1"&gt;&amp;#39;libarchive&amp;#39;&lt;/span&gt; is provided by macOS&lt;span class="p"&gt;;&lt;/span&gt; please replace &lt;span class="s1"&gt;&amp;#39;depends_on&amp;#39;&lt;/span&gt; with &lt;span class="s1"&gt;&amp;#39;uses_from_macos&amp;#39;&lt;/span&gt;.
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;So the Homebrew formula for LRR should &lt;code&gt;uses_from_macos "libarchive"&lt;/code&gt;. Sounds easy! Except not.  &lt;/p&gt;
+&lt;p&gt;In their infinite wisdom, Apple made the decision that their libarchive should be &lt;a href="https://stackoverflow.com/a/3167763"&gt;private API.&lt;/a&gt;&lt;br&gt;
+As such, they only include a &lt;strong&gt;compiled&lt;/strong&gt; version of libarchive, without the function headers.  &lt;/p&gt;
+&lt;p&gt;This would be fine if I was shipping precompiled executables that could call this compiled libarchive directly, but for better or worse, this is Perl! 🐫  &lt;/p&gt;
+&lt;p&gt;The way I use the lib is through a pair of &lt;a href="https://en.wikipedia.org/wiki/XS_%28Perl%29"&gt;XS Modules&lt;/a&gt;, which are basically C programs compiled on the user's machine when the module is installed.&lt;br&gt;
+&lt;img alt="wish I had an archive.h" src="https://tvc-16.science/images/libarchivexs.png"&gt;&lt;br&gt;
+And so, we're hosed. Without the headers, the modules can't compile, making the Homebrew formula impossible to build on a stock Mac.  &lt;/p&gt;
+&lt;p&gt;This makes Homebrew's order a tall one:  &lt;/p&gt;
+&lt;h3&gt;"Use the bundled libarchive, except you can't compile anything that relies on it."&lt;/h3&gt;
+&lt;h1&gt;Sideloading headers&lt;/h1&gt;
+&lt;p&gt;The easiest solution here is providing the libarchive headers ourselves.&lt;br&gt;
+Apple's version might be modified in some fashion from the original source code, so it's better to grab the headers directly &lt;a href="https://opensource.apple.com/source/libarchive/"&gt;from them:&lt;/a&gt;  &lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="c1"&gt;# libarchive headers from macOS 10.15 source&lt;/span&gt;
+  &lt;span class="n"&gt;resource&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;libarchive-headers-10.15&amp;quot;&lt;/span&gt; &lt;span class="k"&gt;do&lt;/span&gt;
+    &lt;span class="n"&gt;url&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;https://opensource.apple.com/tarballs/libarchive/libarchive-72.11.2.tar.gz&amp;quot;&lt;/span&gt;
+    &lt;span class="n"&gt;sha256&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;655b9270db794ba0b27052fd37b1750514b06769213656ab81e30727322e401f&amp;quot;&lt;/span&gt;
+  &lt;span class="k"&gt;end&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;(And you probably get nerd cred for jamming apple.com as a dependency in your formula. 😎)  &lt;/p&gt;
+&lt;p&gt;Homebrew decompresses resource tarballs on its own, so all we have to do to use the headers is move them in a custom &lt;code&gt;include&lt;/code&gt; folder in our install:  &lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;  &lt;span class="n"&gt;resource&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;libarchive-headers-10.15&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;stage&lt;/span&gt; &lt;span class="k"&gt;do&lt;/span&gt;
+    &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;libexec&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;include&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;install&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;libarchive/libarchive/archive.h&amp;quot;&lt;/span&gt;
+    &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;libexec&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;include&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;install&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;libarchive/libarchive/archive_entry.h&amp;quot;&lt;/span&gt;
+  &lt;span class="k"&gt;end&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;And just add said folder using good ol' &lt;a href="https://en.wikipedia.org/wiki/CFLAGS"&gt;CFLAGS&lt;/a&gt;, so that the Perl Modules will automatically pick up the folder when compiling the XS scripts.  &lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="no"&gt;ENV&lt;/span&gt;&lt;span class="o"&gt;[&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;CFLAGS&amp;quot;&lt;/span&gt;&lt;span class="o"&gt;]&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;-I&amp;quot;&lt;/span&gt;&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="n"&gt;libexec&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;include&amp;quot;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;&lt;code&gt;libexec&lt;/code&gt; is automatically mapped by brew to a directory like &lt;code&gt;/usr/local/Cellar/foo/0.1/libexec&lt;/code&gt;.&lt;br&gt;
+And we're done!  &lt;/p&gt;
+&lt;p&gt;&lt;img alt="oh no" src="https://tvc-16.science/images/brew-fail.png"&gt;&lt;br&gt;
+&lt;img alt="YOU GAIN CPAN" src="https://tvc-16.science/images/bullshit.jpg"&gt;&lt;/p&gt;
+&lt;h1&gt;Fixing the CPAN modules&lt;/h1&gt;
+&lt;p&gt;Astute observers have probably noticed the error in the previous screenshot:&lt;br&gt;
+The &lt;code&gt;cc&lt;/code&gt; command called to compile the XS script does not include the &lt;code&gt;libexec&lt;/code&gt; folder as an include. Why?&lt;br&gt;
+Some background first.  &lt;/p&gt;
+&lt;p&gt;There exist a variety of ways to handle building/installing a CPAN module in Perl, and this article &lt;a href="https://metacpan.org/pod/Module::Install"&gt;wouldn't&lt;/a&gt; be &lt;a href="https://metacpan.org/pod/Module::Build"&gt;enough&lt;/a&gt; to &lt;a href="https://metacpan.org/pod/Dist::Zilla"&gt;talk&lt;/a&gt; about &lt;a href="https://metacpan.org/pod/ExtUtils::MakeMaker"&gt;all of them&lt;/a&gt;.  &lt;/p&gt;
+&lt;p&gt;As said earlier, I use two XS Modules that both consume libarchive:  &lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;Archive::Extract::Libarchive&lt;/code&gt; (✅ builds fine with the new CFLAGS)&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;Archive::Peek::Libarchive&lt;/code&gt; (❌ doesn't work yet)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;You'd think that with such similar namespaces, both would use the same installer... Wrong! 😱&lt;br&gt;
+Peek uses &lt;code&gt;ExtUtils::MakeMaker&lt;/code&gt;, and Extract uses &lt;code&gt;Module::Build&lt;/code&gt;.  &lt;/p&gt;
+&lt;p&gt;So let's focus on MakeMaker for a bit.&lt;br&gt;
+You basically use it by writing a Perl-style Makefile, &lt;code&gt;Makefile.PL&lt;/code&gt;, which when interpreted by Perl will spit out a &lt;em&gt;regular&lt;/em&gt; Makefile to use with your &lt;em&gt;regular&lt;/em&gt; make/make install combo.  &lt;/p&gt;
+&lt;p&gt;When building this Makefile, MakeMaker will &lt;strong&gt;not&lt;/strong&gt; take into account your custom CFLAGS environment variable, instead opting to use the one that was used &lt;a href="http://coding.derkeiler.com/Archive/Perl/comp.lang.perl.misc/2005-11/msg01613.html"&gt;when your version of Perl was built.&lt;/a&gt;&lt;br&gt;
+In our case, the Perl we use comes from homebrew, and is built with esoteric include paths such as &lt;code&gt;/usr/local/Cellar/perl/5.30.2_1/lib/perl5/5.20.2/darwin-thread-multi-2level/CORE&lt;/code&gt;. The horror.  &lt;/p&gt;
+&lt;p&gt;Now of course, Makefile.PL writers can add extra include paths, and our failing module certainly &lt;a href="https://metacpan.org/source/REHSACK/Archive-Peek-Libarchive-0.38/Makefile.PL#L95"&gt;does so&lt;/a&gt;, using another package called Config::AutoConf.&lt;br&gt;
+Said module's documentation is a bit &lt;a href="https://metacpan.org/pod/Config::AutoConf#_get_extra_compiler_flags"&gt;empty&lt;/a&gt; as to how it figures out the extra compiler flags, and this rabbit hole has gone on long enough, so let's just &lt;strong&gt;patch the Makefile directly in Homebrew.&lt;/strong&gt;  &lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="n"&gt;resource&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;Archive::Peek::Libarchive&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;stage&lt;/span&gt; &lt;span class="k"&gt;do&lt;/span&gt;
+      &lt;span class="n"&gt;inreplace&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;Makefile.PL&amp;quot;&lt;/span&gt; &lt;span class="k"&gt;do&lt;/span&gt; &lt;span class="o"&gt;|&lt;/span&gt;&lt;span class="n"&gt;s&lt;/span&gt;&lt;span class="o"&gt;|&lt;/span&gt;
+        &lt;span class="n"&gt;s&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;gsub!&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;$autoconf-&amp;gt;_get_extra_compiler_flags&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;  
+                &lt;span class="s2"&gt;&amp;quot;$autoconf-&amp;gt;_get_extra_compiler_flags .$ENV{CFLAGS}&amp;quot;&lt;/span&gt;
+      &lt;span class="k"&gt;end&lt;/span&gt;
+      &lt;span class="o"&gt;[...]&lt;/span&gt;
+&lt;span class="k"&gt;end&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;By adding the environment variable ourselves, the cumbersome module finally builds, and we're out of Perl module building hell.  &lt;/p&gt;
+&lt;p&gt;&lt;img alt="took me three releases to get a working homebrew version" src="https://tvc-16.science/images/over.jpg"&gt;  &lt;/p&gt;
+&lt;h1&gt;Spare thoughts&lt;/h1&gt;
+&lt;p&gt;I use the 10.15 headers from Apple, as they're the only ones that actually include all the functions used by LANraragi.&lt;br&gt;
+This of course means that some functions are not available for both High Sierra and Mojave.&lt;br&gt;
+Luckily all this stuff fails rather gracefully, with no stability issues.  &lt;/p&gt;
+&lt;p&gt;LRR is the &lt;a href="https://github.com/Homebrew/homebrew-core/search?q=uses_from_macos+%22libarchive%22&amp;amp;unscoped_q=uses_from_macos+%22libarchive%22"&gt;only formula&lt;/a&gt; in homebrew/core using this trick with libarchive.&lt;br&gt;
+The other are &lt;strong&gt;weaksauce&lt;/strong&gt;, using a duplicate version instead. Plebeians!  &lt;/p&gt;
+&lt;p&gt;Jokes aside, it is a bit weird for the homebrew audit bot to consider libarchive to be bundled by the OS, where it is clearly unusable out of the box for something as simple as a &lt;code&gt;make&lt;/code&gt; scenario. 😐  &lt;/p&gt;</content><category term="macos"></category><category term="homebrew"></category><category term="libarchive"></category><category term="headers"></category><category term="apple"></category><category term="perl"></category><category term="makefile"></category><category term="makemaker"></category><category term="cflags"></category></entry><entry><title>Deploying an ephemeral macOS environment through Github Actions</title><link href="https://tvc-16.science/mac-github-actions.html" rel="alternate"></link><published>2019-10-25T00:00:00+02:00</published><updated>2019-10-25T00:00:00+02:00</updated><author><name>Difegue</name></author><id>tag:tvc-16.science,2019-10-25:/mac-github-actions.html</id><summary type="html">&lt;p&gt;I don't think they meant this when they said "Think Different".&lt;/p&gt;</summary><content type="html">&lt;p&gt;Oh no! Someone's giving me &lt;a href="https://github.com/Difegue/LANraragi/pull/221"&gt;macOS stuff to test&lt;/a&gt; and I don't have access to any Mac whatsoever this weekend!&lt;br&gt;
+&lt;em&gt;What in the doushio can I do?&lt;/em&gt;  &lt;/p&gt;
+&lt;p&gt;Most solutions for getting a virtualized Mac running involve downloading the 7GB-something setup from Apple, installing it in &lt;a href="https://github.com/foxlet/macOS-Simple-KVM"&gt;some form of virtualization&lt;/a&gt; software, setting up a bunch of bullshit magical variables to masquerade your VM as an iMac and then waiting through the entire installation process.  &lt;/p&gt;
+&lt;p&gt;Past that, you'll also need to add an Apple Account, download Xcode and its glorious 6 GBs of awful IDE design, etc etc &lt;em&gt;jesus this is going to eat my entire weekend&lt;/em&gt;&lt;br&gt;
+&lt;sub&gt;&lt;sup&gt;you can technically only download the xcode command line tools and they're like 200MBs but I'm trying to overdramatize a bit here&lt;/sup&gt;&lt;/sub&gt;  &lt;/p&gt;
+&lt;p&gt;The other solution is of course to rent a Mac VPS, but as this is a super niche market, prices are &lt;a href="https://www.macstadium.com/pricing"&gt;atrociously expensive&lt;/a&gt; for what amounts to me running &lt;code&gt;homebrew&lt;/code&gt; for about 30 minutes.  &lt;/p&gt;
+&lt;h2&gt;Jumping into Actions&lt;/h2&gt;
+&lt;p&gt;Since GitHub Actions introduced matrix builds recently, there very conveniently are &lt;a href="https://help.github.com/en/github/automating-your-workflow-with-github-actions/software-in-virtual-environments-for-github-actions#macos-1014"&gt;macOS runners&lt;/a&gt; for me to run code on. And they come with a &lt;strong&gt;lot&lt;/strong&gt; of devtools preinstalled, making for a rather comfy experience.  &lt;/p&gt;
+&lt;p&gt;At this point I could just write an Actions script running my &lt;code&gt;homebrew&lt;/code&gt; code and be done with it, but I thought I could have something a bit more flexible.&lt;br&gt;
+Hot off the trail of &lt;a href="./lcl-pebble.html"&gt;my last Actions venture&lt;/a&gt;, I thought about using the &lt;a href="https://github.com/marketplace/actions/debugging-with-tmate"&gt;tmate&lt;/a&gt; action to spawn a SSH session on the Mac runner for me. It'd basically give me an &lt;strong&gt;on-demand, pre-provisioned&lt;/strong&gt; macOS command line whenever I'd want!  &lt;/p&gt;
+&lt;p&gt;&lt;img alt="ANYTHING" src="https://tvc-16.science/images/anything.jpg"&gt;&lt;br&gt;
+&lt;sub&gt;&lt;sup&gt;For up to 6 hours of execution time but honestly that's already way too much &lt;/sup&gt;&lt;/sub&gt;  &lt;/p&gt;
+&lt;h2&gt;Writing the Action&lt;/h2&gt;
+&lt;p&gt;Using the tmate action as-is would basically make this setup dead simple, but it &lt;a href="https://github.com/mxschmitt/action-tmate/issues/3"&gt;doesn't work on Mac runners as-is.&lt;/a&gt; Darn.  &lt;/p&gt;
+&lt;p&gt;Luckily the entire action is really easy to replicate in bash, so I just wrote my own:  &lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="nt"&gt;name&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="l l-Scalar l-Scalar-Plain"&gt;Summon Steve Jobs&lt;/span&gt;
+
+&lt;span class="nt"&gt;on&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="p p-Indicator"&gt;[&lt;/span&gt;&lt;span class="nv"&gt;push&lt;/span&gt;&lt;span class="p p-Indicator"&gt;]&lt;/span&gt;
+
+&lt;span class="nt"&gt;jobs&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+  &lt;span class="nt"&gt;build&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+
+    &lt;span class="nt"&gt;runs-on&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="l l-Scalar l-Scalar-Plain"&gt;macOS-10.14&lt;/span&gt;
+
+    &lt;span class="nt"&gt;steps&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+    &lt;span class="p p-Indicator"&gt;-&lt;/span&gt; &lt;span class="nt"&gt;uses&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="l l-Scalar l-Scalar-Plain"&gt;actions/checkout@v1&lt;/span&gt;
+    &lt;span class="p p-Indicator"&gt;-&lt;/span&gt; &lt;span class="nt"&gt;name&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="l l-Scalar l-Scalar-Plain"&gt;Install tmate&lt;/span&gt;
+      &lt;span class="nt"&gt;run&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="p p-Indicator"&gt;|&lt;/span&gt;
+        &lt;span class="no"&gt;brew install tmate openssh screenfetch&lt;/span&gt;
+        &lt;span class="no"&gt;echo -e &amp;#39;y\n&amp;#39;|ssh-keygen -q -t rsa -N &amp;quot;&amp;quot; -f ~/.ssh/id_rsa&lt;/span&gt;
+        &lt;span class="no"&gt;tmate -S /tmp/tmate.sock new-session -d&lt;/span&gt;
+        &lt;span class="no"&gt;tmate -S /tmp/tmate.sock wait tmate-ready&lt;/span&gt;
+    &lt;span class="p p-Indicator"&gt;-&lt;/span&gt; &lt;span class="nt"&gt;name&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="l l-Scalar l-Scalar-Plain"&gt;It just works&lt;/span&gt;
+      &lt;span class="nt"&gt;run&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="p p-Indicator"&gt;|&lt;/span&gt;
+        &lt;span class="no"&gt;screenfetch&lt;/span&gt;
+        &lt;span class="no"&gt;SSH=&amp;quot;$(tmate -S /tmp/tmate.sock display -p &amp;#39;#{tmate_ssh}&amp;#39;)&amp;quot;&lt;/span&gt;
+        &lt;span class="no"&gt;WEB=&amp;quot;$(tmate -S /tmp/tmate.sock display -p &amp;#39;#{tmate_web}&amp;#39;)&amp;quot;&lt;/span&gt;
+        &lt;span class="no"&gt;echo &amp;quot;SSH: ${SSH}&amp;quot;&lt;/span&gt;
+        &lt;span class="no"&gt;echo &amp;quot;Web: ${WEB}&amp;quot;&lt;/span&gt;
+        &lt;span class="no"&gt;echo &amp;quot;You can now connect to the tmate session.&amp;quot;&lt;/span&gt;
+        &lt;span class="no"&gt;while true; do &lt;/span&gt;
+          &lt;span class="no"&gt;# loop infinitely&lt;/span&gt;
+          &lt;span class="no"&gt;sleep 10&lt;/span&gt;
+        &lt;span class="no"&gt;done&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;The only issue here is that quitting the session doesn't automatically end the run like the original action does, but it's good enough.™  &lt;/p&gt;
+&lt;p&gt;&lt;img alt="rebel rebel how could they know" src="https://tvc-16.science/images/macactions.png"&gt;&lt;/p&gt;
+&lt;h2&gt;Spare Thoughts&lt;/h2&gt;
+&lt;p&gt;I was curious about whether you could get VNC output on this, but while the command to enable VNC works, the runners don't expose anything for you to connect to.&lt;/p&gt;
+&lt;p&gt;Since I wanked this to debug the upcoming Homebrew support for LRR, it's totally legal and not breaking the &lt;a href="https://help.github.com/en/github/automating-your-workflow-with-github-actions/about-github-actions#usage-limits"&gt;Actions TOS&lt;/a&gt; in any way. 😇  &lt;/p&gt;</content><category term="github actions"></category><category term="apple"></category><category term="macos"></category><category term="vm"></category><category term="homebrew"></category></entry><entry><title>Webscraping my bank with GitHub Actions and displaying it on a Pebble SmartWatch</title><link href="https://tvc-16.science/lcl-pebble.html" rel="alternate"></link><published>2019-08-31T00:00:00+02:00</published><updated>2019-08-31T00:00:00+02:00</updated><author><name>Difegue</name></author><id>tag:tvc-16.science,2019-08-31:/lcl-pebble.html</id><summary type="html">&lt;p&gt;Giving my bank account to GitHub so they can tell my watch how much money is in it? Sure!&lt;/p&gt;</summary><content type="html">&lt;p&gt;I had some &lt;a href="https://github.com/Difegue/Chaotic-Realm/tree/master/lcl-hack"&gt;old code&lt;/a&gt; laying around to scrape the &lt;a href="https://www.lcl.fr/"&gt;Crédit Lyonnais&lt;/a&gt; account pages and convert my account balance/details to JSON.  &lt;/p&gt;
+&lt;p&gt;I used this for a few years to quickly have my account balance on my phone, then gave up on it once the bank's mobile app caught up.&lt;br&gt;
+Recently though, &lt;a href="http://rebble.io/2019/07/24/its-timeline-time.html"&gt;Rebble revived Timeline&lt;/a&gt; and I do love my Pebble Watches more than my phone, so I thought I'd put the ol' lcl.js scraper back on the saddle.  &lt;/p&gt;
+&lt;h1&gt;Wait! What the fuck even &lt;strong&gt;is&lt;/strong&gt; Timeline ?&lt;/h1&gt;
+&lt;p&gt;&lt;img alt="timeline" src="images/timeline.jpg"&gt;  &lt;/p&gt;
+&lt;p&gt;Pebble smartwatches feature a scrollable timeline of events the user can reach/read in one button press. The events that end up in Timeline can come from the phone's calendar as well as third-party applications.  &lt;/p&gt;
+&lt;p&gt;If you want more details, I recommend looking up the &lt;a href="https://pebble-help-legacy.rebble.io/help.getpebble.com/customer/en/portal/articles/2541544-timelinee140.html?b_id=12263"&gt;Pebble documentation archive&lt;/a&gt;.  &lt;/p&gt;
+&lt;p&gt;What interests us here is the third-party application part, brought back from the ashes by &lt;a href="http://rebble.io"&gt;Rebble&lt;/a&gt;.&lt;br&gt;
+By using a token generated by the watch, we can send data to the timeline through a webhook. And combined with the LCL bank account scraper, the results are pretty easy to figure out:  &lt;/p&gt;
+&lt;p&gt;&lt;img alt="fuck this" src="images/dosh.jpg"&gt;&lt;/p&gt;
+&lt;p&gt;Moneybills, right on the wrist!&lt;/p&gt;
+&lt;h1&gt;Unearthing the LCL scraper and making it work again&lt;/h1&gt;
+&lt;p&gt;The bad thing about online banking is that the web services that come with it are usually unpractical and severely outdated. The &lt;strong&gt;good&lt;/strong&gt; thing in that though, is that when you're scraping a bank website for data, your implementation will last years without bugs caused by redesigns. ✌  &lt;/p&gt;
+&lt;p&gt;When I pulled out my old scraping code, the only thing I had to rework was the login sequence. (Alongside a quick port to &lt;a href="https://github.com/GoogleChrome/puppeteer"&gt;Puppeteer&lt;/a&gt; since PhantomJS is basically dead now)&lt;br&gt;
+I used the mobile version of the website to login back in 2015, but alas it is no more.&lt;br&gt;
+Which means I'm stuck dealing with this abomination coming straight from every French banking website:  &lt;/p&gt;
+&lt;p&gt;&lt;img alt="fuck this" src="images/lcl_keyboard.png"&gt;&lt;/p&gt;
+&lt;p&gt;The &lt;code&gt;"click on the jpegs to enter your keycode"&lt;/code&gt; login page.&lt;br&gt;
+I hate this thing for a myriad of reasons, and the implementation is actually quite solid here:  &lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;You can't just enter the keycode straight into the HTML input on the right: Clicks on the keyboard enter a &lt;em&gt;scrambled&lt;/em&gt; number into the input, which is then decoded later down the login sequence by some JavaScript bullshit dark magic.  &lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;The order of the numbers is &lt;em&gt;randomized&lt;/em&gt; on each load of the login page, so you can't just record clicks at a specific position either.  &lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;The keyboard is rendered as a single image, with the areas you have to click defined by a HTML &lt;a href="https://www.w3schools.com/tags/tag_map.asp"&gt;imagemap&lt;/a&gt;.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Since I'm already down the rabbit hole of webscraping/JavaScript automation, the solution I used here is a suitable waste of processing power: I load up the &lt;a href="https://github.com/tesseract-ocr"&gt;Tesseract engine&lt;/a&gt; and &lt;strong&gt;scan the keyboard image&lt;/strong&gt; to find out the order of the numbers in the page.  &lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="nx"&gt;await&lt;/span&gt; &lt;span class="nx"&gt;page&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;screenshot&lt;/span&gt;&lt;span class="p"&gt;({&lt;/span&gt;&lt;span class="nx"&gt;path&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;keyboard.png&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;});&lt;/span&gt;
+
+&lt;span class="c1"&gt;// Just OCR the damn keyboard&lt;/span&gt;
+&lt;span class="nx"&gt;ocrResult&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nx"&gt;await&lt;/span&gt; &lt;span class="nx"&gt;Tesseract&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;recognize&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;keyboard.png&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;span class="c1"&gt;// Get something like 34980 15267&lt;/span&gt;
+&lt;span class="nx"&gt;map&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nx"&gt;ocrResult&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;text&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;split&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="sr"&gt;/ /&lt;/span&gt;&lt;span class="p"&gt;)[&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;].&lt;/span&gt;&lt;span class="nx"&gt;replace&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="sr"&gt;/[^\d]/g&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;).&lt;/span&gt;&lt;span class="nx"&gt;trim&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt; 
+
+&lt;span class="c1"&gt;// Click on the areas matching the numbers we received, according to the code in env&lt;/span&gt;
+&lt;span class="c1"&gt;// DOM IDs are idImageClavier_01-10, going by column:&lt;/span&gt;
+&lt;span class="c1"&gt;// 1 3 5 7 9&lt;/span&gt;
+&lt;span class="c1"&gt;// 2 4 6 8 10&lt;/span&gt;
+&lt;span class="nx"&gt;code&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nx"&gt;process&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;env&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;LCL_CODE&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;toString&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;
+
+&lt;span class="c1"&gt;// Rearrange the keyboard map to match the DOM IDs:&lt;/span&gt;
+&lt;span class="nx"&gt;map&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nx"&gt;map&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;charAt&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="nx"&gt;map&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;charAt&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;5&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="nx"&gt;map&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;charAt&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="p"&gt;[...]&lt;/span&gt;&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="nx"&gt;map&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;charAt&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;4&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="nx"&gt;map&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;charAt&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;9&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+
+&lt;span class="c1"&gt;// Go through code character by character, find its location on the map and hit the matching area&lt;/span&gt;
+&lt;span class="k"&gt;while&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;code&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;length&lt;/span&gt; &lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+&lt;span class="kr"&gt;char&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nx"&gt;code&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;charAt&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;span class="nx"&gt;code&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nx"&gt;code&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;slice&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+
+&lt;span class="nx"&gt;posInMap&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nx"&gt;map&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;indexOf&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kr"&gt;char&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;span class="nx"&gt;posInMap&lt;/span&gt;&lt;span class="o"&gt;++&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="c1"&gt;//DOM IDs start at 1&lt;/span&gt;
+
+&lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;posInMap&lt;/span&gt; &lt;span class="o"&gt;!==&lt;/span&gt; &lt;span class="mi"&gt;10&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+    &lt;span class="nx"&gt;posInMap&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;0&amp;quot;&lt;/span&gt;&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="nx"&gt;posInMap&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+
+&lt;span class="c1"&gt;//console.log(&amp;quot;Clicking on &amp;quot;+ char +&amp;quot; at #idImageClavier_&amp;quot;+posInMap);&lt;/span&gt;
+&lt;span class="nx"&gt;await&lt;/span&gt; &lt;span class="nx"&gt;page&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;evaluate&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;selector&lt;/span&gt;&lt;span class="p"&gt;=&amp;gt;&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt; &lt;span class="nx"&gt;$&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;selector&lt;/span&gt;&lt;span class="p"&gt;).&lt;/span&gt;&lt;span class="nx"&gt;click&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt; &lt;span class="p"&gt;},&lt;/span&gt;
+                    &lt;span class="s1"&gt;&amp;#39;#idImageClavier_&amp;#39;&lt;/span&gt;&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="nx"&gt;posInMap&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;I hate this. But one click on the login button later and &lt;em&gt;hacker voice I'm in&lt;/em&gt;&lt;br&gt;
+The rest of the code consists on mangling the bank's internal API to get readable JSON.  &lt;/p&gt;
+&lt;h1&gt;Pushing the account balance to Timeline&lt;/h1&gt;
+&lt;p&gt;Once I have recovered the data from the generated JSON, pushing it to the watch is much easier:  &lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="n"&gt;curl&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;X&lt;/span&gt; &lt;span class="n"&gt;PUT&lt;/span&gt; &lt;span class="n"&gt;https&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="o"&gt;//&lt;/span&gt;&lt;span class="n"&gt;timeline&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;api&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;rebble&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;io&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;v1&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="k"&gt;user&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;pins&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;cool&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;pin&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;id&lt;/span&gt; 
+    &lt;span class="c1"&gt;--header &amp;quot;Content-Type: application/json&amp;quot; &lt;/span&gt;
+    &lt;span class="c1"&gt;--header &amp;quot;X-User-Token: watch_token&amp;quot; &lt;/span&gt;
+    &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;d&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;{ &lt;/span&gt;
+&lt;span class="s1"&gt;        &amp;quot;id&amp;quot;: &amp;quot;cool-pin-id&amp;quot;, &lt;/span&gt;
+&lt;span class="s1"&gt;        &amp;quot;time&amp;quot;: &amp;quot;2019-08-30T22:43:56Z&amp;quot;, &lt;/span&gt;
+&lt;span class="s1"&gt;        &amp;quot;layout&amp;quot;: { &lt;/span&gt;
+&lt;span class="s1"&gt;                  &amp;quot;type&amp;quot;: &amp;quot;genericPin&amp;quot;, &lt;/span&gt;
+&lt;span class="s1"&gt;                  &amp;quot;title&amp;quot;: &amp;quot;Account name&amp;quot;, &lt;/span&gt;
+&lt;span class="s1"&gt;                  &amp;quot;body&amp;quot;: &amp;quot;Account code&amp;quot;, &lt;/span&gt;
+&lt;span class="s1"&gt;                  &amp;quot;subtitle&amp;quot;: &amp;quot;+ 9 999,99 €&amp;quot;, &lt;/span&gt;
+&lt;span class="s1"&gt;                  &amp;quot;tinyIcon&amp;quot;: &amp;quot;system://images/STOCKS_EVENT&amp;quot; &lt;/span&gt;
+&lt;span class="s1"&gt;                  } &lt;/span&gt;
+&lt;span class="s1"&gt;        }&amp;#39;&lt;/span&gt; 
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;The &lt;a href="https://developer.rebble.io/developer.pebble.com/guides/pebble-timeline/pin-structure/index.html"&gt;Pebble developer documentation&lt;/a&gt; is a godsend here!&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;cool-pin-id&lt;/code&gt; must be a different ID for each new Timeline pin pushed. I just get my OS to generate UUIDs for that but you might want to do it another way.  &lt;/p&gt;
+&lt;p&gt;The watch token can be generated using this &lt;a href="https://github.com/Willow-Systems/pebble-generate-token"&gt;handy Pebble app.&lt;/a&gt;  &lt;/p&gt;
+&lt;h1&gt;Jamming this whole thing in Github Actions&lt;/h1&gt;
+&lt;p&gt;While this is all cool and good, I was wary of running this script on my server regularly.&lt;br&gt;
+I mean, it &lt;strong&gt;does&lt;/strong&gt; use your bank credentials and you can't be paranoid enough.  &lt;/p&gt;
+&lt;p&gt;Back in 2015, I was running it on a computer that didn't accept incoming connections; Said computer would just upload the JSON generated by the script every few hours to the server.&lt;br&gt;
+But this is 2019 and caring about security is &lt;em&gt;so passé&lt;/em&gt;, so I'm just gonna give my bank details to GitHub Actions.  &lt;/p&gt;
+&lt;p&gt;&lt;img alt="hot dog" src="images/dangerzone.png"&gt;  &lt;/p&gt;
+&lt;p&gt;&lt;em&gt;Yeehaw!&lt;/em&gt; The Actions script itself isn't anything to write about, but hey, it's on &lt;a href="https://twitter.com/github/status/1159511691480260608"&gt;Actions v2&lt;/a&gt;!  &lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="nt"&gt;name&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="l l-Scalar l-Scalar-Plain"&gt;Get bank details and push to Pebble&lt;/span&gt;
+
+&lt;span class="nt"&gt;on&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+  &lt;span class="nt"&gt;schedule&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+  &lt;span class="p p-Indicator"&gt;-&lt;/span&gt; &lt;span class="nt"&gt;cron&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="l l-Scalar l-Scalar-Plain"&gt;0 9 * * *&lt;/span&gt;
+
+&lt;span class="nt"&gt;jobs&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+  &lt;span class="nt"&gt;build&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+
+    &lt;span class="nt"&gt;runs-on&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="l l-Scalar l-Scalar-Plain"&gt;ubuntu-latest&lt;/span&gt;
+
+    &lt;span class="nt"&gt;steps&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+    &lt;span class="p p-Indicator"&gt;-&lt;/span&gt; &lt;span class="nt"&gt;uses&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="l l-Scalar l-Scalar-Plain"&gt;actions/checkout@v1&lt;/span&gt;
+    &lt;span class="p p-Indicator"&gt;-&lt;/span&gt; &lt;span class="nt"&gt;name&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="l l-Scalar l-Scalar-Plain"&gt;Use Node.js&lt;/span&gt;
+      &lt;span class="nt"&gt;uses&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="l l-Scalar l-Scalar-Plain"&gt;actions/setup-node@v1&lt;/span&gt;
+      &lt;span class="nt"&gt;with&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+        &lt;span class="nt"&gt;node-version&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="l l-Scalar l-Scalar-Plain"&gt;12.x&lt;/span&gt;
+    &lt;span class="p p-Indicator"&gt;-&lt;/span&gt; &lt;span class="nt"&gt;name&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="l l-Scalar l-Scalar-Plain"&gt;NPM install&lt;/span&gt;
+      &lt;span class="nt"&gt;run&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="p p-Indicator"&gt;|&lt;/span&gt;
+        &lt;span class="no"&gt;npm install&lt;/span&gt;
+    &lt;span class="p p-Indicator"&gt;-&lt;/span&gt; &lt;span class="nt"&gt;name&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="l l-Scalar l-Scalar-Plain"&gt;Epic lcl hack&lt;/span&gt;
+      &lt;span class="nt"&gt;env&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+        &lt;span class="nt"&gt;LCL_ID&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="l l-Scalar l-Scalar-Plain"&gt;${{ secrets.LCL_ID }}&lt;/span&gt;
+        &lt;span class="nt"&gt;LCL_CODE&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="l l-Scalar l-Scalar-Plain"&gt;${{ secrets.LCL_CODE }}&lt;/span&gt;
+      &lt;span class="nt"&gt;run&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="p p-Indicator"&gt;|&lt;/span&gt;
+        &lt;span class="no"&gt;node lclscraper.js  &lt;/span&gt;
+    &lt;span class="p p-Indicator"&gt;-&lt;/span&gt; &lt;span class="nt"&gt;name&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="l l-Scalar l-Scalar-Plain"&gt;Push pebble timeline pin&lt;/span&gt;
+      &lt;span class="nt"&gt;env&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+        &lt;span class="nt"&gt;TIMELINE_TOKEN&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="l l-Scalar l-Scalar-Plain"&gt;${{ secrets.TIMELINE_TOKEN }}&lt;/span&gt;
+      &lt;span class="nt"&gt;run&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="p p-Indicator"&gt;|&lt;/span&gt; 
+        &lt;span class="no"&gt;LAB1=$(cat lcl.json | jq -r &amp;#39;.[0].label&amp;#39;)&lt;/span&gt;
+        &lt;span class="no"&gt;TOT1=$(cat lcl.json | jq -r &amp;#39;.[0].total&amp;#39;)&lt;/span&gt;
+        &lt;span class="no"&gt;CODE1=$(cat lcl.json | jq -r &amp;#39;.[0].code&amp;#39;)&lt;/span&gt;
+        &lt;span class="no"&gt;DATE=$(date +%s | jq &amp;#39;todate&amp;#39;)&lt;/span&gt;
+        &lt;span class="no"&gt;UUID=$(cat /proc/sys/kernel/random/uuid)&lt;/span&gt;
+        &lt;span class="no"&gt;TIMELINE_JSON=&amp;quot;{\&amp;quot;id\&amp;quot;: \&amp;quot;$UUID\&amp;quot;,\&amp;quot;time\&amp;quot;: $DATE,\&amp;quot;layout\&amp;quot;: {\&amp;quot;type\&amp;quot;: \&amp;quot;genericPin\&amp;quot;,\&amp;quot;title\&amp;quot;: \&amp;quot;$LAB1\&amp;quot;,\&amp;quot;body\&amp;quot;: \&amp;quot;$CODE1\&amp;quot;,\&amp;quot;subtitle\&amp;quot;: \&amp;quot;$TOT1 €\&amp;quot;,\&amp;quot;tinyIcon\&amp;quot;: \&amp;quot;system://images/STOCKS_EVENT\&amp;quot;}}&amp;quot;&lt;/span&gt;
+        &lt;span class="no"&gt;echo $TIMELINE_JSON&lt;/span&gt;
+        &lt;span class="no"&gt;curl -X PUT https://timeline-api.rebble.io/v1/user/pins/$UUID --header &amp;quot;Content-Type: application/json&amp;quot; --header &amp;quot;X-User-Token: $TIMELINE_TOKEN&amp;quot; -d &amp;quot;$TIMELINE_JSON&amp;quot;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;The job installs the required node.js dependencies (Tesseract and Puppeteer), runs the scraper, and pushes a timeline JSON to Rebble.&lt;br&gt;
+Pretty easy, isn't it?&lt;/p&gt;
+&lt;h1&gt;Closing thoughts&lt;/h1&gt;
+&lt;p&gt;The inspiration and info for this came from &lt;a href="https://willow.systems/integrate-pebble-with-ifttt-once-again/"&gt;Will0's blog&lt;/a&gt;, although I couldn't use his IFTTT proxy as-is due to errors with non-ASCII characters. 😅  &lt;/p&gt;
+&lt;p&gt;I used &lt;a href="https://github.com/marketplace/actions/debugging-with-tmate"&gt;tmate&lt;/a&gt; to debug on the GitHub Actions side this time around, and it was quite convenient! Would be better if the web terminal supported pasting, however.  &lt;/p&gt;
+&lt;p&gt;&lt;a href="https://ec.europa.eu/info/law/payment-services-psd-2-directive-eu-2015-2366_en"&gt;Payment Services Directive 2&lt;/a&gt; will start being enforced in a few days: It forces European banks to add generic APIs for bank aggregators.&lt;br&gt;
+Sadly that doesn't seem to mean proper APIs being made available for consumers as well. 🙃  &lt;/p&gt;
+&lt;p&gt;It also mandates strong authentication, which hopefully means those stupid image keyboards will go away and be replaced by proper 2FA.&lt;/p&gt;
+&lt;p&gt;I guess now that I wrote this article my bank will add a captcha or some shit to the login window.  &lt;/p&gt;</content><category term="github actions"></category><category term="puppeteer"></category><category term="tesseract"></category><category term="pebble"></category><category term="rebble"></category><category term="timeline"></category><category term="epic bank hacks"></category></entry><entry><title>Running cool-retro-term in Windows through WSL</title><link href="https://tvc-16.science/cool-retro-term-wsl.html" rel="alternate"></link><published>2019-04-21T20:00:00+02:00</published><updated>2019-04-21T20:00:00+02:00</updated><author><name>Difegue</name></author><id>tag:tvc-16.science,2019-04-21:/cool-retro-term-wsl.html</id><summary type="html">&lt;p&gt;Javascript terminal emulators have nothing on this.&lt;/p&gt;</summary><content type="html">&lt;p&gt;I often work with Linux environments through SSH on my Windows machine. As most people who use the command line on a semi-regular basis, I like looking at available alternatives/customizations to the stock terminal emulator.  &lt;/p&gt;
+&lt;p&gt;On Windows, you've got a lot of solid alternatives such as cmder or the myriad of cool-looking emulators using web technologies under the hood. (I especially like &lt;a href="https://github.com/felixse/FluentTerminal"&gt;Fluent Terminal&lt;/a&gt;, which really gets my Win10 design language boner going!)  &lt;/p&gt;
+&lt;p&gt;But this stuff man, it doesn't have the &lt;em&gt;bling&lt;/em&gt;. The &lt;em&gt;hipster cred&lt;/em&gt;.&lt;br&gt;
+&lt;img alt="whoa dude now this is good stuff" src="https://tvc-16.science/images/crt-intro.png"&gt;  &lt;/p&gt;
+&lt;p&gt;&lt;a href="https://github.com/Swordfish90/cool-retro-term"&gt;cool-retro-term&lt;/a&gt; is a terminal emulator I often wished I had on Windows, for no other reason than to look cool. Nobody really ever bothered to port it to run on Windows however(and I wouldn't do it either tbh), so I swallowed my dreams of being an &lt;em&gt;epic hacker&lt;/em&gt; and just opened up PuTTY for the umpteenth time.  &lt;/p&gt;
+&lt;p&gt;Until now.&lt;br&gt;
+&lt;img alt="bazinga" src="https://tvc-16.science/images/crt-win.jpg"&gt;  &lt;/p&gt;
+&lt;p&gt;The Windows Subsystem for Linux nowadays just allows one to run the original emulator as-is with a simple X server port for Windows. I'll be giving a short how-to list here, tested on Windows 10 1809.&lt;/p&gt;
+&lt;h1&gt;Activate WSL and download the required Linux dependencies&lt;/h1&gt;
+&lt;p&gt;I'll let &lt;a href="https://docs.microsoft.com/en-us/windows/wsl/install-win10"&gt;Microsoft speak for me&lt;/a&gt; on the first point. I used Ubuntu as a base distro, but you can probably manage with another one.&lt;br&gt;
+Once in your WSL terminal, install the few dependencies you'll need:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="n"&gt;sudo&lt;/span&gt; &lt;span class="n"&gt;apt&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="k"&gt;get&lt;/span&gt; &lt;span class="k"&gt;update&lt;/span&gt;
+&lt;span class="n"&gt;sudo&lt;/span&gt; &lt;span class="n"&gt;apt&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="k"&gt;get&lt;/span&gt; &lt;span class="n"&gt;install&lt;/span&gt; &lt;span class="n"&gt;libgl1&lt;/span&gt; &lt;span class="n"&gt;xfce4&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;terminal&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;xfce4-terminal is a hefty download, but without it I was unable to get keyboard input to work in CRT. The errors were linked to XKB, so you might be able to manage by only installing xkb-data or similar packages.  &lt;/p&gt;
+&lt;h1&gt;Download the cool-retro-term AppImage and extract it&lt;/h1&gt;
+&lt;p&gt;The AppImage conveniently bundles up Qt and everything needed. WSL doesn't have fuse support however, so you'll have to extract it instead of running it as-is. &lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="n"&gt;wget&lt;/span&gt; &lt;span class="n"&gt;https&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="o"&gt;//&lt;/span&gt;&lt;span class="n"&gt;github&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;com&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;Swordfish90&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;cool&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;retro&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;term&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;releases&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;download&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;Cool&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;Retro&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;Term&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;x86_64&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;AppImage&lt;/span&gt;
+&lt;span class="n"&gt;chmod&lt;/span&gt; &lt;span class="n"&gt;a&lt;/span&gt;&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt; &lt;span class="n"&gt;Cool&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;Retro&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;Term&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;x86_64&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;AppImage&lt;/span&gt;
+&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;Cool&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;Retro&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;Term&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;x86_64&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;AppImage&lt;/span&gt; &lt;span class="c1"&gt;--appimage-extract&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Close your Linux CLI for now.&lt;/p&gt;
+&lt;h1&gt;Boot 'er up with Xming&lt;/h1&gt;
+&lt;p&gt;👉 Download and install &lt;a href="https://sourceforge.net/projects/xming/"&gt;Xming&lt;/a&gt; on the Windows side.  &lt;/p&gt;
+&lt;p&gt;vcXsrv is another port of the X server to Windows that's often recommended in &lt;a href="https://www.ctrl.blog/entry/how-to-x-on-wsl"&gt;X-on-WSL blogposts&lt;/a&gt;, but it didn't work with CRT during my experiments. You can also try &lt;a href="https://sourceforge.net/projects/freexer/"&gt;FreeXer&lt;/a&gt;, or Cygwin's X server.  &lt;/p&gt;
+&lt;p&gt;Once installed, just start it up and go back to Linux:  &lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="n"&gt;export&lt;/span&gt; &lt;span class="n"&gt;DISPLAY&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;
+&lt;span class="n"&gt;cd&lt;/span&gt; &lt;span class="n"&gt;squashfs&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;root&lt;/span&gt;
+&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;AppRun&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;&lt;img alt="lookin' hefty on cpu joker" src="https://tvc-16.science/images/crt-cpu.jpg"&gt;&lt;br&gt;
+From here on, you can right-click on the terminal to load a different graphical profile or make a custom one yourself.&lt;br&gt;
+Basically everything works as-is -- even urxvt mouse tracking!&lt;/p&gt;
+&lt;h1&gt;Automating it all with some scripting&lt;/h1&gt;
+&lt;p&gt;I jerry-rigged a pair of .bat/.sh scripts to start both Xming on the Windows side and CRT on the WSL side.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;cool-retro-term.bat&lt;/strong&gt;&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="k"&gt;start&lt;/span&gt; &lt;span class="ss"&gt;&amp;quot;&amp;quot;&lt;/span&gt; &lt;span class="ss"&gt;&amp;quot;C:\Program Files (x86)\Xming\Xming.exe&amp;quot;&lt;/span&gt; &lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;clipboard&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;multiwindow&lt;/span&gt;
+&lt;span class="k"&gt;start&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="k"&gt;min&lt;/span&gt; &lt;span class="n"&gt;wsl&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;d&lt;/span&gt; &lt;span class="n"&gt;ubuntu&lt;/span&gt; &lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;crt&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;sh&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;&lt;strong&gt;crt.sh&lt;/strong&gt;&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="n"&gt;cd&lt;/span&gt; &lt;span class="o"&gt;~/&lt;/span&gt;&lt;span class="n"&gt;squashfs&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;root&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class="n"&gt;export&lt;/span&gt; &lt;span class="n"&gt;DISPLAY&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;AppRun&lt;/span&gt; 
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h1&gt;Caveats&lt;/h1&gt;
+&lt;ul&gt;
+&lt;li&gt;WSL &lt;a href="https://github.com/Microsoft/WSL/issues/829"&gt;doesn't have GPU acceleration yet&lt;/a&gt;. This is entirely running in software and as you can see in the &lt;code&gt;htop&lt;/code&gt; above, easily eats more CPU than those newfangled javascript terminals. 😐 &lt;/li&gt;
+&lt;li&gt;Pasting text into cool-retro-term works, but copying text from it doesn't. &lt;/li&gt;
+&lt;li&gt;You can encounter a segfault or two if you mess with the graphical settings too much in one session. Once a profile is saved however, I've encountered no crashes in the few hours I spent playing with this.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;All things considered, this is basically a party trick at the moment and nothing else.&lt;br&gt;
+It's pretty cool with &lt;code&gt;ncmpcpp&lt;/code&gt; though!&lt;/p&gt;</content><category term="wsl"></category><category term="cool-retro-term"></category><category term="xming"></category><category term="terminal"></category></entry></feed>
