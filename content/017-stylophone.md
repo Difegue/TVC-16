@@ -1,7 +1,7 @@
 Title: Introducing Stylophone
 Date: 2020-09-13 00:00  
 Category: Software  
-Tags: mpd, winui, c#, uwp, windows, windows 10, music, client
+Tags: mpd, winui, c#, uwp, windows, windows 10, music, client, stylophone
 Slug: stylophone
 Authors: Difegue  
 HeroImage: images/stylophone/stylohero.jpg  
