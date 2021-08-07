@@ -66,8 +66,7 @@ function start_up(){
   $PELICAN --debug --autoreload -r $INPUTDIR -o $OUTPUTDIR -s $CONFFILE $PELICANOPTS &
   pelican_pid=$!
   echo $pelican_pid > $PELICAN_PID
-  mkdir -p $OUTPUTDIR && cd $OUTPUTDIR
-  $PY -m pelican.server $port &
+  $PELICAN -l -p 8000 &
   srv_pid=$!
   echo $srv_pid > $SRV_PID
   cd $BASEDIR
