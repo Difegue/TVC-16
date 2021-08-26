@@ -24,6 +24,15 @@ As a part of [Launch 2021](https://uwpcommunity.com/launch/), I'm releasing **St
 - Random shuffling of tracks from your library into the play queue  
 
 V2 is now **live** on [GitHub](https://github.com/Difegue/Stylophone) and launches on the [Microsoft Store](https://www.microsoft.com/store/apps/9NCB693428T8) on September 1st!  
+
+<div id="mspb-4eo0ll5vuo5c" class="9NCB693428T8"></div>
+<script src="https://storebadge.azureedge.net/src/badge-1.8.4.js"></script>
+<script>
+  mspb('9NCB693428T8', function(badge) {
+    document.getElementById('mspb-4eo0ll5vuo5c').innerHTML = badge;
+  });
+</script>
+
 I'll be rambling a bit more about what I did below.  
 
 # Windows 11 Redesign  
