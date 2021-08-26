@@ -1,5 +1,5 @@
 Title: Announcing Stylophone v2
-Date: 2021-08-23 00:00  
+Date: 2021-08-26 00:00  
 Category: Software  
 Tags: mpd, winui, c#, uwp, windows, windows 10, windows 11, music, client, stylophone
 Slug: stylophone-2
@@ -23,7 +23,8 @@ As a part of [Launch 2021](https://uwpcommunity.com/launch/), I'm releasing **St
 - **Local Playback** if your server has the httpd stream output enabled  
 - Random shuffling of tracks from your library into the play queue  
 
-V2 is now **live** on [GitHub](https://github.com/Difegue/Stylophone) and on the [Microsoft Store](https://www.microsoft.com/store/apps/9NCB693428T8)! I'll be rambling a bit more about what I did below.  
+V2 is now **live** on [GitHub](https://github.com/Difegue/Stylophone) and launches on the [Microsoft Store](https://www.microsoft.com/store/apps/9NCB693428T8) on September 1st!  
+I'll be rambling a bit more about what I did below.  
 
 # Windows 11 Redesign  
 
