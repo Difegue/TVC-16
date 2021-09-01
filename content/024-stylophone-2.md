@@ -23,7 +23,7 @@ As a part of [Launch 2021](https://uwpcommunity.com/launch/), I'm releasing **St
 - **Local Playback** if your server has the httpd stream output enabled  
 - Random shuffling of tracks from your library into the play queue  
 
-V2 is now **live** on [GitHub](https://github.com/Difegue/Stylophone) and launches on the [Microsoft Store](https://www.microsoft.com/store/apps/9NCB693428T8) on September 1st!  
+V2 is now **live** on [GitHub](https://github.com/Difegue/Stylophone) and the [Microsoft Store](https://www.microsoft.com/store/apps/9NCB693428T8)!  
 
 <div id="mspb-4eo0ll5vuo5c" class="9NCB693428T8"></div>
 <script src="https://storebadge.azureedge.net/src/badge-1.8.4.js"></script>
