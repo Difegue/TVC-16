@@ -1,5 +1,5 @@
 Title: Announcing Stylophone v2
-Date: 2021-08-26 00:00  
+Date: 2021-09-01 00:00  
 Category: Software  
 Tags: mpd, winui, c#, uwp, windows, windows 10, windows 11, music, client, stylophone
 Slug: stylophone-2
