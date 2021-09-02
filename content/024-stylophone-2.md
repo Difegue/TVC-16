@@ -7,7 +7,7 @@ Authors: Difegue
 HeroImage: images/stylophone/v2-stylohero.jpg  
 Summary: Timing both a visual refresh and a major refactoring in one? Don't mind if I do.  
 
-[Stylophone](./stylophone) has been out for almost a year now, and has received as warm a welcome as I could've hoped in the (very) niche world of MPD clients.  
+[Stylophone](./stylophone.html) has been out for almost a year now, and has received as warm a welcome as I could've hoped in the (very) niche world of MPD clients.  
 There's been more than 400 trials, and about 100 paid users, which makes this the first time I got any significant form of money from the Microsoft Store. 💰💰💰  
 
 Version 2 of the app has been in the works for a few months already, as I was expecting some form of rejuvenation in the UWP space due to WinUI 3/Windows App SDK.   
