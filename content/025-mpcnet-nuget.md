@@ -5,7 +5,7 @@ Tags: mpd, c#, nuget, .net, music, stylophone, github actions
 Slug: mpcnet-nuget
 Authors: Difegue  
 HeroImage: images/packages.png  
-Summary: Timing both a visual refresh and a major refactoring in one? Don't mind if I do.  
+Summary: Build your own MPD ✨experiences✨ in pure .NET!
 
 While building [Stylophone](./stylophone.html), I based my initial work on the [LibMpc.net](https://github.com/glucaci/MpcNET) library, which I forked and improved with support for:  
 
