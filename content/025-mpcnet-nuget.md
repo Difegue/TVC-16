@@ -105,4 +105,11 @@ jobs:
 
 ````
 
-\* I'm probably going to have to add the [Delete Package Versions](https://github.com/marketplace/actions/delete-package-versions) action to the mix at some point to avoid overloading GH's storage space. 😥 We'll see how popular the lib gets on its own. 😗
+\* I'm probably going to have to add the [Delete Package Versions](https://github.com/marketplace/actions/delete-package-versions) action to the mix at some point to avoid overloading GH's storage space. 😥 We'll see how popular the lib gets on its own. 😗  
+
+# Extra Links
+
+See here for a more detailed walkthrough of NuGet builds on Actions:  
+[https://acraven.medium.com/a-nuget-package-workflow-using-github-actions-7da8c6557863](https://acraven.medium.com/a-nuget-package-workflow-using-github-actions-7da8c6557863)  
+
+And here for explanations on MinVer: [https://rehansaeed.com/the-easiest-way-to-version-nuget-packages/](https://rehansaeed.com/the-easiest-way-to-version-nuget-packages/)  
