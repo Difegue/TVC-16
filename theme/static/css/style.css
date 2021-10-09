@@ -333,3 +333,9 @@ h1::after {
     background-repeat: no-repeat;
     white-space: pre;
 }
+
+blockquote {
+    border-left: 4px solid #922b7a;
+    background: #eaeaea;
+    padding: 2px 0 2px 12px;
+}
