@@ -168,7 +168,7 @@ Now that I'm thinking of it, it'd also be a convenient place to integrate tag ru
 
 I probably won't move batch tagging to Minion however, since the current implementation using websockets allows one to easily monitor the state of the batch operation from the browser. (At the expanse of having to keep the browser tab open, I know)
 
-> 👉 Clickable tags in the tag cloud and some way to filter out meta tags like \"translated\" and \"language\" from it.  
+> 👉 Clickable tags in the tag cloud and some way to filter out meta tags like "translated" and "language" from it.  
 > 👉 Infinite scrolling for double page mode and a tags index page with counts.  
 
 I'm planning to expand the tag cloud to also include a list of all tags and their count -- The data already exists so it's a waste to not expose it better.  
@@ -181,7 +181,7 @@ Please check the [Documentation.](https://sugoi.gitbook.io/lanraragi/basic-opera
 
 You can already add stuff to a category within the reader, but metadata edition is indeed lacking. I'm not sure how to integrate it properly at the time however. 🤔  
 
-> 👉 show archive tags/page overview by default instead of 1st page
+> 👉 show archive tags/page overview by default instead of 1st page  
 > 👉 I'm the guy who was asking for more of an EH style gallery view during the last survey with the tags on top and thumbnails below without it going directly in to the full image reader view.  
 
 This has been asked a few times already so I'm _prooobably_ going to make it an option, the main blocker with this is that I'll have to add incremental loading of some sort to the gallery overlay so it doesn't fire a billion API calls for each page as it pops up.
@@ -220,7 +220,7 @@ I recall that Pixiv is particularly annoying to maintain a scraper for due to th
 
 This is tracked [here](https://github.com/Difegue/LANraragi/issues/454). I'll try prioritizing it since it's not too hard.  
 
-> 👉 An option to have the \"date uploaded\" (different from the \"date added\" that is present already) data visible and ability to sort by it.  
+> 👉 An option to have the "date uploaded" (different from the "date added" that is present already) data visible and ability to sort by it.  
 > 👉 Option to make sorting by date_added default  
 > 👉 Ability to show the date_added as human readable instead of Unix timestamp  
 > 👉 I suggest adding a newest gallery sort and a history section.  
@@ -284,7 +284,7 @@ Although I'm seeing komga has both tanks and simili-categories, so it might be f
 
 While I'm still not too keen on multiple user accounts(mostly because it'd be a fair amount of work and I don't think most users want/need those), I could add whitelisted categories that'd be accessible even with no-fun on. Lemme know if that's something you want!  
 
-> 👉 Automatic status/tag for Reading, Completed manga/doujin. The ability to filter these (show only unread, reading, etc.). The ability to edit this using right-click on the manga/doujin (right-click on manga -> Mark as Read / Unread).
+> 👉 Automatic status/tag for Reading, Completed manga/doujin. The ability to filter these (show only unread, reading, etc.). The ability to edit this using right-click on the manga/doujin (right-click on manga -> Mark as Read / Unread).  
 > 👉 It's something pretty simple but I'd just like to have a mark as read/unread button, I've still not managed to find that if it exists.  
 
 I'm considering adding inbox/archive functionality ala Hydrus, since I personnally have a few "To Read" categories already and it probably warrants bring more tightly integrated.  
