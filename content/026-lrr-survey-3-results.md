@@ -148,7 +148,7 @@ The content folder normally auto-imports whatever lands in it and that essential
 
 > 👉 Wish there's a way to disable or pause background worker Shinobu, maybe start checking new files manually is better way for my poor hdd, they always been reading and cannot go sleep mode.  
 
-There are [API Endpoints](https://sugoi.gitbook.io/lanraragi/api-documentation/shinobu-api) to stop/start Shinobu, but I haven't made them accessible in the main interface since I really don't think users should run without the worker off.  
+There are [API Endpoints](https://sugoi.gitbook.io/lanraragi/api-documentation/shinobu-api) to stop/start Shinobu, but I haven't made them accessible in the main interface since I really don't think users should run with the worker off.  
 <sup>LRReader does provide the option though if you really want to do it</sup>  
 Your HDD woes might've been caused by Redis writing to disk a bit too often since I've made Minion use it as a database instead of SQLite -- I've [changed]() the Docker/Windows Redis config in 0.8.0 to write to disk much less often, so hopefully this won't be an issue anymore. 👍  
 
