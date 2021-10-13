@@ -1,7 +1,7 @@
 Title: Apply Mica to a WPF app on Windows 11
 Date: 2021-10-13 00:00  
 Category: Cool Tricks  
-Tags: mica, wpf, modernwpf, windows 11, dwm, very dangerous windows hack age 18 and up content
+Tags: mica, wpf, C#, modernwpf, windows 11, dwm, very dangerous windows hack age 18 and up content
 Slug: mica-wpf
 Authors: Difegue  
 HeroImage: images/mica/mica_wpf.jpg  
