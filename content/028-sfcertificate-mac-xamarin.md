@@ -195,14 +195,10 @@ Using the new methods, we can now show the certificate panel multiple times with
 // We use xamarin's built-in dispose for this, which calls the objc "release" selector on its own.
 using (var certificatePanel = SecurityInterface.CreateCertificatePanel())
 {
-    if (hwndParent == IntPtr.Zero)
+    if (windowParent == IntPtr.Zero)
         SecurityInterface.RunModalForCertificates(certificatePanel, chain, true);
     else
         SecurityInterface.BeginCertificateSheetForWindow(certificatePanel, windowParent, chain, true);
-        if (hwndParent == IntPtr.Zero)
-            SecurityInterface.RunModalForCertificates(certificatePanel, chain, true);
-        else
-            SecurityInterface.BeginCertificateSheetForWindow(certificatePanel, windowParent, chain, true);
 }
 ```
 
