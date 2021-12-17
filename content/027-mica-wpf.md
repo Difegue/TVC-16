@@ -31,7 +31,7 @@ enum DWMWINDOWATTRIBUTE
 };
 ```
 
-The [usual warnings](https://devblogs.microsoft.com/oldnewthing/?p=41373) apply since this attribute is undocumented, but if it's anything like the [Acrylic](https://withinrafael.com/2018/02/02/adding-acrylic-blur-to-your-windows-10-apps-redstone-4-desktop-apps/) WindowCompositionAttribute trick, it should ~~at least work until WinUI 3 is far enough in development. ~~ lmao 
+The [usual warnings](https://devblogs.microsoft.com/oldnewthing/?p=41373) apply since this attribute is undocumented, but if it's anything like the [Acrylic](https://withinrafael.com/2018/02/02/adding-acrylic-blur-to-your-windows-10-apps-redstone-4-desktop-apps/) WindowCompositionAttribute trick, <strike>it should at least work until WinUI 3 is far enough in development.</strike> lmao 
 
 (**Note**: This attribute was removed from Windows 11 in insider build _22494_, and replaced by `DWMWA_SYSTEMBACKDROP_TYPE` in builds _22523_ and up. Scroll to the bottom of the article for more info!)
 
