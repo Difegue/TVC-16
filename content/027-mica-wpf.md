@@ -31,7 +31,9 @@ enum DWMWINDOWATTRIBUTE
 };
 ```
 
-The [usual warnings](https://devblogs.microsoft.com/oldnewthing/?p=41373) apply since this attribute is undocumented, but if it's anything like the [Acrylic](https://withinrafael.com/2018/02/02/adding-acrylic-blur-to-your-windows-10-apps-redstone-4-desktop-apps/) WindowCompositionAttribute trick, it should at least work until WinUI 3 is far enough in development.  
+The [usual warnings](https://devblogs.microsoft.com/oldnewthing/?p=41373) apply since this attribute is undocumented, but if it's anything like the [Acrylic](https://withinrafael.com/2018/02/02/adding-acrylic-blur-to-your-windows-10-apps-redstone-4-desktop-apps/) WindowCompositionAttribute trick, it should ~~at least work until WinUI 3 is far enough in development. ~~ lmao 
+
+(**Note**: This attribute was removed from Windows 11 in insider build _22494_, and replaced by `DWMWA_SYSTEMBACKDROP_TYPE` in builds _22523_ and up. Scroll to the bottom of the article for more info!)
 
 Applying this flag to a HWND in WPF is quite easy:  
 
@@ -156,10 +158,29 @@ You might've noticed the system controls have a weird padding to the right: This
 This is fixable by adding `NonClientFrameEdges="Bottom,Left,Right"`, but it causes a host of other issues so I didn't include it in the sample.  
 You can find some more info about that [here](https://github.com/dotnet/wpf/issues/3887).
 
+## Windows 11 22523+ Update
 
+`DWMWA_MICA_EFFECT = 1029` has been replaced by the public API (!) `DWMWA_SYSTEMBACKDROP_TYPE = 38` in [build 22523](https://twitter.com/StartIsBack/status/1471262840313065474?s=20), which functions mostly the same although with some much-desired improvements.  
 
+The attribute accepts an int instead of just a boolean and can enable different backdrop types:  
 
+```
+DWMSBT_AUTO = 0,
+DWMSBT_DISABLE = 1, // None
+DWMSBT_MAINWINDOW = 2, // Mica
+DWMSBT_TRANSIENTWINDOW = 3, // Acrylic
+DWMSBT_TABBEDWINDOW = 4 // Tabbed
+```
 
+As per StartIsBack, "Tabbed is just untinted / unblended Mica, i.e. heavily blurred wallpaper."  
+
+You can find updated WPF sample code that uses this attribute [here.](https://github.com/dongle-the-gadget/SystemBackdropTypes)  
+
+![Acrylic attribute](https://user-images.githubusercontent.com/29563098/146360322-5ee76a3e-49ac-4ef4-881b-e1a8e5dd959a.png)  
+
+![Mica attribute](https://user-images.githubusercontent.com/29563098/146360362-8b7cb5f1-6053-4c13-a7b8-b2b910500f50.png)  
+
+![Tabbed attribute](https://user-images.githubusercontent.com/29563098/146360394-4f6773f1-35b1-4136-9ad8-1e1a923afc0b.png)  
 
 
 
