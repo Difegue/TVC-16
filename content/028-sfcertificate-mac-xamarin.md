@@ -24,7 +24,7 @@ It's...not very well exposed but fairly easy to use:
 ```
 // Objective-C, show Modal
 // trustCertificates is a NSArray of SecCertificate objects
-[[SFCertificatePanel sharedCertificatePanel] runModalForCertificates:trustCertificates showGroup:YES];`
+[[SFCertificatePanel sharedCertificatePanel] runModalForCertificates:trustCertificates showGroup:YES];
 
 // Swift, show Sheet in a parent window
 DispatchQueue.main.async {
@@ -41,7 +41,9 @@ The Panel can show details for either a single [SecCertificate](https://develope
 Sadly, Xamarin.Mac does not [wrap the SecurityInterface](https://github.com/xamarin/xamarin-macios/issues/4177) library that contains this class, so we have to dig a bit deeper to call on it.  
 
 Using `objc_msgSend`, we can essentially [call Objective-C methods](http://jonathanpeppers.com/Blog/xamarin-ios-under-the-hood-calling-objective-c-from-csharp) on any class we want, including the unwrapped ones:  
+
 ```
+:::csharp
 public static class SecurityInterface
     {
         // https://developer.apple.com/documentation/securityinterface/sfcertificatepanel
@@ -81,6 +83,7 @@ public static class SecurityInterface
 With those few methods on hand, we can easily invoke a SFCertificatePanel from .NET code:  
 
 ```
+:::csharp
 private void DisplayCertificate(X509Certificate2 certificate, IntPtr windowParent)
 {
   using (var sc = new SecCertificate(certificate))
@@ -111,6 +114,7 @@ This is troublesome if you want to show a certificate chain where some intermedi
 The easiest solution would be to move to .NET 6, but as that's not quite available yet, we have to bypass X509Certificate2 entirely and load the certificate using only macOS APIs:  
 
 ```
+:::csharp
 var pfx = [...] // class that contains both path to a .pfx certificate file and its password 
 var options = new NSMutableDictionary
 {
@@ -157,6 +161,7 @@ To solve this, we have to **instantiate** the panel each time we want to show it
 This requires a few more modifications to our static SecurityInterface class:  
 
 ```
+:::csharp
 /// <summary>
 /// Instantiate a SFCertificatePanel object, wrapped in the Xamarin container.
 /// We can't use sharedCertificatePanel: since it has display issues if we show a certificate chain multiple times.
@@ -185,6 +190,7 @@ In this block of code, we now instantiate a SFCertificatePanel using the regular
 Using the new methods, we can now show the certificate panel multiple times without any issues:  
 
 ```
+:::csharp
 // Make sure to deinitialize the created CertificatePanel.
 // We use xamarin's built-in dispose for this, which calls the objc "release" selector on its own.
 using (var certificatePanel = SecurityInterface.CreateCertificatePanel())
@@ -202,4 +208,12 @@ using (var certificatePanel = SecurityInterface.CreateCertificatePanel())
 
 # Closing thoughts  
 
-I really need to add syntax highlighting to this blog.  
+I added syntax highlighting to the blog after writing this article since all the giant blobs of `objc_msgSend` are already unreadable enough 😅  
+
+It was simple enough:  
+```
+:::bash
+pygmentize -S perldoc -f html -a .highlight > theme/static/css/pygment.css
+```  
+
+Followed by adding this new CSS into the headers of the template.  
