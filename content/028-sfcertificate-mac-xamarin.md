@@ -107,7 +107,7 @@ And things just work! Although there are a few issues...
 
 ## Mono and X509Certificate2 
 
-Since we're still using a version of Xamarin that relies on [Mono]() instead of .NET 6, the X509Certificate2 class isn't fully implemented and won't show full certificate chains:  
+Since we're still using a version of Xamarin that relies on [Mono](https://github.com/mono/mono/blob/main/mcs/class/System/System.Security.Cryptography.X509Certificates/X509Certificate2.cs) instead of .NET 6, the X509Certificate2 class isn't fully implemented and won't show full certificate chains:  
 ![A lone, single certificate]({static}/images/certs/no-chain.png)  
 This is troublesome if you want to show a certificate chain where some intermediates are not in the system keychain: it will show as untrusted...even though the full chain is valid!  
 
