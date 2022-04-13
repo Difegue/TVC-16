@@ -10,7 +10,7 @@ Summary: Yuji Naka: They probably eat McDonald's® hamburgers, I suppose? And I 
 Happy Sonic 2 Movie release day!... Is what I'd say if I'd actually managed to publish this on April 8th.  
 It's been a while since Sonic's last been that present in popular culture, and I think I only fully realized that fact upon seeing the new [McDonald's toys](https://www.sonicstadium.org/2022/03/more-mcdonalds-sonic-2-happy-meal-toys-leaked/) planned for the movie.  
 
-While ol McD's and Sonic have had a [long](https://www.sonicstadium.org/2019/02/how-mcdonalds-couldnt-keep-up-with-the-worlds-fastest-hedgehog/) and [fruitful](https://www.sonicstadium.org/2006/01/uk-mcdonalds-sonic-x-happy-meal-promotion-begins/) [relationship](http://info.sonicretro.org/Yuji_Naka_interview_by_Sega.com_(June_14,_2003)), there hasn't been a line of Sonic toys released since I was a kid all hyped up for the then-upcoming Sonic X and the Shadow spinoff. <sub>Blissful years</sub>  
+While ol' McD's and Sonic have had a [long](https://www.sonicstadium.org/2019/02/how-mcdonalds-couldnt-keep-up-with-the-worlds-fastest-hedgehog/) and [fruitful](https://www.sonicstadium.org/2006/01/uk-mcdonalds-sonic-x-happy-meal-promotion-begins/) [relationship](http://info.sonicretro.org/Yuji_Naka_interview_by_Sega.com_(June_14,_2003)), there hasn't been a line of Sonic toys released since I was a kid all hyped up for the then-upcoming Sonic X and the Shadow spinoff. <sub>Blissful years</sub>  
 
 Thinking that a brand new generation of kids will fall prey to Hedgehog fandom makes me feel slightly older, but it mostly motivated me to take out my old collection of [Sonic McDonald's LCD games.](http://info.sonicretro.org/McDonald%27s_Sonic_LCD_games)  
 
@@ -35,7 +35,7 @@ The simulator currently features dynamic view switching (so you can look at all 
 
 ![It does look nice tho]({static}/images/lcdonald/alpha2.jpg)  
 
-I'd ideally like to have most of the games simulated in a second alpha for SAGE!  
+I'd ideally like to have most of the games simulated in a beta for [SAGE](https://twitter.com/SAGExpo/status/1513547421812363266?s=20&t=cxa2H5mMauV4-_UCdRy5NA)!  
 We'll see how that goes.  
 
 If you'd like to help out by digitizing some games(my scanner isn't the best) or even coding a simulator, you can keep reading for some tech details. 
