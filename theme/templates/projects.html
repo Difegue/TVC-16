@@ -3,59 +3,76 @@
 {% block title %}{{ SITENAME }} - Projects{% endblock %}
 
 {% block content %}
-    <a class="containerBox" style="margin-right:60px">
-          <img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/img/button2.svg" class="img-responsive">
-          <div class="text-box pink-button">
-            <span class=" button-text pink-shadow">Projects</span>
-          </div>
-    </a>
-    <br/> I have a few personal software development projects, some active, some dead as a doornail.
-        <br/>You'll find the bigger ones down below.
-        <br/>
-        <br/>Source code for all of those can be found on my
-        <a href="https://github.com/Difegue">Github.</a>
+<a class="containerBox" style="margin-right:60px">
+  <img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/img/button2.svg" class="img-responsive">
+  <div class="text-box pink-button">
+    <span class=" button-text pink-shadow">Projects</span>
+  </div>
+</a>
+<br /> I have a few personal software development projects, some active, some dead as a doornail.
+<br />You'll find the bigger ones down below.
+<br />
+<br />Source code for all of those can be found on my
+<a href="https://github.com/Difegue">Github.</a>
 
-        <br/>
-        <br/>
-        <br/>
+<br />
+<br />
+<br />
 
-        <div class="project-list">
+<div class="project-list">
 
-          <div>
-            <a href="https://lrr.tvc-16.science/">
-              <img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/img/lrr.png" style="float:left; margin-right:10px; width: 80px" /> LANraragi
-            </a> is a web manager for manga/doujinshi archives, with a built-in reader and namespace/tag support.
-            <br/> It's built using Perl and the excellent Mojolicious Framework.
-          </div>
+  <div>
+    <a href="https://lrr.tvc-16.science/">
+      <img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/img/lrr.png" style="float:left; margin-right:10px; width: 80px" />
+      LANraragi
+    </a> is a web manager for manga/doujinshi archives, with a built-in reader and namespace/tag support.
+    <br /> It's built using Perl and the excellent Mojolicious Framework.
+  </div>
 
-          <br/>
-          <br/>
-          <br/>
+  <br />
+  <br />
+  <br />
 
-          <a href="https://diy.tvc-16.science/">
-            <img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/img/dsoft.png" style="float:right; margin-left:10px; width: 80px" /> DoujinSoft
-          </a> is a browseable archive for content made for the 2010 Nintendo DS game WarioWare DIY.
-          <br/> It's built in Java, leveraging the reverse-engineering efforts made on the game.
+  <a href="https://diy.tvc-16.science/">
+    <img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/img/dsoft.png" style="float:right; margin-left:10px; width: 80px" />
+    DoujinSoft
+  </a> is a browseable archive for content made for the 2010 Nintendo DS game WarioWare DIY.
+  <br /> It's built in Java, leveraging the reverse-engineering efforts made on the game.
 
-          <br/>
-          <br/>
-          <br/>
+  <br />
+  <br />
+  <br />
 
-          <a href="https://www.microsoft.com/store/apps/9NBLGGH50ZLR">
-            <img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/img/rsslt.png" style="float:left; margin-left:-10px;  width: 96px" /> RSS Live Tiles
-          </a> is a Windows 10 application made for displaying entirely customizable content in Start Menu
-          Live Tiles, using RSS feeds as data sources.
-          <br/> 
+  <a href="https://www.microsoft.com/store/apps/9NBLGGH50ZLR">
+    <img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/img/rsslt.png" style="float:left; margin-left:-10px;  width: 96px" />
+    RSS Live Tiles
+  </a> is a Windows 10 application made for displaying entirely customizable content in Start Menu
+  Live Tiles, using RSS feeds as data sources.
+  <br />
 
-          <br/>
-          <br/>
-          <br/>
+  <br />
+  <br />
+  <br />
 
-          <a href="https://www.microsoft.com/store/apps/9NCB693428T8">
-            <img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/img/stylophone.png" style="float:right; margin-left:10px; width: 80px" /> Stylophone
-          </a> is a Music Player Daemon client for Windows 10 and 11, built on WinUI 2.6 and inspired by modern design trends. 
-          You can read a more detailed article about it <a href="{{ SITEURL }}/stylophone-2.html">here.</a>
-          <br/> 
+  <a href="https://www.microsoft.com/store/apps/9NCB693428T8">
+    <img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/img/stylophone.png"
+      style="float:right; margin-left:10px; width: 80px" /> Stylophone
+  </a> is a Music Player Daemon client for Windows 10 and 11, built on WinUI 2.6 and inspired by modern design trends.
+  You can read a more detailed article about it <a href="{{ SITEURL }}/stylophone-2.html">here.</a>
+  <br />
 
-        </div>
+  <br />
+  <br />
+  <br />
+
+  <a href="https://sonicfangameshq.com/forums/showcase/sonic-mcorigins.1352/">
+    <img src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/img/mcd.png" style="float:left; margin-right:10px;  width: 96px" />
+    LCDonald
+  </a> is a .NET-based simulator engine for re-creating LCD handheld games, with a Desktop app frontend written using
+  Avalonia.
+  <br /> It was notably used to digitize the McDonald's Sonic tie-in games released from 2003 to 2005.
+  You can read a more detailed article about it <a href="{{ SITEURL }}/mcorigins.html">here.</a>
+  <br />
+
+</div>
 {% endblock %}
