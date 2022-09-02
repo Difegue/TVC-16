@@ -1,5 +1,5 @@
 Title: Sonic McOrigins available at SAGE 2022!
-Date: 2022-08-22 00:00  
+Date: 2022-09-02 00:00  
 Category: Software  
 Tags: sonic, mcdonalds, c#, avalonia, .net, lcd, game&watch, games, simulator
 Slug: mcorigins
@@ -18,7 +18,7 @@ I've digitized my entire collection, and found time to even get some extra ones 
 
 ### You can now go grab the SAGE build at the matching [booth](https://sonicfangameshq.com/forums/showcase/sonic-mcorigins.1352/), for Windows, macOS, and Linux!  
 
-While I've already talked about the tech stack in the [previous blogpost](./lcdonald), here are a few extra words about the actual digitizing process, and other fun things I got to do along the way.  
+While I've already talked about the tech stack in the [previous blogpost](./lcdonald.html), here are a few extra words about the actual digitizing process, and other fun things I got to do along the way.  
 So read on! (Or go have fun with the games and then read on, I'll be waiting)  
 
 # Digitizing them LCD Games (⚠️ jank warning)
