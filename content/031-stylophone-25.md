@@ -16,7 +16,7 @@ It looks quite similar to the Windows version, doesn't it?
 Version 2.5 is now available on both the _Microsoft Store_ for the UWP version, and the _App Store_ for your iDevices.  
 (And of course, still open source on [GitHub](https://github.com/Difegue/Stylophone/releases/tag/2.5.4)!)
 
-[<img src="https://getbadgecdn.azureedge.net/images/en-us%20dark.svg" width="200"/>](https://www.microsoft.com/store/apps/9NCB693428T8?cid=storebadge&ocid=badge) [<img src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg" width="216"/>](https://apps.apple.com/us/app/stylophone/id1570000000)
+[<img src="https://getbadgecdn.azureedge.net/images/en-us%20dark.svg" width="200"/>](https://www.microsoft.com/store/apps/9NCB693428T8?cid=storebadge&ocid=badge) [<img src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg" width="216"/>](https://apps.apple.com/us/app/stylophone/id1644672889?itsct=apps_box_link&itscg=30200)
 
 Thanks to a common .NET core codebase, both versions are **near-identical** as far as features go.  
 <sub>(iOS is missing Queue reordering! That'll come in time.)</sub>  
