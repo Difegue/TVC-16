@@ -7,7 +7,7 @@ Authors: Difegue
 HeroImage: images/lcdonald/mcorigins_hero.jpg  
 Summary: heh get it it's like sonic origins but for fast food games god that's hilarious 
 
-Well, it's been 4 months since work started on that [LCD simulator engine](./lcdonald), and what's been done since then?  
+Well, it's been 4 months since work started on that [LCD simulator engine](./lcdonald.html), and what's been done since then?  
 
 ## 17 games! 
 
