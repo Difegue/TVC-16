@@ -51,6 +51,7 @@ You can disable those if you want. <sub><sup>And yes you can play them in the we
 Flagging NSFW content in the database is an ongoing work, so if you find some unblurred stuff make sure to let me know!  
 
 The collection minigame player is limited to the prebuild collections for now, but I hope to _eventually_ add a feature to allow people to craft their own collections/playlists and share them via QR codes or similar.  
+Maybe I'll put up a _Halloween microgame playlist_ for people to enjoy? Let me know if you have any spooky games you like. 
 
 **[Hacktoberfest](https://hacktoberfest.com/) has just started**, so if you want to contribute to the DoujinSoft experience **yourself**, I'll gladly accept any help, and you can get a shirt out of it! <sub><sup>Please!</sub></sup>  
 
