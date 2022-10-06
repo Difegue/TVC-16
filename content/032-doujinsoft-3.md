@@ -4,7 +4,7 @@ Category: Software
 Tags: nintendo, wii, wiiconnect24, riiconnect24, warioware, doujinsoft, mio
 Slug: doujinsoft-3
 Authors: Difegue
-HeroImage: images/doujinsoft/diy_hero.jpg
+HeroImage: images/doujinsoft/diy-hero.jpg
 Summary: Freeing DIY from the shackles of Nintendo hardware...almost.
 
 [The DoujinSoft Store](https://diy.tvc-16.science/) is 5 already! It still stands as the last thing I [wrote in Java](/doujinsoft-2.html) and I wasn't expecting it to hold that long ¯\\\_(ツ)_/¯  
