@@ -9,6 +9,7 @@ Summary: Freeing DIY from the shackles of Nintendo hardware...almost.
 
 [The DoujinSoft Store](https://diy.tvc-16.science/) is 5 already! It still stands as the last thing I [wrote in Java](/doujinsoft-2.html) and I wasn't expecting it to hold that long ¯\\\_(ツ)_/¯  
 
+It still receives new content fairly often - Thanks to everyone who contributes!  
 To celebrate the occasion <sup>(not really it's just lining up nicely)</sup>, the store has been given a fresh coat of paint... alongside some new mysterious buttons?  
 
 ![what could this play button possibly do?](/images/doujinsoft/playbtn.jpg)  
@@ -58,4 +59,4 @@ Maybe I'll put up a _Halloween microgame playlist_ for people to enjoy? Let me k
 Apart from that uhhhh  
 ### Some General system stability improvements have been made to enhance the user's experience.  
 
-Please enjoy!
+[Please enjoy!](https://diy.tvc-16.science/)  
