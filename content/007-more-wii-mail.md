@@ -4,12 +4,12 @@ Category: Software
 Tags: nintendo, wii, wiiconnect24, riiconnect24, mail, mii
 Slug: more-wii-mail
 Authors: Difegue
-HeroImage: images/fanmail.jpg
+HeroImage: images/doujinsoft/fanmail.jpg
 Summary: Exploring a few more weird usages of Wii Mail.
 
 After launching [RiiConnect24 integration for DoujinSoft](./doujinsoft-2.html) last month, I started receiving **tons** of mail from Wii consoles over the world using the service. Some of it intended, some not at all!  
 
-![some fanmail](images/fanmail.jpg)
+![some fanmail](images/doujinsoft/fanmail.jpg)
 
 In order to better handle messages that don't map to what I've described in my [previous breakdown](./doujinsoft-rc24.html), I have set up DoujinSoft to automatically forward them to my own Wii. This is a quick fly-by of the most interesting messages I've encountered.  
 
@@ -61,7 +61,7 @@ The title of the game/manga/comic takes 25 bytes, followed by a byte for the typ
 Since all the info you get about the initial item is its name and type, that makes it rather hard to map back to DoujinSoft's database -- There are a **ton** of games named _Wario Quest_, for example.  
 For the time being, I'm just storing and showing survey data [as is](https://diy.tvc-16.science/surveys) in DoujinSoft.  
 
-![surveyin on the information superhighway](/images/survey-dsoft.png)  
+![surveyin on the information superhighway](/images/doujinsoft/survey-dsoft.png)  
 
 # Mii Parade
 
