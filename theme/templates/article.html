@@ -70,6 +70,12 @@
         {% endfor %}
     </div>
     {% endif %}
+    {% if article.summary %} 
+    <div class="summary">
+        > {{ article.summary }}
+    </div>
+    {% endif %}
+   
   </footer><!-- /.post-info -->
   <div class="entry-content">
     {{ article.content }}

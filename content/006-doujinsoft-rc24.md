@@ -4,7 +4,7 @@ Category: Software
 Tags: java, nintendo, wii, wiiconnect24, riiconnect24, warioware, doujinsoft, mio
 Slug: doujinsoft-rc24
 Authors: Difegue
-HeroImage: images/rc24.png
+HeroImage: images/doujinsoft/rc24.png
 Summary: Exploiting old Nintendo APIs for fun and profit.
 
 I've recently dug out the old DoujinSoft codebase to [interop with RiiConnect24](/doujinsoft-2.html).  
@@ -173,7 +173,7 @@ The Game/Record/Comic itself is just added as an attachment to the mail. It's co
 Past that, it's base64-encoded, as specified in the mail's Content-Transfer-Encoding header. (base64 encoding is a classic when doing stuff with WC24)  
 
 Once again, doing this from DoujinSoft is as easy as sending mail over to the Wii console.  
-![gotem](/images/dj_result.jpg)  
+![gotem](/images/doujinsoft/dj_result.jpg)  
 Man, that was a bit too easy in hindsight, wasn't it? Let's push this a bit further.  
 
 ## 🎁 Bonus Round: Custom Wii Message Board letters 🎁
@@ -224,13 +224,13 @@ I've cut the actual data here as this stuff is getting **real damn long**, but I
 * Yet another `X-Wii-AppId/X-Wii-Cmd` combo: At this point I'll admit I have no idea what this one does and just wholelifted it from messages sent by the Wii.  
 * `X-Wii-AltName` allows you to show a name of your choice on the envelope instead of the name the Wii gave your friend number; Useful for us as DoujinSoft is a _household name_, god dang it!
 * `X-WiiFace` is a base64 encoded Mii, that appears on the upper-left side of the envelope. This works for regular and custom envelopes without a hitch: In fact the Wii gives exactly **zero fucks** what your custom graphics are and will draw on top of it relentlessly.  
-![lookin cool](images/wiimb_glitch.jpg)
+![lookin cool](images/doujinsoft/wiimb_glitch.jpg)
 * `X-Wii-MB-NoReply` disables the "Reply" button for this message.
 * And the final piece, the custom stationery, is stored as an attachment with Content-Type `x-wii-msgboard`. The graphics themselves are wrapped in a [U8 archive](http://wiibrew.org/wiki/U8_archive)(crazy how many file formats you only ever encounter when dealing with Nintendo stuff), and base64-encoded as per the norm.  
 
 The result looks like this!  
-![letter](/images/wiimb_custom1.jpg)  
-![stationery](/images/wiimb_custom2.jpg)  
+![letter](/images/doujinsoft/wiimb_custom1.jpg)  
+![stationery](/images/doujinsoft/wiimb_custom2.jpg)  
 
 Really gives us that fun, almost-official flair.  
 
