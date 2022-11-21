@@ -5,7 +5,7 @@ Tags: pebble, rebble, watchface, apple, hackathon
 Slug: pebble-copland
 Authors: Difegue
 HeroImage: images/copland-watchface.png
-Summary: "In 2008, PC World included Copland on a list of the biggest project failures in information technology history."
+Summary: In 2008, PC World included Copland on a list of the biggest project failures in information technology history.
 
 The [Rebble Hackathon #001](https://rebble.io/hackathon-001/) happened this weekend, so it was a nice opportunity to finally dig into the [Pebble SDK](https://developer.rebble.io/developer.pebble.com/index.html) and try and make something for my favorite dead smartwatch.  
 
