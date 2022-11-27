@@ -1,4 +1,4 @@
-Title: Running cool-retro-term in Windows through WSL
+Title: Running cool-retro-term in Windows through WSL1
 Date: 2019-04-21 20:00
 Category: Cool Tricks
 Tags: wsl, cool-retro-term, xming, terminal
@@ -6,6 +6,11 @@ Slug: cool-retro-term-wsl
 Authors: Difegue
 HeroImage: images/crt-win.jpg
 Summary: Javascript terminal emulators have nothing on this.
+
+# 2022 Update 
+
+Check [this article](./cool-retro-term-wsl2) for updated and much simpler instructions using WSL2+WSLg. 🥳  
+Or you can keep reading below if you're stuck with WSL1 for some reason.  
 
 I often work with Linux environments through SSH on my Windows machine. As most people who use the command line on a semi-regular basis, I like looking at available alternatives/customizations to the stock terminal emulator.  
 
