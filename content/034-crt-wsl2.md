@@ -7,7 +7,7 @@ Authors: Difegue
 HeroImage: images/crt-win.jpg
 Summary: Javascript terminal emulators *still* have nothing on this. 
 
-The original [cool-retro-term on WSL](./cool-retro-term-wsl) blogpost is still one of the most-viewed ones on this website for some reason, but it's gotten quite a bit out of date now that WSL ships with a built-in X server. <sup>well achctually it's not X, wslg uses [wayland](https://devblogs.microsoft.com/commandline/wslg-architecture/) with Xwayland etc etc whatever</sup>  
+The original [cool-retro-term on WSL](./cool-retro-term-wsl.html) blogpost is still one of the most-viewed ones on this website for some reason, but it's gotten quite a bit out of date now that WSL ships with a built-in X server. <sup>well achctually it's not X, wslg uses [wayland](https://devblogs.microsoft.com/commandline/wslg-architecture/) with Xwayland etc etc whatever</sup>  
 
 WSLg + WSL2 was limited to Windows 11 for quite a while, but that [very recently](https://devblogs.microsoft.com/commandline/the-windows-subsystem-for-linux-in-the-microsoft-store-is-now-generally-available-on-windows-10-and-11/) changed, so I feel it's a nice time to re-try the whole cool-retro-term in Windows experience. Let's get rolling!  
 
@@ -48,7 +48,7 @@ If you get an error like `QXcbConnection: Could not connect to display`, it's li
 I recommend first trying a full restart of the WSL VM using `wsl.exe --shutdown` in a PowerShell window.  
 If that doesn't help, you might have some luck following the instructions [here.](https://github.com/microsoft/wslg/wiki/Diagnosing-%22cannot-open-display%22-type-issues-with-WSLg)  
 
-WSL2+WSLg fixes essentially all the [caveats](./cool-retro-term-wsl#caveats) from the previous article, so you now have GPU acceleration, working copy-paste, all the bells and whistles. 🎊  
+WSL2+WSLg fixes essentially all the [caveats](./cool-retro-term-wsl.html#caveats) from the previous article, so you now have GPU acceleration, working copy-paste, all the bells and whistles. 🎊  
 My only gripe with WSLg is that it tries its best to apply Windows DPI settings but [doesn't always succeed](https://github.com/microsoft/wslg/issues/3), so if you're running at high DPI, you might have to tweak the CRT settings a bit to have it look nice for you.  
 
 # Using apt instead of the AppImage  
