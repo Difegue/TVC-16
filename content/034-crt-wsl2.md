@@ -4,7 +4,7 @@ Category: Cool Tricks
 Tags: wsl, cool-retro-term, wslg, terminal
 Slug: cool-retro-term-wsl2
 Authors: Difegue
-HeroImage: images/crt-win.jpg
+HeroImage: images/crt-wsl2.jpg
 Summary: Javascript terminal emulators *still* have nothing on this. 
 
 The original [cool-retro-term on WSL](./cool-retro-term-wsl.html) blogpost is still one of the most-viewed ones on this website for some reason, but it's gotten quite a bit out of date now that WSL ships with a built-in X server. <sup>well achctually it's not X, wslg uses [wayland](https://devblogs.microsoft.com/commandline/wslg-architecture/) with Xwayland etc etc whatever</sup>  
