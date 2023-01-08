@@ -62,7 +62,9 @@ Except that the window autocloses as soon as you click outside it, so it's basic
 Each space can have a dedicated **theme**, which is a set of up to three accent colors you can choose. Although you can only really choose the primary colors, as the browser will "derive" the others for you so that the interface remains nice.  
 <sub>no hot dog stand...</sub>  
 
-I didn't take a screenshot of it (ha), but the **screenshot** tool can always be quickly reached from the address bar, and it is _surprisingly_ powerful -- You can select DOM regions like on other browsers, but after that there's also some basic editing tools.  
+The browser comes with uBlock Origin pre-installed as an adblocker, and comes with a "Boost" feature that's basically Stylish+Greasemonkey, allowing you to give any website custom CSS/JS. It's pretty good! The split view also makes working on custom styles and scripts a pleasant experience.
+
+I didn't take a screenshot of it (ha), but the **screenshot** tool can always be quickly reached from the address bar, and it is _surprisingly_ powerful -- You can select DOM regions like other browsers, but there's also some basic editing tools on top of it.  
 It ties into the "Easel" feature, which is some kind of collaborative whiteboard thing? This isn't really the kind of thing I'd do in a web browser, but it's there if you want it<sup id="ref-4">[#](#note-4)</sup>. 
 
 ![](images/arc/arc_easel.jpg)  
