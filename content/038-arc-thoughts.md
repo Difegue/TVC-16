@@ -41,7 +41,7 @@ As far as Tab organization itself goes, you've got folders, which give you one l
 
 Spaces end up at the bottom of the sidebar with the icon/emoji you give them, and each space has its own set of tabs and folders. If you want, you can give a space a different **profile**, which is basically a separate cookie/data storage like what Firefox Containers do.  
 
-This is quite powerful for Home/Work separation and other stuff like per-project tab bundles - But once you're on a space proper you'll still notice that the tab interface can't really hold a lot of tabs (even with folders), which is a deliberate choice.
+This is quite powerful for Home/Work separation and other stuff like per-project tab bundles - But once you're on a space proper you'll still notice that the tab interface can't really hold a lot of tabs (even with folders), which is very much a deliberate choice by the browser.
 
 # Split View 
 
