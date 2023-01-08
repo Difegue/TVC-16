@@ -5,7 +5,7 @@ Tags: macos, apple, internet browsers, startup stuff
 Slug: arc-thoughts
 Authors: Difegue  
 HeroImage: images/arc/arc_4.jpg
-Summary: Isn't "The Browser Company" kind of a pretentious name?
+Summary: Isn't 'The Browser Company' kind of a pretentious name?
 
 Remember when the Internet Explorer browser engine was the most ubiquitous thing because it was forcibly integrated into Windows and everyone could use it?  
 Heck, you could even make _your_ own web browser by just slapping some Win32 controls on top of a webview, look at this old Winforms app someone made eons ago and that I kept in my "old stuff" folder for some reason:    
