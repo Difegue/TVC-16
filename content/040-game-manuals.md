@@ -29,11 +29,11 @@ Of course not.
 
 Most emulator re-releases usually pack in a barebones e-manual with the bare minimum to get you started.  
 No map, no illustrations, almost no flavor text.  
-And in some cases you don't even **get** a manual anymore! Good luck finishing [StarTropics](https://www.reddit.com/r/NintendoSwitch/comments/b1qxg2/psa_the_nintendo_switch_online_version_of/) now<sup id="ref-4">[#](#note-4)</sup>.  
+And in some cases you don't even **get** a manual anymore! Good luck finishing [StarTropics](https://www.reddit.com/r/NintendoSwitch/comments/b1qxg2/psa_the_nintendo_switch_online_version_of/) now.  
 ![A screenshot of the electronic manual for StarTropics on Wii U.](images/games/elec-manual.png)  
 It feels like an absolute waste for companies to not try and give the best experience possible to new players possibly going through these games for the first time. Of course it's easy to understand why:  
 
-- It's probably more expensive to find and scan an old manual than the entire cost of just chucking a ROM on the Store and making people pay $10 for it (unless you're [Nintendo](https://en-americas-support.nintendo.com/app/answers/detail/a_id/16890/~/wii-manuals) and actually keep the originals)  
+- It's probably more expensive<sup id="ref-4">[#](#note-4)</sup> to find and scan an old manual than the entire cost of just chucking a ROM on the Store and making people pay $10 for it  
 - For third-parties, you'd likely have to scrub the manual out of all information related to the console publisher, kinda like what WayForward did with the [Shantae](https://www.youtube.com/watch?v=eZRzaGFWoz8) rerelease for Switch by removing mentions to Nintendo and Capcom from the game.  
 
 So when it comes to video game preservation, are we stuck in a hell of _capitalist mediocrity_  where our only salvation is unofficial efforts<sup id="ref-5">[##](#note-5)</sup> by the common folk?  
@@ -51,7 +51,7 @@ And give it a nice pagefilp animation, like what Tunic does, and what iOS used t
 <sup id="note-1">[\*](#ref-1) I pay for my Game Pass with Microsoft Rewards points only -- Since all search engines resell your data, might as well get some of it back 💰</sup>  
 <sup id="note-2">[\*\*](#ref-2) with copious amounts of tutorials in some cases i'm looking at you sonic frontiers</sup>  
 <sup id="note-3">[\*\*\*](#ref-3) Sony actually does include Meryl's frequency in the virtual manual for MGS1 on PSN, but just like Startropics it's pretty much devoid of everything else... </sup>  
-<sup id="note-4">[#](#ref-4) In a funny turn of events, there's a help page on Nintendo's website about this, with a link pointing to... [the Wii U version](https://www.nintendo.co.jp/clv/manuals/en/pdf/CLV-P-NAAZE_en.pdf) of the electronic manual for StarTropics. </sup>  
+<sup id="note-4">[#](#ref-4) Nintendo actually provides the [original PDFs](https://en-americas-support.nintendo.com/app/answers/detail/a_id/16881/~/downloadable-manuals) for some manuals all the way back to the NDS, so it's likely they do have most of their manuals stashed in their secret mario vault. </sup>  
 <sup id="note-5">[##](#ref-5) While not manual-related, [EmuVR](https://www.emuvr.net/) allows you to see cartridge/game disc art for your ROMs in VR, which I find really cool. </sup>  
 <sup id="note-6">[###](#ref-6) Did you know Pokémon Snap on the Wii Virtual Console has a feature to [copy your Pokémon photos](https://www.serebii.net/snap/virtualconsole.shtml) to the Wii Message Board? Or that SMB3 GBA comes with all the e-Reader bonus levels unlocked? </sup>  
 
