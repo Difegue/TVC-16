@@ -1,7 +1,7 @@
 Title: January-February videogame grab bag
 Date: 2023-2-19 00:00  
 Category: Blogposting  
-Tags: video games, game pass, unreal, pizza tower, signalis, paradise killer, digital exorcist, soundtracks
+Tags: video games, game pass, unreal, pizza tower, signalis, paradise killer, digital exorcist, faux-OS, soundtracks
 Slug: games-february
 Authors: Difegue  
 HeroImage: images/games/paradise-2.jpg  
@@ -41,7 +41,7 @@ We got that nice Windows 3.1 aesthetic with touches of 95, _good shit_!
 # Digital Exorcist
 
 A short Snatcher-inspired game on [itch.io.](https://coolbeansproductions.itch.io/digital-exorcist)  
-![](images/games/digital_exorcist.jpg)  
+![A screenshot of Digital Exorcist where the protag talks about SanctuariOS, "the holiest operating system"](images/games/digital_exorcist.jpg)  
 <sub><sup>TERRY DAVIS LIVES</sub></sup>  
 
 I liked it a lot!  
