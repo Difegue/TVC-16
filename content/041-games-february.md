@@ -1,14 +1,14 @@
-Title: What I've been playing in January-February
+Title: January-February videogame grab bag
 Date: 2023-2-19 00:00  
 Category: Blogposting  
-Tags: video games, game pass, unreal, soundtracks
+Tags: video games, game pass, unreal, pizza tower, signalis, paradise killer, digital exorcist, soundtracks
 Slug: games-february
 Authors: Difegue  
 HeroImage: images/games/paradise-2.jpg  
 Summary: if the pizza tower soundtrack doesn't end up pressed on pizza-colored vinyl records i will be sorely disappointed
 
 Hey, here's that vidya james post I wanted to write before going off on a tangent about [manuals!](./game-manuals.html)  
-I had it kinda shelved, but the wacky woohoo pizza game got me good, so let's get to it:  
+I had it kinda shelved, but the wacky woohoo pizza game got me wanting to write again, so let's get to it:  
 
 # Paradise Killer
 
