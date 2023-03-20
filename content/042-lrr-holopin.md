@@ -13,9 +13,7 @@ We finally have ComicInfo.xml support now! Alongside a few other nice improvemen
 
 It's uncommon for me to get that many PRs... The LRR [free sticker promo](https://github.com/Difegue/LANraragi#make-a-pr-get-stickers) has been a thing for a long time now, but most contributors don't take advantage of it.  
 Since my sticker designs are objectively the coolest<sup id="ref-1">[*](#note-1)</sup>, it can only be because people are too kind and don't want me to pay for all that postage! Such acts of kindness go straight to my kokoro...  
-
 ![A picture of the "LRR USER" badge on Holopin](images/holopin/pin_camel.png)  
-
 But I'd still like to thank/reward contributors if I can help it, so to get rid of any physical-related troubles, we're going full metaverse 'n shit with [Holopin](https://www.holopin.io/)! Wow! 
 
 You can now get LANraragi stickers in virtual format and stick them on your GitHub profile...or everywhere! I'm just going to paste my badge board _here_ and you can't stop me from doing it<sup id="ref-2">[**](#note-2)</sup>:  
@@ -25,14 +23,10 @@ You can now get LANraragi stickers in virtual format and stick them on your GitH
 While I don't actually want to turn my GH profile into social media, I do find the concept of a universal badge board for developers amusing, in the same way game achievements can be.  
 
 The fact I can use a bunch of previous graphic assets I made and write all sorts of nonsense in the descriptions also helps! My gold standard is TF2 item descriptions.     
-
 ![A picture of the "Burger Time" LRR badge on Holopin - yes this is a yuji naka reference](images/holopin/pin_burg.png)  
-
 Stickers and other "swag" incentives ala Hacktoberfest are nice, but don't really feel very fun/indie anymore with all the corporation sponsorships going on in those.  
 There are currently five LRR-related badges you can get as a Holopin user, either by snooping around a bit or by actively contributing to the LRR repository. I hope you'll consider giving [it a look!](https://www.holopin.io/@lanraragi)  
-
 ![A picture of the "DoujinSoft Truck" badge on Holopin](images/holopin/pin_truck.png)  
-
 Now that I'm swimming in PRs thanks to those pngs, I can go back to working on personal [passion projects](https://github.com/Difegue/LCDonald) that truly speak to my tamashii<sup id="ref-3">[***](#note-3)</sup>:  
 ![A picture of Sonic McOrigins running on Android/Surface Duo, featuring the elusive...Shadow Basketball](images/lcdonald/android.jpg)  
 yes ha ha ha **YES**  
