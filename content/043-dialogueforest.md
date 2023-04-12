@@ -4,7 +4,7 @@ Category: Software
 Tags: dotnet, c#, gamedev, winui, windows, windows 11, winappsdk, outliner, dialogueforest
 Slug: dialogueforest
 Authors: Difegue  
-HeroImage: images/dialogueforest/screenshot.png 
+HeroImage: images/dialogueforest/hero.jpg 
 Summary: An opinionated Dialogue Writing tool for Games. 
 
 Here's a new _certified dfugdrop_™️! Let's not talk about how I left it dead for [more than a year.](https://twitter.com/Difegue/status/1488666105115824132)  
