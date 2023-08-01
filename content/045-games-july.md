@@ -4,7 +4,7 @@ Category: Blogposting
 Tags: video games, game pass, playdate, quake 2, hrot, SLAYERS X TERMINAL REVERGEANSE, endless monday, soundtracks
 Slug: games-july
 Authors: Difegue  
-HeroImage: images/games/playdate-1.gif  
+HeroImage: images/games/slayers-1.jpg  
 Summary: you could say I haven't _cranked_ one of those out in a while.
 
 ...wow I totally meant to make more than [one of those](./games-february.html) in the last 5 months but didn't get to it  
@@ -47,7 +47,9 @@ Full-on downgrade compared to Quake 1 holy hell
 Environments are worse, enemy design is boring, weapons are serviceable but that's it, and you can't break it in half by rocket/grenade launching 0/10  
 ![rtx tim willits is not real he cannot hurt you](images/games/q2.jpg)  
 I played the RTX port by toggling between the OpenGL and RTX renderers to see the differences.  
-You could argue the RTX version breaks the mood of the game but it's not like it has much to begin with..Here are [some RTX off/on comparisons](./quake-rtx.html) if you're interested.  
+You could argue the RTX version breaks the mood of the game but it's not like it has much to begin with..  
+Here are [some RTX off/on comparisons](./quake-rtx.html) if you're interested.  
+
 My personal favorite has to be the nvidia logo slap-dashed in that one area you can rocketjump over to find a secret:  
 ![nooo not the overpriced graphics card empire](images/games/q2-3-on.jpg)  
 I like the attempt at making interconnected maps with objectives that require you to move back and forth, but it's not really exploited all that well until the final level, which feels a bit more like an actual dungeon.  
@@ -86,4 +88,4 @@ It's also a **dynamic** soundtrack with combat/stress/relaxed layers for some re
 <sup id="note-3">[\*\*\*](#ref-3) I've thought the Playdate should have a Hudson [Shooting Watch](https://www.ign.com/wikis/hudson-shooting-watch/)-inspired app due to the color scheme, and browsing the Catalog, someone apparently [had the same idea.](https://play.date/games/mash-gadget/) There's also a [fake OS game](https://play.date/games/stars-of-the-screen/) oh my god </sup>  
 <sup id="note-4">[#](#ref-4) The web version of the song has occasional advertisement cutoffs like a real store -- Except they're selling you other Panic software like [Nova](https://nova.app/) and [Transmit](https://panic.com/transmit/). I can't hate it, but it is a bit distracting... </sup>  
 <sup id="note-5">[##](#ref-5) I don't like saying AI as those machine learning algorithms are anything but intelligent, but that's what everyone is running with these days..</sup>  
-<sup id="note-6">[###](#ref-6) There's a whole level about beating up giant newts as a reference to [this old czech book.](https://en.wikipedia.org/wiki/War_with_the_Newts) I should read it.</sup>  
+<sup id="note-6">[###](#ref-6) There's a whole level about beating up giant newts as a reference to [this old czech book.](https://en.wikipedia.org/wiki/War_with_the_Newts) I should read it!</sup>  
