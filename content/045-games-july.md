@@ -71,7 +71,7 @@ It's still a good time though!
 
 Capping off with another FPS, spinoff of the excellent _Hypnospace Outlaw_.  
 ![this image weighs...420 kilobytes. woah.......](images/games/slayers-2.jpg)  
-This one doesn't have as much fake operating system-ness, but it delivers in spades in being a magnificent shitpost homage to early 2000's culture.  
+Now, it doesn't have as much fake operating system-ness as _Outlaw_, but it delivers in spades in being a magnificent shitpost homage to early 2000's culture.  
 
 The game...looks bad, but only when it *wants to* -- There's real design and care here, and it walks that tightrope all the way to the end.  
 There's something to be said about kamehameha-ing (literal)shit monsters with your sick `hacker powers`, watching a cutscene with uncanny valley 3D rendering, then right afterwards finding a secret where the (fictional) single dad level designer put drawings by his three-year old in the map.       
