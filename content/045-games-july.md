@@ -1,7 +1,7 @@
 Title: March-July videogame grab bag
 Date: 2023-7-31 00:00  
 Category: Blogposting  
-Tags: video games, game pass, playdate, quake, hrot, SLAYERS X TERMINAL REVERGEANSE, endless monday, soundtracks
+Tags: video games, game pass, playdate, quake 2, hrot, SLAYERS X TERMINAL REVERGEANSE, endless monday, soundtracks
 Slug: games-july
 Authors: Difegue  
 HeroImage: images/games/playdate-1.gif  
