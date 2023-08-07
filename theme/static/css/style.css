@@ -237,6 +237,7 @@ table {
     }
 
     .footer-container,
+    .floatingchat-container-wrap,
     .floatingchat-container-wrap-mobi {
         z-index: 0 !important;
     }
