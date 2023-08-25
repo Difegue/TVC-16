@@ -7,6 +7,14 @@ Authors: Difegue
 HeroImage: images/lcdonald/alpha1.jpg  
 Summary: Yuji Naka: They probably eat McDonald's® hamburgers, I suppose? And I think they will get a complete line-up of Happy Meal® premiums. 
 
+# 2022 Update
+
+Check [here](./mcorigins.html) for the latest McOrigins-related post (and download links 🍟)
+
+Or keep reading below to follow the... McOrigins Origin Story??? I'm going to be updating this again soon so there'll probably be a list of articles at that point
+
+# 
+
 Happy Sonic 2 Movie release day!... Is what I'd say if I'd actually managed to publish this on April 8th.  
 It's been a while since Sonic's last been that present in popular culture, and I think I only fully realized that fact upon seeing the new [McDonald's toys](https://www.sonicstadium.org/2022/03/more-mcdonalds-sonic-2-happy-meal-toys-leaked/) planned for the movie.  
 
