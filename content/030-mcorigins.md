@@ -1,11 +1,21 @@
 Title: Sonic McOrigins available at SAGE 2022!
 Date: 2022-09-02 00:00  
 Category: Software  
-Tags: sonic, mcdonalds, c#, avalonia, .net, lcd, game&watch, games, simulator
+Tags: sonic, mcdonalds, c#, avalonia, .net, lcd, game&watch, video games, simulator, sage
 Slug: mcorigins
 Authors: Difegue  
 HeroImage: images/lcdonald/mcorigins_hero.jpg  
 Summary: heh get it it's like sonic origins but for fast food games god that's hilarious 
+
+# The Sonic McOrigins timeline
+
+- [Original announcement](./lcdonald.html)  
+- 2022 SAGE release (You are here)  
+- [2023 "Plus" SAGE release](./mcorigins-plus.html)
+
+Check [here](./mcorigins-plus.html) for the latest McOrigins-related post (and download links 🍟)  
+
+# 
 
 Well, it's been 4 months since work started on that [LCD simulator engine](./lcdonald.html), and what's been done since then?  
 

@@ -1,17 +1,19 @@
 Title: Introducing the McD's Sonic LCD Games Simulator
 Date: 2022-04-13 00:00  
 Category: Software  
-Tags: sonic, mcdonalds, c#, avalonia, .net, lcd, game&watch, games, simulator
+Tags: sonic, mcdonalds, c#, avalonia, .net, lcd, game&watch, video games, simulator
 Slug: lcdonald
 Authors: Difegue  
 HeroImage: images/lcdonald/alpha1.jpg  
 Summary: Yuji Naka: They probably eat McDonald's® hamburgers, I suppose? And I think they will get a complete line-up of Happy Meal® premiums. 
 
-# 2022 Update
+# The Sonic McOrigins timeline
 
-Check [here](./mcorigins.html) for the latest McOrigins-related post (and download links 🍟)
+- Original announcement (you are here)  
+- [2022 SAGE release](./mcorigins.html)  
+- [2023 "Plus" SAGE release](./mcorigins-plus.html)
 
-Or keep reading below to follow the... McOrigins Origin Story??? I'm going to be updating this again soon so there'll probably be a list of articles at that point
+Check [here](./mcorigins-plus.html) for the latest McOrigins-related post (and download links 🍟)  
 
 # 
 
