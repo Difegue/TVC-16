@@ -15,13 +15,13 @@ I'm anxiously excited to release _Funtography: A Gameboy Cameradventure_, an act
 ### Check it out at [SAGE 2023](https://sonicfangameshq.com/forums/showcase/funtography-a-gameboy-cameradventure.1861/)! ... Or [itch.io](https://difegue.itch.io/funtography-a-gameboy-cameradventure) if that's more your speed.  
 
 In this 2h-long <sub>_(1h if ur quick...)_</sub> adventure game, enjoy looking at **100+ Gameboy Camera pictures** as you explore various urban vistas to solve the mystery of a _missing video game prototype_.  
-![](./images/funtography/ft_final2.png)  
+![No vidcon at tubcon.](./images/funtography/ft_final2.png)  
 - Four endings!  
 - Built-in **developer commentary**!  
 - Unlockable soundtrack!  
 - **Bonus fake operating system!**  
 ### It's got it all!  
-![](./images/funtography/ft_final3.png)  
+![i touch on this in the commentary but it's crazy how fast everyone forgot about this olive oil coffee fiasco. hi /agdg/!](./images/funtography/ft_final3.png)  
 I hope you will consider taking a look at it in the midst of all the good-ass games releasing at SAGE.  
 # Backstory 
 
