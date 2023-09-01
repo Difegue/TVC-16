@@ -12,7 +12,9 @@ As mentioned in that [previous post](./total-internet-hyperdeath.html), the SAGE
 I'm anxiously excited to release _Funtography: A Gameboy Cameradventure_, an actual \*gulp* _original_ video game.  
 ![The SAGE trailer is a pretty cool wallpaper ngl - but you can change it if you want!](./images/funtography/ft2.png)  
 
-### Check it out at [SAGE 2023](https://sonicfangameshq.com/forums/showcase/funtography-a-gameboy-cameradventure.1861/)! ... Or [itch.io](https://difegue.itch.io/funtography-a-gameboy-cameradventure) if that's more your speed.  
+### Check it out at [SAGE 2023](https://sonicfangameshq.com/forums/showcase/funtography-a-gameboy-cameradventure.1861/)! ... Or itch.io if that's more your speed.  
+
+<iframe frameborder="0" src="https://itch.io/embed/2243430" width="552" height="167"><a href="https://difegue.itch.io/funtography-a-gameboy-cameradventure">Funtography: A Gameboy Cameradventure by dfug</a></iframe>
 
 In this 2h-long <sub>_(1h if ur quick...)_</sub> adventure game, enjoy looking at **100+ Gameboy Camera pictures** as you explore various urban vistas to solve the mystery of a _missing video game prototype_.  
 ![No vidcon at tubcon.](./images/funtography/ft_final2.png)  

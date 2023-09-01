@@ -13,8 +13,9 @@ Last year's [Sonic McOrigins](./mcorigins.html) release was quite loved and peop
 Most notably, it was missing a few games and manuals...  
 The internet's hunger<sup id="ref-1">[*](#note-1)</sup> for _Shadow Basketball_ could not be contained any longer.  
 ![Hero image for "Sonic McOrigins Plus", the v2 release of my LCD game simulator. The photo shows a Sonic-themed Happy Meal Box lying on its side with a lot of LCD games pouring out from it, including an Android phone running the simulator. The tagline at the bottom is styled like 2000s Happy Meal adverts and says "to be this good takes ages", alongside some era-appropriate OS logos for Win/Mac/Linux/Android. The sticker on the top left of the photo is the Sonic Boom "Inspired by the video games!" meme, which I totally didn't put there to hide my dodgy photoshop skills hahaha....](images/lcdonald/mcorigins_plus_hero.jpg)  
-So here it is!  
-### Sonic McOrigins Plus<sup id="ref-2">[**](#note-2)</sup> is now [available for download](https://sonicfangameshq.com/forums/showcase/sonic-mcorigins-plus.1602/) at SAGE 2023!  
+### Sonic McOrigins Plus<sup id="ref-2">[**](#note-2)</sup> is now [available for download](https://sonicfangameshq.com/forums/showcase/sonic-mcorigins-plus.1602/) at SAGE 2023!    
+And itch.io this time around as well.  
+<iframe frameborder="0" src="https://itch.io/embed/2243408?link_color=ed8a35" width="552" height="167"><a href="https://difegue.itch.io/sonic-mcorigins-plus">Sonic McOrigins Plus by dfug</a></iframe>
 
 Changes since the original release include:  
 
