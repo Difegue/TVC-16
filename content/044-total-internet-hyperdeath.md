@@ -1,6 +1,6 @@
 Title: Total Internet Hyperdeath
 Date: 2023-07-02 00:00  
-Category: Blogposting 
+Category: Gamedev 
 Tags: gamedev, faux-OS
 Slug: total-internet-hyperdeath
 Authors: Difegue  
