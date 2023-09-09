@@ -17,6 +17,9 @@ The reasoning behind this app is that I couldn't find a good tool to write mediu
 Most tools are based on node graphs, which very quickly become unmanageable<sup id="ref-2">[**](#note-2)</sup> if you're trying to write a lot of text.  
 
 ### Check it out on [itch.io!](https://difegue.itch.io/dialogueforest)  
+
+<iframe frameborder="0" src="https://itch.io/embed/2010301" width="552" height="167"><a href="https://difegue.itch.io/dialogueforest">DialogueForest by dfug</a></iframe>
+
 You can also browse the source code [here](https://github.com/Difegue/DialogueForest).  
 
 I found out that tools like these are called Outliners - I recommend the following [SE question](https://rpg.stackexchange.com/questions/34816/tree-based-tool-to-create-dialog) if you're looking for other tools like this one. I notably looked at [Scrivener](https://www.literatureandlatte.com/scrivener/overview) for inspiration, but there's no way I was going to remake all of that...  
