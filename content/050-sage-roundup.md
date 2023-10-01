@@ -1,5 +1,5 @@
 Title: SAGE videogame grab bag
-Date: 2023-9-25 00:00  
+Date: 2023-10-01 00:00  
 Category: Blogposting  
 Tags: video games, gamedev, sage, sonic, fangames, demo, faux-OS
 Slug: sage-roundup
