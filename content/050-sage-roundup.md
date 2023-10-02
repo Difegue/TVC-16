@@ -4,7 +4,7 @@ Category: Blogposting
 Tags: video games, gamedev, sage, sonic, fangames, demo, faux-OS
 Slug: sage-roundup
 Authors: Difegue  
-HeroImage: images/games/sage/susan.png  
+HeroImage: images/games/sage/susan.jpg   
 Summary: local man compiles all his reviews into one megapost
 
 [SAGE 2023](https://sagexpo.org/index.html) has ended, and I did good on my previous [promise](./mcorigins-plus) by playing a **heckuva lot** of games.  
