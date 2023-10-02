@@ -84,7 +84,7 @@ It feels especially wasteful considering they [revamped large swaths](https://de
 On the flipside, having moved to NET7 gives me access to Mac Catalyst builds of Stylophone again...  
 There are [great native](https://github.com/danbee/persephone) MPD clients for macOS already, but I might release that as a freebie version later.  
   
-Maybe even with iOS16 goodies thrown in!  
+Maybe even with iOS17 goodies thrown in!  
   
 ...If the xamarin platform doesn't keel over and die in the meantime<sup id="ref-3">[***](#note-3)</sup>.
 
