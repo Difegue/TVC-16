@@ -12,7 +12,7 @@ Besides the whole "paying for coomer JPEGs" thing, FGO often relies on heavy far
 
 ![I haven't actually paid money for most of this it's just been already 5 years good lord save me type-moon release something else already]({static}/images/memupatcher/fgo.jpg)
 
-While I do enjoy the gameplay to a point, repeating a battle 300 times is not fun no matter how you try to spin it.  
+While I do enjoy the gameplay to a point, repeating a battle 300 times is not fun no matter how you try to spin it...  
 For a while, the easiest way to automate farming in FGO was to throw the game on an **Android emulator** and run a [Lua script](https://github.com/29988122/Fate-Grand-Order_Lua) on it.  
 Alas, FGO is also quite known for its hate of **[any form of game/phone modification.](https://topjohnwu.medium.com/from-anime-game-to-android-system-security-vulnerability-9b955a182f20)**  
 <sup>(I very much recommend reading this article if you haven't already done so, it'll be more interesting than anything written here.)</sup>  
@@ -47,7 +47,9 @@ Releasing this thing anonymously into the wild was especially funny, with variou
 * FUD about the patcher being malware despite being uploaded with the source code attached  
 * Reddit tutorials being written referring to the program as the ["Patchouli Patcher"](https://www.reddit.com/r/grandorder/comments/6wi08i/episode_xiii_doom_or_be_doomed/dm89feh/) since I had [accidentally left my .vs folder in the uploaded code]({static}/images/memupatcher/suofile.png) like an idiot
 * FUD about the patcher [getting your FGO account potentially banned](https://pastebin.com/U7qb6Jbh)  
-* People begging for support screaming that they did buy Sonic Mania (sega should pay me for all this free advertising I gave them)
+* People begging for support screaming that they did buy Sonic Mania (sega should pay me for all this free advertising I gave them)  
+
+![Real evidence of said begging not staged](images/memupatcher/mania.jpg)  
 
 I never got it to reliably work on Windows 7/8, but nonetheless it seemed to be quite popular! (Looking back at the source, I suspect there's something wrong with my usage of `SYSTEM_INFO`.)  
 Most importantly, it spread the method around so other people could implement it in Cheat Engine or similar.  
