@@ -7,7 +7,7 @@ Authors: Difegue
 HeroImage: images/speedsim.jpg
 Summary: A piece where I, in fact, do not talk about the total internet hyperdeath whatsoever
 
-Wow, it's been a hot minute! I'm writing this between farming race tickets in Sonic Speed Simulator<sup id="ref-1">[*](#note-2)</sup>  .  
+Wow, it's been a hot minute! I'm writing this between farming race tickets in Sonic Speed Simulator<sup id="ref-1">[*](#note-1)</sup>  .  
 While I'll never give money to anything touching Roblox, I do find some zen in repeatedly boosting away on a Sunday night...  
 ![roblox have functional lightmaps challenge (impossible)](images/speedsim.jpg)  
 So Web 2.0 is having a normal one at the moment or something - A lot of people have waxed poetic about the collapse of the corporate internet already so I don't feel like I could add anything particularly snarky to it...  
