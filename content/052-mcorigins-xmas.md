@@ -1,4 +1,4 @@
-Title: A most fast-fooded holiday 
+Title: A most fast-fooded Christmas 
 Date: 2023-12-08 00:01  
 Category: Software  
 Tags: sonic, mcdonalds, c#, avalonia, .net, lcd, game&watch, video games, simulator, sage, christmas
