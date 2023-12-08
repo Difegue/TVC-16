@@ -12,8 +12,9 @@ Summary: heh get it it's like sonic origins but for fast food games god that's h
 - [Original announcement](./lcdonald.html)  
 - 2022 SAGE release (You are here)  
 - [2023 "Plus" SAGE release](./mcorigins-plus.html)
+- [Tony Hawk's McOrigins Plus Chrismtas](./mcorigins-xmas.html)  
 
-Check [here](./mcorigins-plus.html) for the latest McOrigins-related post (and download links 🍟)  
+Check [here](./mcorigins-xmas.html) for the latest McOrigins-related post (and download links 🍟)  
 
 # 
 

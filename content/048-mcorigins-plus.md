@@ -7,6 +7,17 @@ Authors: Difegue
 HeroImage: images/lcdonald/mcorigins_plus_hero.jpg  
 Summary: to be this good takes a double big mac and some mcnuggets on the side
 
+# The Sonic McOrigins timeline
+
+- [Original announcement](./lcdonald.html)  
+- [2022 SAGE release](./mcorigins.html) 
+- 2023 "Plus" SAGE release (You are here)  
+- [Tony Hawk's McOrigins Plus Christmas](./mcorigins-xmas.html)  
+
+Check [here](./mcorigins-xmas.html) for the latest McOrigins-related post (and download links 🍟)  
+
+# 
+
 Is 2023 the year of the LCD game revival? If [Lucas Pope](https://dukope.com/devlogs/papers-please/lcdplease/) is any indication, it might just be.  
 Last year's [Sonic McOrigins](./mcorigins.html) release was quite loved and people keep [covering it](https://www.youtube.com/watch?v=v6Ox9-IVB6I), but it was incomplete in a few ways.  
 
