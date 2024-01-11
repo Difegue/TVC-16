@@ -10,11 +10,9 @@ Summary: feats of compiling only dreamt of by the utterly deranged
 ### Happy New Year!  
 Here's a blogpost about fighting off bitrot so you can keep using those nice speakers your iMac ships with.  
 
-I recently got into setting up [snapcast](https://community.home-assistant.io/t/perfect-and-free-synchronous-multiroom-audio-with-snapcast/386871/6) to play music from my NAS/MPD server across multiple rooms.  
+I recently got into setting up [snapcast](https://community.home-assistant.io/t/perfect-and-free-synchronous-multiroom-audio-with-snapcast/386871) to play music from my NAS/MPD server across multiple rooms.  
 While a part of the deranged setup is finding a way to put MPD clients<sup id="ref-1">[*](#note-1)</sup> in multiple rooms, I also need speakers that run snapclient to play the synchronized audio from.  
-
 ![snapclient running on High Sierra hell yeah](images/sierra-snapcast.png)  
-
 I have an old Intel iMac running [macOS High Sierra](https://en.wikipedia.org/wiki/MacOS_High_Sierra)<sup id="ref-2">[**](#note-2)</sup> , which is both not so old that compiling modern software on it is impossible... and old enough that it becomes kind of a pain. Let's suffer together!  
 
 ...Or don't, you can just grab precompiled binaries for snapcast 0.27 [here.](https://github.com/Difegue/Chaotic-Realm/blob/master/snapcast-highsierra/snapcast_highsierra.zip) It's on the house!  
