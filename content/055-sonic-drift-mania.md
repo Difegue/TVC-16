@@ -1,4 +1,4 @@
-Title: I made a Playdate game in two days
+Title: I made a Playdate game in two days and it's ok™️
 Date: 2024-02-17 00:00  
 Category: Gamedev  
 Tags: video games, gamedev, playdate, lua, rage, sage
@@ -12,7 +12,7 @@ I've used this year's [Really Amateur Games Expo](https://www.youtube.com/watch?
 Despite having two weeks to work on it, I only really spent two days... The advantage of a competition aimed towards making the **worst** fangame possible is that even if it's rushed and bad, that's the entire point so 👌👌🔥  
 ![can you believe the game.com version of sonic jam also has blue spheres except due to the screen being grayscale they called it get black spheres and that's where i ripped all of that HUD from](./images/playdate/playdate-20240216-163945.png)  
 Yes it's blue spheres again the world will never be freed of blue spheres
-### You can download the result .pdx file on itch at the link below.  
+### You can download the result .pdx file on itch at the link below. Works on real Playdates! 
 <iframe frameborder="0" src="https://itch.io/embed/2532206" width="552" height="167"><a href="https://difegue.itch.io/sonic-drift-mania">Sonic Drift Mania by dfug</a></iframe>  
 
 The only real design idea I had going into this was "you can use the crank to accelerate to _ridiculous_ speeds":  
