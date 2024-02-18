@@ -9,7 +9,7 @@ Summary: gotta crank it with sonic
 
 I've used this year's [Really Amateur Games Expo](https://www.youtube.com/watch?v=noOeYcKlTsQ) as an excuse to finally look at the [Playdate SDK](https://sdk.play.date).  
 
-Despite the given time being two weeks, I only really spent two days on it.. The advantage of a competition aimed towards making the **worst** fangame possible is that even if it's rushed and bad, that's the entire point so 👌👌🔥  
+Despite having two weeks to work on it, I only really spent two days... The advantage of a competition aimed towards making the **worst** fangame possible is that even if it's rushed and bad, that's the entire point so 👌👌🔥  
 ![can you believe the game.com version of sonic jam also has blue spheres except due to the screen being grayscale they called it get black spheres and that's where i ripped all of that HUD from](./images/playdate/playdate-20240216-163945.png)  
 Yes it's blue spheres again the world will never be freed of blue spheres
 ### You can download the result .pdx file on itch at the link below.  
