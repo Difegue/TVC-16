@@ -1,7 +1,7 @@
 Title: I made a Playdate game in two days and it's ok™️
 Date: 2024-02-17 00:00  
 Category: Gamedev  
-Tags: video games, gamedev, playdate, lua, rage, sage
+Tags: video games, gamedev, playdate, lua, rage, sage, sonic
 Slug: sonic-drift-mania
 Authors: Difegue  
 HeroImage: images/playdate/playdate-20240216-164054.png
