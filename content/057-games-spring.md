@@ -5,7 +5,7 @@ Tags: video games, game pass, mahoyo, splatoon, atomic heart, pizza tower, yakuz
 Slug: games-spring
 Authors: Difegue  
 HeroImage: images/games/gator.jpg 
-Summary: ...do you feel lucky, punk?
+Summary: featuring coolgator 2000 and the noise
 
 It's [International Workers' Day](https://en.wikipedia.org/wiki/International_Workers%27_Day)! What better time to uhh, look back at all the videogames I've been playing.  
 Thinking of all the man-hours that went into making those is quite humbling.  
