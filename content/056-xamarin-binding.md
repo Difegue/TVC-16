@@ -7,7 +7,7 @@ Authors: Difegue
 HeroImage: images/stylophone/v2-uikit2.jpg
 Summary: Key-Value Observer on Timeless Temple
 
-It's been a while since my last [Xamarinpost](/xamarin-resx), but since I just released a [Stylophone update](https://github.com/Difegue/Stylophone/releases/tag/2.6.2), I'm in the mood to wax .NET again!  
+It's been a while since my last [Xamarinpost](/xamarin-resx.html), but since I just released a [Stylophone update](https://github.com/Difegue/Stylophone/releases/tag/2.6.2), I'm in the mood to wax .NET again!  
 
 Stylophone, as a Windows-first app, was built upon the principle of [MVVM](https://learn.microsoft.com/en-us/dotnet/architecture/maui/mvvm), which as a quick refresher:  
 - Isolates model and view code entirely  

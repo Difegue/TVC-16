@@ -10,7 +10,7 @@ Summary: featuring coolgator 2000 and the noise
 It's [International Workers' Day](https://en.wikipedia.org/wiki/International_Workers%27_Day)! What better time to uhh, look back at all the videogames I've been playing.  
 Thinking of all the man-hours that went into making those is quite humbling.  
 
-I actually played too many games since [the last time](./games-july) I wrote up mini-reviews like this... And I'm forgetting some that I don't really have much to write about.    
+I actually played too many games since [the last time](./games-july.html) I wrote up mini-reviews like this... And I'm forgetting some that I don't really have much to write about.    
 
 # Mahou Tsukai no Yoru
 
