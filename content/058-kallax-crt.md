@@ -1,7 +1,7 @@
 Title: Using the IKEA Kallax to support a CRT
 Date: 2024-05-27 00:00  
 Category: Blogposting  
-Tags: ikea, crt, video games, furnitureposting
+Tags: ikea, crt, kallax, cabinet, video games, furnitureposting
 Slug: kallax-crt
 Authors: Difegue  
 HeroImage: images/kallax_crt.jpg 
@@ -18,7 +18,7 @@ It's a great unit! And I'm [not the only one thinking that](https://mcmansionhel
 > the diversity of items it’s able to accommodate makes it the most financially accessible large storage system out there and it’s not even remotely close.
 
 But if you do a bit of research online, you might be [uh](https://www.reddit.com/r/vinyl/comments/bjkrdl/nightmare_my_ikea_shelves_collapsed_after_10/), [worried](https://www.reddit.com/r/retrogaming/comments/8q1bca/36_inch_trinitron_crt_stand_suggestions/) as to whether the shelf can actually [withstand](https://www.reddit.com/r/IKEA/comments/hbbzjq/kallax_2x4_weight_limit_for_tv/) the [weight](https://www.reddit.com/r/IKEA/comments/7px66n/total_weight_limit_on_kallax_shelf/) of a CRT.  
-![](./images/kallax_crt.jpg)  
+![Please don't look at my terrible led band routing i'm begging you](./images/kallax_crt.jpg)  
 This is a `Panasonic TX-32PS11F` - It weighs a lofty **66 kilograms** <sub>(145 freedom units)</sub>, and has been sitting on top of this shelf for about **6 months** without any sign of bending, skewing, or damage.   
 
 
