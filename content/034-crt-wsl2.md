@@ -1,7 +1,7 @@
 Title: Running cool-retro-term in Windows through WSL2 and WSLg
 Date: 2022-11-27 20:00
 Category: Cool Tricks
-Tags: wsl, cool-retro-term, wslg, terminal
+Tags: wsl, cool-retro-term, wslg, terminal, crt
 Slug: cool-retro-term-wsl2
 Authors: Difegue
 HeroImage: images/crt-wsl2.jpg

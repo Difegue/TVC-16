@@ -1,7 +1,7 @@
 Title: Running cool-retro-term in Windows through WSL1
 Date: 2019-04-21 20:00
 Category: Cool Tricks
-Tags: wsl, cool-retro-term, xming, terminal
+Tags: wsl, cool-retro-term, xming, terminal, crt
 Slug: cool-retro-term-wsl
 Authors: Difegue
 HeroImage: images/crt-win.jpg
