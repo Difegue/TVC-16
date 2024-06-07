@@ -1,7 +1,7 @@
 Title: Using System XAML Islands in a MSIX-packaged .NET Framework app
 Date: 2023-12-04 00:00  
 Category: Cool Tricks  
-Tags: xaml islands, wpf, uwp, C#, windows, windows 11, net framework, very dangerous windows hack age 18 and up content
+Tags: xaml islands, wpf, uwp, C#, windows, windows 11, net framework, msix, very dangerous windows hack age 18 and up content
 Slug: netfx-islands
 Authors: Difegue  
 HeroImage: images/wow.jpg  
