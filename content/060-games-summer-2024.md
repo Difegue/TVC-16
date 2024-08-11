@@ -1,10 +1,10 @@
 Title: Summer videogame clears and mini-reviews
 Date: 2024-08-11 00:00  
 Category: Blogposting  
-Tags: video games, game pass, soundtracks
+Tags: video games, game pass, yakuza, psychonauts 2, burning rangers, sonic team, blinx, perfect dark zero, thirsty suitors, an outcry, soundtracks
 Slug: games-summer-2024
 Authors: Difegue  
-HeroImage: images/windows.jpg  
+HeroImage: images/games/thirst.jpg  
 Summary: brat summer? more like yakuza bird character action summer
 
 It's Summer! _I hate Summer!_ But it's always good to get some hits off the videogame backlog.  
