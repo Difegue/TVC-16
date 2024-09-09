@@ -82,6 +82,8 @@ Since it mostly relies on `dotnet` these days, there's no problem using it with 
 
 The bitrot will probably get to it next year, but for now? I guess I can enjoy the last Microsoft IDE that doesn't have a bloody chatbot<sup id="ref-3">[***](#note-3)</sup> built into it.  
 
+With the new action button™️ on iPhones now, I should add Shortcuts to the iOS app at some point...  
+
 
 #
 
