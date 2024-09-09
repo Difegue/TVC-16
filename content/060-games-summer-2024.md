@@ -43,13 +43,15 @@ It's surprising how close the ["streamer soundtrack"](https://www.youtube.com/wa
 
 The lesser-known Sonic Team Saturn game. I'd played this before but couldn't get past the final level -- Not anymore!  
 
+![Please don't look at my terrible led band routing i'm begging you](./images/kallax_crt.jpg)  
+
 I like the arcade gameplay in this better than NiGHTS, but the game really stretches the Saturn to its limits and has insanely aggressive culling as a result - Essential chunks of geometry will disappear as soon as they're about to leave the camera frame and it can make navigation difficult!  
 
 The setting of the game is super cool and it's a shame Sega never did anything else with it -- I can't shake the feeling that Sonic Team watched [Magnetic Rose](https://en.wikipedia.org/wiki/Memories_(1995_film)) and thought "_ayo what if we mixed it with Sentai?_".  
 
 This game's soundtrack has the killer combo of Naofumi Hataya(Sonic CD) and Fumie Kumatani(<sub>all the best sonic adventure songs don't @ me</sub>) like with NiGHTS and it's [really cool!](https://www.youtube.com/watch?v=1pSk2EVCxiQ&t=1346s) Kinda like NiGHTS' dynamic music, the boss themes have multiple phases depending on their health and they flow in a really neat way. 
 
-I don't have a screenshot here since Saturn capture is annoying, but you should check out this ongoing [Unity remake fanproject](https://sonicfangameshq.com/forums/showcase/burning-rangers-tribute.1048/).  
+You should check out this ongoing [Unity remake fanproject](https://sonicfangameshq.com/forums/showcase/burning-rangers-tribute.1048/).  
 
 # BLiNX - The Time Sweeper
 
@@ -103,7 +105,7 @@ Wrapping up with some `certified RPG Maker 2003 horrorkino` -- This game doesn't
 
 The gameplay toys a bit with genre conventions(which you might or might not expect considering this is RPG Maker), but there's nothing obtuse in getting most of the endings here; You should probably save often though.  
 ![Vienna citybelt screenshot from an outcry](./images/games/outo.png)  
-The Vienna citybelt is a mostly optional spot in the game but contains a ton of optional storytelling I really recommend clicking through - The election poster is one of my favorites despite how simple it is.  
+The Vienna citybelt is a mostly optional spot in the game but contains a ton of storytelling I really recommend clicking through - The election poster is one of my favorites despite how simple it is.  
 
 The game is about a flock of magic birds in Austria which kills everyone who isn't bird enough - It's (very) obvious what the birds are a metaphor for, and despite the game being two years old it still feels very relevant to _current world events._  
 
