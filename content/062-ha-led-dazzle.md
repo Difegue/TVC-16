@@ -8,7 +8,7 @@ HeroImage: images/hass/hass_gaming.png
 Summary: Finally... Home Assistant gaming.
 
 I have a nice LED strip lighting up my [gaming cabinet](./kallax-crt.html), but it's a bit clunky turning it on manually every time I'm gaming on the ole Wii.  
-The strip I bought is an [IKEA Ormanas](https://www.ikea.com/gb/en/p/ormanaes-led-lighting-strip-smart-wireless-dimmable-colour-and-white-spectrum-90541329/), which is Zigbee compatible and can plug in just fine to a Home Assistant installation.  
+The strip I bought is an [IKEA Ormanas](https://www.ikea.com/gb/en/p/ormanaes-led-lighting-strip-smart-wireless-dimmable-colour-and-white-spectrum-90541329/), which is Zigbee compatible and can plug in just fine to a Home Assistant installation. It's even multicolor!   
 ![Please don't look at my terrible led band routing i'm begging you](./images/kallax_crt.jpg)  
 So surely, we can make this strip light up on its own when the consoles are in use, right?  
 
