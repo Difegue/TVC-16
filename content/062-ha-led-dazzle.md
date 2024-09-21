@@ -1,7 +1,7 @@
 Title: Controlling an IKEA LED strip with video capture from game consoles 
 Date: 2024-09-21 00:00  
 Category: Cool Tricks  
-Tags: home assistant, zigbee, ikea, led, dazzle, dvc100, video capture, gaming
+Tags: home assistant, zigbee, ikea, led, dazzle, dvc100, video capture, gaming, jankfest philips hue facsimile
 Slug: ha-led-dazzle
 Authors: Difegue  
 HeroImage: images/hass/hass_gaming.png 
@@ -12,7 +12,8 @@ The strip I bought is an [IKEA Ormanas](https://www.ikea.com/gb/en/p/ormanaes-le
 ![Please don't look at my terrible led band routing i'm begging you](./images/kallax_crt.jpg)  
 So surely, we can make this strip light up on its own when the consoles are in use, right?  
 
-The easiest way would obviously be a [smart plug](https://community.home-assistant.io/t/what-are-the-recommended-energy-monitoring-smart-plugs-for-ha/589681) hooked up to the CRT that detects when it's drawing power... But I had a old [Dazzle DVC100](https://en.wikipedia.org/wiki/Dazzle_(video_recorder)) capture card lying around, so why not try to use that instead?  
+The easiest way would obviously be a [smart plug](https://community.home-assistant.io/t/what-are-the-recommended-energy-monitoring-smart-plugs-for-ha/589681) hooked up to the CRT that detects when it's drawing power...  
+But I had an old [Dazzle DVC100](https://en.wikipedia.org/wiki/Dazzle_(video_recorder)) capture card lying around, so why not try to use that instead?  
 
 # TV/Dazzle connection setup
 
