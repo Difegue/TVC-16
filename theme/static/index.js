@@ -74,7 +74,7 @@ var radius = 2, // how large to draw the particle
 stage.width = window.innerWidth;
 stage.height = window.innerHeight;
 
-kofiWidgetOverlay.draw('lanraragi', {
+kofiWidgetOverlay.draw('difegue', {
   'type': 'floating-chat',
   'floating-chat.donateButton.text': 'CA$H button',
   'floating-chat.donateButton.background-color': '#922b7a',
