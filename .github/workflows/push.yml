@@ -1,4 +1,7 @@
-on: push
+on: 
+  push:
+    branches:
+      - master
 name: Build TVC-16 to gh-pages branch
 jobs:
   buildTVC-16:
