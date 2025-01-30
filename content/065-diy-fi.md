@@ -5,7 +5,7 @@ Tags: nintendo, wii, nintendo ds, warioware, doujinsoft, mio, diy, gamedev
 Slug: diy-fi
 Authors: Difegue
 HeroImage: images/doujinsoft/x68k-2025.png
-BskyPost: at://difegue.tvc-16.science/app.bsky.feed.post/3l4kd7xrofk22
+BskyPost: at://difegue.tvc-16.science/app.bsky.feed.post/3lgwb45tawk2o
 Summary: hahaha!!! i made a fake OS on the nintendo ds!!!
 
 Despite running the largest [WarioWare DIY archive](https://diy.tvc-16.science/) for about eight years now<sup id="ref-1">[*](#note-1)</sup>, I hadn't made any games with it since... [wow, 2011!](https://diy.tvc-16.science/games?id=66ff7257b3d7ea3361c3745ed36ed05e)  
@@ -19,6 +19,7 @@ This new service fully reimplements DIY's online store for the DS version of the
 ![DIY-Fi showing 2025 Halloween contest winners on real hardware](./images/doujinsoft/diy-fi.jpg)  
 A design contest popped up for Halloween, so I thought, why not test myself a bit and see if I _could make a game without redoing any of the tutorials 14 years later_?  
 <sub>(DoujinSoft now supports `iframe` embeds! Feel free to embed all your DIY microgames and comics on your own websites.)</sub>  
+
 <iframe src="https://diy.tvc-16.science/games?id=a7f667db4362842bee783123cd235699#iframe" width="536" height="490"></iframe>  
 ...OK, it was still pretty easy. The _Game MakerMatic_ creation tool within WarioWare DIY isn't massively complex!  
 
@@ -54,7 +55,9 @@ There [are](https://diy.tvc-16.science/games?id=88ba7dd23152109b8712f4a209dd26ef
 
 So I grabbed the boss template and made a tiny fake OS using graphics from [Funtography](./funtography.html), with multiple windows and embedded games/messages.  
 I'd just traced the graphics as usual for SpookOS, but here I caved in and used [mioedit](https://www.romhacking.net/utilities/1011/) to import some bitmaps from the computer. This approach isn't perfect due to the palette limitations though, so I still had to do some redrawing.  
-<iframe src="https://diy.tvc-16.science/games?id=2124d89e60265d2535101bc58f7a22fb#iframe" width="536" height="490"></iframe>
+
+<iframe src="https://diy.tvc-16.science/games?id=2124d89e60265d2535101bc58f7a22fb#iframe" width="536" height="490"></iframe>  
+
 Of course there's realistically not _that_ much you can do in DIY...  
 But I had fun figuring out the balancing act between the various point, AI, and object limits.  
 
