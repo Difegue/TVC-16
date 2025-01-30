@@ -376,3 +376,20 @@ blockquote {
     background: #eaeaea;
     padding: 2px 0 2px 12px;
 }
+
+._container_1pvtk_1,
+._authorName_1pvtk_104,
+._commentContainer_1pvtk_72,
+._actionsContainer_1pvtk_130 {
+    margin: 0 !important;
+}
+
+._statsBar_1pvtk_6 {
+    font-family: 'VT323';
+    font-size: 20px;
+    margin-top: 0;
+}
+
+._commentsTitle_1pvtk_40 {
+    display: none;
+}
