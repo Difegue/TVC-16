@@ -1,6 +1,6 @@
 Title: Making new microgames in WarioWare DIY, 14 years later
 Date: 2025-01-28 00:00
-Category: Software
+Category: Gamedev
 Tags: nintendo, wii, nintendo ds, warioware, doujinsoft, mio, diy, gamedev
 Slug: diy-fi
 Authors: Difegue
