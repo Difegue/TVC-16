@@ -5,7 +5,7 @@ Tags: apple, macintosh, mac, macos, crt, diy, retrocomputing, marchintosh
 Slug: globaltalk
 Authors: Difegue
 HeroImage: images/globaltalk/talkcrawler.png
-BskyPost: at://difegue.tvc-16.science/app.bsky.feed.post/3lk54yua2ww2d
+BskyPost: at://difegue.tvc-16.science/app.bsky.feed.post/3lkyfnq7fbv26
 Summary: the lengths you have to go through to have fun on the computer these days, i tell you what
 
 It's March! That means Spring is coming in, but also [MARCHintosh](https://www.marchintosh.com/), 
