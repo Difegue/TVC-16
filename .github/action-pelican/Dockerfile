@@ -1,4 +1,4 @@
-FROM  vorakl/alpine-pelican:latest
+FROM  orthanc2/pelican:latest
 
 LABEL "name"="tvc16-build"
 LABEL "maintainer"="Difegue <sugoi@cock.li>"
