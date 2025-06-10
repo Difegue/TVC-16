@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Blogopolis - Using UWP Update Tasks in a MSIX-packaged Win32 app</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <link
+    href="https://tvc-16.science/feeds/all.atom.xml"
+    type="application/atom+xml" rel="alternate" title="Blogopolis Full Atom Feed" />
+  <link
+    href="https://tvc-16.science/feeds/cool-tricks.atom.xml"
+    type="application/atom+xml" rel="alternate" title="Blogopolis Categories Atom Feed" />
+
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js'></script>
+  <script src='https://storage.ko-fi.com/cdn/scripts/overlay-widget.js'></script>
+  <script data-goatcounter="https://dingus.tvc-16.science/count" async src="//dingus.tvc-16.science/count.js"></script>
+
+  <link rel="apple-touch-icon" sizes="180x180" href="https://tvc-16.science/theme/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="https://tvc-16.science/theme/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="https://tvc-16.science/theme/favicon-16x16.png">
+  <link rel="manifest" href="https://tvc-16.science/theme/site.webmanifest">
+  <link rel="mask-icon" href="https://tvc-16.science/theme/safari-pinned-tab.svg" color="#f040b0">
+  <link rel="webmention" href="https://webmention.io/tvc-16.science/webmention" />
+  <link rel="pingback" href="https://webmention.io/tvc-16.science/xmlrpc" />
+  <meta name="msapplication-TileColor" content="#f1c711">
+  <meta name="theme-color" content="#f1c711">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta property="og:title" content="Using UWP Update Tasks in a MSIX-packaged Win32 app - Blogopolis" />
+<meta property="og:type" content="article" />
+<meta property="og:description" content="<p>it's friday night and i'm deep in msix hell again</p>" />
+<meta property="og:url" content="https://tvc-16.science/netfx-updatetask.html" />
+<meta property="og:image" content="https://tvc-16.science/images/windows.jpg" />
+
+  <link href="https://fonts.googleapis.com/css?family=Monoton" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=VT323" rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/bluesky-comments@0.9.0/dist/bluesky-comments.css">
+  <link rel="stylesheet" href="https://tvc-16.science/theme/css/style.css">
+  <link rel="stylesheet" href="https://tvc-16.science/theme/css/pygment.css">
+
+
+
+
+<meta name="twitter:card" content="summary_large_image">
+<meta property="og:title" content="Using UWP Update Tasks in a MSIX-packaged Win32 app - Blogopolis" />
+<meta property="og:type" content="article" />
+<meta property="og:description" content="<p>it's friday night and i'm deep in msix hell again</p>" />
+<meta property="og:url" content="https://tvc-16.science/netfx-updatetask.html" />
+<meta property="og:image" content="https://tvc-16.science/images/windows.jpg" />
+
+<meta name="tags" content="wpf" />
+<meta name="tags" content="uwp" />
+<meta name="tags" content="C#" />
+<meta name="tags" content="windows" />
+<meta name="tags" content="winui" />
+<meta name="tags" content="windows 11" />
+<meta name="tags" content="net framework" />
+<meta name="tags" content="msix" />
+<meta name="tags" content="dotnet" />
+<meta name="tags" content="very dangerous windows hack age 18 and up content" />
+
+</head>
+
+<body id="index" class="home">
+
+  <canvas id="stage"></canvas>
+  <header id="banner" class="body">
+    <center><img height="170px" src="https://tvc-16.science/theme/img/logotype.svg" /></center>
+  </header><!-- /#banner -->
+
+  <div id="mainText">
+
+    <h2 class="subtitle">
+
+      <a style="color:black !important" href="/projects.html">Projects</a>
+      🔸
+      <a style="color:black !important" href="/">Articles</a>
+      🔸
+      <a style="color:black !important" href="/categories.html">Categories</a>
+      🔸
+
+    </h2><!-- /#menu -->
+
+    <div class="top-border project-background"></div>
+    <div class="wrapper project-background">
+      <div class="text">
+<section id="content" class="body" style="max-width: 900px;margin-left: auto;margin-right: auto;">
+  <header>
+    <h2 class="entry-title">
+      <a href="https://tvc-16.science/netfx-updatetask.html" rel="bookmark" title="Permalink to Using UWP Update Tasks in a MSIX-packaged Win32 app">
+        Using UWP Update Tasks in a MSIX-packaged Win32 app
+      </a>
+    </h2>
+    
+  </header>
+  <footer class="post-info terminal-text">
+    <time class="published" datetime="2024-06-07T00:00:00+02:00">
+      Fri 07 June 2024
+    </time>
+    <address class="vcard author">
+      By       <a class="url fn" href="https://tvc-16.science/author/difegue.html">Difegue</a>
+    </address>
+    <div class="category">
+      Category: <a href="https://tvc-16.science/category/cool-tricks.html">Cool Tricks</a>
+    </div>
+    <div class="tags">
+      Tags:
+      <a href="https://tvc-16.science/tag/wpf.html">wpf</a>
+      <a href="https://tvc-16.science/tag/uwp.html">uwp</a>
+      <a href="https://tvc-16.science/tag/c.html">C#</a>
+      <a href="https://tvc-16.science/tag/windows.html">windows</a>
+      <a href="https://tvc-16.science/tag/winui.html">winui</a>
+      <a href="https://tvc-16.science/tag/windows-11.html">windows 11</a>
+      <a href="https://tvc-16.science/tag/net-framework.html">net framework</a>
+      <a href="https://tvc-16.science/tag/msix.html">msix</a>
+      <a href="https://tvc-16.science/tag/dotnet.html">dotnet</a>
+      <a href="https://tvc-16.science/tag/very-dangerous-windows-hack-age-18-and-up-content.html">very dangerous windows hack age 18 and up content</a>
+    </div>
+    <div class="summary">
+      <p>it's friday night and i'm deep in msix hell again</p>
+    </div>
+
+  </footer><!-- /.post-info -->
+  <div class="entry-content">
+    <p><strong>Update Tasks</strong> are a feature of MSIX that allows Windows to <a href="https://learn.microsoft.com/en-us/windows/uwp/launch-resume/run-a-background-task-during-updatetask">run a piece of code when your package is updated</a>, without needing to launch the entire app.<br>
+This is a feature that heralds from the UWP era, where it's fairly easy to use since you're fully in WinRT land already.. But if you're packaging a regular Win32 app instead, or the newer <a href="https://github.com/microsoft/WindowsAppSDK/discussions/2314">Windows App SDK</a>, it gets <em>tricky</em>.  </p>
+<p>And by tricky I mean <em>bullshit and barely documented</em>, just like <a href="./netfx-islands.html">last time</a>!<br>
+Here's a walkthrough of how you can add an Update Task to any kind of MSIX package.  </p>
+<h1>1. Create the background task class</h1>
+<p>Since this feature relies on UWP's Background Tasks, your code needs to run in a <a href="https://learn.microsoft.com/en-us/uwp/winrt-cref/winmd-files">Windows Runtime component</a>, aka a <code>.winmd</code>.<br>
+There are actually no differences here compared to the <a href="https://learn.microsoft.com/en-us/windows/uwp/launch-resume/run-a-background-task-during-updatetask#step-1-create-the-background-task-class">UWP implementation</a>; You can just create a Windows Runtime component project in VS and host your code in it, implementing <code>IBackgroundTask</code>.  </p>
+<p>You <em>can</em> technically create a C# Class Library instead and <a href="https://learn.microsoft.com/en-us/windows/apps/develop/platform/csharp-winrt/authoring">use CsWinRT to author the component</a> if you really need NET6 instead of the old UWP-flavored NET Framework<sup id="ref-1"><a href="#note-1">*</a></sup>.  </p>
+<p>Once you've built your component, include your <code>.winmd</code> in your packaged files.  </p>
+<p>🛑 Make sure it has the same name as the <strong>namespace</strong> of your UpdateTask! WinRT relies on naming to associate the winmd with the classes it contains. (<code>BackgroundTasks.winmd</code> in this example.)  </p>
+<h1>2. Declare the UpdateTask in the MSIX manifest</h1>
+<p>This is where things get confusing -- With UWP, you just need to reference your freshly-authored component in the main app and add one line to the <code>appxmanifest</code>:  </p>
+<div class="highlight"><pre><span></span><code><span class="nt">&lt;Application</span> <span class="na">Id=</span><span class="s">&quot;YourWin32App&quot;</span><span class="nt">&gt;</span>
+  [...]
+  <span class="nt">&lt;Extensions&gt;</span>  
+    <span class="nt">&lt;Extension</span> <span class="na">Category=</span><span class="s">&quot;windows.updateTask&quot;</span> <span class="na">EntryPoint=</span><span class="s">&quot;BackgroundTasks.UpdateTask&quot;</span><span class="nt">&gt;</span>  
+    <span class="nt">&lt;/Extension&gt;</span>  
+  <span class="nt">&lt;/Extensions&gt;</span>
+<span class="nt">&lt;/Application&gt;</span>
+</code></pre></div>
+
+
+<p>But if you're packaging a Win32 app instead, said app has no knowledge of WinRT and won't be able to expose your <code>.winmd</code>'s entrypoint on its own.  </p>
+<p>Most of the documentation<sup id="ref-2"><a href="#note-2">**</a></sup> about using UpdateTasks with Win32 apps comes from 2017 back when MSIX was still being called <a href="https://stefanwick.com/2017/06/06/updatetask-for-desktop-bridge-apps/">Desktop Bridge</a>, but basically the solution is to declare an <strong>in-process WinRT server</strong> that'll get started by Windows and run your winmd.  </p>
+<blockquote>
+<p>The Windows Runtime (WinRT) supports the concept of In Process Servers, which allows for using objects that are in a different dll/winmd with super-fast performance and easy-to-use ABI.<br>
+<sub>(https://github.com/hez2010/WinRTServer)</sub>  </p>
+</blockquote>
+<div class="highlight"><pre><span></span><code><span class="nt">&lt;Package&gt;</span>
+  <span class="nt">&lt;Extensions&gt;</span>
+     <span class="nt">&lt;Extension</span> <span class="na">Category=</span><span class="s">&quot;windows.activatableClass.inProcessServer&quot;</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;InProcessServer&gt;</span>
+        <span class="nt">&lt;Path&gt;</span>Your_Inproc_Server.exe<span class="nt">&lt;/Path&gt;</span>
+        <span class="nt">&lt;ActivatableClass</span> <span class="na">ActivatableClassId=</span><span class="s">&quot;BackgroundTasks.UpdateTask&quot;</span> <span class="na">ThreadingModel=</span><span class="s">&quot;both&quot;</span> <span class="nt">/&gt;</span>
+      <span class="nt">&lt;/InProcessServer&gt;</span>
+    <span class="nt">&lt;/Extension&gt;</span>
+  <span class="nt">&lt;/Extensions&gt;</span>
+<span class="nt">&lt;/Package&gt;</span>
+</code></pre></div>
+
+
+<p><sub>notice how this is under Package-&gt;Extensions, not Package-&gt;Applications-&gt;Application-&gt;Extensions like the previous one</sub>  </p>
+<p>And that's it! Install an update to your MSIX and the component will run -- You don't even need to modify your Win32 app.  </p>
+<h2>🥳🥳🥳</h2>
+<p>But I hear you ask, "<em>how do I build an inprocess WinRT server</em>"?<br>
+<img alt="fuck" src="./images/windows.jpg">  </p>
+<h2><strong>I don't know!</strong></h2>
+<p>Thankfully Microsoft provides those to you, if you know where to look.  </p>
+<ul>
+<li>If your <code>.winmd</code> contains <strong>managed code</strong> (compiled .NET/MSIL), you can either use CsWinRT's <a href="https://github.com/microsoft/CsWinRT/blob/master/docs/hosting.md">WinRT.Host.dll</a>, or the built-in <a href="https://strontic.github.io/xcyclopedia/library/clrhost.dll-5E23559AAC2A0FE3E5E35FC1124CC73D.html">CLRHost.dll</a><sup id="ref-3"><a href="#note-3">***</a></sup>.  <ul>
+<li>I think <code>CLRHost.dll</code> is more practical to use since it's in <code>System32</code> and <strong>just werks™️</strong>, whereas you'll have to embed <code>WinRT.Host.dll</code> in your package.    </li>
+</ul>
+</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="nt">&lt;InProcessServer&gt;</span>
+        <span class="nt">&lt;Path&gt;</span>[WinRT.Host.dll or CLRHost.dll]<span class="nt">&lt;/Path&gt;</span>
+        <span class="nt">&lt;ActivatableClass</span> <span class="na">ActivatableClassId=</span><span class="s">&quot;BackgroundTasks.UpdateTask&quot;</span> <span class="na">ThreadingModel=</span><span class="s">&quot;both&quot;</span><span class="nt">/&gt;</span>
+<span class="nt">&lt;/InProcessServer&gt;</span>
+</code></pre></div>
+
+
+<ul>
+<li>If your <code>.winmd</code> contains <strong>native code</strong> because you <a href="https://stackoverflow.com/questions/38183146/universal-windows-net-native-and-winmd-component-libraries">passed it through NET Native</a>? <strong><em>I have no fucking idea.</em></strong>  <ul>
+<li>The logic seems to be that you need to reference the native code in your app dll <a href="https://blogs.windows.com/windowsdeveloper/2017/07/06/calling-winrt-components-win32-process-via-desktop-bridge/">and use that</a> as the inProcServer.  </li>
+<li>I'd recommend just not using .NET Native for the WinRT component project tbh it's going to have like 5 lines of code who cares  </li>
+</ul>
+</li>
+</ul>
+<h1>3. Bonus round: Escape the AppContainer sandbox in your UpdateTask</h1>
+<p>Since your UpdateTask is a WinRT component, it'll run under UWP rules/AppContainer, even if you've wrapped your MSIX package with <code>runFullTrust</code>.  </p>
+<p>This can be annoying if you need to run code that's not available under the Universal Windows APIs, or if you need to read/write files outside of the sandbox.  </p>
+<p>The only solution available to you is to make use of <a href="https://learn.microsoft.com/en-us/uwp/api/windows.applicationmodel.fulltrustprocesslauncher?view=winrt-22621">FullTrustProcessLauncher</a>, so you can invoke your Win32 app (<a href="https://stefanwick.com/2018/04/06/uwp-with-desktop-extension-part-2/">or any other exe</a>) from the WinRT component.  </p>
+<p>This can look slightly schizophrenic if you're using your main app as the FullTrustProcess, since it'll look like it's registering itself:  </p>
+<div class="highlight"><pre><span></span><code><span class="nt">&lt;Applications&gt;</span>
+  <span class="nt">&lt;Application</span> <span class="na">Id=</span><span class="s">&quot;App&quot;</span>
+    <span class="na">Executable=</span><span class="s">&quot;MyWin32App.exe&quot;</span>
+    <span class="na">EntryPoint=</span><span class="s">&quot;Windows.FullTrustApplication&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;Extensions&gt;</span>
+      <span class="c">&lt;!-- Register ourselves as fullTrustProcess so it can be invoked from the updateTask component --&gt;</span>
+      <span class="nt">&lt;desktop:Extension</span> <span class="na">Category=</span><span class="s">&quot;windows.fullTrustProcess&quot;</span> <span class="na">Executable=</span><span class="s">&quot;MyWin32App.exe&quot;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;desktop:FullTrustProcess&gt;</span>
+        <span class="nt">&lt;/desktop:FullTrustProcess&gt;</span>
+      <span class="nt">&lt;/desktop:Extension&gt;</span>
+      <span class="nt">&lt;Extension</span> <span class="na">Category=</span><span class="s">&quot;windows.updateTask&quot;</span> <span class="na">EntryPoint=</span><span class="s">&quot;BackgroundTasks.UpdateTask&quot;</span><span class="nt">&gt;</span> 
+      <span class="nt">&lt;/Extension&gt;</span>
+    <span class="nt">&lt;/Extensions&gt;</span>
+  <span class="nt">&lt;/Application&gt;</span>
+<span class="nt">&lt;/Applications&gt;</span>
+
+<span class="nt">&lt;Extensions&gt;</span>
+  <span class="nt">&lt;Extension</span> <span class="na">Category=</span><span class="s">&quot;windows.activatableClass.inProcessServer&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;InProcessServer&gt;</span>
+      <span class="nt">&lt;Path&gt;</span>CLRHost.dll<span class="nt">&lt;/Path&gt;</span>
+      <span class="nt">&lt;ActivatableClass</span> <span class="na">ActivatableClassId=</span><span class="s">&quot;BackgroundTasks.UpdateTask&quot;</span> <span class="na">ThreadingModel=</span><span class="s">&quot;both&quot;</span> <span class="nt">/&gt;</span>
+    <span class="nt">&lt;/InProcessServer&gt;</span>
+  <span class="nt">&lt;/Extension&gt;</span>
+<span class="nt">&lt;/Extensions&gt;</span>
+</code></pre></div>
+
+
+<p>And the code in the WinRT component:  </p>
+<div class="highlight"><pre><span></span><code><span class="kt">var</span> <span class="n">quickLog</span> <span class="p">=</span> <span class="s">&quot;Update Task log you can write wherever&quot;</span><span class="p">;</span> 
+
+<span class="c1">// Being able to launch the fullTrustApp directly with a command line parameter requires API contract v2 (W11/22000+ only)</span>
+<span class="c1">// (Otherwise, the parameter needs to be in the MSIX manifest and you don&#39;t get any feedback to log here)</span>
+<span class="k">if</span> <span class="p">(</span><span class="n">ApiInformation</span><span class="p">.</span><span class="n">IsApiContractPresent</span><span class="p">(</span><span class="s">&quot;Windows.ApplicationModel.FullTrustAppContract&quot;</span><span class="p">,</span> <span class="m">2</span><span class="p">,</span> <span class="m">0</span><span class="p">))</span>
+<span class="p">{</span>
+    <span class="kt">var</span> <span class="n">fullTrustLaunchOperation</span> <span class="p">=</span> <span class="n">FullTrustProcessLauncher</span><span class="p">.</span><span class="n">LaunchFullTrustProcessForCurrentAppWithArgumentsAsync</span><span class="p">(</span><span class="s">&quot;--commandLineArgumentForYourExe&quot;</span><span class="p">);</span>
+    <span class="n">fullTrustLaunchOperation</span><span class="p">.</span><span class="n">AsTask</span><span class="p">().</span><span class="n">Wait</span><span class="p">();</span>
+
+    <span class="kt">var</span> <span class="n">fullTrustResult</span> <span class="p">=</span> <span class="n">fullTrustLaunchOperation</span><span class="p">.</span><span class="n">GetResults</span><span class="p">();</span>
+    <span class="n">quickLog</span> <span class="p">+=</span> <span class="s">&quot;FullTrustLaunch result -- &quot;</span> <span class="p">+</span> <span class="n">fullTrustResult</span><span class="p">.</span><span class="n">LaunchResult</span><span class="p">.</span><span class="n">ToString</span><span class="p">();</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="n">fullTrustResult</span><span class="p">.</span><span class="n">LaunchResult</span> <span class="p">!=</span> <span class="n">FullTrustLaunchResult</span><span class="p">.</span><span class="n">Success</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">quickLog</span> <span class="p">+=</span> <span class="s">&quot; &quot;</span> <span class="p">+</span> <span class="n">fullTrustResult</span><span class="p">.</span><span class="n">ExtendedError</span><span class="p">.</span><span class="n">Message</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+
+
+<h1></h1>
+<p><sup id="note-1"><a href="#ref-1">*</a> 
+Keep in mind you can just use <code>LangVersion</code> to get most of C#11's benefits, even on this old CLR..</sup><br>
+<sup id="note-2"><a href="#ref-2">**</a> calling it documentation is a gross euphemism as it's basically just <a href="https://github.com/microsoft/DesktopBridgeToUWP-Samples/tree/master/Samples/JourneyAcrossTheBridge_Build2017Edition/Step3">sample code</a>, they didn't even have packaging projects back then so they did it all in javascript and guess what? They <a href="https://github.com/apache/cordova-windows/issues/327">removed UWP javascript support</a> in VS2019+ and downloading older visual studio versions requires a microsoft account (or just grab it off <a href="https://community.chocolatey.org/packages/visualstudio2017community#files">chocolatey</a>) just so I can see what this bloody sample from 2017 generates in the appxmanifest, fuck you </sup><br>
+<sup id="note-3"><a href="#ref-3">***</a> There's also <a href="https://stackoverflow.com/questions/55643010/what-is-uwphost-dll">UWPHost.dll/UWPShim.exe</a>, which comes with the <code>NETCore.UniversalWindowsPlatform</code> package. It's mostly used for in-development UWP apps when running under debug/without NET Native. Not sure why they weren't just using CLRHost.. </sup>  </p>
+  </div><!-- /.entry-content -->
+  <a class="containerBox">
+    <img src="https://tvc-16.science/theme/img/button2.svg" class="img-responsive">
+    <div class="text-box pink-button">
+      <span class=" button-text pink-shadow">Comments</span>
+    </div>
+  </a> <br /><br /><br /><br /><br /><br /><br /><br />
+  <script src="https://utteranc.es/client.js" repo="difegue/TVC-16" issue-term="url" theme="github-light"
+    crossorigin="anonymous" async>
+  </script>
+</section>
+      </div>
+    </div>
+    <div class="bot-border project-background"></div>
+
+    <br />
+    <br />
+    <br />
+
+  </div>
+
+  <footer id="contentinfo" class="body" style="position:relative; overflow:hidden">
+    <div class="top-border hello-background"></div>
+    <div class="wrapper hello-background">
+      <div class="text">
+
+        <a class="containerBox">
+          <img src="https://tvc-16.science/theme/img/button1.svg" class="img-responsive">
+          <div class="text-box blue-button">
+            <span class=" button-text blue-shadow">About</span>
+          </div>
+        </a>
+
+        <div class="scroll-left">
+          <p>
+            <script language="JavaScript">
+              //never forget grugeisti ;_;7
+              var r_text = new Array();
+              r_text[0] = "This is COOL";
+              r_text[1] = "TOP-SHELF BLOG DEVICE";
+              r_text[2] = "ACCELERATED PORTFOLIO SYSTEM";
+              r_text[3] = "Lookin' cool !";
+              r_text[4] = "ENHANCED SVG GRAPHICS";
+              r_text[5] = "HIGH-SPEED CHEAP VPS";
+              r_text[6] = "DELUXE UPTIME EXPERIENCE";
+              r_text[7] = "BEST-IN-CLASS SCROLLING TEXT";
+              r_text[8] = "HIGH GRADE MULTICONTAINER SETUP";
+              var i = Math.floor(9 * Math.random())
+              document.write(r_text[i]);
+            </script>
+          </p>
+        </div>
+        Runnin' straight down the information highway in a 3$ Vultr VPS. <br /><br />
+        Typefaces used: <a href="https://rsms.me/inter/">Inter</a>, <a
+          href="https://blog.marsnev.com/2017/03/font-lemonmilk.html">Lemon/Milk</a>,
+        <a href="https://fonts.google.com/specimen/VT323">VT323</a>.
+        Built using <a href="https://github.com/difegue" rel="me"> Github Actions</a> and Pelican. <br />
+        You can talk to me on <a rel="me" href="https://bsky.app/profile/difegue.bsky.social">Bluesky</a> or <a rel="me"
+          href="https://kolektiva.social/@Difegue">Mastodon</a> if that's your thing.
+
+      </div>
+    </div>
+    <div class="bot-border hello-background"></div>
+  </footer><!-- /#contentinfo -->
+
+  <br />
+  <br />
+  <br />
+
+  <div class="footer-container" title="This COOL SYSTEM has been running...for some time now.">
+    <span class="footer-text">Uptime:
+      <br>
+      <span id="uptime">XXX days </span>
+    </span>
+    <img src="https://tvc-16.science/theme/img/footer.svg" class="footer-image">
+  </div>
+
+  <script src="https://tvc-16.science/theme/index.js"></script>
+</body>
+
+</html>
