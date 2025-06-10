@@ -9,6 +9,7 @@ LABEL "com.github.actions.description"="Runs pelican to build master branch and 
 LABEL "com.github.actions.icon"="eye"
 LABEL "com.github.actions.color"="purple"
 
+USER root
 COPY entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
 
