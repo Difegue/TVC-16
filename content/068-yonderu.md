@@ -5,17 +5,19 @@ Tags: nintendo, nintendo ds, warioware, doujinsoft, playdate, comics, gamedev
 Slug: yonderu
 Authors: Difegue
 HeroImage: images/doujinsoft/yonderu.jpg
-BskyPost: at://difegue.tvc-16.science/app.bsky.feed.post/3lgwb45tawk2o
+BskyPost: at://difegue.tvc-16.science/app.bsky.feed.post/3lugupqum4c2z
 Summary: it's officially the summer of wario
 
 Happy "end of season 2" to all [Playdate](https://play.date/) owners! Did you enjoy the games?  
 I actually haven't played most of them yet... since as soon as I heard the SDK now officially had _networking support_, I saw an opportunity to get some [brainworms](https://bsky.app/profile/difegue.tvc-16.science/post/3ljlqtygsek27)<sup id="ref-1">[*](#note-1)</sup> out of my skull.  
 
 And now, two months later, I'm proud to present my [second ever](/sonic-drift-mania.html) Playdate release.  
+
 <video autoplay loop src="./images/doujinsoft/yd_intro.mp4" muted=true title="Title screen for Yonderu! DoujinSoft"></video>  
 
 **Yonderu! DoujinSoft** <sub>(approximately translates to "Let's read! DoujinSoft"<sup id="ref-2">[**](#note-2)</sup>)</sub> is a _comic reader_ for the Playdate which is directly hooked up to the [DoujinSoft Store](https://diy.tvc-16.science/), the largest content archive for 2010's[ WarioWare DIY](https://en.wikipedia.org/wiki/WarioWare_DIY).  
-Comics in WWDIY are black-and-white 193 x 126 x 4-strip images, which makes them a nearly perfect fit for the Playdate screen!  
+
+Comics in WWDIY are black-and-white 193 x 126 x 4-strip images, which makes them a nearly perfect fit for the Playdate screen! Someone did [the same thing with XKCD](https://paulstraw.itch.io/xkpd) comics, so you know this is a winner. 😎  
 
 Ala _Garfield-in-the-newspaper_, the game will download a **new comic** every day from a curated selection for users to read, share, and rate.  
 And if you want more, you can also download all the latest comics uploaded to the store by the DIY community... which is still pretty active! Here's [a comic with a Deltarune ch3 joke](https://diy.tvc-16.science/comics?id=4c527559b4f1bf1bded41e00ec456fb3), for example.  
@@ -31,7 +33,7 @@ There's some real funny stuff in the _40000+_ comics uploaded to the archive tho
 
 This game is actually the **first time** you can submit [ratings](https://diy.tvc-16.science/surveys) for WWDIY content without using a Wii with DIY Showcase! It's pretty fun being able to stretch the lifetime of a game like this utterly beyond what it was designed to do.  
 ![A DSi and a Playdate both reading the tutorial comic -- i actually used mspaint's new remove background feature for the blur on this and was pleasantly surprised](images/doujinsoft/yonderu.jpg)  
-While the Playdate is a nice fit for this kind of pick-up-and-play <sub>(or is it pick-up-and-read?)</sub> content, I did have to rework a few bits of the experience for it to work on Panic's 1-bit console;  
+While the Playdate is a great fit for this kind of pick-up-and-play <sub>(or is it pick-up-and-read?)</sub> content, I did have to rework a few bits of the experience for it to work on Panic's 1-bit console;  
 
 The comic iconography has mostly been redrawn, and I used some MacPaint patterns to replace the colors that comic creators can use for their covers in the original game. It gives quite a different vibe from the original!   
 ![A comic cover in the OG NDS game, and how it looks in Yonderu.](images/doujinsoft/yd_covers.png)  
