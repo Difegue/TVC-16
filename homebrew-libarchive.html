@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Blogopolis - Hacking your way around both Homebrew and macOS to use libarchive</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <link
+    href="https://tvc-16.science/feeds/all.atom.xml"
+    type="application/atom+xml" rel="alternate" title="Blogopolis Full Atom Feed" />
+  <link
+    href="https://tvc-16.science/feeds/cool-tricks.atom.xml"
+    type="application/atom+xml" rel="alternate" title="Blogopolis Categories Atom Feed" />
+
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js'></script>
+  <script src='https://storage.ko-fi.com/cdn/scripts/overlay-widget.js'></script>
+  <script data-goatcounter="https://dingus.tvc-16.science/count" async src="//dingus.tvc-16.science/count.js"></script>
+
+  <link rel="apple-touch-icon" sizes="180x180" href="https://tvc-16.science/theme/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="https://tvc-16.science/theme/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="https://tvc-16.science/theme/favicon-16x16.png">
+  <link rel="manifest" href="https://tvc-16.science/theme/site.webmanifest">
+  <link rel="mask-icon" href="https://tvc-16.science/theme/safari-pinned-tab.svg" color="#f040b0">
+  <link rel="webmention" href="https://webmention.io/tvc-16.science/webmention" />
+  <link rel="pingback" href="https://webmention.io/tvc-16.science/xmlrpc" />
+  <meta name="msapplication-TileColor" content="#f1c711">
+  <meta name="theme-color" content="#f1c711">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta property="og:title" content="Hacking your way around both Homebrew and macOS to use libarchive - Blogopolis" />
+<meta property="og:type" content="article" />
+<meta property="og:description" content="<p>I also learned more about how to build a Perl module than I actually wanted to.</p>" />
+<meta property="og:url" content="https://tvc-16.science/homebrew-libarchive.html" />
+<meta property="og:image" content="https://tvc-16.science/images/brew-fail.png" />
+
+  <link href="https://fonts.googleapis.com/css?family=Monoton" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=VT323" rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/bluesky-comments@0.9.0/dist/bluesky-comments.css">
+  <link rel="stylesheet" href="https://tvc-16.science/theme/css/style.css">
+  <link rel="stylesheet" href="https://tvc-16.science/theme/css/pygment.css">
+
+
+
+
+<meta name="twitter:card" content="summary_large_image">
+<meta property="og:title" content="Hacking your way around both Homebrew and macOS to use libarchive - Blogopolis" />
+<meta property="og:type" content="article" />
+<meta property="og:description" content="<p>I also learned more about how to build a Perl module than I actually wanted to.</p>" />
+<meta property="og:url" content="https://tvc-16.science/homebrew-libarchive.html" />
+<meta property="og:image" content="https://tvc-16.science/images/brew-fail.png" />
+
+<meta name="tags" content="macos" />
+<meta name="tags" content="homebrew" />
+<meta name="tags" content="libarchive" />
+<meta name="tags" content="headers" />
+<meta name="tags" content="apple" />
+<meta name="tags" content="perl" />
+<meta name="tags" content="makefile" />
+<meta name="tags" content="makemaker" />
+<meta name="tags" content="cflags" />
+
+</head>
+
+<body id="index" class="home">
+
+  <canvas id="stage"></canvas>
+  <header id="banner" class="body">
+    <center><img height="170px" src="https://tvc-16.science/theme/img/logotype.svg" /></center>
+  </header><!-- /#banner -->
+
+  <div id="mainText">
+
+    <h2 class="subtitle">
+
+      <a style="color:black !important" href="/projects.html">Projects</a>
+      🔸
+      <a style="color:black !important" href="/">Articles</a>
+      🔸
+      <a style="color:black !important" href="/categories.html">Categories</a>
+      🔸
+
+    </h2><!-- /#menu -->
+
+    <div class="top-border project-background"></div>
+    <div class="wrapper project-background">
+      <div class="text">
+<section id="content" class="body" style="max-width: 900px;margin-left: auto;margin-right: auto;">
+  <header>
+    <h2 class="entry-title">
+      <a href="https://tvc-16.science/homebrew-libarchive.html" rel="bookmark" title="Permalink to Hacking your way around both Homebrew and macOS to use libarchive">
+        Hacking your way around both Homebrew and macOS to use libarchive
+      </a>
+    </h2>
+    
+  </header>
+  <footer class="post-info terminal-text">
+    <time class="published" datetime="2020-05-25T00:00:00+02:00">
+      Mon 25 May 2020
+    </time>
+    <address class="vcard author">
+      By       <a class="url fn" href="https://tvc-16.science/author/difegue.html">Difegue</a>
+    </address>
+    <div class="category">
+      Category: <a href="https://tvc-16.science/category/cool-tricks.html">Cool Tricks</a>
+    </div>
+    <div class="tags">
+      Tags:
+      <a href="https://tvc-16.science/tag/macos.html">macos</a>
+      <a href="https://tvc-16.science/tag/homebrew.html">homebrew</a>
+      <a href="https://tvc-16.science/tag/libarchive.html">libarchive</a>
+      <a href="https://tvc-16.science/tag/headers.html">headers</a>
+      <a href="https://tvc-16.science/tag/apple.html">apple</a>
+      <a href="https://tvc-16.science/tag/perl.html">perl</a>
+      <a href="https://tvc-16.science/tag/makefile.html">makefile</a>
+      <a href="https://tvc-16.science/tag/makemaker.html">makemaker</a>
+      <a href="https://tvc-16.science/tag/cflags.html">cflags</a>
+    </div>
+    <div class="summary">
+      <p>I also learned more about how to build a Perl module than I actually wanted to.</p>
+    </div>
+
+  </footer><!-- /.post-info -->
+  <div class="entry-content">
+    <p>The LANraragi <a href="https://formulae.brew.sh/formula/lanraragi">Homebrew Port</a> was recently merged into the core repository, making access to the world's only(<em>and therefore best</em>) Perl manga manager easy to all Macs.  </p>
+<p>Getting the port to the acceptable level of standards for the core repository wasn't easy and needed one cool trick.  </p>
+<h1>The libarchive conundrum</h1>
+<p>LRR depends on the well-known <a href="https://www.libarchive.org/">libarchive</a> project to handle archives.<br>
+It's so well-known that Apple themselves use and bundle it in releases of macOS.  </p>
+<p>Homebrew tries to be a good citizen by not installing dependencies which are already bundled by macOS if possible.<br>
+This makes sense! No need having <code>libarchive</code> in triplicate if the system version does the job.  </p>
+<p>Auditing the Homebrew formula henceforth gives you the following error:  </p>
+<div class="highlight"><pre><span></span><code>Dependency <span class="s1">&#39;libarchive&#39;</span> is provided by macOS<span class="p">;</span> please replace <span class="s1">&#39;depends_on&#39;</span> with <span class="s1">&#39;uses_from_macos&#39;</span>.
+</code></pre></div>
+
+
+<p>So the Homebrew formula for LRR should <code>uses_from_macos "libarchive"</code>. Sounds easy! Except not.  </p>
+<p>In their infinite wisdom, Apple made the decision that their libarchive should be <a href="https://stackoverflow.com/a/3167763">private API.</a><br>
+As such, they only include a <strong>compiled</strong> version of libarchive, without the function headers.  </p>
+<p>This would be fine if I was shipping precompiled executables that could call this compiled libarchive directly, but for better or worse, this is Perl! 🐫  </p>
+<p>The way I use the lib is through a pair of <a href="https://en.wikipedia.org/wiki/XS_%28Perl%29">XS Modules</a>, which are basically C programs compiled on the user's machine when the module is installed.<br>
+<img alt="wish I had an archive.h" src="https://tvc-16.science/images/libarchivexs.png"><br>
+And so, we're hosed. Without the headers, the modules can't compile, making the Homebrew formula impossible to build on a stock Mac.  </p>
+<p>This makes Homebrew's order a tall one:  </p>
+<h3>"Use the bundled libarchive, except you can't compile anything that relies on it."</h3>
+<h1>Sideloading headers</h1>
+<p>The easiest solution here is providing the libarchive headers ourselves.<br>
+Apple's version might be modified in some fashion from the original source code, so it's better to grab the headers directly <a href="https://opensource.apple.com/source/libarchive/">from them:</a>  </p>
+<div class="highlight"><pre><span></span><code><span class="c1"># libarchive headers from macOS 10.15 source</span>
+  <span class="n">resource</span> <span class="s2">&quot;libarchive-headers-10.15&quot;</span> <span class="k">do</span>
+    <span class="n">url</span> <span class="s2">&quot;https://opensource.apple.com/tarballs/libarchive/libarchive-72.11.2.tar.gz&quot;</span>
+    <span class="n">sha256</span> <span class="s2">&quot;655b9270db794ba0b27052fd37b1750514b06769213656ab81e30727322e401f&quot;</span>
+  <span class="k">end</span>
+</code></pre></div>
+
+
+<p>(And you probably get nerd cred for jamming apple.com as a dependency in your formula. 😎)  </p>
+<p>Homebrew decompresses resource tarballs on its own, so all we have to do to use the headers is move them in a custom <code>include</code> folder in our install:  </p>
+<div class="highlight"><pre><span></span><code>  <span class="n">resource</span><span class="p">(</span><span class="s2">&quot;libarchive-headers-10.15&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">stage</span> <span class="k">do</span>
+    <span class="p">(</span><span class="n">libexec</span><span class="o">/</span><span class="s2">&quot;include&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">install</span> <span class="s2">&quot;libarchive/libarchive/archive.h&quot;</span>
+    <span class="p">(</span><span class="n">libexec</span><span class="o">/</span><span class="s2">&quot;include&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">install</span> <span class="s2">&quot;libarchive/libarchive/archive_entry.h&quot;</span>
+  <span class="k">end</span>
+</code></pre></div>
+
+
+<p>And just add said folder using good ol' <a href="https://en.wikipedia.org/wiki/CFLAGS">CFLAGS</a>, so that the Perl Modules will automatically pick up the folder when compiling the XS scripts.  </p>
+<div class="highlight"><pre><span></span><code><span class="no">ENV</span><span class="o">[</span><span class="s2">&quot;CFLAGS&quot;</span><span class="o">]</span> <span class="o">=</span> <span class="s2">&quot;-I&quot;</span><span class="o">+</span><span class="n">libexec</span><span class="o">/</span><span class="s2">&quot;include&quot;</span>
+</code></pre></div>
+
+
+<p><code>libexec</code> is automatically mapped by brew to a directory like <code>/usr/local/Cellar/foo/0.1/libexec</code>.<br>
+And we're done!  </p>
+<p><img alt="oh no" src="https://tvc-16.science/images/brew-fail.png"><br>
+<img alt="YOU GAIN CPAN" src="https://tvc-16.science/images/bullshit.jpg"></p>
+<h1>Fixing the CPAN modules</h1>
+<p>Astute observers have probably noticed the error in the previous screenshot:<br>
+The <code>cc</code> command called to compile the XS script does not include the <code>libexec</code> folder as an include. Why?<br>
+Some background first.  </p>
+<p>There exist a variety of ways to handle building/installing a CPAN module in Perl, and this article <a href="https://metacpan.org/pod/Module::Install">wouldn't</a> be <a href="https://metacpan.org/pod/Module::Build">enough</a> to <a href="https://metacpan.org/pod/Dist::Zilla">talk</a> about <a href="https://metacpan.org/pod/ExtUtils::MakeMaker">all of them</a>.  </p>
+<p>As said earlier, I use two XS Modules that both consume libarchive:  </p>
+<ul>
+<li><code>Archive::Extract::Libarchive</code> (✅ builds fine with the new CFLAGS)</li>
+<li><code>Archive::Peek::Libarchive</code> (❌ doesn't work yet)</li>
+</ul>
+<p>You'd think that with such similar namespaces, both would use the same installer... Wrong! 😱<br>
+Peek uses <code>ExtUtils::MakeMaker</code>, and Extract uses <code>Module::Build</code>.  </p>
+<p>So let's focus on MakeMaker for a bit.<br>
+You basically use it by writing a Perl-style Makefile, <code>Makefile.PL</code>, which when interpreted by Perl will spit out a <em>regular</em> Makefile to use with your <em>regular</em> make/make install combo.  </p>
+<p>When building this Makefile, MakeMaker will <strong>not</strong> take into account your custom CFLAGS environment variable, instead opting to use the one that was used <a href="http://coding.derkeiler.com/Archive/Perl/comp.lang.perl.misc/2005-11/msg01613.html">when your version of Perl was built.</a><br>
+In our case, the Perl we use comes from homebrew, and is built with esoteric include paths such as <code>/usr/local/Cellar/perl/5.30.2_1/lib/perl5/5.20.2/darwin-thread-multi-2level/CORE</code>. The horror.  </p>
+<p>Now of course, Makefile.PL writers can add extra include paths, and our failing module certainly <a href="https://metacpan.org/source/REHSACK/Archive-Peek-Libarchive-0.38/Makefile.PL#L95">does so</a>, using another package called Config::AutoConf.<br>
+Said module's documentation is a bit <a href="https://metacpan.org/pod/Config::AutoConf#_get_extra_compiler_flags">empty</a> as to how it figures out the extra compiler flags, and this rabbit hole has gone on long enough, so let's just <strong>patch the Makefile directly in Homebrew.</strong>  </p>
+<div class="highlight"><pre><span></span><code><span class="n">resource</span><span class="p">(</span><span class="s2">&quot;Archive::Peek::Libarchive&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">stage</span> <span class="k">do</span>
+      <span class="n">inreplace</span> <span class="s2">&quot;Makefile.PL&quot;</span> <span class="k">do</span> <span class="o">|</span><span class="n">s</span><span class="o">|</span>
+        <span class="n">s</span><span class="o">.</span><span class="n">gsub!</span> <span class="s2">&quot;$autoconf-&gt;_get_extra_compiler_flags&quot;</span><span class="p">,</span>  
+                <span class="s2">&quot;$autoconf-&gt;_get_extra_compiler_flags .$ENV{CFLAGS}&quot;</span>
+      <span class="k">end</span>
+      <span class="o">[...]</span>
+<span class="k">end</span>
+</code></pre></div>
+
+
+<p>By adding the environment variable ourselves, the cumbersome module finally builds, and we're out of Perl module building hell.  </p>
+<p><img alt="took me three releases to get a working homebrew version" src="https://tvc-16.science/images/over.jpg">  </p>
+<h1>Spare thoughts</h1>
+<p>I use the 10.15 headers from Apple, as they're the only ones that actually include all the functions used by LANraragi.<br>
+This of course means that some functions are not available for both High Sierra and Mojave.<br>
+Luckily all this stuff fails rather gracefully, with no stability issues.  </p>
+<p>LRR is the <a href="https://github.com/Homebrew/homebrew-core/search?q=uses_from_macos+%22libarchive%22&amp;unscoped_q=uses_from_macos+%22libarchive%22">only formula</a> in homebrew/core using this trick with libarchive.<br>
+The other are <strong>weaksauce</strong>, using a duplicate version instead. Plebeians!  </p>
+<p>Jokes aside, it is a bit weird for the homebrew audit bot to consider libarchive to be bundled by the OS, where it is clearly unusable out of the box for something as simple as a <code>make</code> scenario. 😐  </p>
+  </div><!-- /.entry-content -->
+  <a class="containerBox">
+    <img src="https://tvc-16.science/theme/img/button2.svg" class="img-responsive">
+    <div class="text-box pink-button">
+      <span class=" button-text pink-shadow">Comments</span>
+    </div>
+  </a> <br /><br /><br /><br /><br /><br /><br /><br />
+  <script src="https://utteranc.es/client.js" repo="difegue/TVC-16" issue-term="url" theme="github-light"
+    crossorigin="anonymous" async>
+  </script>
+</section>
+      </div>
+    </div>
+    <div class="bot-border project-background"></div>
+
+    <br />
+    <br />
+    <br />
+
+  </div>
+
+  <footer id="contentinfo" class="body" style="position:relative; overflow:hidden">
+    <div class="top-border hello-background"></div>
+    <div class="wrapper hello-background">
+      <div class="text">
+
+        <a class="containerBox">
+          <img src="https://tvc-16.science/theme/img/button1.svg" class="img-responsive">
+          <div class="text-box blue-button">
+            <span class=" button-text blue-shadow">About</span>
+          </div>
+        </a>
+
+        <div class="scroll-left">
+          <p>
+            <script language="JavaScript">
+              //never forget grugeisti ;_;7
+              var r_text = new Array();
+              r_text[0] = "This is COOL";
+              r_text[1] = "TOP-SHELF BLOG DEVICE";
+              r_text[2] = "ACCELERATED PORTFOLIO SYSTEM";
+              r_text[3] = "Lookin' cool !";
+              r_text[4] = "ENHANCED SVG GRAPHICS";
+              r_text[5] = "HIGH-SPEED CHEAP VPS";
+              r_text[6] = "DELUXE UPTIME EXPERIENCE";
+              r_text[7] = "BEST-IN-CLASS SCROLLING TEXT";
+              r_text[8] = "HIGH GRADE MULTICONTAINER SETUP";
+              var i = Math.floor(9 * Math.random())
+              document.write(r_text[i]);
+            </script>
+          </p>
+        </div>
+        Runnin' straight down the information highway in a 3$ Vultr VPS. <br /><br />
+        Typefaces used: <a href="https://rsms.me/inter/">Inter</a>, <a
+          href="https://blog.marsnev.com/2017/03/font-lemonmilk.html">Lemon/Milk</a>,
+        <a href="https://fonts.google.com/specimen/VT323">VT323</a>.
+        Built using <a href="https://github.com/difegue" rel="me"> Github Actions</a> and Pelican. <br />
+        You can talk to me on <a rel="me" href="https://bsky.app/profile/difegue.bsky.social">Bluesky</a> or <a rel="me"
+          href="https://kolektiva.social/@Difegue">Mastodon</a> if that's your thing.
+
+      </div>
+    </div>
+    <div class="bot-border hello-background"></div>
+  </footer><!-- /#contentinfo -->
+
+  <br />
+  <br />
+  <br />
+
+  <div class="footer-container" title="This COOL SYSTEM has been running...for some time now.">
+    <span class="footer-text">Uptime:
+      <br>
+      <span id="uptime">XXX days </span>
+    </span>
+    <img src="https://tvc-16.science/theme/img/footer.svg" class="footer-image">
+  </div>
+
+  <script src="https://tvc-16.science/theme/index.js"></script>
+</body>
+
+</html>

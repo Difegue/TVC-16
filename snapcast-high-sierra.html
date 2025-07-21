@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Blogopolis - Compiling snapcast on macOS High Sierra</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <link
+    href="https://tvc-16.science/feeds/all.atom.xml"
+    type="application/atom+xml" rel="alternate" title="Blogopolis Full Atom Feed" />
+  <link
+    href="https://tvc-16.science/feeds/software.atom.xml"
+    type="application/atom+xml" rel="alternate" title="Blogopolis Categories Atom Feed" />
+
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js'></script>
+  <script src='https://storage.ko-fi.com/cdn/scripts/overlay-widget.js'></script>
+  <script data-goatcounter="https://dingus.tvc-16.science/count" async src="//dingus.tvc-16.science/count.js"></script>
+
+  <link rel="apple-touch-icon" sizes="180x180" href="https://tvc-16.science/theme/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="https://tvc-16.science/theme/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="https://tvc-16.science/theme/favicon-16x16.png">
+  <link rel="manifest" href="https://tvc-16.science/theme/site.webmanifest">
+  <link rel="mask-icon" href="https://tvc-16.science/theme/safari-pinned-tab.svg" color="#f040b0">
+  <link rel="webmention" href="https://webmention.io/tvc-16.science/webmention" />
+  <link rel="pingback" href="https://webmention.io/tvc-16.science/xmlrpc" />
+  <meta name="msapplication-TileColor" content="#f1c711">
+  <meta name="theme-color" content="#f1c711">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta property="og:title" content="Compiling snapcast on macOS High Sierra - Blogopolis" />
+<meta property="og:type" content="article" />
+<meta property="og:description" content="<p>feats of compiling only dreamt of by the utterly deranged</p>" />
+<meta property="og:url" content="https://tvc-16.science/snapcast-high-sierra.html" />
+<meta property="og:image" content="https://tvc-16.science/images/sierra-snapcast.png" />
+
+  <link href="https://fonts.googleapis.com/css?family=Monoton" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=VT323" rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/bluesky-comments@0.9.0/dist/bluesky-comments.css">
+  <link rel="stylesheet" href="https://tvc-16.science/theme/css/style.css">
+  <link rel="stylesheet" href="https://tvc-16.science/theme/css/pygment.css">
+
+
+
+
+<meta name="twitter:card" content="summary_large_image">
+<meta property="og:title" content="Compiling snapcast on macOS High Sierra - Blogopolis" />
+<meta property="og:type" content="article" />
+<meta property="og:description" content="<p>feats of compiling only dreamt of by the utterly deranged</p>" />
+<meta property="og:url" content="https://tvc-16.science/snapcast-high-sierra.html" />
+<meta property="og:image" content="https://tvc-16.science/images/sierra-snapcast.png" />
+
+<meta name="tags" content="macos" />
+<meta name="tags" content="snapcast" />
+<meta name="tags" content="home automation" />
+<meta name="tags" content="homebrew" />
+<meta name="tags" content="reuse" />
+
+</head>
+
+<body id="index" class="home">
+
+  <canvas id="stage"></canvas>
+  <header id="banner" class="body">
+    <center><img height="170px" src="https://tvc-16.science/theme/img/logotype.svg" /></center>
+  </header><!-- /#banner -->
+
+  <div id="mainText">
+
+    <h2 class="subtitle">
+
+      <a style="color:black !important" href="/projects.html">Projects</a>
+      🔸
+      <a style="color:black !important" href="/">Articles</a>
+      🔸
+      <a style="color:black !important" href="/categories.html">Categories</a>
+      🔸
+
+    </h2><!-- /#menu -->
+
+    <div class="top-border project-background"></div>
+    <div class="wrapper project-background">
+      <div class="text">
+<section id="content" class="body" style="max-width: 900px;margin-left: auto;margin-right: auto;">
+  <header>
+    <h2 class="entry-title">
+      <a href="https://tvc-16.science/snapcast-high-sierra.html" rel="bookmark" title="Permalink to Compiling snapcast on macOS High Sierra">
+        Compiling snapcast on macOS High Sierra
+      </a>
+    </h2>
+    
+  </header>
+  <footer class="post-info terminal-text">
+    <time class="published" datetime="2024-01-11T00:00:00+01:00">
+      Thu 11 January 2024
+    </time>
+    <address class="vcard author">
+      By       <a class="url fn" href="https://tvc-16.science/author/difegue.html">Difegue</a>
+    </address>
+    <div class="category">
+      Category: <a href="https://tvc-16.science/category/software.html">Software</a>
+    </div>
+    <div class="tags">
+      Tags:
+      <a href="https://tvc-16.science/tag/macos.html">macos</a>
+      <a href="https://tvc-16.science/tag/snapcast.html">snapcast</a>
+      <a href="https://tvc-16.science/tag/home-automation.html">home automation</a>
+      <a href="https://tvc-16.science/tag/homebrew.html">homebrew</a>
+      <a href="https://tvc-16.science/tag/reuse.html">reuse</a>
+    </div>
+    <div class="summary">
+      <p>feats of compiling only dreamt of by the utterly deranged</p>
+    </div>
+
+  </footer><!-- /.post-info -->
+  <div class="entry-content">
+    <h3>Happy New Year!</h3>
+<p>Here's a blogpost about fighting off bitrot so you can keep using those nice speakers your iMac ships with.  </p>
+<p>I recently got into setting up <a href="https://community.home-assistant.io/t/perfect-and-free-synchronous-multiroom-audio-with-snapcast/386871">snapcast</a> to play music from my NAS/MPD server across multiple rooms.<br>
+While a part of the deranged setup is finding a way to put MPD clients<sup id="ref-1"><a href="#note-1">*</a></sup> in multiple rooms, I also need speakers that run snapclient to play the synchronized audio from.<br>
+<img alt="snapclient running on High Sierra hell yeah" src="images/sierra-snapcast.png"><br>
+I have an old Intel iMac running <a href="https://en.wikipedia.org/wiki/MacOS_High_Sierra">macOS High Sierra</a><sup id="ref-2"><a href="#note-2">**</a></sup> , which is both not so old that compiling modern software on it is impossible... and old enough that it becomes kind of a pain. Let's suffer together!  </p>
+<p>...Or don't, you can just grab precompiled binaries for snapcast 0.27 <a href="https://github.com/Difegue/Chaotic-Realm/blob/master/snapcast-highsierra/snapcast_highsierra.zip">here.</a> It's on the house!  </p>
+<h1>#include &lt;filesystem> aka the clangening</h1>
+<p>Just running <code>brew install snapcast</code> on High Sierra will (currently) get you pretty far... but compiling the actual program will fail due to High Sierra's last official Apple C++ compiler <a href="https://stackoverflow.com/questions/49577343/filesystem-with-c17-doesnt-work-on-my-mac-os-x-high-sierra">not supporting C++17's std::filesystem.</a>  </p>
+<p>You could <em>seemingly</em> make it work with <code>&lt;experimental/filesystem&gt;</code>, but I wasn't able to do it...<br>
+So let's just <strong>install a new compiler</strong>! I went with clang/llvm, like what's used on base macOS;<br>
+Just installing a newer version than the stock Apple one.  </p>
+<p><code>brew install llvm</code> will <strong>fail</strong>, but I've found that installing the previous version works, so do <code>brew install llvm@15</code>.<br>
+Now, how do you tell Homebrew to use this compiler instead? <em>I actually don't fucking know!</em><br>
+<img alt="I CAN DO ANYTHING" src="images/anything.jpg"><br>
+<a href="https://stackoverflow.com/questions/9186033/using-homebrew-with-alternate-gcc">Apparently</a> you can use <code>HOMEBREW_CC</code> and <code>HOMEBREW_CXX</code> to set C/C++ compilers...<br>
+But setting those variables to a path doesn't work, and setting them to <code>clang</code>/<code>clang++</code> just makes Homebrew keep using the default Apple compiler. (<code>AppleClang 10.0.0.10001044</code>)    </p>
+<p>I couldn't install <code>gcc</code> on High Sierra, so.. let's just start hacking at the <a href="https://raw.githubusercontent.com/Homebrew/homebrew-core/2e5a1cad52074ef53f1ae1b73c47dafa5e1f93ad/Formula/s/snapcast.rb">snapcast formula</a> instead<sup id="ref-3"><a href="#note-2">***</a></sup> !<br>
+You can <a href="https://stackoverflow.com/questions/60082066/how-do-i-get-cmake-to-use-my-homebrew-installation-of-llvm-exclusively">override compilers</a> at the <code>cmake</code> level by using the properties <code>-DCMAKE_C_COMPILER</code> and <code>-DCMAKE_CXX_COMPILER</code>.  </p>
+<h1>Atomic bullshit</h1>
+<p>Modifying the formula's cmake call to be  </p>
+<div class="highlight"><pre><span></span><code>    <span class="n">system</span> <span class="s">&quot;cmake&quot;</span><span class="p">,</span> <span class="s">&quot;-S&quot;</span><span class="p">,</span> <span class="s">&quot;.&quot;</span><span class="p">,</span> <span class="s">&quot;-B&quot;</span><span class="p">,</span> <span class="s">&quot;build&quot;</span><span class="p">,</span> <span class="o">*</span><span class="n">std_cmake_args</span><span class="p">,</span> <span class="s">&quot;-DCMAKE_C_COMPILER=/usr/local/opt/llvm@15/bin/clang&quot;</span><span class="p">,</span> <span class="s">&quot;-DCMAKE_CXX_COMPILER=/usr/local/opt/llvm@15/bin/clang++&quot;</span>  
+</code></pre></div>
+
+
+<p>uses our new compiler correctly, but then a new error rises...  </p>
+<blockquote>
+<p>Host compiler appears to require libatomic, but cannot find it.  </p>
+</blockquote>
+<p>That one is actually pretty easy and seems to just stem from llvm <a href="https://stackoverflow.com/a/64112384/1418981"><em>really</em> wanting libatomic</a>, even though it's not needed for our <em>spectacular snapcast shenanigans</em> at all.<br>
+Soo, what's one more argument to the cmake line, right? <code>"-DHAVE_CXX_ATOMICS_WITHOUT_LIB=TRUE"</code> sidesteps this problem.  </p>
+<p>Are we done? No!<br>
+<img alt="" src="images/bullshit.jpg"><br>
+After all that, I was encountering some final missing headers for basic C++ libraries, like <code>&lt;string.h&gt;</code>.<br>
+But I'd followed the brew instructions to set my lib/include paths properly...  </p>
+<blockquote>
+<p>To use the bundled libc++ please add the following LDFLAGS:<br>
+  LDFLAGS="-L/usr/local/opt/llvm@15/lib/c++ -Wl,-rpath,/usr/local/opt/llvm@15/lib/c++"<br>
+  For compilers to find llvm@15 you may need to set:<br>
+  export CPPFLAGS="-I/usr/local/opt/llvm@15/include"  </p>
+</blockquote>
+<p>Well, they're actually <strong>incorrect</strong>! Your include should be <code>"-I/usr/local/opt/llvm@15/include/c++/v1"</code> instead. Thanks for nothing. </p>
+<p>So with just a compiler swap and those three lines in your <a href="https://github.com/Difegue/Chaotic-Realm/blob/master/snapcast-highsierra/snapcast.rb">snapcast formula</a>:  </p>
+<div class="highlight"><pre><span></span><code><span class="n">def</span> <span class="n">install</span>
+    <span class="cp"># Use brew llvm</span>
+    <span class="n">ENV</span><span class="p">[</span><span class="s">&quot;CXXFLAGS&quot;</span><span class="p">]</span><span class="o">=</span><span class="s">&quot;-I/usr/local/opt/llvm@15/include/c++/v1&quot;</span>
+    <span class="n">ENV</span><span class="p">[</span><span class="s">&quot;LDFLAGS&quot;</span><span class="p">]</span><span class="o">=</span><span class="s">&quot;-L/usr/local/opt/llvm@15/lib/c++ -Wl,-rpath,/usr/local/opt/llvm@15/lib/c++&quot;</span>
+
+    <span class="cp"># Hijack compiler path directly in cmake call </span>
+    <span class="n">system</span> <span class="s">&quot;cmake&quot;</span><span class="p">,</span> <span class="s">&quot;-S&quot;</span><span class="p">,</span> <span class="s">&quot;.&quot;</span><span class="p">,</span> <span class="s">&quot;-B&quot;</span><span class="p">,</span> <span class="s">&quot;build&quot;</span><span class="p">,</span> <span class="o">*</span><span class="n">std_cmake_args</span><span class="p">,</span> <span class="s">&quot;-DHAVE_CXX_ATOMICS_WITHOUT_LIB=TRUE&quot;</span><span class="p">,</span> <span class="s">&quot;-DCMAKE_C_COMPILER=/usr/local/opt/llvm@15/bin/clang&quot;</span><span class="p">,</span> <span class="s">&quot;-DCMAKE_CXX_COMPILER=/usr/local/opt/llvm@15/bin/clang++&quot;</span>
+    <span class="cp"># Rest of the formula proceeds as usual</span>
+    <span class="n">system</span> <span class="s">&quot;cmake&quot;</span><span class="p">,</span> <span class="s">&quot;--build&quot;</span><span class="p">,</span> <span class="s">&quot;build&quot;</span>
+</code></pre></div>
+
+
+<p>You should be able to build snapcast on High Sierra.<br>
+<img alt="" src="images/over.jpg"><br>
+Nothing like some brew bullshit to start off the year.  </p>
+<h1></h1>
+<p><sup id="note-1"><a href="#ref-1">*</a> I'm of course using <a href="https://github.com/Difegue/Stylophone">Stylophone</a> by yours truly, but also <a href="https://persephone.fm/">Persephone</a> for macOS, <a href="https://gitlab.com/gateship-one/malp">MALP</a> for Android, and even a bit of <a href="https://github.com/ncmpcpp/ncmpcpp">ncmpcpp</a>!</sup><br>
+<sup id="note-2"><a href="#ref-2">**</a> I can already hear the wails of <em>"whyyy aren't you putting linux on it it's just x86"</em>: I actually use the machine occasionally for 32bit mac software! Also, the <a href="https://github.com/pedrommcarrasco/Brooklyn">Brooklyn screensaver</a> is really neat and I like having it in my living room.</sup><br>
+<sup id="note-3"><a href="#ref-3">***</a> I initially tried compiling snapcast 0.26, but that <a href="https://github.com/badaix/snapcast/issues/1082">doesn't work</a> with the boost lib provided by brew, so make sure to use 0.27. </sup>  </p>
+  </div><!-- /.entry-content -->
+  <a class="containerBox">
+    <img src="https://tvc-16.science/theme/img/button2.svg" class="img-responsive">
+    <div class="text-box pink-button">
+      <span class=" button-text pink-shadow">Comments</span>
+    </div>
+  </a> <br /><br /><br /><br /><br /><br /><br /><br />
+  <script src="https://utteranc.es/client.js" repo="difegue/TVC-16" issue-term="url" theme="github-light"
+    crossorigin="anonymous" async>
+  </script>
+</section>
+      </div>
+    </div>
+    <div class="bot-border project-background"></div>
+
+    <br />
+    <br />
+    <br />
+
+  </div>
+
+  <footer id="contentinfo" class="body" style="position:relative; overflow:hidden">
+    <div class="top-border hello-background"></div>
+    <div class="wrapper hello-background">
+      <div class="text">
+
+        <a class="containerBox">
+          <img src="https://tvc-16.science/theme/img/button1.svg" class="img-responsive">
+          <div class="text-box blue-button">
+            <span class=" button-text blue-shadow">About</span>
+          </div>
+        </a>
+
+        <div class="scroll-left">
+          <p>
+            <script language="JavaScript">
+              //never forget grugeisti ;_;7
+              var r_text = new Array();
+              r_text[0] = "This is COOL";
+              r_text[1] = "TOP-SHELF BLOG DEVICE";
+              r_text[2] = "ACCELERATED PORTFOLIO SYSTEM";
+              r_text[3] = "Lookin' cool !";
+              r_text[4] = "ENHANCED SVG GRAPHICS";
+              r_text[5] = "HIGH-SPEED CHEAP VPS";
+              r_text[6] = "DELUXE UPTIME EXPERIENCE";
+              r_text[7] = "BEST-IN-CLASS SCROLLING TEXT";
+              r_text[8] = "HIGH GRADE MULTICONTAINER SETUP";
+              var i = Math.floor(9 * Math.random())
+              document.write(r_text[i]);
+            </script>
+          </p>
+        </div>
+        Runnin' straight down the information highway in a 3$ Vultr VPS. <br /><br />
+        Typefaces used: <a href="https://rsms.me/inter/">Inter</a>, <a
+          href="https://blog.marsnev.com/2017/03/font-lemonmilk.html">Lemon/Milk</a>,
+        <a href="https://fonts.google.com/specimen/VT323">VT323</a>.
+        Built using <a href="https://github.com/difegue" rel="me"> Github Actions</a> and Pelican. <br />
+        You can talk to me on <a rel="me" href="https://bsky.app/profile/difegue.bsky.social">Bluesky</a> or <a rel="me"
+          href="https://kolektiva.social/@Difegue">Mastodon</a> if that's your thing.
+
+      </div>
+    </div>
+    <div class="bot-border hello-background"></div>
+  </footer><!-- /#contentinfo -->
+
+  <br />
+  <br />
+  <br />
+
+  <div class="footer-container" title="This COOL SYSTEM has been running...for some time now.">
+    <span class="footer-text">Uptime:
+      <br>
+      <span id="uptime">XXX days </span>
+    </span>
+    <img src="https://tvc-16.science/theme/img/footer.svg" class="footer-image">
+  </div>
+
+  <script src="https://tvc-16.science/theme/index.js"></script>
+</body>
+
+</html>

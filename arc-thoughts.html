@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Blogopolis - Some thoughts on the Arc Browser</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <link
+    href="https://tvc-16.science/feeds/all.atom.xml"
+    type="application/atom+xml" rel="alternate" title="Blogopolis Full Atom Feed" />
+  <link
+    href="https://tvc-16.science/feeds/blogposting.atom.xml"
+    type="application/atom+xml" rel="alternate" title="Blogopolis Categories Atom Feed" />
+
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js'></script>
+  <script src='https://storage.ko-fi.com/cdn/scripts/overlay-widget.js'></script>
+  <script data-goatcounter="https://dingus.tvc-16.science/count" async src="//dingus.tvc-16.science/count.js"></script>
+
+  <link rel="apple-touch-icon" sizes="180x180" href="https://tvc-16.science/theme/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="https://tvc-16.science/theme/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="https://tvc-16.science/theme/favicon-16x16.png">
+  <link rel="manifest" href="https://tvc-16.science/theme/site.webmanifest">
+  <link rel="mask-icon" href="https://tvc-16.science/theme/safari-pinned-tab.svg" color="#f040b0">
+  <link rel="webmention" href="https://webmention.io/tvc-16.science/webmention" />
+  <link rel="pingback" href="https://webmention.io/tvc-16.science/xmlrpc" />
+  <meta name="msapplication-TileColor" content="#f1c711">
+  <meta name="theme-color" content="#f1c711">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta property="og:title" content="Some thoughts on the Arc Browser - Blogopolis" />
+<meta property="og:type" content="article" />
+<meta property="og:description" content="<p>Isn't 'The Browser Company' kind of a pretentious name?</p>" />
+<meta property="og:url" content="https://tvc-16.science/arc-thoughts.html" />
+<meta property="og:image" content="https://tvc-16.science/images/arc/arc_4.jpg" />
+
+  <link href="https://fonts.googleapis.com/css?family=Monoton" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=VT323" rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/bluesky-comments@0.9.0/dist/bluesky-comments.css">
+  <link rel="stylesheet" href="https://tvc-16.science/theme/css/style.css">
+  <link rel="stylesheet" href="https://tvc-16.science/theme/css/pygment.css">
+
+
+
+
+<meta name="twitter:card" content="summary_large_image">
+<meta property="og:title" content="Some thoughts on the Arc Browser - Blogopolis" />
+<meta property="og:type" content="article" />
+<meta property="og:description" content="<p>Isn't 'The Browser Company' kind of a pretentious name?</p>" />
+<meta property="og:url" content="https://tvc-16.science/arc-thoughts.html" />
+<meta property="og:image" content="https://tvc-16.science/images/arc/arc_4.jpg" />
+
+<meta name="tags" content="macos" />
+<meta name="tags" content="apple" />
+<meta name="tags" content="internet browsers" />
+<meta name="tags" content="startup stuff" />
+
+</head>
+
+<body id="index" class="home">
+
+  <canvas id="stage"></canvas>
+  <header id="banner" class="body">
+    <center><img height="170px" src="https://tvc-16.science/theme/img/logotype.svg" /></center>
+  </header><!-- /#banner -->
+
+  <div id="mainText">
+
+    <h2 class="subtitle">
+
+      <a style="color:black !important" href="/projects.html">Projects</a>
+      🔸
+      <a style="color:black !important" href="/">Articles</a>
+      🔸
+      <a style="color:black !important" href="/categories.html">Categories</a>
+      🔸
+
+    </h2><!-- /#menu -->
+
+    <div class="top-border project-background"></div>
+    <div class="wrapper project-background">
+      <div class="text">
+<section id="content" class="body" style="max-width: 900px;margin-left: auto;margin-right: auto;">
+  <header>
+    <h2 class="entry-title">
+      <a href="https://tvc-16.science/arc-thoughts.html" rel="bookmark" title="Permalink to Some thoughts on the Arc Browser">
+        Some thoughts on the Arc Browser
+      </a>
+    </h2>
+    
+  </header>
+  <footer class="post-info terminal-text">
+    <time class="published" datetime="2023-01-08T00:00:00+01:00">
+      Sun 08 January 2023
+    </time>
+    <address class="vcard author">
+      By       <a class="url fn" href="https://tvc-16.science/author/difegue.html">Difegue</a>
+    </address>
+    <div class="category">
+      Category: <a href="https://tvc-16.science/category/blogposting.html">Blogposting</a>
+    </div>
+    <div class="tags">
+      Tags:
+      <a href="https://tvc-16.science/tag/macos.html">macos</a>
+      <a href="https://tvc-16.science/tag/apple.html">apple</a>
+      <a href="https://tvc-16.science/tag/internet-browsers.html">internet browsers</a>
+      <a href="https://tvc-16.science/tag/startup-stuff.html">startup stuff</a>
+    </div>
+    <div class="summary">
+      <p>Isn't 'The Browser Company' kind of a pretentious name?</p>
+    </div>
+
+  </footer><!-- /.post-info -->
+  <div class="entry-content">
+    <p>Remember when the Internet Explorer browser engine was the most ubiquitous thing because it was forcibly integrated into Windows and everyone could use it?<br>
+Heck, you could even make <em>your</em> own web browser by just slapping some Win32 controls on top of a webview, look at this old Winforms app someone made eons ago and that I kept in my "old stuff" folder for some reason:    </p>
+<p><img alt="yeah the IE11 engine is starting to show its age tho" src="images/arc/cakebrowser.png">  </p>
+<p>I got the opportunity to try out <a href="https://arc.net/">Arc</a>, a new web browser setting to <code>"think as quickly as we do, take work off of our plates, and pull our creativity forward"</code> and <code>"let go of the old internet"</code>, yknow, tech startup stuff.  </p>
+<p>Their brand/marketing is pretty good<sup id="ref-1"><a href="#note-1">*</a></sup>, and since the browser was shrouded in secrecy for a while I got interested...<br>
+Like all tech startup stuff, the beta is an invite-only cool club thing because we can't just have <em>everyone</em> try our software I guess ¯\_(ツ)_/¯ <br>
+At least they <strong>actually</strong> give you a member card here so I can't really complain too much, look how pretty it is!    </p>
+<p><img src="images/arc/cool_club.jpg" width="400"/>  </p>
+<h1>Interface and Browser organization</h1>
+<p>The Arc browser is a UI wrapper around Chromium like most new browsers these days, but unlike Vivaldi I quite like the interface here! It's Mac-only for now and is actually using native UI components, which helps a <strong>lot</strong>.  </p>
+<p>There are tons of micro-interaction animations and other niceties peppered throughout the interface -- 
+Since I'm more of a Windows user, I can only hope they manage to do the same <a href="https://www.theverge.com/2022/11/4/23438365/the-arc-browser-is-coming-to-windows">there.</a><sup id="ref-2"><a href="#note-2">**</a></sup></p>
+<p>The main idea behind Arc is to reduce on your browser clutter by automatically Marie Kondo-ing your tabs away after a few days, unless you specifically move them <em>above</em> the New Tab button, where they'll never close.  </p>
+<p><img alt="" src="images/arc/arc_1.jpg">  </p>
+<p>For "webapps" that you always keep open, you can also drag a tab all the way up, where it'll transform into a big fat toggle button. I personally prefer extracting webapps away from the browser when possible<sup id="ref-3"><a href="#note-3">***</a></sup> so I can use the OS to multitask instead, because it'll usually be miles ahead of what a single app can do 😤  </p>
+<p>Having the area below New Tab be this ephemeral space allows for some interesting UI choices, like putting downloads alongside your tabs. I can appreciate the experiment, but as a dedicated Tab Hoarder™️ I'd probably end up pinning everything...  </p>
+<p>As far as Tab organization itself goes, you've got folders, which give you one level of hierarchy only(meh). But if you want one more level, you can use <strong>Spaces</strong>, which I consider to be a very cool spin on web browsing compartmentalization.  </p>
+<p><img alt="" src="images/arc/arc_3.jpg">  </p>
+<p>Spaces end up at the bottom of the sidebar with the icon/emoji you give them, and each space has its own set of tabs and folders. If you want, you can give a space a different <strong>profile</strong>, which is basically a separate cookie/data storage like what Firefox Containers do.  </p>
+<p>This is quite powerful for Home/Work separation and other stuff like per-project tab bundles - But once you're on a space proper you'll still notice that the tab interface can't really hold a lot of tabs (even with folders), which is very much a deliberate choice by the browser.</p>
+<h1>Split View</h1>
+<p>Y'know how browsers all mostly embraced the "sidebar/side view" thing these days, either for extensions or additional lightweight multitasking? Arc just goes whole hog on the concept with a Split View feature that allows you to have up to 4 tabs side-by-side.<br>
+The tabs merge in a single line on the sidebar, which is a nice touch.   </p>
+<p><img alt="A screenshot of Arc, showing four doujinsoft tabs side by side playing different games. this is quite silly" src="images/arc/arc_4.jpg"><br>
+<sub>Playing DIY games on <a href="http://diy.tvc-16.science">DoujinSoft</a> certainly gets more challenging when you have to play four of them simultaneously...</sub>  </p>
+<p>While the interface of Arc is overall very spacious, for some reason the multitasking menu is this small set of three dots on the right side of each tab - What is this, the iPad?  </p>
+<p><img alt="extension/multitasking menu on arc, with the tsukihi extension opened in a small adjacent window" src="images/arc/arc_extension.jpg"><br>
+The multitasking menu is also where extensions live, and opening an extension shows it up in a little floating window -- Which is something I thought was <strong>really</strong> cool at first, because sometimes I do want my extension to stick around on screen while I'm doing browser stuff instead of being a quick overlay like all other browsers do.<br>
+Except that the window autocloses as soon as you click outside it, so it's basically just an overlay anyways. 😩😩  </p>
+<h1>Other features</h1>
+<p>Each space can have a dedicated <strong>theme</strong>, which is a set of up to three accent colors you can choose. Although you can only really choose the primary colors, as the browser will "derive" the others for you so that the interface remains nice.<br>
+<sub>no hot dog stand...</sub>  </p>
+<p>The browser comes with uBlock Origin pre-installed as an adblocker, and comes with a "Boost" feature that's basically Stylish+Greasemonkey, allowing you to give any website custom CSS/JS. It's pretty good! The split view also makes working on custom styles and scripts a pleasant experience.</p>
+<p>I didn't take a screenshot of it (ha), but the <strong>screenshot</strong> tool can always be quickly reached from the address bar, and it is <em>surprisingly</em> powerful -- You can select DOM regions like other browsers, but there's also some basic editing tools on top of it.<br>
+It ties into the "Easel" feature, which is some kind of collaborative whiteboard thing? This isn't really the kind of thing I'd do in a web browser, but it's there if you want it<sup id="ref-4"><a href="#note-4">#</a></sup>. </p>
+<p><img alt="" src="images/arc/arc_easel.jpg">  </p>
+<h1>Closing thoughts</h1>
+<p>It looks good and it tries to be your Internet swiss army knife... I appreciate some of the choices, but I'd probably end up only using a third of what Arc offers.  </p>
+<p>Spaces are a really nice feature and I'd like to use those instead of juggling two Firefox windows like I do, but the tab management side of things is a bit too limiting for me I'd say? Firefox + <a href="https://github.com/piroor/treestyletab">Tree Style Tabs</a> remains undefeated!  </p>
+<p>Here's an <a href="https://arc.net/gift/ac63e7b">invite code</a> for the Arc cool club in case you want to try it out.  </p>
+<p><sup id="note-1"><a href="#ref-1">*</a>I am a sucker for serifs/renaissance art mixed with corporate aesthetics I guess</sup><br>
+<sup id="note-2"><a href="#ref-2">**</a> Swift bindings to WinUI? they sure aren't making their lives easy on that one that's commendable</sup><br>
+<sup id="note-3"><a href="#ref-3">***</a> Using PWAs, third party clients or <em>shudders</em> awful electron wrappers... </sup><br>
+<sup id="note-4"><a href="#ref-4">#</a> One nice feature of easels is that you can make your screenshots "live", which basically turns them into small webviews. This won't work everywhere, but it's nice for dashboard stuff! </sup>  </p>
+  </div><!-- /.entry-content -->
+  <a class="containerBox">
+    <img src="https://tvc-16.science/theme/img/button2.svg" class="img-responsive">
+    <div class="text-box pink-button">
+      <span class=" button-text pink-shadow">Comments</span>
+    </div>
+  </a> <br /><br /><br /><br /><br /><br /><br /><br />
+  <script src="https://utteranc.es/client.js" repo="difegue/TVC-16" issue-term="url" theme="github-light"
+    crossorigin="anonymous" async>
+  </script>
+</section>
+      </div>
+    </div>
+    <div class="bot-border project-background"></div>
+
+    <br />
+    <br />
+    <br />
+
+  </div>
+
+  <footer id="contentinfo" class="body" style="position:relative; overflow:hidden">
+    <div class="top-border hello-background"></div>
+    <div class="wrapper hello-background">
+      <div class="text">
+
+        <a class="containerBox">
+          <img src="https://tvc-16.science/theme/img/button1.svg" class="img-responsive">
+          <div class="text-box blue-button">
+            <span class=" button-text blue-shadow">About</span>
+          </div>
+        </a>
+
+        <div class="scroll-left">
+          <p>
+            <script language="JavaScript">
+              //never forget grugeisti ;_;7
+              var r_text = new Array();
+              r_text[0] = "This is COOL";
+              r_text[1] = "TOP-SHELF BLOG DEVICE";
+              r_text[2] = "ACCELERATED PORTFOLIO SYSTEM";
+              r_text[3] = "Lookin' cool !";
+              r_text[4] = "ENHANCED SVG GRAPHICS";
+              r_text[5] = "HIGH-SPEED CHEAP VPS";
+              r_text[6] = "DELUXE UPTIME EXPERIENCE";
+              r_text[7] = "BEST-IN-CLASS SCROLLING TEXT";
+              r_text[8] = "HIGH GRADE MULTICONTAINER SETUP";
+              var i = Math.floor(9 * Math.random())
+              document.write(r_text[i]);
+            </script>
+          </p>
+        </div>
+        Runnin' straight down the information highway in a 3$ Vultr VPS. <br /><br />
+        Typefaces used: <a href="https://rsms.me/inter/">Inter</a>, <a
+          href="https://blog.marsnev.com/2017/03/font-lemonmilk.html">Lemon/Milk</a>,
+        <a href="https://fonts.google.com/specimen/VT323">VT323</a>.
+        Built using <a href="https://github.com/difegue" rel="me"> Github Actions</a> and Pelican. <br />
+        You can talk to me on <a rel="me" href="https://bsky.app/profile/difegue.bsky.social">Bluesky</a> or <a rel="me"
+          href="https://kolektiva.social/@Difegue">Mastodon</a> if that's your thing.
+
+      </div>
+    </div>
+    <div class="bot-border hello-background"></div>
+  </footer><!-- /#contentinfo -->
+
+  <br />
+  <br />
+  <br />
+
+  <div class="footer-container" title="This COOL SYSTEM has been running...for some time now.">
+    <span class="footer-text">Uptime:
+      <br>
+      <span id="uptime">XXX days </span>
+    </span>
+    <img src="https://tvc-16.science/theme/img/footer.svg" class="footer-image">
+  </div>
+
+  <script src="https://tvc-16.science/theme/index.js"></script>
+</body>
+
+</html>

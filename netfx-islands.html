@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Blogopolis - Using System XAML Islands in a MSIX-packaged .NET Framework app</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <link
+    href="https://tvc-16.science/feeds/all.atom.xml"
+    type="application/atom+xml" rel="alternate" title="Blogopolis Full Atom Feed" />
+  <link
+    href="https://tvc-16.science/feeds/cool-tricks.atom.xml"
+    type="application/atom+xml" rel="alternate" title="Blogopolis Categories Atom Feed" />
+
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js'></script>
+  <script src='https://storage.ko-fi.com/cdn/scripts/overlay-widget.js'></script>
+  <script data-goatcounter="https://dingus.tvc-16.science/count" async src="//dingus.tvc-16.science/count.js"></script>
+
+  <link rel="apple-touch-icon" sizes="180x180" href="https://tvc-16.science/theme/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="https://tvc-16.science/theme/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="https://tvc-16.science/theme/favicon-16x16.png">
+  <link rel="manifest" href="https://tvc-16.science/theme/site.webmanifest">
+  <link rel="mask-icon" href="https://tvc-16.science/theme/safari-pinned-tab.svg" color="#f040b0">
+  <link rel="webmention" href="https://webmention.io/tvc-16.science/webmention" />
+  <link rel="pingback" href="https://webmention.io/tvc-16.science/xmlrpc" />
+  <meta name="msapplication-TileColor" content="#f1c711">
+  <meta name="theme-color" content="#f1c711">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta property="og:title" content="Using System XAML Islands in a MSIX-packaged .NET Framework app - Blogopolis" />
+<meta property="og:type" content="article" />
+<meta property="og:description" content="<p>MUX, WUX... more like FUX this shit eyy gotem</p>" />
+<meta property="og:url" content="https://tvc-16.science/netfx-islands.html" />
+<meta property="og:image" content="https://tvc-16.science/images/wow.jpg" />
+
+  <link href="https://fonts.googleapis.com/css?family=Monoton" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=VT323" rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/bluesky-comments@0.9.0/dist/bluesky-comments.css">
+  <link rel="stylesheet" href="https://tvc-16.science/theme/css/style.css">
+  <link rel="stylesheet" href="https://tvc-16.science/theme/css/pygment.css">
+
+
+
+
+<meta name="twitter:card" content="summary_large_image">
+<meta property="og:title" content="Using System XAML Islands in a MSIX-packaged .NET Framework app - Blogopolis" />
+<meta property="og:type" content="article" />
+<meta property="og:description" content="<p>MUX, WUX... more like FUX this shit eyy gotem</p>" />
+<meta property="og:url" content="https://tvc-16.science/netfx-islands.html" />
+<meta property="og:image" content="https://tvc-16.science/images/wow.jpg" />
+
+<meta name="tags" content="xaml islands" />
+<meta name="tags" content="wpf" />
+<meta name="tags" content="uwp" />
+<meta name="tags" content="C#" />
+<meta name="tags" content="windows" />
+<meta name="tags" content="windows 11" />
+<meta name="tags" content="net framework" />
+<meta name="tags" content="msix" />
+<meta name="tags" content="very dangerous windows hack age 18 and up content" />
+
+</head>
+
+<body id="index" class="home">
+
+  <canvas id="stage"></canvas>
+  <header id="banner" class="body">
+    <center><img height="170px" src="https://tvc-16.science/theme/img/logotype.svg" /></center>
+  </header><!-- /#banner -->
+
+  <div id="mainText">
+
+    <h2 class="subtitle">
+
+      <a style="color:black !important" href="/projects.html">Projects</a>
+      🔸
+      <a style="color:black !important" href="/">Articles</a>
+      🔸
+      <a style="color:black !important" href="/categories.html">Categories</a>
+      🔸
+
+    </h2><!-- /#menu -->
+
+    <div class="top-border project-background"></div>
+    <div class="wrapper project-background">
+      <div class="text">
+<section id="content" class="body" style="max-width: 900px;margin-left: auto;margin-right: auto;">
+  <header>
+    <h2 class="entry-title">
+      <a href="https://tvc-16.science/netfx-islands.html" rel="bookmark" title="Permalink to Using System XAML Islands in a MSIX-packaged .NET Framework app">
+        Using System XAML Islands in a MSIX-packaged .NET Framework app
+      </a>
+    </h2>
+    
+  </header>
+  <footer class="post-info terminal-text">
+    <time class="published" datetime="2023-12-04T00:00:00+01:00">
+      Mon 04 December 2023
+    </time>
+    <address class="vcard author">
+      By       <a class="url fn" href="https://tvc-16.science/author/difegue.html">Difegue</a>
+    </address>
+    <div class="category">
+      Category: <a href="https://tvc-16.science/category/cool-tricks.html">Cool Tricks</a>
+    </div>
+    <div class="tags">
+      Tags:
+      <a href="https://tvc-16.science/tag/xaml-islands.html">xaml islands</a>
+      <a href="https://tvc-16.science/tag/wpf.html">wpf</a>
+      <a href="https://tvc-16.science/tag/uwp.html">uwp</a>
+      <a href="https://tvc-16.science/tag/c.html">C#</a>
+      <a href="https://tvc-16.science/tag/windows.html">windows</a>
+      <a href="https://tvc-16.science/tag/windows-11.html">windows 11</a>
+      <a href="https://tvc-16.science/tag/net-framework.html">net framework</a>
+      <a href="https://tvc-16.science/tag/msix.html">msix</a>
+      <a href="https://tvc-16.science/tag/very-dangerous-windows-hack-age-18-and-up-content.html">very dangerous windows hack age 18 and up content</a>
+    </div>
+    <div class="summary">
+      <p>MUX, WUX... more like FUX this shit eyy gotem</p>
+    </div>
+
+  </footer><!-- /.post-info -->
+  <div class="entry-content">
+    <p>Here's a <em>"I want this to pop up in SEO results despite all the AI garbage flooding search results"</em> article I wish I had on hand.  </p>
+<p><a href="https://learn.microsoft.com/en-us/windows/apps/desktop/modernize/xaml-islands">XAML Islands</a> is the catch-all term for the technologies that allow you to host WinRT/UWP user interface elements in apps built with other desktop frameworks, like WPF and al.  </p>
+<p>Since nothing about modern Windows UI is simple, there are <strong>two</strong> versions of XAML Islands:  </p>
+<ul>
+<li>one embedded into the OS/platform XAML (<a href="https://learn.microsoft.com/en-us/uwp/api/windows.ui.xaml.hosting?view=winrt-22621"><code>Windows.UI.Xaml.Hosting</code></a>),  </li>
+<li>one included as part of the <em>Windows App SDK</em>. (<a href="https://learn.microsoft.com/en-us/windows/windows-app-sdk/api/winrt/microsoft.ui.xaml.hosting"><code>Microsoft.UI.Xaml.Hosting</code></a>)  </li>
+</ul>
+<p>This post will only talk about <code>Windows.UI.Xaml.Hosting</code>.  </p>
+<p>The easiest way to use XAML Islands in a WPF (or Winforms) app remains the <a href="https://github.com/CommunityToolkit/Microsoft.Toolkit.Win32">Microsoft.Toolkit.Win32 package</a> -- It's been archived as Microsoft wants you to use <code>Microsoft.UI.Xaml.Hosting</code>, but there's no convenient WPF integration for that just yet.  </p>
+<p>Now, if like me you tend to read Microsoft documentation as gospel, you might think that this package won't work on <a href="https://learn.microsoft.com/en-us/windows/apps/desktop/modernize/xaml-islands#not-supported">.NET Framework codebases</a>...  </p>
+<blockquote>
+<p>XAML Islands are supported only in apps that target .NET Core 3.x  </p>
+</blockquote>
+<p>But that's wrong! It is merely <em>unsupported</em>. The <a href="https://www.nuget.org/packages/Microsoft.Toolkit.Wpf.UI.Controls">package itself</a> works perfectly fine on both <code>netcore3</code> and <code>netfx</code><sup id="ref-1"><a href="#note-1">*</a></sup>.<br>
+Well, not quite perfectly fine -- there are a number of pitfalls on .NET Framework I'll try to cover here.  </p>
+<h2>Application Manifest</h2>
+<p>The XAML islands toolchain in the Toolkit <strong>needs</strong> your app to have a <a href="https://learn.microsoft.com/en-us/windows/win32/sbscs/application-manifests">manifest</a>, as it will <a href="https://github.com/CommunityToolkit/Microsoft.Toolkit.Win32/issues/258#issuecomment-721421236">inject</a> a <code>maxversiontested Id='10.0.18362.0'</code> attribute into it to ensure it works with XAML Islands<sup id="ref-2"><a href="#note-2">**</a></sup>.</p>
+<p>You really don't need much in said manifest (and you can add the attribute yourself), here's a sample:  </p>
+<div class="highlight"><pre><span></span><code><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</span>
+<span class="nt">&lt;assembly</span> <span class="na">manifestVersion=</span><span class="s">&quot;1.0&quot;</span> <span class="na">xmlns=</span><span class="s">&quot;urn:schemas-microsoft-com:asm.v1&quot;</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;assemblyIdentity</span> <span class="na">version=</span><span class="s">&quot;1.0.0.0&quot;</span> <span class="na">name=</span><span class="s">&quot;MyApplication.app&quot;</span><span class="nt">/&gt;</span>
+  <span class="nt">&lt;trustInfo</span> <span class="na">xmlns=</span><span class="s">&quot;urn:schemas-microsoft-com:asm.v2&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;security&gt;</span>
+      <span class="nt">&lt;requestedPrivileges</span> <span class="na">xmlns=</span><span class="s">&quot;urn:schemas-microsoft-com:asm.v3&quot;</span><span class="nt">&gt;</span>
+        <span class="c">&lt;!-- UAC Manifest Options</span>
+<span class="c">             If you want to change the Windows User Account Control level replace the </span>
+<span class="c">             requestedExecutionLevel node with one of the following.</span>
+
+<span class="c">        &lt;requestedExecutionLevel  level=&quot;asInvoker&quot; uiAccess=&quot;false&quot; /&gt;</span>
+<span class="c">        &lt;requestedExecutionLevel  level=&quot;requireAdministrator&quot; uiAccess=&quot;false&quot; /&gt;</span>
+<span class="c">        &lt;requestedExecutionLevel  level=&quot;highestAvailable&quot; uiAccess=&quot;false&quot; /&gt;</span>
+
+<span class="c">            Specifying requestedExecutionLevel element will disable file and registry virtualization. </span>
+<span class="c">            Remove this element if your application requires this virtualization for backwards</span>
+<span class="c">            compatibility.</span>
+<span class="c">        --&gt;</span>
+        <span class="nt">&lt;requestedExecutionLevel</span> <span class="na">level=</span><span class="s">&quot;asInvoker&quot;</span> <span class="na">uiAccess=</span><span class="s">&quot;false&quot;</span> <span class="nt">/&gt;</span>
+      <span class="nt">&lt;/requestedPrivileges&gt;</span>
+    <span class="nt">&lt;/security&gt;</span>
+  <span class="nt">&lt;/trustInfo&gt;</span>
+
+  <span class="nt">&lt;compatibility</span> <span class="na">xmlns=</span><span class="s">&quot;urn:schemas-microsoft-com:compatibility.v1&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;application&gt;</span>
+      <span class="c">&lt;!-- A list of the Windows versions that this application has been tested on</span>
+<span class="c">           and is designed to work with. Uncomment the appropriate elements</span>
+<span class="c">           and Windows will automatically select the most compatible environment. --&gt;</span>
+
+      <span class="c">&lt;!-- Windows 10 --&gt;</span>
+      <span class="nt">&lt;supportedOS</span> <span class="na">Id=</span><span class="s">&quot;{8e0f7a12-bfb3-4fe8-b9a5-48fd50a15a9a}&quot;</span> <span class="nt">/&gt;</span>
+      <span class="nt">&lt;maxversiontested</span> <span class="na">Id=</span><span class="s">&quot;10.0.18362&quot;</span> <span class="nt">/&gt;</span>
+
+    <span class="nt">&lt;/application&gt;</span>
+  <span class="nt">&lt;/compatibility&gt;</span>
+
+  <span class="nt">&lt;application</span> <span class="na">xmlns=</span><span class="s">&quot;urn:schemas-microsoft-com:asm.v3&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;windowsSettings&gt;</span>
+      <span class="c">&lt;!-- Use PerMonitorV2, default to PerMonitor on systems where V2 isn&#39;t available. This order is required to use System XAML Islands correctly. --&gt;</span>
+      <span class="nt">&lt;dpiAwareness</span> <span class="na">xmlns=</span><span class="s">&quot;http://schemas.microsoft.com/SMI/2016/WindowsSettings&quot;</span><span class="nt">&gt;</span>PerMonitorV2, PerMonitor<span class="nt">&lt;/dpiAwareness&gt;</span>
+    <span class="nt">&lt;/windowsSettings&gt;</span>
+  <span class="nt">&lt;/application&gt;</span>
+
+<span class="nt">&lt;/assembly&gt;</span>
+</code></pre></div>
+
+
+<h2>MSIX Packaging</h2>
+<p>If you're shipping your app in a MSIX/Appx package for Microsoft Store usage, you need to include the following files in your package:  </p>
+<div class="highlight"><pre><span></span><code><span class="err">Microsoft.Toolkit.Wpf.UI.Controls.dll</span>
+<span class="err">Microsoft.Toolkit.Wpf.UI.XamlHost.dll</span>
+<span class="err">Microsoft.Toolkit.Win32.UI.XamlHost.dll</span>
+<span class="err">Microsoft.Toolkit.Win32.UI.XamlHost.winmd</span>
+<span class="err">Microsoft.Toolkit.Win32.UI.XamlHost.Managed.dll</span>
+</code></pre></div>
+
+
+<p>Well, so far nothing out of the ordinary -- But the app might still <strong>crash</strong> once packaged, complaining about a Windows Runtime type missing. </p>
+<blockquote>
+<p>Could not find Windows Runtime type Microsoft.Toolkit.Win32.UI.XamlHost.IXamlMetadataContainer  </p>
+</blockquote>
+<p>Why would that be?  </p>
+<p>There's an <a href="https://github.com/dotnet/wpf/issues/1290#issuecomment-512944811">obscure bug</a> with MSIX packages where if you're including WinMDs (Windows Runtime metadata), they <strong>must be at the root of the package</strong>. Otherwise, they just.. won't be made available to your app.<br>
+<img alt="wow" src="images/wow.jpg"><br>
+I personally just use raw filemaps with <code>MakeAppx</code> instead of relying on Windows Application Packaging projects as it's frankly easier, but the github link above has csproj steps you can use:  </p>
+<div class="highlight"><pre><span></span><code>  <span class="c">&lt;!-- Stomp the path to application executable.</span>
+<span class="c">    This task will copy the main exe to the appx root folder.</span>
+<span class="c">   --&gt;</span>
+  <span class="nt">&lt;Target</span> <span class="na">Name=</span><span class="s">&quot;_StompSourceProjectForWapProject&quot;</span> <span class="na">BeforeTargets=</span><span class="s">&quot;_ConvertItems&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;ItemGroup&gt;</span>
+      <span class="c">&lt;!-- Stomp all &quot;SourceProject&quot; values for all incoming dependencies to flatten the package. --&gt;</span>
+      <span class="nt">&lt;_TemporaryFilteredWapProjOutput</span> <span class="na">Include=</span><span class="s">&quot;@(_FilteredNonWapProjProjectOutput)&quot;</span> <span class="nt">/&gt;</span>
+      <span class="nt">&lt;_FilteredNonWapProjProjectOutput</span> <span class="na">Remove=</span><span class="s">&quot;@(_TemporaryFilteredWapProjOutput)&quot;</span> <span class="nt">/&gt;</span>
+      <span class="nt">&lt;_FilteredNonWapProjProjectOutput</span> <span class="na">Include=</span><span class="s">&quot;@(_TemporaryFilteredWapProjOutput)&quot;</span><span class="nt">&gt;</span>
+      <span class="c">&lt;!-- Blank the SourceProject here to vend all files into the root of the package. --&gt;</span>
+      <span class="nt">&lt;SourceProject&gt;&lt;/SourceProject&gt;</span>
+      <span class="nt">&lt;/_FilteredNonWapProjProjectOutput&gt;</span>
+    <span class="nt">&lt;/ItemGroup&gt;</span>
+  <span class="nt">&lt;/Target&gt;</span>
+</code></pre></div>
+
+
+<p>And after all that mess... You should finally have your UWP controls!  </p>
+<p>Was it worth it? Probably not, you can't even use Windows 11 styling/WinUI 2 unless you start dabbling in <a href="https://learn.microsoft.com/en-us/windows/apps/desktop/modernize/framework-packages/use-the-dynamic-dependency-api">Dynamic Dependencies.</a><sup id="ref-3"><a href="#note-3">***</a></sup>  </p>
+<h2>Bonus round: MediaPlayerElement + AdaptiveMediaSource</h2>
+<p>This is a small extra thing that doesn't really warrant a separate post... One of the major reasons you'd want to use XAML Islands is for the UWP <a href="https://learn.microsoft.com/en-us/uwp/api/windows.ui.xaml.controls.mediaplayerelement?view=winrt-22621">MediaPlayerElement</a> (the others being the Map or InkCanvas stuff).  </p>
+<p><img alt="MediaPlayerElement in its natural habitat" src="https://github.com/MicrosoftDocs/windows-dev-docs/raw/docs/hub/apps/design/controls/images/controls/mtc_double_video_inprod.png">  </p>
+<p>The Toolkit package comes with a wrapper for MediaPlayerElement that allows you to simply set an URL as a <code>MediaSource</code>; But if you want to use an <a href="https://learn.microsoft.com/en-us/samples/microsoft/windows-universal-samples/adaptivestreaming/">AdaptiveMediaSource</a> instead to customize bitrate selection or something else, it won't let you.  </p>
+<p>In their infinite wisdom, the Toolkit devs thought they'd be helpful and add a <a href="https://github.com/CommunityToolkit/Microsoft.Toolkit.Win32/blob/9c1463e328a33168d0b0e7c7bea975838f35128f/Microsoft.Toolkit.Wpf.UI.Controls/MediaPlayerElement/MediaPlayerElement.cs#L61">custom converter</a> to automatically map URLs to <code>MediaSource</code>s in XAML... Except that converter will <a href="https://github.com/CommunityToolkit/Microsoft.Toolkit.Win32/blob/9c1463e328a33168d0b0e7c7bea975838f35128f/Microsoft.Toolkit.Wpf.UI.Controls/MediaPlayerElement/MediaSourceConverter.cs#L25">crash the app</a> if you use <code>AdaptiveMediaSource</code>, which doesn't have a <code>Uri</code> property.  </p>
+<p>As it stands, the best solution I found is to duplicate the MediaPlayerElement control and just remove this binding at line 61. ¯\_(ツ)_/¯  </p>
+<h1></h1>
+<p><sup id="note-1"><a href="#ref-1">*</a> 
+Aand it's broken in .NET 5 and above as those CLRs <a href="https://github.com/dotnet/runtime/issues/35318">don't support .winmds</a> natively anymore... You can still hack it with cswinrt but it's probably not worth it tbh</sup><br>
+<sup id="note-2"><a href="#ref-2">**</a> which is frankly speaking a terrible idea?? why wouldn't you just document that developers need to add the attribute instead of bothering to do it yourself? Almost makes you think there's some conspiracy on the Microsoft side to document <code>app.manifest</code> files as little as humanly possible </sup><br>
+<sup id="note-3"><a href="#ref-3">***</a> which also has two different implementations i cant take this anymore </sup>  </p>
+  </div><!-- /.entry-content -->
+  <a class="containerBox">
+    <img src="https://tvc-16.science/theme/img/button2.svg" class="img-responsive">
+    <div class="text-box pink-button">
+      <span class=" button-text pink-shadow">Comments</span>
+    </div>
+  </a> <br /><br /><br /><br /><br /><br /><br /><br />
+  <script src="https://utteranc.es/client.js" repo="difegue/TVC-16" issue-term="url" theme="github-light"
+    crossorigin="anonymous" async>
+  </script>
+</section>
+      </div>
+    </div>
+    <div class="bot-border project-background"></div>
+
+    <br />
+    <br />
+    <br />
+
+  </div>
+
+  <footer id="contentinfo" class="body" style="position:relative; overflow:hidden">
+    <div class="top-border hello-background"></div>
+    <div class="wrapper hello-background">
+      <div class="text">
+
+        <a class="containerBox">
+          <img src="https://tvc-16.science/theme/img/button1.svg" class="img-responsive">
+          <div class="text-box blue-button">
+            <span class=" button-text blue-shadow">About</span>
+          </div>
+        </a>
+
+        <div class="scroll-left">
+          <p>
+            <script language="JavaScript">
+              //never forget grugeisti ;_;7
+              var r_text = new Array();
+              r_text[0] = "This is COOL";
+              r_text[1] = "TOP-SHELF BLOG DEVICE";
+              r_text[2] = "ACCELERATED PORTFOLIO SYSTEM";
+              r_text[3] = "Lookin' cool !";
+              r_text[4] = "ENHANCED SVG GRAPHICS";
+              r_text[5] = "HIGH-SPEED CHEAP VPS";
+              r_text[6] = "DELUXE UPTIME EXPERIENCE";
+              r_text[7] = "BEST-IN-CLASS SCROLLING TEXT";
+              r_text[8] = "HIGH GRADE MULTICONTAINER SETUP";
+              var i = Math.floor(9 * Math.random())
+              document.write(r_text[i]);
+            </script>
+          </p>
+        </div>
+        Runnin' straight down the information highway in a 3$ Vultr VPS. <br /><br />
+        Typefaces used: <a href="https://rsms.me/inter/">Inter</a>, <a
+          href="https://blog.marsnev.com/2017/03/font-lemonmilk.html">Lemon/Milk</a>,
+        <a href="https://fonts.google.com/specimen/VT323">VT323</a>.
+        Built using <a href="https://github.com/difegue" rel="me"> Github Actions</a> and Pelican. <br />
+        You can talk to me on <a rel="me" href="https://bsky.app/profile/difegue.bsky.social">Bluesky</a> or <a rel="me"
+          href="https://kolektiva.social/@Difegue">Mastodon</a> if that's your thing.
+
+      </div>
+    </div>
+    <div class="bot-border hello-background"></div>
+  </footer><!-- /#contentinfo -->
+
+  <br />
+  <br />
+  <br />
+
+  <div class="footer-container" title="This COOL SYSTEM has been running...for some time now.">
+    <span class="footer-text">Uptime:
+      <br>
+      <span id="uptime">XXX days </span>
+    </span>
+    <img src="https://tvc-16.science/theme/img/footer.svg" class="footer-image">
+  </div>
+
+  <script src="https://tvc-16.science/theme/index.js"></script>
+</body>
+
+</html>
