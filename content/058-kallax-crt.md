@@ -1,6 +1,6 @@
 Title: Using the IKEA Kallax to support a CRT
 Date: 2024-05-27 00:00  
-Category: Blogposting  
+Category: Physicality of Gaming  
 Tags: ikea, crt, kallax, cabinet, video games, furnitureposting
 Slug: kallax-crt
 Authors: Difegue  

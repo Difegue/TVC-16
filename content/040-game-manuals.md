@@ -1,6 +1,6 @@
 Title: Bring back game manuals
 Date: 2023-1-25 00:00  
-Category: Blogposting  
+Category: Physicality of Gaming  
 Tags: video games, xbox, game manuals, virtual console, preservation
 Slug: game-manuals
 Authors: Difegue  
