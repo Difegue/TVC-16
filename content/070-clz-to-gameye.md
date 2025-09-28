@@ -5,7 +5,7 @@ Tags: video games, collection, migration, clz, gameye, sqlite, powershell, scrap
 Slug: clz-to-gameye
 Authors: Difegue
 HeroImage: images/games/gameye/collection.jpg
-BskyPost: at://difegue.tvc-16.science/app.bsky.feed.post/3lugupqum4c2z
+BskyPost: at://difegue.tvc-16.science/app.bsky.feed.post/3lzufkv3ou22y
 Summary: ONE MORE SUBSCRIPTION REJECTED 
 
 I own a relatively mid-sized [game collection](/kallax-crt.html), and it has recently gotten to the point I unfortunately can't always precisely remember everything I own when I'm hunting through garage sales.  
