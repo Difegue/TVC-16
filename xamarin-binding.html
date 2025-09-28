@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Blogopolis - An approach to data binding with .NET in an iOS app</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <link
+    href="https://tvc-16.science/feeds/all.atom.xml"
+    type="application/atom+xml" rel="alternate" title="Blogopolis Full Atom Feed" />
+  <link
+    href="https://tvc-16.science/feeds/cool-tricks.atom.xml"
+    type="application/atom+xml" rel="alternate" title="Blogopolis Categories Atom Feed" />
+
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js'></script>
+  <script src='https://storage.ko-fi.com/cdn/scripts/overlay-widget.js'></script>
+  <script data-goatcounter="https://dingus.tvc-16.science/count" async src="//dingus.tvc-16.science/count.js"></script>
+
+  <link rel="apple-touch-icon" sizes="180x180" href="https://tvc-16.science/theme/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="https://tvc-16.science/theme/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="https://tvc-16.science/theme/favicon-16x16.png">
+  <link rel="manifest" href="https://tvc-16.science/theme/site.webmanifest">
+  <link rel="mask-icon" href="https://tvc-16.science/theme/safari-pinned-tab.svg" color="#f040b0">
+  <link rel="webmention" href="https://webmention.io/tvc-16.science/webmention" />
+  <link rel="pingback" href="https://webmention.io/tvc-16.science/xmlrpc" />
+  <meta name="msapplication-TileColor" content="#f1c711">
+  <meta name="theme-color" content="#f1c711">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta property="og:title" content="An approach to data binding with .NET in an iOS app - Blogopolis" />
+<meta property="og:type" content="article" />
+<meta property="og:description" content="<p>Key-Value Observer on Timeless Temple</p>" />
+<meta property="og:url" content="https://tvc-16.science/xamarin-binding.html" />
+<meta property="og:image" content="https://tvc-16.science/images/stylophone/v2-uikit2.jpg" />
+
+  <link href="https://fonts.googleapis.com/css?family=Monoton" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=VT323" rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/bluesky-comments@0.9.0/dist/bluesky-comments.css">
+  <link rel="stylesheet" href="https://tvc-16.science/theme/css/style.css">
+  <link rel="stylesheet" href="https://tvc-16.science/theme/css/pygment.css">
+
+
+
+
+<meta name="twitter:card" content="summary_large_image">
+<meta property="og:title" content="An approach to data binding with .NET in an iOS app - Blogopolis" />
+<meta property="og:type" content="article" />
+<meta property="og:description" content="<p>Key-Value Observer on Timeless Temple</p>" />
+<meta property="og:url" content="https://tvc-16.science/xamarin-binding.html" />
+<meta property="og:image" content="https://tvc-16.science/images/stylophone/v2-uikit2.jpg" />
+
+<meta name="tags" content="xamarin" />
+<meta name="tags" content="dotnet" />
+<meta name="tags" content="c#" />
+<meta name="tags" content="macos" />
+<meta name="tags" content="ios" />
+<meta name="tags" content="mvvm" />
+<meta name="tags" content="data binding" />
+<meta name="tags" content="cocoa bindings" />
+<meta name="tags" content="monkey trick" />
+<meta name="tags" content="key-value coding" />
+
+</head>
+
+<body id="index" class="home">
+
+  <canvas id="stage"></canvas>
+  <header id="banner" class="body">
+    <center><img height="170px" src="https://tvc-16.science/theme/img/logotype.svg" /></center>
+  </header><!-- /#banner -->
+
+  <div id="mainText">
+
+    <h2 class="subtitle">
+
+      <a style="color:black !important" href="/projects.html">Projects</a>
+      🔸
+      <a style="color:black !important" href="/">Articles</a>
+      🔸
+      <a style="color:black !important" href="/categories.html">Categories</a>
+      🔸
+
+    </h2><!-- /#menu -->
+
+    <div class="top-border project-background"></div>
+    <div class="wrapper project-background">
+      <div class="text">
+<section id="content" class="body" style="max-width: 900px;margin-left: auto;margin-right: auto;">
+  <header>
+    <h2 class="entry-title">
+      <a href="https://tvc-16.science/xamarin-binding.html" rel="bookmark" title="Permalink to An approach to data binding with .NET in an iOS app">
+        An approach to data binding with .NET in an iOS app
+      </a>
+    </h2>
+    
+  </header>
+  <footer class="post-info terminal-text">
+    <time class="published" datetime="2024-03-31T00:00:00+01:00">
+      Sun 31 March 2024
+    </time>
+    <address class="vcard author">
+      By       <a class="url fn" href="https://tvc-16.science/author/difegue.html">Difegue</a>
+    </address>
+    <div class="category">
+      Category: <a href="https://tvc-16.science/category/cool-tricks.html">Cool Tricks</a>
+    </div>
+    <div class="tags">
+      Tags:
+      <a href="https://tvc-16.science/tag/xamarin.html">xamarin</a>
+      <a href="https://tvc-16.science/tag/dotnet.html">dotnet</a>
+      <a href="https://tvc-16.science/tag/c.html">c#</a>
+      <a href="https://tvc-16.science/tag/macos.html">macos</a>
+      <a href="https://tvc-16.science/tag/ios.html">ios</a>
+      <a href="https://tvc-16.science/tag/mvvm.html">mvvm</a>
+      <a href="https://tvc-16.science/tag/data-binding.html">data binding</a>
+      <a href="https://tvc-16.science/tag/cocoa-bindings.html">cocoa bindings</a>
+      <a href="https://tvc-16.science/tag/monkey-trick.html">monkey trick</a>
+      <a href="https://tvc-16.science/tag/key-value-coding.html">key-value coding</a>
+    </div>
+    <div class="summary">
+      <p>Key-Value Observer on Timeless Temple</p>
+    </div>
+
+  </footer><!-- /.post-info -->
+  <div class="entry-content">
+    <p>It's been a while since my last <a href="/xamarin-resx.html">Xamarinpost</a>, but since I just released a <a href="https://github.com/Difegue/Stylophone/releases/tag/2.6.2">Stylophone update</a>, I'm in the mood to wax .NET again!  </p>
+<p>Stylophone, as a Windows-first app, was built upon the principle of <a href="https://learn.microsoft.com/en-us/dotnet/architecture/maui/mvvm">MVVM</a>, which as a quick refresher:<br>
+- Isolates model and view code entirely<br>
+- Uses "<em>ViewModel</em>" classes as glue between the two, exposing the model's data as properties the view picks up through <strong>data binding</strong>.  </p>
+<p>One of the key advantages of this pattern is, as the MS documentation says:  </p>
+<blockquote>
+<p>The app UI can be redesigned without touching the view model and model code [...]. Therefore, a new version of the view should work with the existing view model.  </p>
+</blockquote>
+<p>So if you can easily have multiple sets of UI with the same base... You should be able to have the same code for multiple platforms that run .NET, and only <strong>remake the view</strong> for each platform! That's what <a href="/stylophone-25">Stylophone does</a>.  </p>
+<p><img width="420" style="margin:0" src="https://tvc-16.science/images/stylophone/v25-ipad.jpg"/> <img width="420" style="margin:0" src="https://tvc-16.science/images/stylophone/v25-win.jpg"/>  </p>
+<p>Data-binding comes for free on Windows thanks to XAML, but what about iOS?<br>
+Can we bind our .NET code to native UIKit views so they just update automagically?  </p>
+<p>As it turns out, yes! There <strong>is</strong> a native data-binding mechanism for Apple platforms!<br>
+Well, kinda.  </p>
+<h3>Cocoa Bindings</h3>
+<p><a href="https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/CocoaBindings/Concepts/WhatAreBindings.html">Cocoa Bindings</a> is a piece of AppKit tech that allows you to do data-binding on Mac apps out of the box. It just works!™️<br>
+<img alt="Cocoa Bindings" src="https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/CocoaBindings/art/sliderbindings_2x.png"><br>
+Apple's flavor of data-binding relies on two elements:  </p>
+<ul>
+<li><em>Key-Value Coding</em> (KVC), which gives access to an object’s property with a specified name (a <strong>Keypath</strong>)</li>
+<li><em>Key-Value Observing</em> (KVO), which allows an object to receive notifications of changes to values in other objects  </li>
+</ul>
+<p>For dotnetheads, this is basically <em>C# properties</em> and <code>INotifyPropertyChanged</code>.  </p>
+<p>That all sounds nice and easy to plug into..except Cocoa Bindings aren't available on UIKit/iOS.<br>
+The components are, however! </p>
+<h3>Reimplementing Cocoa Bindings</h3>
+<p>Since UIKit still supports key-value coding, we can just create our own Bindings.<br>
+Creating a .NET databinder for iOS basically means doing two things:  </p>
+<ul>
+<li>Keep track of <code>PropertyChanged</code> events on the C#/ViewModel side and update your views through <strong>KVC</strong></li>
+<li>Keep track of view changes through <strong>KVO</strong> and update your properties on the ViewModel  </li>
+</ul>
+<p>First, let's create our own <code>Binding</code> class that would act as universal glue code between C# and native objects.  <br>
+Xamarin's automatic type conversion is very useful here, so we don't need to write a lot of code at all:  </p>
+<div class="highlight"><pre><span></span><code>    <span class="k">public</span> <span class="k">class</span> <span class="nc">Binding</span>
+    <span class="p">{</span>
+        <span class="c1">// Native UIKit object, and path to its KVC property</span>
+        <span class="k">public</span> <span class="n">NSObject</span> <span class="n">Object</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
+        <span class="k">public</span> <span class="n">NSString</span> <span class="n">Keypath</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
+
+        <span class="c1">// C# property, this uses reflection</span>
+        <span class="k">public</span> <span class="n">PropertyInfo</span> <span class="n">Property</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
+
+        <span class="c1">/// Update our C# property with information from Key-Value Observing</span>
+        <span class="c1">/// Since KVO cannot give you type information, you must provide the type yourself.</span>
+        <span class="k">public</span> <span class="k">void</span> <span class="n">UpdateProperty</span><span class="p">&lt;</span><span class="n">T</span><span class="p">&gt;(</span><span class="n">INotifyPropertyChanged</span> <span class="n">targeTViewModel</span><span class="p">,</span> <span class="n">NSObservedChange</span> <span class="n">change</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="kt">var</span> <span class="n">nativeValue</span> <span class="p">=</span> <span class="n">change</span><span class="p">.</span><span class="n">NewValue</span><span class="p">;</span>
+
+            <span class="kt">object</span> <span class="k">value</span> <span class="p">=</span> <span class="k">typeof</span><span class="p">(</span><span class="n">T</span><span class="p">)</span> <span class="k">switch</span>
+            <span class="p">{</span>
+                <span class="c1">// Cast to .NET types </span>
+                <span class="n">Type</span> <span class="n">t</span> <span class="n">when</span> <span class="n">t</span> <span class="p">==</span> <span class="k">typeof</span><span class="p">(</span><span class="kt">int</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">((</span><span class="n">NSNumber</span><span class="p">)</span><span class="n">nativeValue</span><span class="p">).</span><span class="n">Int32Value</span><span class="p">,</span>
+                <span class="n">Type</span> <span class="n">t</span> <span class="n">when</span> <span class="n">t</span> <span class="p">==</span> <span class="k">typeof</span><span class="p">(</span><span class="kt">long</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">((</span><span class="n">NSNumber</span><span class="p">)</span><span class="n">nativeValue</span><span class="p">).</span><span class="n">Int64Value</span><span class="p">,</span>
+                <span class="n">Type</span> <span class="n">t</span> <span class="n">when</span> <span class="n">t</span> <span class="p">==</span> <span class="k">typeof</span><span class="p">(</span><span class="kt">double</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">((</span><span class="n">NSNumber</span><span class="p">)</span><span class="n">nativeValue</span><span class="p">).</span><span class="n">DoubleValue</span><span class="p">,</span>
+                <span class="n">Type</span> <span class="n">t</span> <span class="n">when</span> <span class="n">t</span> <span class="p">==</span> <span class="k">typeof</span><span class="p">(</span><span class="kt">bool</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">((</span><span class="n">NSNumber</span><span class="p">)</span><span class="n">nativeValue</span><span class="p">).</span><span class="n">BoolValue</span><span class="p">,</span>
+                <span class="n">Type</span> <span class="n">t</span> <span class="n">when</span> <span class="n">t</span> <span class="p">==</span> <span class="k">typeof</span><span class="p">(</span><span class="kt">string</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">((</span><span class="n">NSString</span><span class="p">)</span><span class="n">nativeValue</span><span class="p">).</span><span class="n">ToString</span><span class="p">(),</span>
+                <span class="n">_</span> <span class="p">=&gt;</span> <span class="k">throw</span><span class="p">;</span> <span class="c1">// A wrapper class should be used in that case </span>
+            <span class="p">};</span>
+
+            <span class="c1">// Set the value on our viewmodel</span>
+            <span class="n">Property</span><span class="p">.</span><span class="n">SetValue</span><span class="p">(</span><span class="n">targeTViewModel</span><span class="p">,</span> <span class="k">value</span><span class="p">);</span>
+        <span class="p">}</span>
+
+        <span class="c1">/// Update the NSObject&#39;s value at the specified keypath with the property.</span>
+        <span class="k">public</span> <span class="k">void</span> <span class="nf">UpdateNSObject</span><span class="p">(</span><span class="kt">object</span> <span class="k">value</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="c1">// Box the value into a native UIKit type</span>
+            <span class="c1">// (If binding to more complex types than int/bool/strings, this will fail! A wrapper class should be used in that case)</span>
+            <span class="kt">var</span> <span class="n">nativeValue</span> <span class="p">=</span> <span class="n">NSObject</span><span class="p">.</span><span class="n">FromObject</span><span class="p">(</span><span class="k">value</span><span class="p">);</span>
+
+            <span class="c1">// KVC operations need to run on the main thread</span>
+            <span class="n">UIApplication</span><span class="p">.</span><span class="n">SharedApplication</span><span class="p">.</span><span class="n">BeginInvokeOnMainThread</span><span class="p">(()</span> <span class="p">=&gt;</span>
+            <span class="p">{</span>
+                <span class="c1">// https://developer.apple.com/documentation/objectivec/nsobject/1418139-setvalue?language=objc</span>
+                <span class="n">Object</span><span class="p">.</span><span class="n">SetValueForKeyPath</span><span class="p">(</span><span class="n">nativeValue</span><span class="p">,</span> <span class="n">Keypath</span><span class="p">);</span>
+            <span class="p">});</span>
+        <span class="p">}</span>
+
+
+    <span class="p">};</span>
+</code></pre></div>
+
+
+<p>Then, our <code>PropertyBinder</code> can just create instances of this object for each property you want to bind, and listen to notifications from both sides:  </p>
+<div class="highlight"><pre><span></span><code>    <span class="k">public</span> <span class="k">class</span> <span class="nc">PropertyBinder</span><span class="p">&lt;</span><span class="n">TViewModel</span><span class="p">&gt;:</span> <span class="n">IDisposable</span> <span class="k">where</span> <span class="n">TViewModel</span> <span class="p">:</span> <span class="n">INotifyPropertyChanged</span>
+    <span class="p">{</span>
+        <span class="c1">// Per-property name bindings</span>
+        <span class="k">private</span> <span class="k">readonly</span> <span class="n">Dictionary</span><span class="p">&lt;</span><span class="kt">string</span><span class="p">,</span> <span class="n">IList</span><span class="p">&lt;</span><span class="n">Binding</span><span class="p">&gt;&gt;</span> <span class="n">_bindings</span> <span class="p">=</span> <span class="k">new</span><span class="p">();</span>
+        <span class="c1">// Per-property name </span>
+        <span class="k">private</span> <span class="k">readonly</span> <span class="n">Dictionary</span><span class="p">&lt;</span><span class="kt">string</span><span class="p">,</span> <span class="n">IDisposable</span><span class="p">&gt;</span> <span class="n">_observers</span> <span class="p">=</span> <span class="k">new</span><span class="p">();</span>
+        <span class="k">private</span> <span class="n">TViewModel</span> <span class="n">_observableObject</span><span class="p">;</span>
+
+        <span class="k">public</span> <span class="nf">PropertyBinder</span><span class="p">(</span><span class="n">TViewModel</span> <span class="n">viewModel</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="n">_observableObject</span> <span class="p">=</span> <span class="n">viewModel</span><span class="p">;</span>
+            <span class="c1">// Listen to C# property changes</span>
+            <span class="n">_observableObject</span><span class="p">.</span><span class="n">PropertyChanged</span> <span class="p">+=</span> <span class="n">OnObservablePropertyChanged</span><span class="p">;</span>
+        <span class="p">}</span>
+
+        <span class="k">public</span> <span class="k">void</span> <span class="nf">Dispose</span><span class="p">()</span>
+        <span class="p">{</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">_observableObject</span> <span class="p">!=</span> <span class="k">null</span><span class="p">)</span>
+                <span class="n">_observableObject</span><span class="p">.</span><span class="n">PropertyChanged</span> <span class="p">-=</span> <span class="n">OnObservablePropertyChanged</span><span class="p">;</span>
+
+            <span class="c1">// Dispose our observers</span>
+            <span class="k">foreach</span> <span class="p">(</span><span class="n">IDisposable</span> <span class="n">observer</span> <span class="k">in</span> <span class="n">_observers</span><span class="p">.</span><span class="n">Values</span><span class="p">)</span>
+                <span class="n">observer</span><span class="p">.</span><span class="n">Dispose</span><span class="p">();</span>
+        <span class="p">}</span>
+
+        <span class="c1">// Bind a NSObject&#39;s keypath to a property of our observableObject</span>
+        <span class="k">public</span> <span class="k">void</span> <span class="n">Bind</span><span class="p">&lt;</span><span class="n">T</span><span class="p">&gt;(</span><span class="n">NSObject</span> <span class="n">obj</span><span class="p">,</span> <span class="kt">string</span> <span class="n">keypath</span><span class="p">,</span> <span class="kt">string</span> <span class="n">property</span><span class="p">,</span> <span class="kt">bool</span> <span class="n">isTwoWay</span> <span class="p">=</span> <span class="k">false</span><span class="p">)</span>
+            <span class="p">=&gt;</span> <span class="n">Bind</span><span class="p">&lt;</span><span class="n">T</span><span class="p">&gt;(</span><span class="n">obj</span><span class="p">,</span> <span class="k">new</span> <span class="n">NSString</span><span class="p">(</span><span class="n">keypath</span><span class="p">),</span> <span class="n">property</span><span class="p">,</span> <span class="n">isTwoWay</span><span class="p">);</span>
+
+        <span class="k">private</span> <span class="k">void</span> <span class="nf">OnObservablePropertyChanged</span><span class="p">(</span><span class="kt">object</span> <span class="n">sender</span><span class="p">,</span> <span class="n">PropertyChangedEventArgs</span> <span class="n">e</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="kt">var</span> <span class="n">properties</span> <span class="p">=</span> <span class="k">new</span> <span class="n">List</span><span class="p">&lt;</span><span class="kt">string</span><span class="p">&gt;();</span>
+
+            <span class="c1">// The PropertyChanged event can indicate all properties on the object have changed by using either null or String.Empty as</span>
+            <span class="c1">// the property name in the PropertyChangedEventArgs.</span>
+            <span class="k">if</span> <span class="p">(</span><span class="kt">string</span><span class="p">.</span><span class="n">IsNullOrEmpty</span><span class="p">(</span><span class="n">e</span><span class="p">.</span><span class="n">PropertyName</span><span class="p">))</span>
+            <span class="p">{</span>
+                <span class="n">properties</span><span class="p">.</span><span class="n">AddRange</span><span class="p">(</span><span class="n">_bindings</span><span class="p">.</span><span class="n">Keys</span><span class="p">);</span>
+            <span class="p">}</span>
+            <span class="k">else</span> <span class="nf">if</span> <span class="p">(</span><span class="n">_bindings</span><span class="p">.</span><span class="n">ContainsKey</span><span class="p">(</span><span class="n">e</span><span class="p">.</span><span class="n">PropertyName</span><span class="p">))</span> <span class="c1">// Only one property has changed</span>
+            <span class="p">{</span>
+                <span class="n">properties</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="n">e</span><span class="p">.</span><span class="n">PropertyName</span><span class="p">);</span>
+            <span class="p">}</span>
+
+            <span class="k">foreach</span> <span class="p">(</span><span class="kt">var</span> <span class="n">property</span> <span class="k">in</span> <span class="n">properties</span><span class="p">)</span>
+            <span class="p">{</span>
+                <span class="kt">var</span> <span class="n">bindings</span> <span class="p">=</span> <span class="n">_bindings</span><span class="p">.</span><span class="n">GetValueOrDefault</span><span class="p">(</span><span class="n">property</span><span class="p">);</span>
+                <span class="k">foreach</span> <span class="p">(</span><span class="kt">var</span> <span class="n">binding</span> <span class="k">in</span> <span class="n">bindings</span><span class="p">)</span> <span class="c1">// Update all bindings for this property</span>
+                    <span class="n">binding</span><span class="p">.</span><span class="n">UpdateNSObject</span><span class="p">(</span><span class="n">binding</span><span class="p">.</span><span class="n">Property</span><span class="p">.</span><span class="n">GetValue</span><span class="p">(</span><span class="n">_observableObject</span><span class="p">));</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+
+        <span class="k">private</span> <span class="k">void</span> <span class="n">Bind</span><span class="p">&lt;</span><span class="n">T</span><span class="p">&gt;(</span><span class="n">NSObject</span> <span class="n">obj</span><span class="p">,</span> <span class="n">NSString</span> <span class="n">keypath</span><span class="p">,</span> <span class="kt">string</span> <span class="n">property</span><span class="p">,</span> <span class="kt">bool</span> <span class="n">isTwoWay</span> <span class="p">=</span> <span class="k">false</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="kt">var</span> <span class="n">propertyInfo</span> <span class="p">=</span> <span class="n">GetProperty</span><span class="p">(</span><span class="n">property</span><span class="p">);</span>
+            <span class="kt">var</span> <span class="n">propertyValue</span> <span class="p">=</span> <span class="p">(</span><span class="n">T</span><span class="p">)</span><span class="n">propertyInfo</span><span class="p">.</span><span class="n">GetValue</span><span class="p">(</span><span class="n">_observableObject</span><span class="p">);</span>
+
+            <span class="c1">// Create C#/UIKit binding and add it to the list to keep track of it</span>
+            <span class="kt">var</span> <span class="n">binding</span> <span class="p">=</span>
+                <span class="k">new</span> <span class="n">Binding</span> <span class="p">{</span> <span class="n">Object</span> <span class="p">=</span> <span class="n">obj</span><span class="p">,</span> <span class="n">Keypath</span> <span class="p">=</span> <span class="n">keypath</span><span class="p">,</span> <span class="n">Property</span> <span class="p">=</span> <span class="n">propertyInfo</span> <span class="p">};</span>
+
+            <span class="k">if</span> <span class="p">(</span><span class="n">_bindings</span><span class="p">.</span><span class="n">ContainsKey</span><span class="p">(</span><span class="n">property</span><span class="p">))</span>
+                <span class="n">_bindings</span><span class="p">.</span><span class="n">GetValueOrDefault</span><span class="p">(</span><span class="n">property</span><span class="p">).</span><span class="n">Add</span><span class="p">(</span><span class="n">binding</span><span class="p">);</span>
+            <span class="k">else</span>
+                <span class="n">_bindings</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="n">property</span><span class="p">,</span> <span class="k">new</span> <span class="n">List</span><span class="p">&lt;</span><span class="n">Binding</span><span class="p">&gt;(</span><span class="k">new</span><span class="p">[]</span> <span class="p">{</span> <span class="n">binding</span> <span class="p">}));</span>
+
+            <span class="c1">// Set the initial value </span>
+            <span class="n">binding</span><span class="p">.</span><span class="n">UpdateNSObject</span><span class="p">(</span><span class="n">propertyValue</span><span class="p">);</span>
+
+            <span class="k">if</span> <span class="p">(</span><span class="n">isTwoWay</span><span class="p">)</span>
+            <span class="p">{</span>
+                <span class="c1">// Create an Observer with KVO to keep track of UIKit-side changes</span>
+                <span class="c1">// https://developer.apple.com/documentation/objectivec/nsobject/1412787-addobserver  </span>
+                <span class="kt">var</span> <span class="n">observer</span> <span class="p">=</span> <span class="n">obj</span><span class="p">.</span><span class="n">AddObserver</span><span class="p">(</span><span class="n">keypath</span><span class="p">,</span> <span class="n">NSKeyValueObservingOptions</span><span class="p">.</span><span class="n">OldNew</span><span class="p">,</span>
+                    <span class="p">(</span><span class="n">c</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="n">binding</span><span class="p">.</span><span class="n">UpdateProperty</span><span class="p">&lt;</span><span class="n">T</span><span class="p">&gt;(</span><span class="n">_observableObject</span><span class="p">,</span> <span class="n">c</span><span class="p">));</span>
+                <span class="c1">//      ^ Xamarin conveniently provides a version of this API call that  </span>
+                <span class="c1">// takes a .NET event, so we can directly invoke our Binding object&#39;s Update.</span>
+                <span class="n">_observers</span><span class="p">.</span><span class="n">Add</span><span class="p">(</span><span class="n">obj</span><span class="p">.</span><span class="n">Handle</span><span class="p">.</span><span class="n">ToString</span><span class="p">()</span> <span class="p">+</span> <span class="s">&quot;-&quot;</span> <span class="p">+</span> <span class="n">keypath</span><span class="p">,</span> <span class="n">observer</span><span class="p">);</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+
+        <span class="k">private</span> <span class="n">PropertyInfo</span> <span class="nf">GetProperty</span><span class="p">(</span><span class="kt">string</span> <span class="n">propertyName</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="c1">// Small optimization to avoid calling reflection every time</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">_bindings</span><span class="p">.</span><span class="n">ContainsKey</span><span class="p">(</span><span class="n">propertyName</span><span class="p">))</span>
+                <span class="k">return</span> <span class="n">_bindings</span><span class="p">[</span><span class="n">propertyName</span><span class="p">].</span><span class="n">First</span><span class="p">().</span><span class="n">Property</span><span class="p">;</span>
+
+            <span class="kt">var</span> <span class="n">propertyInfo</span> <span class="p">=</span> <span class="k">typeof</span><span class="p">(</span><span class="n">TViewModel</span><span class="p">).</span><span class="n">GetProperty</span><span class="p">(</span><span class="n">propertyName</span><span class="p">);</span>
+            <span class="k">return</span> <span class="n">propertyInfo</span> <span class="p">??</span> <span class="k">throw</span> <span class="k">new</span> <span class="n">ArgumentException</span><span class="p">(</span><span class="err">$</span><span class="s">&quot;Property {propertyName} not found on observable object {typeof(TViewModel).Name}&quot;</span><span class="p">);</span>
+        <span class="p">}</span>
+
+    <span class="p">}</span>
+</code></pre></div>
+
+
+<p>And that's it!<br>
+Usage is then as simple as creating a PropertyBinder from your view code:  </p>
+<div class="highlight"><pre><span></span><code><span class="k">public</span> <span class="n">RandomViewModel</span> <span class="n">ViewModel</span> <span class="p">=</span> <span class="k">new</span><span class="p">()</span> <span class="p">{</span><span class="n">Name</span> <span class="p">=</span> <span class="s">&quot;&quot;</span><span class="p">};</span> 
+<span class="k">public</span> <span class="n">UILabel</span> <span class="n">NameLabel</span> <span class="p">=</span> <span class="k">new</span><span class="p">();</span>
+<span class="k">public</span> <span class="n">PropertyBinder</span><span class="p">&lt;</span><span class="n">PlaylistViewModel</span><span class="p">&gt;</span> <span class="n">Binder</span> <span class="p">=&gt;</span> <span class="k">new</span><span class="p">(</span><span class="n">ViewModel</span><span class="p">);</span>
+
+<span class="k">public</span> <span class="k">override</span> <span class="k">void</span> <span class="nf">AwakeFromNib</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="k">base</span><span class="p">.</span><span class="n">AwakeFromNib</span><span class="p">();</span>
+    <span class="c1">// Bind keypath &quot;text&quot; of UILabel to the Name property of our viewmodel</span>
+    <span class="n">Binder</span><span class="p">.</span><span class="n">Bind</span><span class="p">&lt;</span><span class="kt">string</span><span class="p">&gt;(</span><span class="n">NameLabel</span><span class="p">,</span> <span class="s">&quot;text&quot;</span><span class="p">,</span> <span class="n">nameof</span><span class="p">(</span><span class="n">ViewModel</span><span class="p">.</span><span class="n">Name</span><span class="p">));</span>
+<span class="p">}</span>
+</code></pre></div>
+
+
+<h3>wait fuck this is iOS</h3>
+<p>One final gotcha is that for KVO to work, aka for <a href="https://developer.apple.com/documentation/objectivec/nsobject/1412787-addobserver?language=objc">AddObserver</a> to correctly create Observers and send notifications, your native UI controls must be <strong>KVO-compliant</strong>.  </p>
+<p>This is a funny Apple word to mean that the controls have to send notifications when their properties change - You can kind of think of it like DependencyProperties in XAML? It's a bit different though.<br>
+According to <a href="https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/KeyValueObserving/Articles/KVOBasics.html">Apple documentation</a>:  </p>
+<blockquote>
+<p>Not all classes are KVO-compliant for all properties. [...] Typically properties in Apple-supplied frameworks are only KVO-compliant if they are documented as such.  </p>
+</blockquote>
+<p>Basically, this means that since iOS didn't have Cocoa Bindings, they didn't give a single shit and most UIKit controls <a href="https://stackoverflow.com/questions/6114261/how-reliable-is-kvo-with-uikit">will <strong>not</strong> work with KVO</a>.<br>
+So for Two-Way bindings, controls like <code>UISwitch</code> won't notify our <code>Binding</code> class when the user clicks on them! <em>Doushio?</em>  </p>
+<p>Well, the easiest solution is basically to do Apple's job in their place, and subclass the UIKit controls you need to <em>make</em> them comply.<br>
+Which is <a href="https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/KeyValueObserving/Articles/KVOCompliance.html#//apple_ref/doc/uid/20002178-BAJEAIEE">very easy</a> as long as you only need a few properties:  </p>
+<div class="highlight"><pre><span></span><code><span class="na">[Register(nameof(KvoUISwitch))]</span>
+<span class="k">public</span> <span class="k">class</span> <span class="nc">KvoUISwitch</span> <span class="p">:</span> <span class="n">UISwitch</span>
+<span class="p">{</span>
+
+    <span class="k">public</span> <span class="nf">KvoUISwitch</span><span class="p">(</span><span class="n">IntPtr</span> <span class="n">handle</span><span class="p">)</span> <span class="p">:</span> <span class="k">base</span><span class="p">(</span><span class="n">handle</span><span class="p">)</span>
+    <span class="p">{</span>
+    <span class="p">}</span>
+
+    <span class="k">void</span> <span class="nf">ReleaseDesignerOutlets</span><span class="p">()</span>
+    <span class="p">{</span>
+    <span class="p">}</span>
+
+    <span class="k">public</span> <span class="k">override</span> <span class="k">void</span> <span class="nf">AwakeFromNib</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="k">base</span><span class="p">.</span><span class="n">AwakeFromNib</span><span class="p">();</span>
+
+        <span class="c1">// This will trigger when the switch value changes</span>
+        <span class="n">AddTarget</span><span class="p">(</span><span class="n">NotifyChange</span><span class="p">,</span> <span class="n">UIControlEvent</span><span class="p">.</span><span class="n">ValueChanged</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="k">private</span> <span class="k">void</span> <span class="nf">NotifyChange</span><span class="p">(</span><span class="kt">object</span> <span class="n">sender</span><span class="p">,</span> <span class="n">EventArgs</span> <span class="n">e</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="c1">// low-budget kvo compliance</span>
+        <span class="n">WillChangeValue</span><span class="p">(</span><span class="s">&quot;on&quot;</span><span class="p">);</span>
+        <span class="n">DidChangeValue</span><span class="p">(</span><span class="s">&quot;on&quot;</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+
+
+<p>There would be more complex things to add here (<code>ICommand</code> support, Managed object wrapping in bindings, Converters aka <code>NSValueTransformers</code> on the UIKit side), but I invite you to just peek at the <a href="https://github.com/Difegue/Stylophone/blob/dev/Sources/Stylophone.iOS/Helpers/PropertyBinder.cs">Stylophone source</a> if you're interested.<br>
+Have a nice day!  </p>
+  </div><!-- /.entry-content -->
+  <a class="containerBox">
+    <img src="https://tvc-16.science/theme/img/button2.svg" class="img-responsive">
+    <div class="text-box pink-button">
+      <span class=" button-text pink-shadow">Comments</span>
+    </div>
+  </a> <br /><br /><br /><br /><br /><br /><br /><br />
+  <script src="https://utteranc.es/client.js" repo="difegue/TVC-16" issue-term="url" theme="github-light"
+    crossorigin="anonymous" async>
+  </script>
+</section>
+      </div>
+    </div>
+    <div class="bot-border project-background"></div>
+
+    <br />
+    <br />
+    <br />
+
+  </div>
+
+  <footer id="contentinfo" class="body" style="position:relative; overflow:hidden">
+    <div class="top-border hello-background"></div>
+    <div class="wrapper hello-background">
+      <div class="text">
+
+        <a class="containerBox">
+          <img src="https://tvc-16.science/theme/img/button1.svg" class="img-responsive">
+          <div class="text-box blue-button">
+            <span class=" button-text blue-shadow">About</span>
+          </div>
+        </a>
+
+        <div class="scroll-left">
+          <p>
+            <script language="JavaScript">
+              //never forget grugeisti ;_;7
+              var r_text = new Array();
+              r_text[0] = "This is COOL";
+              r_text[1] = "TOP-SHELF BLOG DEVICE";
+              r_text[2] = "ACCELERATED PORTFOLIO SYSTEM";
+              r_text[3] = "Lookin' cool !";
+              r_text[4] = "ENHANCED SVG GRAPHICS";
+              r_text[5] = "HIGH-SPEED CHEAP VPS";
+              r_text[6] = "DELUXE UPTIME EXPERIENCE";
+              r_text[7] = "BEST-IN-CLASS SCROLLING TEXT";
+              r_text[8] = "HIGH GRADE MULTICONTAINER SETUP";
+              var i = Math.floor(9 * Math.random())
+              document.write(r_text[i]);
+            </script>
+          </p>
+        </div>
+        Runnin' straight down the information highway in a 3$ Vultr VPS. <br /><br />
+        Typefaces used: <a href="https://rsms.me/inter/">Inter</a>, <a
+          href="https://blog.marsnev.com/2017/03/font-lemonmilk.html">Lemon/Milk</a>,
+        <a href="https://fonts.google.com/specimen/VT323">VT323</a>.
+        Built using <a href="https://github.com/difegue" rel="me"> Github Actions</a> and Pelican. <br />
+        You can talk to me on <a rel="me" href="https://bsky.app/profile/difegue.bsky.social">Bluesky</a> or <a rel="me"
+          href="https://kolektiva.social/@Difegue">Mastodon</a> if that's your thing.
+
+      </div>
+    </div>
+    <div class="bot-border hello-background"></div>
+  </footer><!-- /#contentinfo -->
+
+  <br />
+  <br />
+  <br />
+
+  <div class="footer-container" title="This COOL SYSTEM has been running...for some time now.">
+    <span class="footer-text">Uptime:
+      <br>
+      <span id="uptime">XXX days </span>
+    </span>
+    <img src="https://tvc-16.science/theme/img/footer.svg" class="footer-image">
+  </div>
+
+  <script src="https://tvc-16.science/theme/index.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Blogopolis - Controlling an IKEA LED strip with video capture from game consoles</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <link
+    href="https://tvc-16.science/feeds/all.atom.xml"
+    type="application/atom+xml" rel="alternate" title="Blogopolis Full Atom Feed" />
+  <link
+    href="https://tvc-16.science/feeds/cool-tricks.atom.xml"
+    type="application/atom+xml" rel="alternate" title="Blogopolis Categories Atom Feed" />
+
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js'></script>
+  <script src='https://storage.ko-fi.com/cdn/scripts/overlay-widget.js'></script>
+  <script data-goatcounter="https://dingus.tvc-16.science/count" async src="//dingus.tvc-16.science/count.js"></script>
+
+  <link rel="apple-touch-icon" sizes="180x180" href="https://tvc-16.science/theme/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="https://tvc-16.science/theme/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="https://tvc-16.science/theme/favicon-16x16.png">
+  <link rel="manifest" href="https://tvc-16.science/theme/site.webmanifest">
+  <link rel="mask-icon" href="https://tvc-16.science/theme/safari-pinned-tab.svg" color="#f040b0">
+  <link rel="webmention" href="https://webmention.io/tvc-16.science/webmention" />
+  <link rel="pingback" href="https://webmention.io/tvc-16.science/xmlrpc" />
+  <meta name="msapplication-TileColor" content="#f1c711">
+  <meta name="theme-color" content="#f1c711">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta property="og:title" content="Controlling an IKEA LED strip with video capture from game consoles - Blogopolis" />
+<meta property="og:type" content="article" />
+<meta property="og:description" content="<p>Finally... Home Assistant gaming.</p>" />
+<meta property="og:url" content="https://tvc-16.science/ha-led-dazzle.html" />
+<meta property="og:image" content="https://tvc-16.science/images/hass/hass_gaming.png" />
+
+  <link href="https://fonts.googleapis.com/css?family=Monoton" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=VT323" rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/bluesky-comments@0.9.0/dist/bluesky-comments.css">
+  <link rel="stylesheet" href="https://tvc-16.science/theme/css/style.css">
+  <link rel="stylesheet" href="https://tvc-16.science/theme/css/pygment.css">
+
+
+
+
+<meta name="twitter:card" content="summary_large_image">
+<meta property="og:title" content="Controlling an IKEA LED strip with video capture from game consoles - Blogopolis" />
+<meta property="og:type" content="article" />
+<meta property="og:description" content="<p>Finally... Home Assistant gaming.</p>" />
+<meta property="og:url" content="https://tvc-16.science/ha-led-dazzle.html" />
+<meta property="og:image" content="https://tvc-16.science/images/hass/hass_gaming.png" />
+
+<meta name="tags" content="home assistant" />
+<meta name="tags" content="zigbee" />
+<meta name="tags" content="ikea" />
+<meta name="tags" content="led" />
+<meta name="tags" content="dazzle" />
+<meta name="tags" content="dvc100" />
+<meta name="tags" content="video capture" />
+<meta name="tags" content="gaming" />
+<meta name="tags" content="jankfest philips hue facsimile" />
+
+</head>
+
+<body id="index" class="home">
+
+  <canvas id="stage"></canvas>
+  <header id="banner" class="body">
+    <center><img height="170px" src="https://tvc-16.science/theme/img/logotype.svg" /></center>
+  </header><!-- /#banner -->
+
+  <div id="mainText">
+
+    <h2 class="subtitle">
+
+      <a style="color:black !important" href="/projects.html">Projects</a>
+      🔸
+      <a style="color:black !important" href="/">Articles</a>
+      🔸
+      <a style="color:black !important" href="/categories.html">Categories</a>
+      🔸
+
+    </h2><!-- /#menu -->
+
+    <div class="top-border project-background"></div>
+    <div class="wrapper project-background">
+      <div class="text">
+<section id="content" class="body" style="max-width: 900px;margin-left: auto;margin-right: auto;">
+  <header>
+    <h2 class="entry-title">
+      <a href="https://tvc-16.science/ha-led-dazzle.html" rel="bookmark" title="Permalink to Controlling an IKEA LED strip with video capture from game consoles">
+        Controlling an IKEA LED strip with video capture from game consoles
+      </a>
+    </h2>
+    
+  </header>
+  <footer class="post-info terminal-text">
+    <time class="published" datetime="2024-09-21T00:00:00+02:00">
+      Sat 21 September 2024
+    </time>
+    <address class="vcard author">
+      By       <a class="url fn" href="https://tvc-16.science/author/difegue.html">Difegue</a>
+    </address>
+    <div class="category">
+      Category: <a href="https://tvc-16.science/category/cool-tricks.html">Cool Tricks</a>
+    </div>
+    <div class="tags">
+      Tags:
+      <a href="https://tvc-16.science/tag/home-assistant.html">home assistant</a>
+      <a href="https://tvc-16.science/tag/zigbee.html">zigbee</a>
+      <a href="https://tvc-16.science/tag/ikea.html">ikea</a>
+      <a href="https://tvc-16.science/tag/led.html">led</a>
+      <a href="https://tvc-16.science/tag/dazzle.html">dazzle</a>
+      <a href="https://tvc-16.science/tag/dvc100.html">dvc100</a>
+      <a href="https://tvc-16.science/tag/video-capture.html">video capture</a>
+      <a href="https://tvc-16.science/tag/gaming.html">gaming</a>
+      <a href="https://tvc-16.science/tag/jankfest-philips-hue-facsimile.html">jankfest philips hue facsimile</a>
+    </div>
+    <div class="summary">
+      <p>Finally... Home Assistant gaming.</p>
+    </div>
+
+  </footer><!-- /.post-info -->
+  <div class="entry-content">
+    <p>I have a nice LED strip lighting up my <a href="./kallax-crt.html">gaming cabinet</a>, but it's a bit clunky turning it on manually every time I'm gaming on the ole Wii.<br>
+The strip I bought is an <a href="https://www.ikea.com/gb/en/p/ormanaes-led-lighting-strip-smart-wireless-dimmable-colour-and-white-spectrum-90541329/">IKEA Ormanas</a>, which is Zigbee compatible and can plug in just fine to a Home Assistant installation. It's even multicolor! <br>
+<img alt="Please don't look at my terrible led band routing i'm begging you" src="./images/kallax_crt.jpg"><br>
+So surely, we can make this strip light up on its own when the consoles are in use, right?  </p>
+<p>The easiest way would obviously be a <a href="https://community.home-assistant.io/t/what-are-the-recommended-energy-monitoring-smart-plugs-for-ha/589681">smart plug</a> hooked up to the CRT that detects when it's drawing power...<br>
+But I had an old <a href="https://en.wikipedia.org/wiki/Dazzle_(video_recorder)">Dazzle DVC100</a> capture card lying around, so why not try to use that instead?  </p>
+<h1>TV/Dazzle connection setup</h1>
+<p>The Dazzle itself just takes standard composite video and stereo audio and feeds it to a computer over USB 2.0, so it's easy to just plug it to a splitter with the other bit going to your TV.  </p>
+<p>I have to note here than plugging any sort of additional stuff to composite video can introduce significant <strong>interference and video noise</strong> -- Personally I recently splurged on an <a href="https://aliexpress.com/item/1005004428449908.html">automatic SCART switcher</a><sup id="ref-1"><a href="#note-1">*</a></sup> that isolates TV and capture outputs perfectly, but your mileage may vary.  </p>
+<p>As for the computer doing the capture - I have a Raspberry Pi close to the TV that I already use as a <a href="https://github.com/badaix/snapcast/">snapcast</a> client for music playback, so I just hooked the Dazzle to it. <br>
+<img alt="Perfectly cromulant capture from the dazzle" src="./images/hass/dazzle_capture.jpg"><br>
+Configuring the DVC100 is substantially easier on Linux than it is on modern Windows - I just followed <a href="https://github.com/danyfernandes/vhs-capture-pinnacle-linux">this guide</a> to get perfectly cromulent captures out of the card.  </p>
+<p>The DVC100 just acts as a webcam once configured, so its video feed can be exposed to your network as a MJPEG stream by something like <a href="https://github.com/pikvm/ustreamer"><code>ustreamer</code></a>.<br>
+I've slapped together this service file for that:  </p>
+<div class="highlight"><pre><span></span><code><span class="k">[Unit]</span>
+<span class="na">Description</span><span class="o">=</span><span class="s">ustreamer Dazzle</span>
+<span class="na">After</span><span class="o">=</span><span class="s">multi-user.target</span>
+
+<span class="k">[Service]</span>
+<span class="na">Type</span><span class="o">=</span><span class="s">simple</span>
+<span class="na">Restart</span><span class="o">=</span><span class="s">always</span>
+<span class="na">WorkingDirectory</span><span class="o">=</span><span class="s">/usr/local/bin</span>
+<span class="na">ExecStart</span><span class="o">=</span><span class="s">/usr/local/bin/ustreamer --host 0.0.0.0 -d /dev/video1 -r 720x576 -q 100 -a PAL -m RGB565 -p 8081</span>
+
+<span class="k">[Install]</span>
+<span class="na">WantedBy</span><span class="o">=</span><span class="s">multi-user.target</span>
+</code></pre></div>
+
+
+<p>I use <code>/dev/video1</code> here for the DVC100 since my Pi also has a normal webcam plugged in.<br>
+Depending on what you capture, you might want to mention NTSC/480i instead of PAL/576i for the video standard<sup id="ref-2"><a href="#note-2">**</a></sup>.   </p>
+<p>Since <code>ustreamer</code> outputs as a MJPEG stream, you can add your video feed to HA directly. It's technically not necessary... but it's fun! And I now have an easy way to take screenshots when I'm playing on the CRT.<br>
+<img alt="Did you know that DoujinSoft can send mail directly to your Wii in the current year? It's good shit" src="./images/hass/hass_gaming.png">  </p>
+<h1>The Home Assistant sauce</h1>
+<p>So now that we have a video feed in HA, surely it's easy to look at it and control the LED strip? Not quite 🫠  </p>
+<p>We can use the <a href="https://www.home-assistant.io/integrations/color_extractor/">Color Extractor integration</a> to pick the predominant color from the captured image and apply it to your lights - Except that this integration will always <strong>turn on</strong> the light, even if the current feed from the capture card is a black image.  </p>
+<p>So we need an additional <strong>sensor</strong> in HA to detect whether there's actual video coming from the capture card or not -- I struggled a bit for this before ending up with the perfectly dumb solution of <em>looking at the size of a screenshot from the video feed every second</em>.  </p>
+<div class="highlight"><pre><span></span><code><span class="nl">command_line</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="o">-</span><span class="w"> </span><span class="nl">sensor</span><span class="p">:</span><span class="w"></span>
+<span class="w">      </span><span class="nl">name</span><span class="p">:</span><span class="w"> </span><span class="k">Size</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="n">CRT</span><span class="w"> </span><span class="n">Stream</span><span class="w"> </span><span class="n">snapshot</span><span class="w"></span>
+<span class="w">      </span><span class="nl">scan_interval</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="w"></span>
+<span class="w">      </span><span class="nl">command</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;curl -so /dev/null http://[ustreamer_server]:8081/snapshot -w &#39;&#39;%{size_download}&#39;&#39;&#39;</span><span class="w"></span>
+</code></pre></div>
+
+
+<p>Horribly inefficient? Yes! But it works.<br>
+<img alt="" src="./images/anything.jpg">  <br>
+The output capture from the Dazzle when nothing is outputting to it is about 100KBs<sup id="ref-3"><a href="#note-3">***</a></sup>, so I check for 150 to have some margin.  </p>
+<p>And that gives us our final script:  </p>
+<div class="highlight"><pre><span></span><code><span class="k">alias</span><span class="err">:</span><span class="w"> </span><span class="n">Kallax</span><span class="w"> </span><span class="n">LED</span><span class="w"> </span><span class="n">Colorizer</span><span class="w"></span>
+<span class="k">sequence</span><span class="err">:</span><span class="w"></span>
+<span class="w">  </span><span class="o">-</span><span class="w"> </span><span class="k">if</span><span class="err">:</span><span class="w"></span>
+<span class="w">      </span><span class="o">-</span><span class="w"> </span><span class="k">condition</span><span class="err">:</span><span class="w"> </span><span class="n">numeric_state</span><span class="w"></span>
+<span class="w">        </span><span class="nl">entity_id</span><span class="p">:</span><span class="w"> </span><span class="n">sensor</span><span class="p">.</span><span class="n">size_of_crt_stream_snapshot</span><span class="w"></span>
+<span class="w">        </span><span class="nl">above</span><span class="p">:</span><span class="w"> </span><span class="mi">150000</span><span class="w"></span>
+<span class="w">    </span><span class="k">then</span><span class="err">:</span><span class="w"></span>
+<span class="w">      </span><span class="o">-</span><span class="w"> </span><span class="nl">service</span><span class="p">:</span><span class="w"> </span><span class="n">color_extractor</span><span class="p">.</span><span class="n">turn_on</span><span class="w"></span>
+<span class="w">        </span><span class="nl">metadata</span><span class="p">:</span><span class="w"> </span><span class="err">{}</span><span class="w"></span>
+<span class="w">        </span><span class="k">data</span><span class="err">:</span><span class="w"></span>
+<span class="w">          </span><span class="nl">color_extract_url</span><span class="p">:</span><span class="w"> </span><span class="nl">http</span><span class="p">:</span><span class="o">//[</span><span class="n">ustreamer_server</span><span class="o">]</span><span class="err">:</span><span class="mi">8081</span><span class="o">/</span><span class="n">snapshot</span><span class="w"></span>
+<span class="w">          </span><span class="nl">brightness</span><span class="p">:</span><span class="w"> </span><span class="mi">200</span><span class="w"></span>
+<span class="w">          </span><span class="nl">transition</span><span class="p">:</span><span class="w"> </span><span class="mf">0.4</span><span class="w"></span>
+<span class="w">        </span><span class="nl">target</span><span class="p">:</span><span class="w"></span>
+<span class="w">          </span><span class="nl">entity_id</span><span class="p">:</span><span class="w"> </span><span class="n">light</span><span class="p">.</span><span class="n">ikea_of_sweden_ormanas_led_strip_light</span><span class="w"></span>
+<span class="w">    </span><span class="k">else</span><span class="err">:</span><span class="w"></span>
+<span class="w">      </span><span class="o">-</span><span class="w"> </span><span class="nl">service</span><span class="p">:</span><span class="w"> </span><span class="n">light</span><span class="p">.</span><span class="n">turn_off</span><span class="w"></span>
+<span class="w">        </span><span class="nl">metadata</span><span class="p">:</span><span class="w"> </span><span class="err">{}</span><span class="w"></span>
+<span class="w">        </span><span class="k">data</span><span class="err">:</span><span class="w"> </span><span class="err">{}</span><span class="w"></span>
+<span class="w">        </span><span class="nl">target</span><span class="p">:</span><span class="w"></span>
+<span class="w">          </span><span class="nl">entity_id</span><span class="p">:</span><span class="w"> </span><span class="n">light</span><span class="p">.</span><span class="n">ikea_of_sweden_ormanas_led_strip_light</span><span class="w"></span>
+<span class="nl">description</span><span class="p">:</span><span class="w"> </span><span class="ss">&quot;&quot;</span><span class="w"></span>
+<span class="nl">icon</span><span class="p">:</span><span class="w"> </span><span class="nl">mdi</span><span class="p">:</span><span class="nf">format</span><span class="o">-</span><span class="n">color</span><span class="o">-</span><span class="n">fill</span><span class="w"></span>
+</code></pre></div>
+
+
+<p>Notice that as mentioned previously, this doesn't use the video feed registered in HA at all and just hits the <code>ustreamer</code> server directly. Which means you'll have to add its URL to <code>allowlist_external_urls</code> in your Home Assistant <a href="https://developers.home-assistant.io/docs/dev_101_config/">configuration</a>.</p>
+<video autoplay loop src="./images/hass/castlehue.mp4" title=""></video>
+
+<p>One could argue that it'd use less electricity to just turn on the LED strip all the time than to do all of this...<br>
+But would you get the Philips Hue™️ experience that way? Certainly not.  </p>
+<h1></h1>
+<p><sup id="note-1"><a href="#ref-1">*</a> I'm aware of the irony of <em>"doesn't want to spend money on a smart plug but will dunk 100€ in a switcher so he doesn't have to push buttons manually to swap outputs"</em></sup><br>
+<sup id="note-2"><a href="#ref-2">**</a> My SEGA Saturn is a Japanese model, so capturing it on PAL mode gives me a squished grayscale image - which is more than enough just to drive LED lights. </sup><br>
+<sup id="note-3"><a href="#ref-3">***</a> If you have an image on screen that is pure white it actually can be lower than that due to how jpg compression works - So sometimes when using the Wii Menu which is predominantly white, my LEDs will turn off...<br>Writing a customized version of ColorExtractor would probably be a bit better than this. I found <a href="https://github.com/xplus2/homeassistant-ambient-extractor">one</a>, but it didn't work for me.</sup>  </p>
+  </div><!-- /.entry-content -->
+  <a class="containerBox">
+    <img src="https://tvc-16.science/theme/img/button2.svg" class="img-responsive">
+    <div class="text-box pink-button">
+      <span class=" button-text pink-shadow">Comments</span>
+    </div>
+  </a> <br /><br /><br /><br /><br /><br /><br /><br />
+  <script src="https://utteranc.es/client.js" repo="difegue/TVC-16" issue-term="url" theme="github-light"
+    crossorigin="anonymous" async>
+  </script>
+</section>
+      </div>
+    </div>
+    <div class="bot-border project-background"></div>
+
+    <br />
+    <br />
+    <br />
+
+  </div>
+
+  <footer id="contentinfo" class="body" style="position:relative; overflow:hidden">
+    <div class="top-border hello-background"></div>
+    <div class="wrapper hello-background">
+      <div class="text">
+
+        <a class="containerBox">
+          <img src="https://tvc-16.science/theme/img/button1.svg" class="img-responsive">
+          <div class="text-box blue-button">
+            <span class=" button-text blue-shadow">About</span>
+          </div>
+        </a>
+
+        <div class="scroll-left">
+          <p>
+            <script language="JavaScript">
+              //never forget grugeisti ;_;7
+              var r_text = new Array();
+              r_text[0] = "This is COOL";
+              r_text[1] = "TOP-SHELF BLOG DEVICE";
+              r_text[2] = "ACCELERATED PORTFOLIO SYSTEM";
+              r_text[3] = "Lookin' cool !";
+              r_text[4] = "ENHANCED SVG GRAPHICS";
+              r_text[5] = "HIGH-SPEED CHEAP VPS";
+              r_text[6] = "DELUXE UPTIME EXPERIENCE";
+              r_text[7] = "BEST-IN-CLASS SCROLLING TEXT";
+              r_text[8] = "HIGH GRADE MULTICONTAINER SETUP";
+              var i = Math.floor(9 * Math.random())
+              document.write(r_text[i]);
+            </script>
+          </p>
+        </div>
+        Runnin' straight down the information highway in a 3$ Vultr VPS. <br /><br />
+        Typefaces used: <a href="https://rsms.me/inter/">Inter</a>, <a
+          href="https://blog.marsnev.com/2017/03/font-lemonmilk.html">Lemon/Milk</a>,
+        <a href="https://fonts.google.com/specimen/VT323">VT323</a>.
+        Built using <a href="https://github.com/difegue" rel="me"> Github Actions</a> and Pelican. <br />
+        You can talk to me on <a rel="me" href="https://bsky.app/profile/difegue.bsky.social">Bluesky</a> or <a rel="me"
+          href="https://kolektiva.social/@Difegue">Mastodon</a> if that's your thing.
+
+      </div>
+    </div>
+    <div class="bot-border hello-background"></div>
+  </footer><!-- /#contentinfo -->
+
+  <br />
+  <br />
+  <br />
+
+  <div class="footer-container" title="This COOL SYSTEM has been running...for some time now.">
+    <span class="footer-text">Uptime:
+      <br>
+      <span id="uptime">XXX days </span>
+    </span>
+    <img src="https://tvc-16.science/theme/img/footer.svg" class="footer-image">
+  </div>
+
+  <script src="https://tvc-16.science/theme/index.js"></script>
+</body>
+
+</html>

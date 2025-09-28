@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Blogopolis - Deploying an ephemeral macOS environment through Github Actions</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <link
+    href="https://tvc-16.science/feeds/all.atom.xml"
+    type="application/atom+xml" rel="alternate" title="Blogopolis Full Atom Feed" />
+  <link
+    href="https://tvc-16.science/feeds/cool-tricks.atom.xml"
+    type="application/atom+xml" rel="alternate" title="Blogopolis Categories Atom Feed" />
+
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js'></script>
+  <script src='https://storage.ko-fi.com/cdn/scripts/overlay-widget.js'></script>
+  <script data-goatcounter="https://dingus.tvc-16.science/count" async src="//dingus.tvc-16.science/count.js"></script>
+
+  <link rel="apple-touch-icon" sizes="180x180" href="https://tvc-16.science/theme/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="https://tvc-16.science/theme/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="https://tvc-16.science/theme/favicon-16x16.png">
+  <link rel="manifest" href="https://tvc-16.science/theme/site.webmanifest">
+  <link rel="mask-icon" href="https://tvc-16.science/theme/safari-pinned-tab.svg" color="#f040b0">
+  <link rel="webmention" href="https://webmention.io/tvc-16.science/webmention" />
+  <link rel="pingback" href="https://webmention.io/tvc-16.science/xmlrpc" />
+  <meta name="msapplication-TileColor" content="#f1c711">
+  <meta name="theme-color" content="#f1c711">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta property="og:title" content="Deploying an ephemeral macOS environment through Github Actions - Blogopolis" />
+<meta property="og:type" content="article" />
+<meta property="og:description" content="<p>I don't think they meant this when they said "Think Different".</p>" />
+<meta property="og:url" content="https://tvc-16.science/mac-github-actions.html" />
+<meta property="og:image" content="https://tvc-16.science/images/macactions.png" />
+
+  <link href="https://fonts.googleapis.com/css?family=Monoton" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=VT323" rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/bluesky-comments@0.9.0/dist/bluesky-comments.css">
+  <link rel="stylesheet" href="https://tvc-16.science/theme/css/style.css">
+  <link rel="stylesheet" href="https://tvc-16.science/theme/css/pygment.css">
+
+
+
+
+<meta name="twitter:card" content="summary_large_image">
+<meta property="og:title" content="Deploying an ephemeral macOS environment through Github Actions - Blogopolis" />
+<meta property="og:type" content="article" />
+<meta property="og:description" content="<p>I don't think they meant this when they said "Think Different".</p>" />
+<meta property="og:url" content="https://tvc-16.science/mac-github-actions.html" />
+<meta property="og:image" content="https://tvc-16.science/images/macactions.png" />
+
+<meta name="tags" content="github actions" />
+<meta name="tags" content="apple" />
+<meta name="tags" content="macos" />
+<meta name="tags" content="vm" />
+<meta name="tags" content="homebrew" />
+
+</head>
+
+<body id="index" class="home">
+
+  <canvas id="stage"></canvas>
+  <header id="banner" class="body">
+    <center><img height="170px" src="https://tvc-16.science/theme/img/logotype.svg" /></center>
+  </header><!-- /#banner -->
+
+  <div id="mainText">
+
+    <h2 class="subtitle">
+
+      <a style="color:black !important" href="/projects.html">Projects</a>
+      🔸
+      <a style="color:black !important" href="/">Articles</a>
+      🔸
+      <a style="color:black !important" href="/categories.html">Categories</a>
+      🔸
+
+    </h2><!-- /#menu -->
+
+    <div class="top-border project-background"></div>
+    <div class="wrapper project-background">
+      <div class="text">
+<section id="content" class="body" style="max-width: 900px;margin-left: auto;margin-right: auto;">
+  <header>
+    <h2 class="entry-title">
+      <a href="https://tvc-16.science/mac-github-actions.html" rel="bookmark" title="Permalink to Deploying an ephemeral macOS environment through Github Actions">
+        Deploying an ephemeral macOS environment through Github Actions
+      </a>
+    </h2>
+    
+  </header>
+  <footer class="post-info terminal-text">
+    <time class="published" datetime="2019-10-25T00:00:00+02:00">
+      Fri 25 October 2019
+    </time>
+    <address class="vcard author">
+      By       <a class="url fn" href="https://tvc-16.science/author/difegue.html">Difegue</a>
+    </address>
+    <div class="category">
+      Category: <a href="https://tvc-16.science/category/cool-tricks.html">Cool Tricks</a>
+    </div>
+    <div class="tags">
+      Tags:
+      <a href="https://tvc-16.science/tag/github-actions.html">github actions</a>
+      <a href="https://tvc-16.science/tag/apple.html">apple</a>
+      <a href="https://tvc-16.science/tag/macos.html">macos</a>
+      <a href="https://tvc-16.science/tag/vm.html">vm</a>
+      <a href="https://tvc-16.science/tag/homebrew.html">homebrew</a>
+    </div>
+    <div class="summary">
+      <p>I don't think they meant this when they said "Think Different".</p>
+    </div>
+
+  </footer><!-- /.post-info -->
+  <div class="entry-content">
+    <p>Oh no! Someone's giving me <a href="https://github.com/Difegue/LANraragi/pull/221">macOS stuff to test</a> and I don't have access to any Mac whatsoever this weekend!<br>
+<em>What in the doushio can I do?</em>  </p>
+<p>Most solutions for getting a virtualized Mac running involve downloading the 7GB-something setup from Apple, installing it in <a href="https://github.com/foxlet/macOS-Simple-KVM">some form of virtualization</a> software, setting up a bunch of bullshit magical variables to masquerade your VM as an iMac and then waiting through the entire installation process.  </p>
+<p>Past that, you'll also need to add an Apple Account, download Xcode and its glorious 6 GBs of awful IDE design, etc etc <em>jesus this is going to eat my entire weekend</em><br>
+<sub><sup>you can technically only download the xcode command line tools and they're like 200MBs but I'm trying to overdramatize a bit here</sup></sub>  </p>
+<p>The other solution is of course to rent a Mac VPS, but as this is a super niche market, prices are <a href="https://www.macstadium.com/pricing">atrociously expensive</a> for what amounts to me running <code>homebrew</code> for about 30 minutes.  </p>
+<h2>Jumping into Actions</h2>
+<p>Since GitHub Actions introduced matrix builds recently, there very conveniently are <a href="https://help.github.com/en/github/automating-your-workflow-with-github-actions/software-in-virtual-environments-for-github-actions#macos-1014">macOS runners</a> for me to run code on. And they come with a <strong>lot</strong> of devtools preinstalled, making for a rather comfy experience.  </p>
+<p>At this point I could just write an Actions script running my <code>homebrew</code> code and be done with it, but I thought I could have something a bit more flexible.<br>
+Hot off the trail of <a href="./lcl-pebble.html">my last Actions venture</a>, I thought about using the <a href="https://github.com/marketplace/actions/debugging-with-tmate">tmate</a> action to spawn a SSH session on the Mac runner for me. It'd basically give me an <strong>on-demand, pre-provisioned</strong> macOS command line whenever I'd want!  </p>
+<p><img alt="ANYTHING" src="https://tvc-16.science/images/anything.jpg"><br>
+<sub><sup>For up to 6 hours of execution time but honestly that's already way too much </sup></sub>  </p>
+<h2>Writing the Action</h2>
+<p>Using the tmate action as-is would basically make this setup dead simple, but it <a href="https://github.com/mxschmitt/action-tmate/issues/3">doesn't work on Mac runners as-is.</a> Darn.  </p>
+<p>Luckily the entire action is really easy to replicate in bash, so I just wrote my own:  </p>
+<div class="highlight"><pre><span></span><code><span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Summon Steve Jobs</span>
+
+<span class="nt">on</span><span class="p">:</span> <span class="p p-Indicator">[</span><span class="nv">push</span><span class="p p-Indicator">]</span>
+
+<span class="nt">jobs</span><span class="p">:</span>
+  <span class="nt">build</span><span class="p">:</span>
+
+    <span class="nt">runs-on</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">macOS-10.14</span>
+
+    <span class="nt">steps</span><span class="p">:</span>
+    <span class="p p-Indicator">-</span> <span class="nt">uses</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">actions/checkout@v1</span>
+    <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Install tmate</span>
+      <span class="nt">run</span><span class="p">:</span> <span class="p p-Indicator">|</span>
+        <span class="no">brew install tmate openssh screenfetch</span>
+        <span class="no">echo -e &#39;y\n&#39;|ssh-keygen -q -t rsa -N &quot;&quot; -f ~/.ssh/id_rsa</span>
+        <span class="no">tmate -S /tmp/tmate.sock new-session -d</span>
+        <span class="no">tmate -S /tmp/tmate.sock wait tmate-ready</span>
+    <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">It just works</span>
+      <span class="nt">run</span><span class="p">:</span> <span class="p p-Indicator">|</span>
+        <span class="no">screenfetch</span>
+        <span class="no">SSH=&quot;$(tmate -S /tmp/tmate.sock display -p &#39;#{tmate_ssh}&#39;)&quot;</span>
+        <span class="no">WEB=&quot;$(tmate -S /tmp/tmate.sock display -p &#39;#{tmate_web}&#39;)&quot;</span>
+        <span class="no">echo &quot;SSH: ${SSH}&quot;</span>
+        <span class="no">echo &quot;Web: ${WEB}&quot;</span>
+        <span class="no">echo &quot;You can now connect to the tmate session.&quot;</span>
+        <span class="no">while true; do </span>
+          <span class="no"># loop infinitely</span>
+          <span class="no">sleep 10</span>
+        <span class="no">done</span>
+</code></pre></div>
+
+
+<p>The only issue here is that quitting the session doesn't automatically end the run like the original action does, but it's good enough.™  </p>
+<p><img alt="rebel rebel how could they know" src="https://tvc-16.science/images/macactions.png"></p>
+<h2>Spare Thoughts</h2>
+<p>I was curious about whether you could get VNC output on this, but while the command to enable VNC works, the runners don't expose anything for you to connect to.</p>
+<p>Since I wanked this to debug the upcoming Homebrew support for LRR, it's totally legal and not breaking the <a href="https://help.github.com/en/github/automating-your-workflow-with-github-actions/about-github-actions#usage-limits">Actions TOS</a> in any way. 😇  </p>
+  </div><!-- /.entry-content -->
+  <a class="containerBox">
+    <img src="https://tvc-16.science/theme/img/button2.svg" class="img-responsive">
+    <div class="text-box pink-button">
+      <span class=" button-text pink-shadow">Comments</span>
+    </div>
+  </a> <br /><br /><br /><br /><br /><br /><br /><br />
+  <script src="https://utteranc.es/client.js" repo="difegue/TVC-16" issue-term="url" theme="github-light"
+    crossorigin="anonymous" async>
+  </script>
+</section>
+      </div>
+    </div>
+    <div class="bot-border project-background"></div>
+
+    <br />
+    <br />
+    <br />
+
+  </div>
+
+  <footer id="contentinfo" class="body" style="position:relative; overflow:hidden">
+    <div class="top-border hello-background"></div>
+    <div class="wrapper hello-background">
+      <div class="text">
+
+        <a class="containerBox">
+          <img src="https://tvc-16.science/theme/img/button1.svg" class="img-responsive">
+          <div class="text-box blue-button">
+            <span class=" button-text blue-shadow">About</span>
+          </div>
+        </a>
+
+        <div class="scroll-left">
+          <p>
+            <script language="JavaScript">
+              //never forget grugeisti ;_;7
+              var r_text = new Array();
+              r_text[0] = "This is COOL";
+              r_text[1] = "TOP-SHELF BLOG DEVICE";
+              r_text[2] = "ACCELERATED PORTFOLIO SYSTEM";
+              r_text[3] = "Lookin' cool !";
+              r_text[4] = "ENHANCED SVG GRAPHICS";
+              r_text[5] = "HIGH-SPEED CHEAP VPS";
+              r_text[6] = "DELUXE UPTIME EXPERIENCE";
+              r_text[7] = "BEST-IN-CLASS SCROLLING TEXT";
+              r_text[8] = "HIGH GRADE MULTICONTAINER SETUP";
+              var i = Math.floor(9 * Math.random())
+              document.write(r_text[i]);
+            </script>
+          </p>
+        </div>
+        Runnin' straight down the information highway in a 3$ Vultr VPS. <br /><br />
+        Typefaces used: <a href="https://rsms.me/inter/">Inter</a>, <a
+          href="https://blog.marsnev.com/2017/03/font-lemonmilk.html">Lemon/Milk</a>,
+        <a href="https://fonts.google.com/specimen/VT323">VT323</a>.
+        Built using <a href="https://github.com/difegue" rel="me"> Github Actions</a> and Pelican. <br />
+        You can talk to me on <a rel="me" href="https://bsky.app/profile/difegue.bsky.social">Bluesky</a> or <a rel="me"
+          href="https://kolektiva.social/@Difegue">Mastodon</a> if that's your thing.
+
+      </div>
+    </div>
+    <div class="bot-border hello-background"></div>
+  </footer><!-- /#contentinfo -->
+
+  <br />
+  <br />
+  <br />
+
+  <div class="footer-container" title="This COOL SYSTEM has been running...for some time now.">
+    <span class="footer-text">Uptime:
+      <br>
+      <span id="uptime">XXX days </span>
+    </span>
+    <img src="https://tvc-16.science/theme/img/footer.svg" class="footer-image">
+  </div>
+
+  <script src="https://tvc-16.science/theme/index.js"></script>
+</body>
+
+</html>

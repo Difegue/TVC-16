@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Blogopolis - Migrating a game collection database from CLZ Games to Gameye</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <link
+    href="https://tvc-16.science/feeds/all.atom.xml"
+    type="application/atom+xml" rel="alternate" title="Blogopolis Full Atom Feed" />
+  <link
+    href="https://tvc-16.science/feeds/physicality-of-gaming.atom.xml"
+    type="application/atom+xml" rel="alternate" title="Blogopolis Categories Atom Feed" />
+
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js'></script>
+  <script src='https://storage.ko-fi.com/cdn/scripts/overlay-widget.js'></script>
+  <script data-goatcounter="https://dingus.tvc-16.science/count" async src="//dingus.tvc-16.science/count.js"></script>
+
+  <link rel="apple-touch-icon" sizes="180x180" href="https://tvc-16.science/theme/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="https://tvc-16.science/theme/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="https://tvc-16.science/theme/favicon-16x16.png">
+  <link rel="manifest" href="https://tvc-16.science/theme/site.webmanifest">
+  <link rel="mask-icon" href="https://tvc-16.science/theme/safari-pinned-tab.svg" color="#f040b0">
+  <link rel="webmention" href="https://webmention.io/tvc-16.science/webmention" />
+  <link rel="pingback" href="https://webmention.io/tvc-16.science/xmlrpc" />
+  <meta name="msapplication-TileColor" content="#f1c711">
+  <meta name="theme-color" content="#f1c711">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta property="og:title" content="Migrating a game collection database from CLZ Games to Gameye - Blogopolis" />
+<meta property="og:type" content="article" />
+<meta property="og:description" content="<p>ONE MORE SUBSCRIPTION REJECTED</p>" />
+<meta property="og:url" content="https://tvc-16.science/clz-to-gameye.html" />
+<meta property="og:image" content="https://tvc-16.science/images/games/gameye/collection.jpg" />
+
+  <link href="https://fonts.googleapis.com/css?family=Monoton" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=VT323" rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/bluesky-comments@0.9.0/dist/bluesky-comments.css">
+  <link rel="stylesheet" href="https://tvc-16.science/theme/css/style.css">
+  <link rel="stylesheet" href="https://tvc-16.science/theme/css/pygment.css">
+
+
+
+
+<meta name="twitter:card" content="summary_large_image">
+<meta property="og:title" content="Migrating a game collection database from CLZ Games to Gameye - Blogopolis" />
+<meta property="og:type" content="article" />
+<meta property="og:description" content="<p>ONE MORE SUBSCRIPTION REJECTED</p>" />
+<meta property="og:url" content="https://tvc-16.science/clz-to-gameye.html" />
+<meta property="og:image" content="https://tvc-16.science/images/games/gameye/collection.jpg" />
+
+<meta name="tags" content="video games" />
+<meta name="tags" content="collection" />
+<meta name="tags" content="migration" />
+<meta name="tags" content="clz" />
+<meta name="tags" content="gameye" />
+<meta name="tags" content="sqlite" />
+<meta name="tags" content="powershell" />
+<meta name="tags" content="scraping" />
+<meta name="tags" content="subscription hell" />
+
+</head>
+
+<body id="index" class="home">
+
+  <canvas id="stage"></canvas>
+  <header id="banner" class="body">
+    <center><img height="170px" src="https://tvc-16.science/theme/img/logotype.svg" /></center>
+  </header><!-- /#banner -->
+
+  <div id="mainText">
+
+    <h2 class="subtitle">
+
+      <a style="color:black !important" href="/projects.html">Projects</a>
+      🔸
+      <a style="color:black !important" href="/">Articles</a>
+      🔸
+      <a style="color:black !important" href="/categories.html">Categories</a>
+      🔸
+
+    </h2><!-- /#menu -->
+
+    <div class="top-border project-background"></div>
+    <div class="wrapper project-background">
+      <div class="text">
+<section id="content" class="body" style="max-width: 900px;margin-left: auto;margin-right: auto;">
+  <header>
+    <h2 class="entry-title">
+      <a href="https://tvc-16.science/clz-to-gameye.html" rel="bookmark" title="Permalink to Migrating a game collection database from CLZ Games to Gameye">
+        Migrating a game collection database from CLZ Games to Gameye
+      </a>
+    </h2>
+    
+  </header>
+  <footer class="post-info terminal-text">
+    <time class="published" datetime="2025-09-27T00:00:00+02:00">
+      Sat 27 September 2025
+    </time>
+    <address class="vcard author">
+      By       <a class="url fn" href="https://tvc-16.science/author/difegue.html">Difegue</a>
+    </address>
+    <div class="category">
+      Category: <a href="https://tvc-16.science/category/physicality-of-gaming.html">Physicality of Gaming</a>
+    </div>
+    <div class="tags">
+      Tags:
+      <a href="https://tvc-16.science/tag/video-games.html">video games</a>
+      <a href="https://tvc-16.science/tag/collection.html">collection</a>
+      <a href="https://tvc-16.science/tag/migration.html">migration</a>
+      <a href="https://tvc-16.science/tag/clz.html">clz</a>
+      <a href="https://tvc-16.science/tag/gameye.html">gameye</a>
+      <a href="https://tvc-16.science/tag/sqlite.html">sqlite</a>
+      <a href="https://tvc-16.science/tag/powershell.html">powershell</a>
+      <a href="https://tvc-16.science/tag/scraping.html">scraping</a>
+      <a href="https://tvc-16.science/tag/subscription-hell.html">subscription hell</a>
+    </div>
+    <div class="summary">
+      <p>ONE MORE SUBSCRIPTION REJECTED</p>
+    </div>
+
+  </footer><!-- /.post-info -->
+  <div class="entry-content">
+    <p>I own a relatively mid-sized <a href="/kallax-crt.html">game collection</a>, and it has recently gotten to the point I unfortunately can't always precisely remember everything I own when I'm hunting through garage sales.<br>
+<sub>Mostly because I've gotten more into 360/ps3 where big AAA series became commonplace and no I can't fucking remember if I already bought uncharted 2 or 3 or asscreed 2 or 4</sub>  </p>
+<p>So I got into logging all the stuff I own...<br>
+And I would've run out of motivation <em>really fast</em> if I had to manually type in every game name!<br>
+I searched a bit and ended up using <a href="https://clz.com/games">CLZ Games</a>, which has a <strong>fantastic</strong> barcode scanner I threw my entire collection at like it was clearance on <a href="https://www.youtube.com/watch?v=wzM0t96x84A">Aisle 10</a>.<br>
+<img alt="most of my collection logged onto CLZ" src="./images/games/clz.png"><br>
+I have to give a lot of props to the app overall - Their database is great and differentiates between collectors, platinum/players choice editions, and the barcode scanner found every single game I scanned through it, regardless of region.  </p>
+<p>The UI is also quite nice and there's a web version... I'd happily keep using this!<br>
+<strong>Except it's subscription-based.</strong><br>
+<img alt="its a fucking subscription again god damn it" src="./images/1-2-hurts-just-a-little-bit.jpg"><br>
+Luckily the app has an <strong>export function</strong><sup id="ref-1"><a href="#note-1">*</a></sup>, which means with a little bit of scripting, I can get my scanned collection out and into something else that won't cost me 20€ a year<sup id="ref-2"><a href="#note-2">**</a></sup> to look at.  </p>
+<h1>The competition</h1>
+<p>Since the point is to have the collection on the go for cross-checking, I wanted to have it on <strong>Android</strong>.<br>
+I could technically just have everything in a spreadsheet and use Excel on the go or something, but being able to filter by console and easily keep track of whether I own the box/manual for a given game are very nice to have.  </p>
+<p>It also needs to have an <strong>import function</strong> of its own so I can pipe the data into it.<br>
+So! As the title of the blogpost spoils, I ended up choosing <a href="https://www.gameye.app/">GAMEYE</a> as the host for the export.  </p>
+<p>I originally looked at Gameye for initially scanning my collection since it also has a barcode scanner... But their database is much worse than CLZ on that front and I was having a pretty low success rate<sup id="ref-3"><a href="#note-3">***</a></sup>.  </p>
+<h1>The export/import formats</h1>
+<p>CLZ Cloud's exports are pretty straightforward: You can either get an XML with all the info, or a custom CSV/TXT with fields of your choosing.  </p>
+<p>For the rest of this blogpost, I went with a CSV that has the following columns:  </p>
+<div class="highlight"><pre><span></span><code><span class="err">Title,Platform,Region,Box,Manual</span>
+<span class="err">&quot;ChuChu Rocket!&quot;,Dreamcast,Europe,No,No</span>
+<span class="err">&quot;Crazy Taxi&quot;,Dreamcast,Europe,Yes,No</span>
+<span class="err">&quot;Crazy Taxi&quot;,Dreamcast,Japan,Yes,Yes</span>
+<span class="err">&quot;Crazy Taxi 2&quot;,Dreamcast,Japan,Yes,Yes</span>
+</code></pre></div>
+
+
+<p>Gameye's import/export functions are a bit less easy to work with, but relatively straightforward.<br>
+Creating a "Restore Point" from the app gives you a <strong>.ged file</strong>, which is just a zipped SQLite database.<br>
+<img alt="good ol' DB explorer for SQLite showing a Gameye database" src="./images/games/gameye/gameye_db.png"><br>
+I'll focus on the <code>ownership</code> table here, since that's the one that contains all the collection data.  </p>
+<h1>The script</h1>
+<p>I hate SQL about as much as I hate subscriptions, so I decided to just do csv-to-csv conversion, using <a href="https://sqlitebrowser.org/">DB Browser</a> after the fact to insert the data in the Gameye DB.  </p>
+<p>The meat of the complexity here is to find the <strong>Gameye IDs</strong> for each game -- Everything else (manual/box ownership, region and console IDs) was easy to figure out by just diffing a few exports.</p>
+<p>Luckily, Gameye has a freely available online <a href="https://www.gameye.app/encyclopedia">search tool</a>! And all of the IDs match what the mobile app uses, which means we will perform the illegal act of... <strong>web automation.</strong><br>
+<img alt="" src="./images/anything.jpg"><br>
+So to recap, we need to do all the following:  </p>
+<ul>
+<li>CSV parsing to read the CLZ export  </li>
+<li>Web requests and JSON parsing to search for each game and grab the matching Gameye ID  </li>
+<li>Some way to generate GUIDs while rewriting the data so it matches what the Gameye DB expects  </li>
+<li>More CSV processing to export the final result  </li>
+</ul>
+<p><strong>PowerShell</strong> has built-in tools for all of this stuff, so that's what I rolled with.  </p>
+<div class="highlight"><pre><span></span><code><span class="k">param</span><span class="p">(</span>
+    <span class="p">[</span><span class="k">Parameter</span><span class="p">(</span><span class="k">Mandatory</span><span class="p">=</span><span class="nv">$true</span><span class="p">)]</span>
+    <span class="no">[string]</span><span class="nv">$inputCsv</span><span class="p">,</span>
+    <span class="p">[</span><span class="k">Parameter</span><span class="p">(</span><span class="k">Mandatory</span><span class="p">=</span><span class="nv">$true</span><span class="p">)]</span>
+    <span class="no">[string]</span><span class="nv">$outputCsv</span>
+<span class="p">)</span>
+
+<span class="c"># Import the input CSV</span>
+<span class="c"># CLZ export delimiter is , but if you preprocessed it thru Excel you&#39;ll want ;</span>
+<span class="nv">$data</span> <span class="p">=</span> <span class="nb">Import-Csv</span> <span class="n">-Path</span> <span class="nv">$inputCsv</span> <span class="n">-Delimiter</span> <span class="s1">&#39;,&#39;</span>
+
+<span class="c"># Initialize an array to store the results</span>
+<span class="nv">$results</span> <span class="p">=</span> <span class="p">@()</span>
+<span class="nv">$notfound</span> <span class="p">=</span> <span class="p">@()</span>
+<span class="nv">$id</span> <span class="p">=</span> <span class="n">1</span>
+
+
+<span class="c"># Loop through each row in the CSV</span>
+<span class="k">foreach</span> <span class="p">(</span><span class="nv">$row</span> <span class="k">in</span> <span class="nv">$data</span><span class="p">)</span> <span class="p">{</span>
+
+    <span class="c"># Assume CLZ CSV has the following headers: Title,Platform,Region,Box,Manual</span>
+    <span class="nv">$title</span> <span class="p">=</span> <span class="nv">$row</span><span class="p">.</span><span class="n">Title</span>
+    <span class="nv">$platform</span> <span class="p">=</span> <span class="nv">$row</span><span class="p">.</span><span class="n">Platform</span>
+    <span class="nv">$region</span> <span class="p">=</span> <span class="nv">$row</span><span class="p">.</span><span class="n">Region</span>
+    <span class="nv">$box</span> <span class="p">=</span> <span class="nv">$row</span><span class="p">.</span><span class="n">Box</span>
+    <span class="nv">$manual</span> <span class="p">=</span> <span class="nv">$row</span><span class="p">.</span><span class="n">Manual</span>
+
+    <span class="c"># Calculate gameeye ownership mask</span>
+    <span class="nv">$ownershipMask</span> <span class="p">=</span> <span class="n">1</span> <span class="c"># loose</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nv">$box</span> <span class="o">-eq</span> <span class="s2">&quot;Yes&quot;</span> <span class="o">-And</span> <span class="nv">$manual</span> <span class="o">-eq</span> <span class="s2">&quot;Yes&quot;</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nv">$ownershipMask</span> <span class="p">=</span> <span class="n">7</span> <span class="c"># complete</span>
+    <span class="p">}</span> <span class="k">elseif</span> <span class="p">(</span><span class="nv">$box</span> <span class="o">-eq</span> <span class="s2">&quot;Yes&quot;</span> <span class="o">-And</span> <span class="nv">$manual</span> <span class="o">-eq</span> <span class="s2">&quot;No&quot;</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nv">$ownershipMask</span> <span class="p">=</span> <span class="n">5</span> <span class="c"># box no manual</span>
+    <span class="p">}</span> <span class="k">elseif</span> <span class="p">(</span><span class="nv">$box</span> <span class="o">-eq</span> <span class="s2">&quot;No&quot;</span> <span class="o">-And</span> <span class="nv">$manual</span> <span class="o">-eq</span> <span class="s2">&quot;Yes&quot;</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nv">$ownershipMask</span> <span class="p">=</span> <span class="n">3</span> <span class="c"># manual no box</span>
+    <span class="p">}</span>
+
+    <span class="c"># Convert region/platform to gameeye IDs</span>
+    <span class="k">switch</span> <span class="p">(</span><span class="nv">$region</span><span class="p">)</span> <span class="p">{</span>
+        <span class="s2">&quot;USA&quot;</span> <span class="p">{</span> <span class="nv">$regionId</span> <span class="p">=</span> <span class="n">1</span> <span class="p">}</span>
+        <span class="s2">&quot;Europe&quot;</span> <span class="p">{</span> <span class="nv">$regionId</span> <span class="p">=</span> <span class="n">15</span> <span class="p">}</span> <span class="c"># UK</span>
+        <span class="s2">&quot;Japan&quot;</span> <span class="p">{</span> <span class="nv">$regionId</span> <span class="p">=</span> <span class="n">3</span> <span class="p">}</span>
+        <span class="k">default</span> <span class="p">{</span> <span class="nv">$regionId</span> <span class="p">=</span> <span class="n">34</span> <span class="p">}</span> <span class="c"># World</span>
+    <span class="p">}</span>
+
+    <span class="k">switch</span> <span class="p">(</span><span class="nv">$platform</span><span class="p">)</span> <span class="p">{</span>
+        <span class="s2">&quot;Dreamcast&quot;</span> <span class="p">{</span> <span class="nv">$platformId</span> <span class="p">=</span> <span class="n">16</span> <span class="p">}</span>
+        <span class="s2">&quot;Family Computer / Famicom&quot;</span> <span class="p">{</span> <span class="nv">$platformId</span> <span class="p">=</span> <span class="n">7</span> <span class="p">}</span> <span class="c"># Same as NES</span>
+        <span class="s2">&quot;Game &amp; Watch&quot;</span> <span class="p">{</span> <span class="nv">$platformId</span> <span class="p">=</span> <span class="n">76</span> <span class="p">}</span>
+        <span class="s2">&quot;Game Boy Advance&quot;</span> <span class="p">{</span> <span class="nv">$platformId</span> <span class="p">=</span> <span class="n">5</span> <span class="p">}</span>
+        <span class="s2">&quot;GameCube&quot;</span> <span class="p">{</span> <span class="nv">$platformId</span> <span class="p">=</span> <span class="n">2</span> <span class="p">}</span>
+        <span class="s2">&quot;Genesis / Mega Drive&quot;</span> <span class="p">{</span> <span class="nv">$platformId</span> <span class="p">=</span> <span class="n">18</span> <span class="p">}</span>
+        <span class="s2">&quot;NES&quot;</span> <span class="p">{</span> <span class="nv">$platformId</span> <span class="p">=</span> <span class="n">7</span> <span class="p">}</span>
+        <span class="s2">&quot;Nintendo 64&quot;</span> <span class="p">{</span> <span class="nv">$platformId</span> <span class="p">=</span> <span class="n">3</span> <span class="p">}</span>
+        <span class="s2">&quot;Nintendo 3DS&quot;</span> <span class="p">{</span> <span class="nv">$platformId</span> <span class="p">=</span> <span class="n">41</span> <span class="p">}</span>
+        <span class="s2">&quot;Nintendo DS&quot;</span> <span class="p">{</span> <span class="nv">$platformId</span> <span class="p">=</span> <span class="n">8</span> <span class="p">}</span>
+        <span class="s2">&quot;Nintendo Switch&quot;</span> <span class="p">{</span> <span class="nv">$platformId</span> <span class="p">=</span> <span class="n">97</span> <span class="p">}</span>
+        <span class="s2">&quot;PC&quot;</span> <span class="p">{</span> <span class="nv">$platformId</span> <span class="p">=</span> <span class="n">1</span> <span class="p">}</span>
+        <span class="s2">&quot;PlayStation&quot;</span> <span class="p">{</span> <span class="nv">$platformId</span> <span class="p">=</span> <span class="n">10</span> <span class="p">}</span>
+        <span class="s2">&quot;PlayStation 2&quot;</span> <span class="p">{</span> <span class="nv">$platformId</span> <span class="p">=</span> <span class="n">11</span> <span class="p">}</span>
+        <span class="s2">&quot;PlayStation 3&quot;</span> <span class="p">{</span> <span class="nv">$platformId</span> <span class="p">=</span> <span class="n">12</span> <span class="p">}</span>
+        <span class="s2">&quot;PlayStation 4&quot;</span> <span class="p">{</span> <span class="nv">$platformId</span> <span class="p">=</span> <span class="n">46</span> <span class="p">}</span>
+        <span class="s2">&quot;PlayStation 5&quot;</span> <span class="p">{</span> <span class="nv">$platformId</span> <span class="p">=</span> <span class="n">105</span> <span class="p">}</span>
+        <span class="s2">&quot;PSP&quot;</span> <span class="p">{</span> <span class="nv">$platformId</span> <span class="p">=</span> <span class="n">13</span> <span class="p">}</span>
+        <span class="s2">&quot;PlayStation Vita&quot;</span> <span class="p">{</span> <span class="nv">$platformId</span> <span class="p">=</span> <span class="n">37</span> <span class="p">}</span>
+        <span class="s2">&quot;Saturn&quot;</span> <span class="p">{</span> <span class="nv">$platformId</span> <span class="p">=</span> <span class="n">17</span> <span class="p">}</span>
+        <span class="s2">&quot;Sega 32X&quot;</span> <span class="p">{</span> <span class="nv">$platformId</span> <span class="p">=</span> <span class="n">32</span> <span class="p">}</span>
+        <span class="s2">&quot;Sega CD&quot;</span> <span class="p">{</span> <span class="nv">$platformId</span> <span class="p">=</span> <span class="n">20</span> <span class="p">}</span>
+        <span class="s2">&quot;Sega Master System&quot;</span> <span class="p">{</span> <span class="nv">$platformId</span> <span class="p">=</span> <span class="n">34</span> <span class="p">}</span>
+        <span class="s2">&quot;SNES&quot;</span> <span class="p">{</span> <span class="nv">$platformId</span> <span class="p">=</span> <span class="n">6</span> <span class="p">}</span>
+        <span class="s2">&quot;Super Famicom&quot;</span> <span class="p">{</span> <span class="nv">$platformId</span> <span class="p">=</span> <span class="n">6</span> <span class="p">}</span> <span class="c"># Same as SNES</span>
+        <span class="s2">&quot;Wii&quot;</span> <span class="p">{</span> <span class="nv">$platformId</span> <span class="p">=</span> <span class="n">9</span> <span class="p">}</span>
+        <span class="s2">&quot;Wii U&quot;</span> <span class="p">{</span> <span class="nv">$platformId</span> <span class="p">=</span> <span class="n">36</span> <span class="p">}</span>
+        <span class="s2">&quot;Xbox&quot;</span> <span class="p">{</span> <span class="nv">$platformId</span> <span class="p">=</span> <span class="n">14</span> <span class="p">}</span>
+        <span class="s2">&quot;Xbox 360&quot;</span> <span class="p">{</span> <span class="nv">$platformId</span> <span class="p">=</span> <span class="n">15</span> <span class="p">}</span>
+        <span class="s2">&quot;Xbox One&quot;</span> <span class="p">{</span> <span class="nv">$platformId</span> <span class="p">=</span> <span class="n">47</span> <span class="p">}</span>
+        <span class="s2">&quot;Xbox Series X&quot;</span> <span class="p">{</span> <span class="nv">$platformId</span> <span class="p">=</span> <span class="n">106</span> <span class="p">}</span>
+        <span class="k">default</span> <span class="p">{</span> <span class="nv">$platformId</span> <span class="p">=</span> <span class="n">0</span> <span class="p">}</span> <span class="c"># Unknown</span>
+    <span class="p">}</span>
+
+    <span class="nb">Write-Output</span> <span class="s2">&quot;Processing: $title on $platform for $region (Platform ID: $platformId, Region ID: $regionId)&quot;</span>
+
+    <span class="c"># Perform the API request to find the gameye ID for the title</span>
+    <span class="k">try</span> <span class="p">{</span>
+        <span class="nv">$apiUrl</span> <span class="p">=</span> <span class="s2">&quot;https://www.gameye.app/api/deep_search?offset=0&amp;limit=25&amp;title=$title&amp;platforms=$platformId&amp;country=$regionId&amp;order=0&amp;asc=1&amp;cat=0&quot;</span>
+        <span class="nv">$response</span> <span class="p">=</span> <span class="nb">Invoke-RestMethod</span> <span class="n">-Uri</span> <span class="nv">$apiUrl</span> <span class="n">-Method</span> <span class="n">Get</span> <span class="n">-Body</span> <span class="nv">$body</span> <span class="n">-ContentType</span> <span class="s2">&quot;application/json&quot;</span>
+
+        <span class="k">if</span> <span class="p">(</span><span class="nv">$response</span> <span class="o">-and</span> <span class="nv">$response</span><span class="p">.</span><span class="n">records</span><span class="p">.</span><span class="n">Count</span> <span class="o">-gt</span> <span class="n">0</span><span class="p">)</span> <span class="p">{</span>
+            <span class="c"># If there are any results, take the first one</span>
+            <span class="nv">$gameID</span> <span class="p">=</span> <span class="nv">$response</span><span class="p">.</span><span class="n">records</span><span class="p">[</span><span class="n">0</span><span class="p">].</span><span class="n">id</span>
+            <span class="nv">$gametitle</span> <span class="p">=</span> <span class="nv">$response</span><span class="p">.</span><span class="n">records</span><span class="p">[</span><span class="n">0</span><span class="p">].</span><span class="n">title</span>
+            <span class="nb">Write-Output</span> <span class="s2">&quot;   Found Gameye equivalent: $gameID - $gametitle&quot;</span>
+        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+            <span class="nb">Write-Output</span> <span class="s2">&quot;   Nope!&quot;</span>
+            <span class="nv">$notfound</span> <span class="p">+=</span> <span class="s2">&quot;$title ($platform)&quot;</span> 
+            <span class="k">continue</span>
+        <span class="p">}</span>
+
+        <span class="c"># Craft gameye DB entry</span>
+        <span class="c"># id,item_id,platform_id,country_id,ownership_mask,item_quality,manual_quality,box_quality,paid,sold,note,created_at,updated_at,category_id,user_record_type,title,uuid,generation_id,collection_id</span>
+        <span class="nv">$results</span> <span class="p">+=</span> <span class="no">[PSCustomObject]</span><span class="p">@{</span>
+            <span class="n">id</span> <span class="p">=</span> <span class="nv">$id</span>
+            <span class="n">item_id</span> <span class="p">=</span> <span class="nv">$gameID</span>
+            <span class="n">platform_id</span> <span class="p">=</span> <span class="nv">$platformId</span>
+            <span class="n">country_id</span> <span class="p">=</span> <span class="nv">$regionId</span>
+            <span class="n">ownership_mask</span> <span class="p">=</span> <span class="nv">$ownershipMask</span>
+            <span class="n">item_quality</span> <span class="p">=</span> <span class="s2">&quot;&quot;</span>
+            <span class="n">manual_quality</span> <span class="p">=</span> <span class="s2">&quot;&quot;</span>
+            <span class="n">box_quality</span> <span class="p">=</span> <span class="s2">&quot;&quot;</span>
+            <span class="n">paid</span> <span class="p">=</span> <span class="s2">&quot;&quot;</span>
+            <span class="n">sold</span> <span class="p">=</span> <span class="s2">&quot;&quot;</span>
+            <span class="n">note</span> <span class="p">=</span> <span class="s2">&quot;&quot;</span>
+            <span class="c"># unix timestamp</span>
+            <span class="n">created_at</span> <span class="p">=</span> <span class="no">[int][double]</span><span class="p">::</span><span class="n">Parse</span><span class="p">((</span><span class="nb">Get-Date</span> <span class="n">-UFormat</span> <span class="k">%</span><span class="n">s</span><span class="p">))</span>
+            <span class="n">updated_at</span> <span class="p">=</span> <span class="no">[int][double]</span><span class="p">::</span><span class="n">Parse</span><span class="p">((</span><span class="nb">Get-Date</span> <span class="n">-UFormat</span> <span class="k">%</span><span class="n">s</span><span class="p">))</span>
+            <span class="n">category_id</span> <span class="p">=</span> <span class="n">0</span>
+            <span class="n">user_record_type</span> <span class="p">=</span> <span class="n">0</span>
+            <span class="n">title</span> <span class="p">=</span> <span class="nv">$title</span>
+            <span class="n">uuid</span> <span class="p">=</span> <span class="no">[guid]</span><span class="p">::</span><span class="n">NewGuid</span><span class="p">().</span><span class="n">ToString</span><span class="p">()</span>
+            <span class="n">generation_id</span> <span class="p">=</span> <span class="n">0</span>
+            <span class="n">collection_id</span> <span class="p">=</span> <span class="n">1</span>
+        <span class="p">}</span>
+        <span class="nv">$id</span><span class="p">++</span>
+    <span class="p">}</span> <span class="k">catch</span> <span class="p">{</span>
+        <span class="nb">Write-Output</span> <span class="s2">&quot;Error processing row: </span><span class="p">$(</span><span class="nv">$_</span><span class="p">.</span><span class="n">Exception</span><span class="p">.</span><span class="n">Message</span><span class="p">)</span><span class="s2">&quot;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="c"># Export the results to the output CSV</span>
+<span class="nv">$results</span> <span class="p">|</span> <span class="nb">Export-Csv</span> <span class="n">-Path</span> <span class="nv">$outputCsv</span> <span class="n">-NoTypeInformation</span>
+
+<span class="nb">Write-Output</span> <span class="s2">&quot;Processing complete. Results saved to $outputCsv&quot;</span>
+<span class="k">if</span> <span class="p">(</span><span class="nv">$notfound</span><span class="p">.</span><span class="n">Count</span> <span class="o">-gt</span> <span class="n">0</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nb">Write-Output</span> <span class="s2">&quot;The following titles were not found in Gameye:&quot;</span>
+    <span class="nv">$notfound</span> <span class="p">|</span> <span class="nb">Sort-Object</span> <span class="p">|</span> <span class="nb">Get-Unique</span> <span class="p">|</span> <span class="k">ForEach</span><span class="n">-Object</span> <span class="p">{</span> <span class="nb">Write-Output</span> <span class="s2">&quot; - $_&quot;</span> <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+
+
+<p>The script keeps track of all the games it can't find and prints them at the end, so you know what you need to add manually after reimporting.<br>
+<img alt="the script do be working" src="./images/games/gameye/gameye_script.jpg"><br>
+All that's left is to copy the output csv into the DB, zip it up again, import into the Android app... And presto!  </p>
+<h1>The results</h1>
+<p><img alt="The collection, side-by-side in both CLZ and Gameye. Shoutout Surface Duo my beloved" src="./images/games/gameye/collection.jpg"><br>
+This is very much a quickly hacked thing and the search could certainly be improved...<br>
+I got <em>Barbie Mystery Detective</em> out of a search for <em>Myst</em> on PS1 so I could have at least added some quotes.  </p>
+<p>But out of 450 items, I ended up with like 30 false positives and 30 games I had to re-add manually?<br>
+It certainly was worth it timewise.  </p>
+<p>Gameye's database is subpar in comparison to CLZ <sub>(There's no proper PAL region, Famicom/NES and SFC/SNES are mixed together)</sub>, but for a free offering I consider it more than good enough.  </p>
+<h1></h1>
+<p><sup id="note-1"><a href="#ref-1">*</a> The export is through the web/cloud instead of the app so it could theoretically be turned off at any point, but I gotta give props to the devs for having the option available! </sup><br>
+<sup id="note-2"><a href="#ref-2">**</a> I have to mention the app has a free 7-day trial, so I effectively paid <strong>nothing</strong> to scan my entire collection, export the data and fuck off somewhere else. The CLZ app really doesn't feel predatory and the subscription is probably there to fund server infrastructure, commercial barcode databases or something... I still don't want to pay it tho 😤 </sup><br>
+<sup id="note-3"><a href="#ref-3">***</a> Gameye however also has a <strong>cartridge scanner</strong>, which I used after all this database fudging to catalog my handheld games. It's...not very good either, but I got maybe a fourth of my Game Boy collection in through it? Better than nothing. </sup>    </p>
+  </div><!-- /.entry-content -->
+  <a class="containerBox">
+    <img src="https://tvc-16.science/theme/img/button2.svg" class="img-responsive">
+    <div class="text-box pink-button">
+      <span class=" button-text pink-shadow">Comments</span>
+    </div>
+  </a> <br /><br /><br /><br /><br /><br /><br /><br />
+  <br /><br />
+  <div id="bluesky-comments"></div>
+
+  <script type="importmap">
+    {
+      "imports": {
+        "react": "https://esm.sh/react@18",
+        "react-dom/client": "https://esm.sh/react-dom@18/client"
+      }
+    }
+  </script>
+  <script type="module">
+    import { createElement } from 'react';
+    import { createRoot } from 'react-dom/client';
+    import { BlueskyComments } from 'https://unpkg.com/bluesky-comments@0.9.0/dist/bluesky-comments.es.js';
+  
+    const container = document.getElementById('bluesky-comments');
+    const root = createRoot(container);
+    root.render(
+      createElement(BlueskyComments, {
+        author: "difegue.tvc-16.science",
+        uri: "at://difegue.tvc-16.science/app.bsky.feed.post/3lzufkv3ou22y"
+      })
+    );
+  </script>
+</section>
+      </div>
+    </div>
+    <div class="bot-border project-background"></div>
+
+    <br />
+    <br />
+    <br />
+
+  </div>
+
+  <footer id="contentinfo" class="body" style="position:relative; overflow:hidden">
+    <div class="top-border hello-background"></div>
+    <div class="wrapper hello-background">
+      <div class="text">
+
+        <a class="containerBox">
+          <img src="https://tvc-16.science/theme/img/button1.svg" class="img-responsive">
+          <div class="text-box blue-button">
+            <span class=" button-text blue-shadow">About</span>
+          </div>
+        </a>
+
+        <div class="scroll-left">
+          <p>
+            <script language="JavaScript">
+              //never forget grugeisti ;_;7
+              var r_text = new Array();
+              r_text[0] = "This is COOL";
+              r_text[1] = "TOP-SHELF BLOG DEVICE";
+              r_text[2] = "ACCELERATED PORTFOLIO SYSTEM";
+              r_text[3] = "Lookin' cool !";
+              r_text[4] = "ENHANCED SVG GRAPHICS";
+              r_text[5] = "HIGH-SPEED CHEAP VPS";
+              r_text[6] = "DELUXE UPTIME EXPERIENCE";
+              r_text[7] = "BEST-IN-CLASS SCROLLING TEXT";
+              r_text[8] = "HIGH GRADE MULTICONTAINER SETUP";
+              var i = Math.floor(9 * Math.random())
+              document.write(r_text[i]);
+            </script>
+          </p>
+        </div>
+        Runnin' straight down the information highway in a 3$ Vultr VPS. <br /><br />
+        Typefaces used: <a href="https://rsms.me/inter/">Inter</a>, <a
+          href="https://blog.marsnev.com/2017/03/font-lemonmilk.html">Lemon/Milk</a>,
+        <a href="https://fonts.google.com/specimen/VT323">VT323</a>.
+        Built using <a href="https://github.com/difegue" rel="me"> Github Actions</a> and Pelican. <br />
+        You can talk to me on <a rel="me" href="https://bsky.app/profile/difegue.bsky.social">Bluesky</a> or <a rel="me"
+          href="https://kolektiva.social/@Difegue">Mastodon</a> if that's your thing.
+
+      </div>
+    </div>
+    <div class="bot-border hello-background"></div>
+  </footer><!-- /#contentinfo -->
+
+  <br />
+  <br />
+  <br />
+
+  <div class="footer-container" title="This COOL SYSTEM has been running...for some time now.">
+    <span class="footer-text">Uptime:
+      <br>
+      <span id="uptime">XXX days </span>
+    </span>
+    <img src="https://tvc-16.science/theme/img/footer.svg" class="footer-image">
+  </div>
+
+  <script src="https://tvc-16.science/theme/index.js"></script>
+</body>
+
+</html>

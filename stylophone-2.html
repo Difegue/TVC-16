@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Blogopolis - Announcing Stylophone v2</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <link
+    href="https://tvc-16.science/feeds/all.atom.xml"
+    type="application/atom+xml" rel="alternate" title="Blogopolis Full Atom Feed" />
+  <link
+    href="https://tvc-16.science/feeds/software.atom.xml"
+    type="application/atom+xml" rel="alternate" title="Blogopolis Categories Atom Feed" />
+
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js'></script>
+  <script src='https://storage.ko-fi.com/cdn/scripts/overlay-widget.js'></script>
+  <script data-goatcounter="https://dingus.tvc-16.science/count" async src="//dingus.tvc-16.science/count.js"></script>
+
+  <link rel="apple-touch-icon" sizes="180x180" href="https://tvc-16.science/theme/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="https://tvc-16.science/theme/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="https://tvc-16.science/theme/favicon-16x16.png">
+  <link rel="manifest" href="https://tvc-16.science/theme/site.webmanifest">
+  <link rel="mask-icon" href="https://tvc-16.science/theme/safari-pinned-tab.svg" color="#f040b0">
+  <link rel="webmention" href="https://webmention.io/tvc-16.science/webmention" />
+  <link rel="pingback" href="https://webmention.io/tvc-16.science/xmlrpc" />
+  <meta name="msapplication-TileColor" content="#f1c711">
+  <meta name="theme-color" content="#f1c711">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta property="og:title" content="Announcing Stylophone v2 - Blogopolis" />
+<meta property="og:type" content="article" />
+<meta property="og:description" content="<p>Timing both a visual refresh and a major refactoring in one? Don't mind if I do.</p>" />
+<meta property="og:url" content="https://tvc-16.science/stylophone-2.html" />
+<meta property="og:image" content="https://tvc-16.science/images/stylophone/v2-stylohero.jpg" />
+
+  <link href="https://fonts.googleapis.com/css?family=Monoton" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=VT323" rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/bluesky-comments@0.9.0/dist/bluesky-comments.css">
+  <link rel="stylesheet" href="https://tvc-16.science/theme/css/style.css">
+  <link rel="stylesheet" href="https://tvc-16.science/theme/css/pygment.css">
+
+
+
+
+<meta name="twitter:card" content="summary_large_image">
+<meta property="og:title" content="Announcing Stylophone v2 - Blogopolis" />
+<meta property="og:type" content="article" />
+<meta property="og:description" content="<p>Timing both a visual refresh and a major refactoring in one? Don't mind if I do.</p>" />
+<meta property="og:url" content="https://tvc-16.science/stylophone-2.html" />
+<meta property="og:image" content="https://tvc-16.science/images/stylophone/v2-stylohero.jpg" />
+
+<meta name="tags" content="mpd" />
+<meta name="tags" content="winui" />
+<meta name="tags" content="c#" />
+<meta name="tags" content="uwp" />
+<meta name="tags" content="windows" />
+<meta name="tags" content="windows 10" />
+<meta name="tags" content="windows 11" />
+<meta name="tags" content="music" />
+<meta name="tags" content="client" />
+<meta name="tags" content="stylophone" />
+
+</head>
+
+<body id="index" class="home">
+
+  <canvas id="stage"></canvas>
+  <header id="banner" class="body">
+    <center><img height="170px" src="https://tvc-16.science/theme/img/logotype.svg" /></center>
+  </header><!-- /#banner -->
+
+  <div id="mainText">
+
+    <h2 class="subtitle">
+
+      <a style="color:black !important" href="/projects.html">Projects</a>
+      🔸
+      <a style="color:black !important" href="/">Articles</a>
+      🔸
+      <a style="color:black !important" href="/categories.html">Categories</a>
+      🔸
+
+    </h2><!-- /#menu -->
+
+    <div class="top-border project-background"></div>
+    <div class="wrapper project-background">
+      <div class="text">
+<section id="content" class="body" style="max-width: 900px;margin-left: auto;margin-right: auto;">
+  <header>
+    <h2 class="entry-title">
+      <a href="https://tvc-16.science/stylophone-2.html" rel="bookmark" title="Permalink to Announcing Stylophone v2">
+        Announcing Stylophone v2
+      </a>
+    </h2>
+    
+  </header>
+  <footer class="post-info terminal-text">
+    <time class="published" datetime="2021-09-01T00:00:00+02:00">
+      Wed 01 September 2021
+    </time>
+    <address class="vcard author">
+      By       <a class="url fn" href="https://tvc-16.science/author/difegue.html">Difegue</a>
+    </address>
+    <div class="category">
+      Category: <a href="https://tvc-16.science/category/software.html">Software</a>
+    </div>
+    <div class="tags">
+      Tags:
+      <a href="https://tvc-16.science/tag/mpd.html">mpd</a>
+      <a href="https://tvc-16.science/tag/winui.html">winui</a>
+      <a href="https://tvc-16.science/tag/c.html">c#</a>
+      <a href="https://tvc-16.science/tag/uwp.html">uwp</a>
+      <a href="https://tvc-16.science/tag/windows.html">windows</a>
+      <a href="https://tvc-16.science/tag/windows-10.html">windows 10</a>
+      <a href="https://tvc-16.science/tag/windows-11.html">windows 11</a>
+      <a href="https://tvc-16.science/tag/music.html">music</a>
+      <a href="https://tvc-16.science/tag/client.html">client</a>
+      <a href="https://tvc-16.science/tag/stylophone.html">stylophone</a>
+    </div>
+    <div class="summary">
+      <p>Timing both a visual refresh and a major refactoring in one? Don't mind if I do.</p>
+    </div>
+
+  </footer><!-- /.post-info -->
+  <div class="entry-content">
+    <p><a href="./stylophone.html">Stylophone</a> has been out for almost a year now, and has received as warm a welcome as I could've hoped in the (very) niche world of MPD clients.<br>
+There's been more than 400 trials, and about 100 paid users, which makes this the first time I got any significant form of money from the Microsoft Store. 💰💰💰  </p>
+<p>Version 2 of the app has been in the works for a few months already, as I was expecting some form of rejuvenation in the UWP space due to WinUI 3/Windows App SDK. <br>
+The <a href="https://blogs.windows.com/windowsexperience/2021/06/24/introducing-windows-11/">Windows 11</a> announcement delivered all of that and some!</p>
+<p><img alt="Please do not dunk on my music tastes too hard" src="https://tvc-16.science/images/stylophone/v2-stylophone.jpg">  </p>
+<p>As a part of <a href="https://uwpcommunity.com/launch/">Launch 2021</a>, I'm releasing <strong>Stylophone v2</strong>, featuring :  </p>
+<ul>
+<li>A fully rebuilt app, eliminating a bunch of bugs</li>
+<li>Complete restyling using WinUI 2.6 (The bottom area is finally not stuck in dark theme anymore 🙏)</li>
+<li>Support for password-protected MPD servers  </li>
+<li><strong>Local Playback</strong> if your server has the httpd stream output enabled  </li>
+<li>Random shuffling of tracks from your library into the play queue  </li>
+</ul>
+<p>V2 is now <strong>live</strong> on <a href="https://github.com/Difegue/Stylophone">GitHub</a> and the <a href="https://www.microsoft.com/store/apps/9NCB693428T8">Microsoft Store</a>!  </p>
+<div id="mspb-4eo0ll5vuo5c" class="9NCB693428T8"></div>
+
+<script src="https://storebadge.azureedge.net/src/badge-1.8.4.js"></script>
+
+<script>
+  mspb('9NCB693428T8', function(badge) {
+    document.getElementById('mspb-4eo0ll5vuo5c').innerHTML = badge;
+  });
+</script>
+
+<p>I'll be rambling a bit more about what I did below.  </p>
+<h1>Windows 11 Redesign</h1>
+<p>In v2, I spaced most of the UI elements further, both to fit the new card-inspired design language of Windows 11 and to give some elements the extra breathing room they really needed.<br>
+<sub>(Those image comparison sliders are iframes! If they're not showing up your browser might be blocking 'em for some reason. 🤔)</sub><br>
+<iframe frameborder="0" class="juxtapose" width="100%" height="640" src="https://cdn.knightlab.com/libs/juxtapose/latest/embed/index.html?uid=43f0a5f0-f7b9-11eb-abb7-b9a7ff2ee17c"></iframe><br>
+v1's playback controls always felt borderline-claustrophobic to me, with the time slider <em>almost</em> touching both the Play/Pause buttons and the window border.<br>
+This comes at the loss of a bit of vertical space for the content, but I felt it was fine. (And if it's not, you can always enable compact sizing in the settings!)  </p>
+<iframe frameborder="0" class="juxtapose" width="100%" height="640" src="https://cdn.knightlab.com/libs/juxtapose/latest/embed/index.html?uid=c567f9a8-f7b9-11eb-abb7-b9a7ff2ee17c"></iframe>
+
+<p>This time around, I've mostly <strike>copied</strike> looked at the revamped Settings and Microsoft Store for inspiration. (There's not much else in terms of released WinUI 2.6 apps at the moment. 😛)  </p>
+<p><center><img alt="well at leasy it's not that weird S everyone used to draw in middle school" src="https://tvc-16.science/images/stylophone/v2-icon.png"></center><br>
+I've also updated the icon! I liked v1's icon a lot, but it looked a bit too much like the MS Office icons. (A <a href="https://www.microsoft.com/en-gb/p/quarrel-unofficial-discord-client/9nbrwj777c8r">recurring</a> theme for <a href="https://www.microsoft.com/fr-fr/p/flowpad/9pmt6j2wvb10?rtc">third-party</a> Fluent Design <a href="https://www.microsoft.com/fr-fr/p/yugen-mosaic/9pf0s24cx0d4">apps</a> at the time for some reason)   </p>
+<p>It also looked kinda muddy at small sizes, so I've cleared it up and changed the shape to something...still generic, but more legible at small sizes. The "S" is much less noticeable, which I think is fine since it's kinda just a signature.  </p>
+<p><img alt="Comparison of the icons in the new Win11 Start Menu" src="https://tvc-16.science/images/stylophone/v2-iconstart.png">  </p>
+<p>If you preferred the old icon, well, how about buying <a href="https://ko-fi.com/s/9fcf421b6e">a sticker of it</a> to reminisce about the good old days? 😉  </p>
+<h1>(Re)building the app</h1>
+<p>The structure of the app has switched from <strong>2</strong> projects to about <strong>5</strong>:<br>
+Alongside the existing <em>MpcNET</em> library that's used to handle all the communication with MPD servers and the UWP project itself, I've split most of the core business functionality into a separate <em>.NET Standard</em> class library, which can be reused outside of UWP easily. (More on that later)<br>
+<img src="https://tvc-16.science/images/stylophone/v2-structure.jpg" style="width:468px" /><br>
+Achieving this was relatively easy(albeit time-consuming), as the app already uses the MVVM paradigm through the Community Toolkit's <a href="https://docs.microsoft.com/en-us/windows/communitytoolkit/mvvm/introduction">MVVM library.</a><br>
+The major switch I made was to use <strong>Dependency Injection</strong>, which allows me to easily use the OS-specific services within the common ViewModel code, by simply injecting them as implementing the interface.  </p>
+<p><img alt="Under the Sycamore treee-wait crap wrong franchise" src="https://tvc-16.science/images/stylophone/v2-stylophone2.jpg">  </p>
+<p>Another big change I made was to handle all the album art decoding and storage in the .NET Standard portion of the code, using <a href="https://github.com/mono/SkiaSharp">SkiaSharp.</a><br>
+This allows me to <strong>greatly</strong> cut into the amount of Dispatcher calls I had to make to use the native/UWP image functions, at no real performance loss. (And a great improvement to code readability.)  </p>
+<p>The new <strong>Local Playback</strong> feature relies on the MPD server's <a href="https://mpd.readthedocs.io/en/latest/plugins.html#httpd"><em>httpd</em></a> output, which makes a nice stream we can consume and play back on the Windows machine.<br>
+I used the UWP <code>MediaPlayer</code> for this, which does the job well enough. Your mileage with this feature may vary, as I sadly have no way to figure out the encoding used by the server and use its default, which is <code>ogg</code>.  </p>
+<h1>Ports?</h1>
+<p>As said above, I rebuilt the entire app to have as much .NET Standard code as possible.<br>
+The main goal behind this was to <strong>port the app</strong> to other platforms. I tried <a href="https://platform.uno">Uno Platform</a>, sadly walked back dissatisfied with the results (forced solution structure, lots of time wasted installing nuget package clones, etc), and tried elsewhere.  </p>
+<p>👉 My first look was at Xamarin Forms/MAUI: I quickly reached a working prototype but felt I wouldn't be happy with the UI options available and stopped there. (Besides, I don't really care about Android) 
+<img alt="ah yes, good old boring material design v1" src="https://tvc-16.science/images/stylophone/v2-xamarinforms.jpg"><br>
+👉 I briefly considered <a href="https://avaloniaui.net/">Avalonia</a>, but I generally don't like UI frameworks that don't try to look native to the platform they're running on. (This has been greatly improved recently! I might take another stab at it one day.)  </p>
+<p>👉 In the end, I decided to try a port to <strong>iOS/UIKit</strong>, using <a href="https://github.com/xamarin/xamarin-macios">Xamarin.iOS</a> whose macOS variant I was already familiar with.<br>
+Y'know, just 'cause it'd be funny to port a UWP app to run on Apple's own twist on Universal Apps.  </p>
+<p><img alt="my brain is about 200 years old probably" src="https://tvc-16.science/images/stylophone/v2-uikit.jpg">  </p>
+<p>As you might see, I got a lot further with this port!<br>
+This is all native iOS UI, powered by the <strong>same</strong> .NET Standard core as the UWP app.<br>
+I learned iOS development from scratch while doing this, which probably led to some bad decisions on the way. 😛  </p>
+<p><img alt="never stopping with the bowie references" src="https://tvc-16.science/images/stylophone/v2-uikit3.jpg">  </p>
+<p>This is where I'd normally drop a surprise App Store link, but I'm not sure if the app actually looks good enough/would be successful on Apple devices?  <br>
+<sup><sub>And if I'd eventually make back the 90$ a year Apple charges for a developer license, good lord Microsoft has spoiled me with the one-time 100$ payment which I didn't even pay since I got a student deal back in 2013</sub></sup><br>
+So, consider those screenshots kind of a pitch from me for the time being. 😅  </p>
+<p>It's <a href="https://github.com/Difegue/Stylophone/tree/dev/Sources/Stylophone.iOS">open source</a> just like the UWP variant, so if you like what you see, compile it and give it a try! It's about 80% finished.<br>
+I might come back to it when Xamarin adds support for <a href="https://github.com/xamarin/xamarin-macios/issues/6210">Mac Catalyst</a>, as it'd allow me to target three platforms with this port.  </p>
+<h1>Closing words</h1>
+<p>Some line of code counts! It's not really a meaningful metric but it's fun:   </p>
+<table>
+<thead>
+<tr>
+<th>Project</th>
+<th>LoC (C# only)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>.NET Standard</td>
+<td>4963</td>
+</tr>
+<tr>
+<td>UWP</td>
+<td>3111</td>
+</tr>
+<tr>
+<td>iOS/Xamarin</td>
+<td>4537</td>
+</tr>
+</tbody>
+</table>
+<p>The UIKit port needed a bit more glue code than I was expecting since unlike macOS/AppKit, UIKit doesn't really have a simple way to do data binding.<br>
+(I'm aware of <a href="https://developer.apple.com/documentation/combine">Combine</a>, but Xamarin.iOS doesn't really allow you to write Swift at the time. 😔)<br>
+<img alt="The iOS UI is all storyboards btw, they're polarizing but I like em" src="https://tvc-16.science/images/stylophone/v2-uikit2.jpg"><br>
+iOS has slide actions on rows which I find really cool and never really used before -- I think it's a bit too hard for users to find out about, though. 😐  </p>
+  </div><!-- /.entry-content -->
+  <a class="containerBox">
+    <img src="https://tvc-16.science/theme/img/button2.svg" class="img-responsive">
+    <div class="text-box pink-button">
+      <span class=" button-text pink-shadow">Comments</span>
+    </div>
+  </a> <br /><br /><br /><br /><br /><br /><br /><br />
+  <script src="https://utteranc.es/client.js" repo="difegue/TVC-16" issue-term="url" theme="github-light"
+    crossorigin="anonymous" async>
+  </script>
+</section>
+      </div>
+    </div>
+    <div class="bot-border project-background"></div>
+
+    <br />
+    <br />
+    <br />
+
+  </div>
+
+  <footer id="contentinfo" class="body" style="position:relative; overflow:hidden">
+    <div class="top-border hello-background"></div>
+    <div class="wrapper hello-background">
+      <div class="text">
+
+        <a class="containerBox">
+          <img src="https://tvc-16.science/theme/img/button1.svg" class="img-responsive">
+          <div class="text-box blue-button">
+            <span class=" button-text blue-shadow">About</span>
+          </div>
+        </a>
+
+        <div class="scroll-left">
+          <p>
+            <script language="JavaScript">
+              //never forget grugeisti ;_;7
+              var r_text = new Array();
+              r_text[0] = "This is COOL";
+              r_text[1] = "TOP-SHELF BLOG DEVICE";
+              r_text[2] = "ACCELERATED PORTFOLIO SYSTEM";
+              r_text[3] = "Lookin' cool !";
+              r_text[4] = "ENHANCED SVG GRAPHICS";
+              r_text[5] = "HIGH-SPEED CHEAP VPS";
+              r_text[6] = "DELUXE UPTIME EXPERIENCE";
+              r_text[7] = "BEST-IN-CLASS SCROLLING TEXT";
+              r_text[8] = "HIGH GRADE MULTICONTAINER SETUP";
+              var i = Math.floor(9 * Math.random())
+              document.write(r_text[i]);
+            </script>
+          </p>
+        </div>
+        Runnin' straight down the information highway in a 3$ Vultr VPS. <br /><br />
+        Typefaces used: <a href="https://rsms.me/inter/">Inter</a>, <a
+          href="https://blog.marsnev.com/2017/03/font-lemonmilk.html">Lemon/Milk</a>,
+        <a href="https://fonts.google.com/specimen/VT323">VT323</a>.
+        Built using <a href="https://github.com/difegue" rel="me"> Github Actions</a> and Pelican. <br />
+        You can talk to me on <a rel="me" href="https://bsky.app/profile/difegue.bsky.social">Bluesky</a> or <a rel="me"
+          href="https://kolektiva.social/@Difegue">Mastodon</a> if that's your thing.
+
+      </div>
+    </div>
+    <div class="bot-border hello-background"></div>
+  </footer><!-- /#contentinfo -->
+
+  <br />
+  <br />
+  <br />
+
+  <div class="footer-container" title="This COOL SYSTEM has been running...for some time now.">
+    <span class="footer-text">Uptime:
+      <br>
+      <span id="uptime">XXX days </span>
+    </span>
+    <img src="https://tvc-16.science/theme/img/footer.svg" class="footer-image">
+  </div>
+
+  <script src="https://tvc-16.science/theme/index.js"></script>
+</body>
+
+</html>

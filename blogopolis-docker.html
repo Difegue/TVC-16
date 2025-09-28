@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Blogopolis - Building this blog with Pelican, Github Actions and Caddy</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <link
+    href="https://tvc-16.science/feeds/all.atom.xml"
+    type="application/atom+xml" rel="alternate" title="Blogopolis Full Atom Feed" />
+  <link
+    href="https://tvc-16.science/feeds/software.atom.xml"
+    type="application/atom+xml" rel="alternate" title="Blogopolis Categories Atom Feed" />
+
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js'></script>
+  <script src='https://storage.ko-fi.com/cdn/scripts/overlay-widget.js'></script>
+  <script data-goatcounter="https://dingus.tvc-16.science/count" async src="//dingus.tvc-16.science/count.js"></script>
+
+  <link rel="apple-touch-icon" sizes="180x180" href="https://tvc-16.science/theme/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="https://tvc-16.science/theme/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="https://tvc-16.science/theme/favicon-16x16.png">
+  <link rel="manifest" href="https://tvc-16.science/theme/site.webmanifest">
+  <link rel="mask-icon" href="https://tvc-16.science/theme/safari-pinned-tab.svg" color="#f040b0">
+  <link rel="webmention" href="https://webmention.io/tvc-16.science/webmention" />
+  <link rel="pingback" href="https://webmention.io/tvc-16.science/xmlrpc" />
+  <meta name="msapplication-TileColor" content="#f1c711">
+  <meta name="theme-color" content="#f1c711">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta property="og:title" content="Building this blog with Pelican, Github Actions and Caddy - Blogopolis" />
+<meta property="og:type" content="article" />
+<meta property="og:description" content="<p>Writing this also allows me to check that this continuous integration thingamabob is working as expected.</p>" />
+<meta property="og:url" content="https://tvc-16.science/blogopolis-docker.html" />
+<meta property="og:image" content="https://tvc-16.science/theme/android-chrome-384x384.png" />
+
+  <link href="https://fonts.googleapis.com/css?family=Monoton" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=VT323" rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/bluesky-comments@0.9.0/dist/bluesky-comments.css">
+  <link rel="stylesheet" href="https://tvc-16.science/theme/css/style.css">
+  <link rel="stylesheet" href="https://tvc-16.science/theme/css/pygment.css">
+
+
+
+
+<meta name="twitter:card" content="summary_large_image">
+<meta property="og:title" content="Building this blog with Pelican, Github Actions and Caddy - Blogopolis" />
+<meta property="og:type" content="article" />
+<meta property="og:description" content="<p>Writing this also allows me to check that this continuous integration thingamabob is working as expected.</p>" />
+<meta property="og:url" content="https://tvc-16.science/blogopolis-docker.html" />
+<meta property="og:image" content="https://tvc-16.science/theme/android-chrome-384x384.png" />
+
+<meta name="tags" content="docker" />
+<meta name="tags" content="pelican" />
+<meta name="tags" content="caddy" />
+<meta name="tags" content="github actions" />
+
+</head>
+
+<body id="index" class="home">
+
+  <canvas id="stage"></canvas>
+  <header id="banner" class="body">
+    <center><img height="170px" src="https://tvc-16.science/theme/img/logotype.svg" /></center>
+  </header><!-- /#banner -->
+
+  <div id="mainText">
+
+    <h2 class="subtitle">
+
+      <a style="color:black !important" href="/projects.html">Projects</a>
+      🔸
+      <a style="color:black !important" href="/">Articles</a>
+      🔸
+      <a style="color:black !important" href="/categories.html">Categories</a>
+      🔸
+
+    </h2><!-- /#menu -->
+
+    <div class="top-border project-background"></div>
+    <div class="wrapper project-background">
+      <div class="text">
+<section id="content" class="body" style="max-width: 900px;margin-left: auto;margin-right: auto;">
+  <header>
+    <h2 class="entry-title">
+      <a href="https://tvc-16.science/blogopolis-docker.html" rel="bookmark" title="Permalink to Building this blog with Pelican, Github Actions and Caddy">
+        Building this blog with Pelican, Github Actions and Caddy
+      </a>
+    </h2>
+    
+  </header>
+  <footer class="post-info terminal-text">
+    <time class="published" datetime="2019-04-25T22:00:00+02:00">
+      Thu 25 April 2019
+    </time>
+    <address class="vcard author">
+      By       <a class="url fn" href="https://tvc-16.science/author/difegue.html">Difegue</a>
+    </address>
+    <div class="category">
+      Category: <a href="https://tvc-16.science/category/software.html">Software</a>
+    </div>
+    <div class="tags">
+      Tags:
+      <a href="https://tvc-16.science/tag/docker.html">docker</a>
+      <a href="https://tvc-16.science/tag/pelican.html">pelican</a>
+      <a href="https://tvc-16.science/tag/caddy.html">caddy</a>
+      <a href="https://tvc-16.science/tag/github-actions.html">github actions</a>
+    </div>
+    <div class="summary">
+      <p>Writing this also allows me to check that this continuous integration thingamabob is working as expected.</p>
+    </div>
+
+  </footer><!-- /.post-info -->
+  <div class="entry-content">
+    <p>The original, blogless iteration of TVC-16 was hosted on a bog-standard Apache2 server.<br>
+<a href="https://lrr.tvc-16.science">My</a> <a href="https://diy.tvc-16.science">subdomains</a> are all directly linked to Docker containers, so that very basic configuration was enough.  </p>
+<p>For blog articles though, I wanted to have something easier on the server maintenance than having to copy my html by hand. I originally considered using <a href="https://ghost.org/">Ghost</a> in yet another Docker container and doing all my writing in it, but it'd eventually be a pain to export/reimport all the data in case of a server switch.  </p>
+<p>I decided to use a static site generator like all the nerds instead and went with <a href="https://blog.getpelican.com/">Pelican</a>.</p>
+<p>Classic stuff so far, but I don't think many people are using <a href="https://github.com/features/actions/">Github Actions</a> for their deploying yet despite the fact that it's <strong>rad</strong>! <sub><sup>well the fact it's in beta might be a blocker too for some people</sup></sub></p>
+<h1>Building in Pelican</h1>
+<p>I didn't do anything out of the ordinary in the Pelican side -- this is a hella standard blog if you ignore the theme. (Which I wholelifted from the previous nonblog version, so I can thank 2018 myself for putting in all the CSS work).  </p>
+<p>The uptime counter at the end is still generated by a crontab on the server itself and dumped to a textfile, which is just read by the JS of the website:</p>
+<div class="highlight"><pre><span></span><code><span class="err">* * * * * uptime | awk -F&#39;( |,|:)+&#39; &#39;{print $6,$7}&#39; &gt; /var/www/html/uptime</span>
+<span class="err">* * * * * uptime | awk -F&#39;( |,|:)+&#39; &#39;{print $6,$7&quot;,&quot;,$8,&quot;hours,&quot;,$9,&quot;minutes.&quot;}&#39; &gt; /var/www/html/uptimedetail</span>
+</code></pre></div>
+
+
+<p>Nothing wrong with a bit of Unix philosophy every now and then.  </p>
+<p>The only thing I did with Pelican that's kinda obscure unless you read the configuration file specs is having a custom template render to a custom page (the Projects):</p>
+<div class="highlight"><pre><span></span><code><span class="err"># custom page generated with a jinja2 template</span>
+<span class="err">TEMPLATE_PAGES = {&#39;projects.html&#39;: &#39;projects.html&#39;}</span>
+</code></pre></div>
+
+
+<p>I dropped the entire Pelican sources into a <a href="https://github.com/Difegue/TVC-16">Github repo</a>, and now it's on to the fun part:</p>
+<h1>Hot Github integrations</h1>
+<p>I already have some experience in GH Actions from writing the test suite for <a href="https://github.com/Difegue/LANraragi">LANraragi</a>, so I was expecting the setup time for this to be fairly quick. Turns out it went faster than expected!  </p>
+<p><img alt="hot github actions near your town" src="https://tvc-16.science/images/tvc-16-actions.png">  </p>
+<p>This building process is triggered on every push to <em>master</em> and is as simple as it looks:</p>
+<ul>
+<li><strong>Step 1</strong>: Run Pelican on the repo to build the website. This is <a href="https://github.com/Difegue/TVC-16/tree/master/.github/action-pelican">super basic</a>, I'm just grabbing a pelican docker image and building away.</li>
+<li><strong>Step 2</strong>: Force-push the built <em>output</em> folder to the <em>gh-pages</em> branch of the repo.</li>
+</ul>
+<p>The output branch is named <em>gh-pages</em> because I conveniently re-used an <a href="https://github.com/JasonEtco/push-to-gh-pages">existing Action</a> to go faster. I don't actually use Github Pages but hey, no harm done!</p>
+<p>🔮 Another integration I made is with the comment system: The way Microsoft made its MSDN comment system <a href="https://docs.microsoft.com/en-us/teamblog/a-new-feedback-system-is-coming-to-docs">basically just Github Issues</a> is pretty inspiring.<br>
+<a href="https://utteranc.es/">Utterances</a> is an open source variant I added to my Pelican template in about 5 seconds.  </p>
+<p>As a result, both articles and comments are backed up on Github. If I ever have to switch to another Git repo provider I'd likely lose the comments, but I'm banking on those not being too important.</p>
+<h1>Deploying on TVC-16 through Caddy</h1>
+<p>A friend recently told me that I was being an old fart by still using Apache2 in <em>the current year</em>, so I swapped it out for <a href="https://caddyserver.com/">Caddy</a>.<br>
+Caddy's big advantage here lies in its <a href="https://caddyserver.com/docs/http.git"><code>http.git</code></a> plugin, which automagically pulls the latest built version of the website from Github.  </p>
+<p>Here's the Caddyfile I use:</p>
+<div class="highlight"><pre><span></span><code><span class="err">tvc-16.science, www.tvc-16.science {</span>
+<span class="err">    root /var/www/html</span>
+<span class="err">    git {</span>
+<span class="err">        repo     github.com/difegue/TVC-16</span>
+<span class="err">        branch   gh-pages</span>
+<span class="err">        pull-args --allow-unrelated-histories -s recursive -X theirs</span>
+<span class="err">        hook /webhook mywebhooksecret</span>
+<span class="err">    }</span>
+<span class="err">}</span>
+</code></pre></div>
+
+
+<p>When adding in the webhook on the Github side, make sure to set the Content-Type to <code>application/json</code>, your hooks will fail otherwise.</p>
+<p>The biggest issue I encountered here was that http.git does a <code>git clone</code> when deploying your website for the first time, then only does <code>git pull</code> to update it. Which is very sane if you're pulling the sources, then building the website on the server itself.  </p>
+<p>What I'm pulling however is the already-built website, which is force-pushed by the Github Actions bot every time. As such, the Git history is getting continuously broken, making regular Git pulls fail instantly.</p>
+<p>Adding the pull arguments you see above fixes this, by telling Git to disregard history and always use remote files in case of conflict.</p>
+<h1>Final thoughts</h1>
+<p>I found out about the <a href="https://api.github.com/zen">Github Zen endpoint</a> when adding in webhooks. It just spits out fortune cookie sentences on each call.  </p>
+<p><strong>12/06 Edit:</strong> While it's not very well documented, you can add custom metadata to your markdown pages and put it to work in Pelican's templates.<br>
+I wanted to change the OpenGraph image for each blogpost to a specific one for better <code>social media presence</code>, so I easily added a <code>HeroImage</code> property to my articles:</p>
+<div class="highlight"><pre><span></span><code><span class="n">Title</span><span class="o">:</span> <span class="n">Running</span> <span class="n">cool</span><span class="o">-</span><span class="n">retro</span><span class="o">-</span><span class="n">term</span> <span class="k">in</span> <span class="n">Windows</span> <span class="n">through</span> <span class="n">WSL</span>
+<span class="o">[...]</span>
+<span class="n">Authors</span><span class="o">:</span> <span class="n">Difegue</span>
+<span class="n">HeroImage</span><span class="o">:</span> <span class="n">images</span><span class="o">/</span><span class="n">crt</span><span class="o">-</span><span class="n">win</span><span class="o">.</span><span class="na">jpg</span>
+</code></pre></div>
+
+
+<p>And used it in my template.  </p>
+<div class="highlight"><pre><span></span><code><span class="p">&lt;</span><span class="nt">meta</span> <span class="na">property</span><span class="o">=</span><span class="s">&quot;og:image&quot;</span> <span class="na">content</span><span class="o">=</span><span class="s">&quot;{{ SITEURL }}/{{ article.heroimage }}&quot;</span> <span class="p">/&gt;</span>
+</code></pre></div>
+
+
+<p>Good stuff all around!</p>
+  </div><!-- /.entry-content -->
+  <a class="containerBox">
+    <img src="https://tvc-16.science/theme/img/button2.svg" class="img-responsive">
+    <div class="text-box pink-button">
+      <span class=" button-text pink-shadow">Comments</span>
+    </div>
+  </a> <br /><br /><br /><br /><br /><br /><br /><br />
+  <script src="https://utteranc.es/client.js" repo="difegue/TVC-16" issue-term="url" theme="github-light"
+    crossorigin="anonymous" async>
+  </script>
+</section>
+      </div>
+    </div>
+    <div class="bot-border project-background"></div>
+
+    <br />
+    <br />
+    <br />
+
+  </div>
+
+  <footer id="contentinfo" class="body" style="position:relative; overflow:hidden">
+    <div class="top-border hello-background"></div>
+    <div class="wrapper hello-background">
+      <div class="text">
+
+        <a class="containerBox">
+          <img src="https://tvc-16.science/theme/img/button1.svg" class="img-responsive">
+          <div class="text-box blue-button">
+            <span class=" button-text blue-shadow">About</span>
+          </div>
+        </a>
+
+        <div class="scroll-left">
+          <p>
+            <script language="JavaScript">
+              //never forget grugeisti ;_;7
+              var r_text = new Array();
+              r_text[0] = "This is COOL";
+              r_text[1] = "TOP-SHELF BLOG DEVICE";
+              r_text[2] = "ACCELERATED PORTFOLIO SYSTEM";
+              r_text[3] = "Lookin' cool !";
+              r_text[4] = "ENHANCED SVG GRAPHICS";
+              r_text[5] = "HIGH-SPEED CHEAP VPS";
+              r_text[6] = "DELUXE UPTIME EXPERIENCE";
+              r_text[7] = "BEST-IN-CLASS SCROLLING TEXT";
+              r_text[8] = "HIGH GRADE MULTICONTAINER SETUP";
+              var i = Math.floor(9 * Math.random())
+              document.write(r_text[i]);
+            </script>
+          </p>
+        </div>
+        Runnin' straight down the information highway in a 3$ Vultr VPS. <br /><br />
+        Typefaces used: <a href="https://rsms.me/inter/">Inter</a>, <a
+          href="https://blog.marsnev.com/2017/03/font-lemonmilk.html">Lemon/Milk</a>,
+        <a href="https://fonts.google.com/specimen/VT323">VT323</a>.
+        Built using <a href="https://github.com/difegue" rel="me"> Github Actions</a> and Pelican. <br />
+        You can talk to me on <a rel="me" href="https://bsky.app/profile/difegue.bsky.social">Bluesky</a> or <a rel="me"
+          href="https://kolektiva.social/@Difegue">Mastodon</a> if that's your thing.
+
+      </div>
+    </div>
+    <div class="bot-border hello-background"></div>
+  </footer><!-- /#contentinfo -->
+
+  <br />
+  <br />
+  <br />
+
+  <div class="footer-container" title="This COOL SYSTEM has been running...for some time now.">
+    <span class="footer-text">Uptime:
+      <br>
+      <span id="uptime">XXX days </span>
+    </span>
+    <img src="https://tvc-16.science/theme/img/footer.svg" class="footer-image">
+  </div>
+
+  <script src="https://tvc-16.science/theme/index.js"></script>
+</body>
+
+</html>

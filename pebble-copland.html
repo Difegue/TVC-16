@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Blogopolis - I made a Pebble watchface</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <link
+    href="https://tvc-16.science/feeds/all.atom.xml"
+    type="application/atom+xml" rel="alternate" title="Blogopolis Full Atom Feed" />
+  <link
+    href="https://tvc-16.science/feeds/software.atom.xml"
+    type="application/atom+xml" rel="alternate" title="Blogopolis Categories Atom Feed" />
+
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js'></script>
+  <script src='https://storage.ko-fi.com/cdn/scripts/overlay-widget.js'></script>
+  <script data-goatcounter="https://dingus.tvc-16.science/count" async src="//dingus.tvc-16.science/count.js"></script>
+
+  <link rel="apple-touch-icon" sizes="180x180" href="https://tvc-16.science/theme/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="https://tvc-16.science/theme/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="https://tvc-16.science/theme/favicon-16x16.png">
+  <link rel="manifest" href="https://tvc-16.science/theme/site.webmanifest">
+  <link rel="mask-icon" href="https://tvc-16.science/theme/safari-pinned-tab.svg" color="#f040b0">
+  <link rel="webmention" href="https://webmention.io/tvc-16.science/webmention" />
+  <link rel="pingback" href="https://webmention.io/tvc-16.science/xmlrpc" />
+  <meta name="msapplication-TileColor" content="#f1c711">
+  <meta name="theme-color" content="#f1c711">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta property="og:title" content="I made a Pebble watchface - Blogopolis" />
+<meta property="og:type" content="article" />
+<meta property="og:description" content="<p>In 2008, PC World included Copland on a list of the biggest project failures in information technology history.</p>" />
+<meta property="og:url" content="https://tvc-16.science/pebble-copland.html" />
+<meta property="og:image" content="https://tvc-16.science/images/copland-watchface.png" />
+
+  <link href="https://fonts.googleapis.com/css?family=Monoton" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=VT323" rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/bluesky-comments@0.9.0/dist/bluesky-comments.css">
+  <link rel="stylesheet" href="https://tvc-16.science/theme/css/style.css">
+  <link rel="stylesheet" href="https://tvc-16.science/theme/css/pygment.css">
+
+
+
+
+<meta name="twitter:card" content="summary_large_image">
+<meta property="og:title" content="I made a Pebble watchface - Blogopolis" />
+<meta property="og:type" content="article" />
+<meta property="og:description" content="<p>In 2008, PC World included Copland on a list of the biggest project failures in information technology history.</p>" />
+<meta property="og:url" content="https://tvc-16.science/pebble-copland.html" />
+<meta property="og:image" content="https://tvc-16.science/images/copland-watchface.png" />
+
+<meta name="tags" content="pebble" />
+<meta name="tags" content="rebble" />
+<meta name="tags" content="watchface" />
+<meta name="tags" content="apple" />
+<meta name="tags" content="hackathon" />
+
+</head>
+
+<body id="index" class="home">
+
+  <canvas id="stage"></canvas>
+  <header id="banner" class="body">
+    <center><img height="170px" src="https://tvc-16.science/theme/img/logotype.svg" /></center>
+  </header><!-- /#banner -->
+
+  <div id="mainText">
+
+    <h2 class="subtitle">
+
+      <a style="color:black !important" href="/projects.html">Projects</a>
+      🔸
+      <a style="color:black !important" href="/">Articles</a>
+      🔸
+      <a style="color:black !important" href="/categories.html">Categories</a>
+      🔸
+
+    </h2><!-- /#menu -->
+
+    <div class="top-border project-background"></div>
+    <div class="wrapper project-background">
+      <div class="text">
+<section id="content" class="body" style="max-width: 900px;margin-left: auto;margin-right: auto;">
+  <header>
+    <h2 class="entry-title">
+      <a href="https://tvc-16.science/pebble-copland.html" rel="bookmark" title="Permalink to I made a Pebble watchface">
+        I made a Pebble watchface
+      </a>
+    </h2>
+    
+  </header>
+  <footer class="post-info terminal-text">
+    <time class="published" datetime="2022-11-21T00:00:00+01:00">
+      Mon 21 November 2022
+    </time>
+    <address class="vcard author">
+      By       <a class="url fn" href="https://tvc-16.science/author/difegue.html">Difegue</a>
+    </address>
+    <div class="category">
+      Category: <a href="https://tvc-16.science/category/software.html">Software</a>
+    </div>
+    <div class="tags">
+      Tags:
+      <a href="https://tvc-16.science/tag/pebble.html">pebble</a>
+      <a href="https://tvc-16.science/tag/rebble.html">rebble</a>
+      <a href="https://tvc-16.science/tag/watchface.html">watchface</a>
+      <a href="https://tvc-16.science/tag/apple.html">apple</a>
+      <a href="https://tvc-16.science/tag/hackathon.html">hackathon</a>
+    </div>
+    <div class="summary">
+      <p>In 2008, PC World included Copland on a list of the biggest project failures in information technology history.</p>
+    </div>
+
+  </footer><!-- /.post-info -->
+  <div class="entry-content">
+    <p>The <a href="https://rebble.io/hackathon-001/">Rebble Hackathon #001</a> happened this weekend, so it was a nice opportunity to finally dig into the <a href="https://developer.rebble.io/developer.pebble.com/index.html">Pebble SDK</a> and try and make something for my favorite dead smartwatch.  </p>
+<p>I always wanted to make a watchface of some form, but design ideas are pretty tough to come by! I ended up going for a recreation of <a href="https://www.hodinkee.com/articles/the-apple-watch-from-1995">this</a> 90's design for a promotional MacOS watch I find cool.  </p>
+<p><img alt="Copland Watchface for Pebble" src="images/copland-watchface.png">  </p>
+<p>It's called "Copland", after the 1995 <a href="https://en.wikipedia.org/wiki/Copland_(operating_system)">failed Apple OS</a>. (Thought it was funny to call a face for a dead watch after a dead OS, sue me) </p>
+<h3>You can grab it on the Rebble Appstore <a href="https://apps.rebble.io/en_US/application/637abd01fdf3e30009f6399c">here</a>!</h3>
+<p>There aren't many watchfaces with a seconds hand since that drains battery quite a bit faster; I added it because it's <strong>cool</strong>, but being able to disable it will certainly come in a future update. 😅  </p>
+<p><img alt="Copland on Pebble Time and Time Round" src="images/copland-chalk.jpg"></p>
+<p>I also wanted to add a <a href="https://developer.rebble.io/developer.pebble.com/guides/graphics-and-animations/vector-graphics/index.html">PDC vector image</a> to the top of the watchface and went with the C SDK as a result (The JS one didn't get to support them before Pebble died), so that'd also be a nice thing to add.  </p>
+<p>And apart from that ehh, maybe being able to set custom colors for the hands and a custom font for that date at the bottom? We'll see about that next time.  </p>
+  </div><!-- /.entry-content -->
+  <a class="containerBox">
+    <img src="https://tvc-16.science/theme/img/button2.svg" class="img-responsive">
+    <div class="text-box pink-button">
+      <span class=" button-text pink-shadow">Comments</span>
+    </div>
+  </a> <br /><br /><br /><br /><br /><br /><br /><br />
+  <script src="https://utteranc.es/client.js" repo="difegue/TVC-16" issue-term="url" theme="github-light"
+    crossorigin="anonymous" async>
+  </script>
+</section>
+      </div>
+    </div>
+    <div class="bot-border project-background"></div>
+
+    <br />
+    <br />
+    <br />
+
+  </div>
+
+  <footer id="contentinfo" class="body" style="position:relative; overflow:hidden">
+    <div class="top-border hello-background"></div>
+    <div class="wrapper hello-background">
+      <div class="text">
+
+        <a class="containerBox">
+          <img src="https://tvc-16.science/theme/img/button1.svg" class="img-responsive">
+          <div class="text-box blue-button">
+            <span class=" button-text blue-shadow">About</span>
+          </div>
+        </a>
+
+        <div class="scroll-left">
+          <p>
+            <script language="JavaScript">
+              //never forget grugeisti ;_;7
+              var r_text = new Array();
+              r_text[0] = "This is COOL";
+              r_text[1] = "TOP-SHELF BLOG DEVICE";
+              r_text[2] = "ACCELERATED PORTFOLIO SYSTEM";
+              r_text[3] = "Lookin' cool !";
+              r_text[4] = "ENHANCED SVG GRAPHICS";
+              r_text[5] = "HIGH-SPEED CHEAP VPS";
+              r_text[6] = "DELUXE UPTIME EXPERIENCE";
+              r_text[7] = "BEST-IN-CLASS SCROLLING TEXT";
+              r_text[8] = "HIGH GRADE MULTICONTAINER SETUP";
+              var i = Math.floor(9 * Math.random())
+              document.write(r_text[i]);
+            </script>
+          </p>
+        </div>
+        Runnin' straight down the information highway in a 3$ Vultr VPS. <br /><br />
+        Typefaces used: <a href="https://rsms.me/inter/">Inter</a>, <a
+          href="https://blog.marsnev.com/2017/03/font-lemonmilk.html">Lemon/Milk</a>,
+        <a href="https://fonts.google.com/specimen/VT323">VT323</a>.
+        Built using <a href="https://github.com/difegue" rel="me"> Github Actions</a> and Pelican. <br />
+        You can talk to me on <a rel="me" href="https://bsky.app/profile/difegue.bsky.social">Bluesky</a> or <a rel="me"
+          href="https://kolektiva.social/@Difegue">Mastodon</a> if that's your thing.
+
+      </div>
+    </div>
+    <div class="bot-border hello-background"></div>
+  </footer><!-- /#contentinfo -->
+
+  <br />
+  <br />
+  <br />
+
+  <div class="footer-container" title="This COOL SYSTEM has been running...for some time now.">
+    <span class="footer-text">Uptime:
+      <br>
+      <span id="uptime">XXX days </span>
+    </span>
+    <img src="https://tvc-16.science/theme/img/footer.svg" class="footer-image">
+  </div>
+
+  <script src="https://tvc-16.science/theme/index.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Blogopolis - Apply Mica to a WPF app on Windows 11</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <link
+    href="https://tvc-16.science/feeds/all.atom.xml"
+    type="application/atom+xml" rel="alternate" title="Blogopolis Full Atom Feed" />
+  <link
+    href="https://tvc-16.science/feeds/cool-tricks.atom.xml"
+    type="application/atom+xml" rel="alternate" title="Blogopolis Categories Atom Feed" />
+
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js'></script>
+  <script src='https://storage.ko-fi.com/cdn/scripts/overlay-widget.js'></script>
+  <script data-goatcounter="https://dingus.tvc-16.science/count" async src="//dingus.tvc-16.science/count.js"></script>
+
+  <link rel="apple-touch-icon" sizes="180x180" href="https://tvc-16.science/theme/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="https://tvc-16.science/theme/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="https://tvc-16.science/theme/favicon-16x16.png">
+  <link rel="manifest" href="https://tvc-16.science/theme/site.webmanifest">
+  <link rel="mask-icon" href="https://tvc-16.science/theme/safari-pinned-tab.svg" color="#f040b0">
+  <link rel="webmention" href="https://webmention.io/tvc-16.science/webmention" />
+  <link rel="pingback" href="https://webmention.io/tvc-16.science/xmlrpc" />
+  <meta name="msapplication-TileColor" content="#f1c711">
+  <meta name="theme-color" content="#f1c711">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta property="og:title" content="Apply Mica to a WPF app on Windows 11 - Blogopolis" />
+<meta property="og:type" content="article" />
+<meta property="og:description" content="<p>I don't need no Windows.UI.Composition.</p>" />
+<meta property="og:url" content="https://tvc-16.science/mica-wpf.html" />
+<meta property="og:image" content="https://tvc-16.science/images/mica/mica_wpf.jpg" />
+
+  <link href="https://fonts.googleapis.com/css?family=Monoton" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=VT323" rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/bluesky-comments@0.9.0/dist/bluesky-comments.css">
+  <link rel="stylesheet" href="https://tvc-16.science/theme/css/style.css">
+  <link rel="stylesheet" href="https://tvc-16.science/theme/css/pygment.css">
+
+
+
+
+<meta name="twitter:card" content="summary_large_image">
+<meta property="og:title" content="Apply Mica to a WPF app on Windows 11 - Blogopolis" />
+<meta property="og:type" content="article" />
+<meta property="og:description" content="<p>I don't need no Windows.UI.Composition.</p>" />
+<meta property="og:url" content="https://tvc-16.science/mica-wpf.html" />
+<meta property="og:image" content="https://tvc-16.science/images/mica/mica_wpf.jpg" />
+
+<meta name="tags" content="mica" />
+<meta name="tags" content="wpf" />
+<meta name="tags" content="C#" />
+<meta name="tags" content="modernwpf" />
+<meta name="tags" content="windows 11" />
+<meta name="tags" content="dwm" />
+<meta name="tags" content="very dangerous windows hack age 18 and up content" />
+
+</head>
+
+<body id="index" class="home">
+
+  <canvas id="stage"></canvas>
+  <header id="banner" class="body">
+    <center><img height="170px" src="https://tvc-16.science/theme/img/logotype.svg" /></center>
+  </header><!-- /#banner -->
+
+  <div id="mainText">
+
+    <h2 class="subtitle">
+
+      <a style="color:black !important" href="/projects.html">Projects</a>
+      🔸
+      <a style="color:black !important" href="/">Articles</a>
+      🔸
+      <a style="color:black !important" href="/categories.html">Categories</a>
+      🔸
+
+    </h2><!-- /#menu -->
+
+    <div class="top-border project-background"></div>
+    <div class="wrapper project-background">
+      <div class="text">
+<section id="content" class="body" style="max-width: 900px;margin-left: auto;margin-right: auto;">
+  <header>
+    <h2 class="entry-title">
+      <a href="https://tvc-16.science/mica-wpf.html" rel="bookmark" title="Permalink to Apply Mica to a WPF app on Windows 11">
+        Apply Mica to a WPF app on Windows 11
+      </a>
+    </h2>
+    
+  </header>
+  <footer class="post-info terminal-text">
+    <time class="published" datetime="2021-10-13T00:00:00+02:00">
+      Wed 13 October 2021
+    </time>
+    <address class="vcard author">
+      By       <a class="url fn" href="https://tvc-16.science/author/difegue.html">Difegue</a>
+    </address>
+    <div class="category">
+      Category: <a href="https://tvc-16.science/category/cool-tricks.html">Cool Tricks</a>
+    </div>
+    <div class="tags">
+      Tags:
+      <a href="https://tvc-16.science/tag/mica.html">mica</a>
+      <a href="https://tvc-16.science/tag/wpf.html">wpf</a>
+      <a href="https://tvc-16.science/tag/c.html">C#</a>
+      <a href="https://tvc-16.science/tag/modernwpf.html">modernwpf</a>
+      <a href="https://tvc-16.science/tag/windows-11.html">windows 11</a>
+      <a href="https://tvc-16.science/tag/dwm.html">dwm</a>
+      <a href="https://tvc-16.science/tag/very-dangerous-windows-hack-age-18-and-up-content.html">very dangerous windows hack age 18 and up content</a>
+    </div>
+    <div class="summary">
+      <p>I don't need no Windows.UI.Composition.</p>
+    </div>
+
+  </footer><!-- /.post-info -->
+  <div class="entry-content">
+    <p>The <a href="https://docs.microsoft.com/en-us/windows/apps/design/style/mica">Mica</a> material is one of the hypest parts of Windows 11 app design, but just like Acrylic before it,<br>
+it's a royal pain to use if you're unable to move your entire app to rely on the UWP/WinUI stack.  <br>
+<sup>(Even <a href="https://github.com/microsoft/microsoft-ui-xaml/issues/5319">XAML Islands</a> can't save you here)</sup>  </p>
+<p>Now sure, you could add a WinRT <a href="https://github.com/microsoft/Windows.UI.Composition-Win32-Samples">Visual Brush</a> to your app, then use raw Windows.UI.Composition APIs to build the material, mimicking what <a href="https://github.com/microsoft/microsoft-ui-xaml/blob/main/dev/Materials/Backdrop/MicaController.cpp">WinUI</a> does... but I guess not even Microsoft wants to suffer through that, since they added a <a href="https://docs.microsoft.com/en-us/windows/win32/api/dwmapi/nf-dwmapi-dwmsetwindowattribute">DwmWindowAttribute</a> to apply a Mica brush to any given HWND.  </p>
+<div class="highlight"><pre><span></span><code><span class="n">enum</span><span class="w"> </span><span class="n">DWMWINDOWATTRIBUTE</span><span class="w"></span>
+<span class="err">{</span><span class="w"></span>
+<span class="w">    </span><span class="n">DWMWA_NCRENDERING_ENABLED</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">              </span><span class="o">//</span><span class="w"> </span><span class="o">[</span><span class="n">get</span><span class="o">]</span><span class="w"> </span><span class="k">Is</span><span class="w"> </span><span class="n">non</span><span class="o">-</span><span class="n">client</span><span class="w"> </span><span class="n">rendering</span><span class="w"> </span><span class="n">enabled</span><span class="o">/</span><span class="n">disabled</span><span class="w"></span>
+<span class="w">    </span><span class="o">[</span><span class="n">...</span><span class="o">]</span><span class="w"></span>
+<span class="o">+</span><span class="w">   </span><span class="n">DWMWA_USE_HOSTBACKDROPBRUSH</span><span class="p">,</span><span class="w">                </span><span class="o">//</span><span class="w"> </span><span class="o">[</span><span class="n">set</span><span class="o">]</span><span class="w"> </span><span class="n">BOOL</span><span class="p">,</span><span class="w"> </span><span class="n">Allows</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="k">use</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="k">host</span><span class="w"> </span><span class="n">backdrop</span><span class="w"> </span><span class="n">brushes</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="k">window</span><span class="p">.</span><span class="w"></span>
+<span class="o">+</span><span class="w">   </span><span class="n">DWMWA_USE_IMMERSIVE_DARK_MODE</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">20</span><span class="p">,</span><span class="w">         </span><span class="o">//</span><span class="w"> </span><span class="o">[</span><span class="n">set</span><span class="o">]</span><span class="w"> </span><span class="n">BOOL</span><span class="p">,</span><span class="w"> </span><span class="n">Allows</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="k">window</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="n">either</span><span class="w"> </span><span class="k">use</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">accent</span><span class="w"> </span><span class="n">color</span><span class="p">,</span><span class="w"> </span><span class="ow">or</span><span class="w"> </span><span class="n">dark</span><span class="p">,</span><span class="w"> </span><span class="n">according</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="k">user</span><span class="w"> </span><span class="n">Color</span><span class="w"> </span><span class="n">Mode</span><span class="w"> </span><span class="n">preferences</span><span class="p">.</span><span class="w"></span>
+<span class="o">+</span><span class="w">   </span><span class="n">DWMWA_WINDOW_CORNER_PREFERENCE</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">33</span><span class="p">,</span><span class="w">        </span><span class="o">//</span><span class="w"> </span><span class="o">[</span><span class="n">set</span><span class="o">]</span><span class="w"> </span><span class="n">WINDOW_CORNER_PREFERENCE</span><span class="p">,</span><span class="w"> </span><span class="n">Controls</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">policy</span><span class="w"> </span><span class="n">that</span><span class="w"> </span><span class="n">rounds</span><span class="w"> </span><span class="k">top</span><span class="o">-</span><span class="k">level</span><span class="w"> </span><span class="k">window</span><span class="w"> </span><span class="n">corners</span><span class="w"></span>
+<span class="o">+</span><span class="w">   </span><span class="n">DWMWA_BORDER_COLOR</span><span class="p">,</span><span class="w">                         </span><span class="o">//</span><span class="w"> </span><span class="o">[</span><span class="n">set</span><span class="o">]</span><span class="w"> </span><span class="n">COLORREF</span><span class="p">,</span><span class="w"> </span><span class="n">The</span><span class="w"> </span><span class="n">color</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">thin</span><span class="w"> </span><span class="n">border</span><span class="w"> </span><span class="n">around</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="k">top</span><span class="o">-</span><span class="k">level</span><span class="w"> </span><span class="k">window</span><span class="w"></span>
+<span class="o">+</span><span class="w">   </span><span class="n">DWMWA_CAPTION_COLOR</span><span class="p">,</span><span class="w">                        </span><span class="o">//</span><span class="w"> </span><span class="o">[</span><span class="n">set</span><span class="o">]</span><span class="w"> </span><span class="n">COLORREF</span><span class="p">,</span><span class="w"> </span><span class="n">The</span><span class="w"> </span><span class="n">color</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">caption</span><span class="w"></span>
+<span class="o">+</span><span class="w">   </span><span class="n">DWMWA_TEXT_COLOR</span><span class="p">,</span><span class="w">                           </span><span class="o">//</span><span class="w"> </span><span class="o">[</span><span class="n">set</span><span class="o">]</span><span class="w"> </span><span class="n">COLORREF</span><span class="p">,</span><span class="w"> </span><span class="n">The</span><span class="w"> </span><span class="n">color</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">caption</span><span class="w"> </span><span class="nc">text</span><span class="w"></span>
+<span class="o">+</span><span class="w">   </span><span class="n">DWMWA_VISIBLE_FRAME_BORDER_THICKNESS</span><span class="p">,</span><span class="w">       </span><span class="o">//</span><span class="w"> </span><span class="o">[</span><span class="n">get</span><span class="o">]</span><span class="w"> </span><span class="n">UINT</span><span class="p">,</span><span class="w"> </span><span class="n">width</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">visible</span><span class="w"> </span><span class="n">border</span><span class="w"> </span><span class="n">around</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">thick</span><span class="w"> </span><span class="n">frame</span><span class="w"> </span><span class="k">window</span><span class="w"></span>
+<span class="o">[</span><span class="n">...</span><span class="o">]</span><span class="w"></span>
+<span class="o">+</span><span class="w">   </span><span class="n">DWMWA_MICA_EFFECT</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1029</span><span class="p">,</span><span class="w">                   </span><span class="o">//</span><span class="w"> </span><span class="o">[</span><span class="n">set</span><span class="o">]</span><span class="w"> </span><span class="n">BOOL</span><span class="p">,</span><span class="w"> </span><span class="n">undocumented</span><span class="vm">??</span><span class="w"></span>
+<span class="w">    </span><span class="n">DWMWA_LAST</span><span class="w"></span>
+<span class="err">}</span><span class="p">;</span><span class="w"></span>
+</code></pre></div>
+
+
+<p>The <a href="https://devblogs.microsoft.com/oldnewthing/?p=41373">usual warnings</a> apply since this attribute is undocumented, but if it's anything like the <a href="https://withinrafael.com/2018/02/02/adding-acrylic-blur-to-your-windows-10-apps-redstone-4-desktop-apps/">Acrylic</a> WindowCompositionAttribute trick, <strike>it should at least work until WinUI 3 is far enough in development.</strike> lmao </p>
+<p>(<strong>Note</strong>: This attribute was removed from Windows 11 in insider build <em>22494</em>, and replaced by <code>DWMWA_SYSTEMBACKDROP_TYPE</code> in builds <em>22523</em> and up. Scroll to the bottom of the article for more info!)</p>
+<p>Applying this flag to a HWND in WPF is quite easy:  </p>
+<div class="highlight"><pre><span></span><code><span class="k">public</span> <span class="k">partial</span> <span class="k">class</span> <span class="nc">MainWindow</span> <span class="p">:</span> <span class="n">Window</span>
+<span class="p">{</span>
+<span class="na">    [DllImport(&quot;dwmapi.dll&quot;)]</span>
+    <span class="k">public</span> <span class="k">static</span> <span class="k">extern</span> <span class="kt">int</span> <span class="nf">DwmSetWindowAttribute</span><span class="p">(</span><span class="n">IntPtr</span> <span class="n">hwnd</span><span class="p">,</span> <span class="n">DwmWindowAttribute</span> <span class="n">dwAttribute</span><span class="p">,</span> <span class="k">ref</span> <span class="kt">int</span> <span class="n">pvAttribute</span><span class="p">,</span> <span class="kt">int</span> <span class="n">cbAttribute</span><span class="p">);</span>
+
+<span class="na">    [Flags]</span>
+    <span class="k">public</span> <span class="k">enum</span> <span class="n">DwmWindowAttribute</span> <span class="p">:</span> <span class="kt">uint</span>
+    <span class="p">{</span>
+        <span class="n">DWMWA_USE_IMMERSIVE_DARK_MODE</span> <span class="p">=</span> <span class="m">20</span><span class="p">,</span>
+        <span class="n">DWMWA_MICA_EFFECT</span> <span class="p">=</span> <span class="m">1029</span>
+    <span class="p">}</span>
+
+    <span class="k">public</span> <span class="nf">MainWindow</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="n">InitializeComponent</span><span class="p">();</span>
+        <span class="n">ContentRendered</span> <span class="p">+=</span> <span class="n">Window_ContentRendered</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">private</span> <span class="k">void</span> <span class="nf">Window_ContentRendered</span><span class="p">(</span><span class="kt">object</span> <span class="n">sender</span><span class="p">,</span> <span class="n">System</span><span class="p">.</span><span class="n">EventArgs</span> <span class="n">e</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="c1">// Apply Mica brush</span>
+        <span class="n">UpdateStyleAttributes</span><span class="p">((</span><span class="n">HwndSource</span><span class="p">)</span><span class="n">sender</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="k">public</span> <span class="k">static</span> <span class="k">void</span> <span class="nf">UpdateStyleAttributes</span><span class="p">(</span><span class="n">HwndSource</span> <span class="n">hwnd</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="kt">int</span> <span class="n">trueValue</span> <span class="p">=</span> <span class="m">0</span><span class="n">x01</span><span class="p">;</span>
+        <span class="n">DwmSetWindowAttribute</span><span class="p">(</span><span class="n">hwnd</span><span class="p">.</span><span class="n">Handle</span><span class="p">,</span> <span class="n">DwmWindowAttribute</span><span class="p">.</span><span class="n">DWMWA_MICA_EFFECT</span><span class="p">,</span> <span class="k">ref</span> <span class="n">trueValue</span><span class="p">,</span> <span class="n">Marshal</span><span class="p">.</span><span class="n">SizeOf</span><span class="p">(</span><span class="k">typeof</span><span class="p">(</span><span class="kt">int</span><span class="p">)));</span>
+    <span class="p">}</span>
+
+    <span class="k">private</span> <span class="k">void</span> <span class="nf">Window_Loaded</span><span class="p">(</span><span class="kt">object</span> <span class="n">sender</span><span class="p">,</span> <span class="n">RoutedEventArgs</span> <span class="n">e</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="c1">// Get PresentationSource</span>
+        <span class="n">PresentationSource</span> <span class="n">presentationSource</span> <span class="p">=</span> <span class="n">PresentationSource</span><span class="p">.</span><span class="n">FromVisual</span><span class="p">((</span><span class="n">Visual</span><span class="p">)</span><span class="n">sender</span><span class="p">);</span>
+
+        <span class="c1">// Subscribe to PresentationSource&#39;s ContentRendered event</span>
+        <span class="n">presentationSource</span><span class="p">.</span><span class="n">ContentRendered</span> <span class="p">+=</span> <span class="n">Window_ContentRendered</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+
+
+<p>To get the brush to actually show, we also need to remove WPF's built-in chrome with a <a href="https://docs.microsoft.com/en-us/dotnet/api/system.windows.shell.windowchrome">WindowChrome</a> override:<br>
+(You can also use <code>WindowStyle.None</code>, but <code>WindowChrome</code> lets you keep the system controls, which will come in handy.)  </p>
+<div class="highlight"><pre><span></span><code><span class="nt">&lt;Window</span> <span class="na">x:Class=</span><span class="s">&quot;MicaTest.MainWindow&quot;</span>
+        <span class="na">Background=</span><span class="s">&quot;Transparent&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;WindowChrome.WindowChrome&gt;</span>
+            <span class="nt">&lt;WindowChrome</span>
+            <span class="na">CaptionHeight=</span><span class="s">&quot;20&quot;</span>
+            <span class="na">ResizeBorderThickness=</span><span class="s">&quot;8&quot;</span>
+            <span class="na">CornerRadius=</span><span class="s">&quot;0&quot;</span>
+            <span class="na">GlassFrameThickness=</span><span class="s">&quot;-1&quot;</span>
+            <span class="na">UseAeroCaptionButtons=</span><span class="s">&quot;True&quot;</span> <span class="nt">/&gt;</span>
+    <span class="nt">&lt;/WindowChrome.WindowChrome&gt;</span>
+
+    <span class="nt">&lt;TextBlock</span> <span class="na">HorizontalAlignment=</span><span class="s">&quot;Center&quot;</span> <span class="na">VerticalAlignment=</span><span class="s">&quot;Center&quot;</span><span class="nt">&gt;</span>Hello from Mica on WPF!<span class="nt">&lt;/TextBlock&gt;</span>
+<span class="nt">&lt;/Window&gt;</span>
+</code></pre></div>
+
+
+<p><img alt="a perfectly cromulent white wpf window with mica on top." src="https://tvc-16.science/images/mica/mica_wpf_white.png">  </p>
+<p>At this point, you'll have the material, but it <strong>won't change with the Windows theme</strong>.<br>
+Mica looks way better in Dark Mode than in Light<sup><sub>(Don't @ me)</sub></sup>, so to handle that, you'll need to add the <code>DWMWA_USE_IMMERSIVE_DARK_MODE</code> flag to the mix.  </p>
+<p>This flag, when set, currently <strong>forces</strong> the Mica brush to render in dark mode, so it has to be toggled on or off depending on the current Windows theme.<br>
+That means we need some way to detect theme changes, and <em>while</em> you could use some more Win32 for that, I got lazy and just slapped <a href="https://github.com/Kinnara/ModernWpf">ModernWpf</a> on top of the app:  </p>
+<div class="highlight"><pre><span></span><code>    <span class="k">private</span> <span class="k">void</span> <span class="nf">Window_ContentRendered</span><span class="p">(</span><span class="kt">object</span> <span class="n">sender</span><span class="p">,</span> <span class="n">System</span><span class="p">.</span><span class="n">EventArgs</span> <span class="n">e</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="c1">// Apply Mica brush and ImmersiveDarkMode if needed</span>
+        <span class="n">UpdateStyleAttributes</span><span class="p">((</span><span class="n">HwndSource</span><span class="p">)</span><span class="n">sender</span><span class="p">);</span>
+
+        <span class="c1">// Hook to Windows theme change to reapply the brushes when needed</span>
+        <span class="n">ModernWpf</span><span class="p">.</span><span class="n">ThemeManager</span><span class="p">.</span><span class="n">Current</span><span class="p">.</span><span class="n">ActualApplicationThemeChanged</span> <span class="p">+=</span> <span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">ev</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="n">UpdateStyleAttributes</span><span class="p">((</span><span class="n">HwndSource</span><span class="p">)</span><span class="n">sender</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="k">public</span> <span class="k">static</span> <span class="k">void</span> <span class="nf">UpdateStyleAttributes</span><span class="p">(</span><span class="n">HwndSource</span> <span class="n">hwnd</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="c1">// You can avoid using ModernWpf here and just rely on Win32 APIs or registry parsing if you want to.</span>
+        <span class="kt">var</span> <span class="n">darkThemeEnabled</span> <span class="p">=</span> <span class="n">ModernWpf</span><span class="p">.</span><span class="n">ThemeManager</span><span class="p">.</span><span class="n">Current</span><span class="p">.</span><span class="n">ActualApplicationTheme</span> <span class="p">==</span> <span class="n">ModernWpf</span><span class="p">.</span><span class="n">ApplicationTheme</span><span class="p">.</span><span class="n">Dark</span><span class="p">;</span>
+
+        <span class="kt">int</span> <span class="n">trueValue</span> <span class="p">=</span> <span class="m">0</span><span class="n">x01</span><span class="p">;</span>
+        <span class="kt">int</span> <span class="n">falseValue</span> <span class="p">=</span> <span class="m">0</span><span class="n">x00</span><span class="p">;</span>
+
+        <span class="c1">// Set dark mode before applying the material, otherwise you&#39;ll get an ugly flash when displaying the window.</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">darkThemeEnabled</span><span class="p">)</span>
+            <span class="n">DwmSetWindowAttribute</span><span class="p">(</span><span class="n">source</span><span class="p">.</span><span class="n">Handle</span><span class="p">,</span> <span class="n">DwmWindowAttribute</span><span class="p">.</span><span class="n">DWMWA_USE_IMMERSIVE_DARK_MODE</span><span class="p">,</span> <span class="k">ref</span> <span class="n">trueValue</span><span class="p">,</span> <span class="n">Marshal</span><span class="p">.</span><span class="n">SizeOf</span><span class="p">(</span><span class="k">typeof</span><span class="p">(</span><span class="kt">int</span><span class="p">)));</span>
+        <span class="k">else</span>
+            <span class="nf">DwmSetWindowAttribute</span><span class="p">(</span><span class="n">source</span><span class="p">.</span><span class="n">Handle</span><span class="p">,</span> <span class="n">DwmWindowAttribute</span><span class="p">.</span><span class="n">DWMWA_USE_IMMERSIVE_DARK_MODE</span><span class="p">,</span> <span class="k">ref</span> <span class="n">falseValue</span><span class="p">,</span> <span class="n">Marshal</span><span class="p">.</span><span class="n">SizeOf</span><span class="p">(</span><span class="k">typeof</span><span class="p">(</span><span class="kt">int</span><span class="p">)));</span>
+
+        <span class="n">DwmSetWindowAttribute</span><span class="p">(</span><span class="n">source</span><span class="p">.</span><span class="n">Handle</span><span class="p">,</span> <span class="n">DwmWindowAttribute</span><span class="p">.</span><span class="n">DWMWA_MICA_EFFECT</span><span class="p">,</span> <span class="k">ref</span> <span class="n">trueValue</span><span class="p">,</span> <span class="n">Marshal</span><span class="p">.</span><span class="n">SizeOf</span><span class="p">(</span><span class="k">typeof</span><span class="p">(</span><span class="kt">int</span><span class="p">)));</span>
+    <span class="p">}</span>
+</code></pre></div>
+
+
+<p>ModernWpf also allows you to easily have Theme-aware resources on WPF, which is super convenient and basically gives us our final sample:<br>
+<img alt="look ma no composition" src="https://tvc-16.science/images/mica/mica_wpf.jpg">  </p>
+<p>And since we left in system controls, that means we get Windows 11's snap assist out of the box like all the cool kids do:<br>
+<img alt="everyday i'm snapping" src="https://tvc-16.science/images/mica/mica_wpf_snap.png">  </p>
+<h3>You can find the full sample <a href="https://github.com/Difegue/Mica-WPF-Sample">here.</a></h3>
+<h2>Closing thoughts</h2>
+<p>If you run this sample on Windows 10, both those DWM Attributes do nothing, so you're left with the kinda boring Windows 10 chrome:  </p>
+<p><img alt="modernwpf styles voluntarily removed to prove this isn't just a UWP app or something" src="https://tvc-16.science/images/mica/mica_win10.jpg">  </p>
+<p>Which will respect the user's <em>Apply the accent color to the window borders</em> preference, so you'll either have an accent color like I do, or pure black/white.<br>
+You can toy with the <code>GlassFrameThickness</code> attribute if you want to reclaim some non-chrome space. 👍  </p>
+<p>You might've noticed the system controls have a weird padding to the right: This comes from <code>WindowChrome</code> not having been updated for Windows 10 and keeping the old window border sizes.  </p>
+<p>This is fixable by adding <code>NonClientFrameEdges="Bottom,Left,Right"</code>, but it causes a host of other issues so I didn't include it in the sample.<br>
+You can find some more info about that <a href="https://github.com/dotnet/wpf/issues/3887">here</a>.</p>
+<h2>Windows 11 22523+ Update</h2>
+<p><code>DWMWA_MICA_EFFECT = 1029</code> has been replaced by the public API (!) <code>DWMWA_SYSTEMBACKDROP_TYPE = 38</code> in <a href="https://twitter.com/StartIsBack/status/1471262840313065474?s=20">build 22523</a>, which functions mostly the same although with some much-desired improvements.  </p>
+<p>The attribute accepts an int instead of just a boolean and can enable different backdrop types:  </p>
+<div class="highlight"><pre><span></span><code><span class="err">DWMSBT_AUTO = 0,</span>
+<span class="err">DWMSBT_DISABLE = 1, // None</span>
+<span class="err">DWMSBT_MAINWINDOW = 2, // Mica</span>
+<span class="err">DWMSBT_TRANSIENTWINDOW = 3, // Acrylic</span>
+<span class="err">DWMSBT_TABBEDWINDOW = 4 // Tabbed</span>
+</code></pre></div>
+
+
+<p>As per StartIsBack, "Tabbed is just untinted / unblended Mica, i.e. heavily blurred wallpaper."  </p>
+<p>You can find updated WPF sample code that uses this attribute <a href="https://github.com/dongle-the-gadget/SystemBackdropTypes">here.</a>  </p>
+<p><img alt="Acrylic attribute" src="https://user-images.githubusercontent.com/29563098/146360322-5ee76a3e-49ac-4ef4-881b-e1a8e5dd959a.png">  </p>
+<p><img alt="Mica attribute" src="https://user-images.githubusercontent.com/29563098/146360362-8b7cb5f1-6053-4c13-a7b8-b2b910500f50.png">  </p>
+<p><img alt="Tabbed attribute" src="https://user-images.githubusercontent.com/29563098/146360394-4f6773f1-35b1-4136-9ad8-1e1a923afc0b.png">  </p>
+  </div><!-- /.entry-content -->
+  <a class="containerBox">
+    <img src="https://tvc-16.science/theme/img/button2.svg" class="img-responsive">
+    <div class="text-box pink-button">
+      <span class=" button-text pink-shadow">Comments</span>
+    </div>
+  </a> <br /><br /><br /><br /><br /><br /><br /><br />
+  <script src="https://utteranc.es/client.js" repo="difegue/TVC-16" issue-term="url" theme="github-light"
+    crossorigin="anonymous" async>
+  </script>
+</section>
+      </div>
+    </div>
+    <div class="bot-border project-background"></div>
+
+    <br />
+    <br />
+    <br />
+
+  </div>
+
+  <footer id="contentinfo" class="body" style="position:relative; overflow:hidden">
+    <div class="top-border hello-background"></div>
+    <div class="wrapper hello-background">
+      <div class="text">
+
+        <a class="containerBox">
+          <img src="https://tvc-16.science/theme/img/button1.svg" class="img-responsive">
+          <div class="text-box blue-button">
+            <span class=" button-text blue-shadow">About</span>
+          </div>
+        </a>
+
+        <div class="scroll-left">
+          <p>
+            <script language="JavaScript">
+              //never forget grugeisti ;_;7
+              var r_text = new Array();
+              r_text[0] = "This is COOL";
+              r_text[1] = "TOP-SHELF BLOG DEVICE";
+              r_text[2] = "ACCELERATED PORTFOLIO SYSTEM";
+              r_text[3] = "Lookin' cool !";
+              r_text[4] = "ENHANCED SVG GRAPHICS";
+              r_text[5] = "HIGH-SPEED CHEAP VPS";
+              r_text[6] = "DELUXE UPTIME EXPERIENCE";
+              r_text[7] = "BEST-IN-CLASS SCROLLING TEXT";
+              r_text[8] = "HIGH GRADE MULTICONTAINER SETUP";
+              var i = Math.floor(9 * Math.random())
+              document.write(r_text[i]);
+            </script>
+          </p>
+        </div>
+        Runnin' straight down the information highway in a 3$ Vultr VPS. <br /><br />
+        Typefaces used: <a href="https://rsms.me/inter/">Inter</a>, <a
+          href="https://blog.marsnev.com/2017/03/font-lemonmilk.html">Lemon/Milk</a>,
+        <a href="https://fonts.google.com/specimen/VT323">VT323</a>.
+        Built using <a href="https://github.com/difegue" rel="me"> Github Actions</a> and Pelican. <br />
+        You can talk to me on <a rel="me" href="https://bsky.app/profile/difegue.bsky.social">Bluesky</a> or <a rel="me"
+          href="https://kolektiva.social/@Difegue">Mastodon</a> if that's your thing.
+
+      </div>
+    </div>
+    <div class="bot-border hello-background"></div>
+  </footer><!-- /#contentinfo -->
+
+  <br />
+  <br />
+  <br />
+
+  <div class="footer-container" title="This COOL SYSTEM has been running...for some time now.">
+    <span class="footer-text">Uptime:
+      <br>
+      <span id="uptime">XXX days </span>
+    </span>
+    <img src="https://tvc-16.science/theme/img/footer.svg" class="footer-image">
+  </div>
+
+  <script src="https://tvc-16.science/theme/index.js"></script>
+</body>
+
+</html>

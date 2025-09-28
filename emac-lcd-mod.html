@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Blogopolis - Some notes on restoring a 2003 1GHz eMac</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <link
+    href="https://tvc-16.science/feeds/all.atom.xml"
+    type="application/atom+xml" rel="alternate" title="Blogopolis Full Atom Feed" />
+  <link
+    href="https://tvc-16.science/feeds/hardware.atom.xml"
+    type="application/atom+xml" rel="alternate" title="Blogopolis Categories Atom Feed" />
+
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js'></script>
+  <script src='https://storage.ko-fi.com/cdn/scripts/overlay-widget.js'></script>
+  <script data-goatcounter="https://dingus.tvc-16.science/count" async src="//dingus.tvc-16.science/count.js"></script>
+
+  <link rel="apple-touch-icon" sizes="180x180" href="https://tvc-16.science/theme/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="https://tvc-16.science/theme/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="https://tvc-16.science/theme/favicon-16x16.png">
+  <link rel="manifest" href="https://tvc-16.science/theme/site.webmanifest">
+  <link rel="mask-icon" href="https://tvc-16.science/theme/safari-pinned-tab.svg" color="#f040b0">
+  <link rel="webmention" href="https://webmention.io/tvc-16.science/webmention" />
+  <link rel="pingback" href="https://webmention.io/tvc-16.science/xmlrpc" />
+  <meta name="msapplication-TileColor" content="#f1c711">
+  <meta name="theme-color" content="#f1c711">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta property="og:title" content="Some notes on restoring a 2003 1GHz eMac - Blogopolis" />
+<meta property="og:type" content="article" />
+<meta property="og:description" content="<p>I guess this is an Apple blog now.</p>" />
+<meta property="og:url" content="https://tvc-16.science/emac-lcd-mod.html" />
+<meta property="og:image" content="https://tvc-16.science/images/emac/emac_end.jpg" />
+
+  <link href="https://fonts.googleapis.com/css?family=Monoton" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=VT323" rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/bluesky-comments@0.9.0/dist/bluesky-comments.css">
+  <link rel="stylesheet" href="https://tvc-16.science/theme/css/style.css">
+  <link rel="stylesheet" href="https://tvc-16.science/theme/css/pygment.css">
+
+
+
+
+<meta name="twitter:card" content="summary_large_image">
+<meta property="og:title" content="Some notes on restoring a 2003 1GHz eMac - Blogopolis" />
+<meta property="og:type" content="article" />
+<meta property="og:description" content="<p>I guess this is an Apple blog now.</p>" />
+<meta property="og:url" content="https://tvc-16.science/emac-lcd-mod.html" />
+<meta property="og:image" content="https://tvc-16.science/images/emac/emac_end.jpg" />
+
+<meta name="tags" content="apple" />
+<meta name="tags" content="macos" />
+<meta name="tags" content="emac" />
+<meta name="tags" content="lcd" />
+<meta name="tags" content="mod" />
+<meta name="tags" content="diy" />
+
+</head>
+
+<body id="index" class="home">
+
+  <canvas id="stage"></canvas>
+  <header id="banner" class="body">
+    <center><img height="170px" src="https://tvc-16.science/theme/img/logotype.svg" /></center>
+  </header><!-- /#banner -->
+
+  <div id="mainText">
+
+    <h2 class="subtitle">
+
+      <a style="color:black !important" href="/projects.html">Projects</a>
+      🔸
+      <a style="color:black !important" href="/">Articles</a>
+      🔸
+      <a style="color:black !important" href="/categories.html">Categories</a>
+      🔸
+
+    </h2><!-- /#menu -->
+
+    <div class="top-border project-background"></div>
+    <div class="wrapper project-background">
+      <div class="text">
+<section id="content" class="body" style="max-width: 900px;margin-left: auto;margin-right: auto;">
+  <header>
+    <h2 class="entry-title">
+      <a href="https://tvc-16.science/emac-lcd-mod.html" rel="bookmark" title="Permalink to Some notes on restoring a 2003 1GHz eMac">
+        Some notes on restoring a 2003 1GHz eMac
+      </a>
+    </h2>
+    
+  </header>
+  <footer class="post-info terminal-text">
+    <time class="published" datetime="2019-11-28T00:00:00+01:00">
+      Thu 28 November 2019
+    </time>
+    <address class="vcard author">
+      By       <a class="url fn" href="https://tvc-16.science/author/difegue.html">Difegue</a>
+    </address>
+    <div class="category">
+      Category: <a href="https://tvc-16.science/category/hardware.html">Hardware</a>
+    </div>
+    <div class="tags">
+      Tags:
+      <a href="https://tvc-16.science/tag/apple.html">apple</a>
+      <a href="https://tvc-16.science/tag/macos.html">macos</a>
+      <a href="https://tvc-16.science/tag/emac.html">emac</a>
+      <a href="https://tvc-16.science/tag/lcd.html">lcd</a>
+      <a href="https://tvc-16.science/tag/mod.html">mod</a>
+      <a href="https://tvc-16.science/tag/diy.html">diy</a>
+    </div>
+    <div class="summary">
+      <p>I guess this is an Apple blog now.</p>
+    </div>
+
+  </footer><!-- /.post-info -->
+  <div class="entry-content">
+    <p>I recently found an old <a href="https://en.wikipedia.org/wiki/EMac">eMac</a>.  </p>
+<p><img alt="yeah rip" src="https://tvc-16.science/images/emac/emac (1).jpg">  </p>
+<p>It was not in good shape.<br>
+I never really dabbled in Apple hardware before this (in fact my first real hands-on with Mac OS as a whole was what, 8 months ago ?), so I quickly tried booting it and it seemed to work! Except the CRT coil was glowing red. Neat.  </p>
+<p>There's a surprising amount of documentation online about restoring eMacs -- Probably due to a mix of the failing analog boards and the low pricepoint of the machine. As a result, I tried fixing the thing. Here are a few notes.  </p>
+<h2>Getting some reading done</h2>
+<p>The essential reference for eMac modification is <a href="https://web.archive.org/web/20180220163441/http://www.lbodnar.dsl.pipex.com/eServer/">Leo Bodnar's site</a>, or at least the archive.org snapshots of it, as it has since then died a brutal death.  </p>
+<p>Other helpful links were <a href="https://fr.ifixit.com/Device/eMac">iFixit</a> for figuring out how to dismantle the beast, and the <a href="http://gmcotton.com/Ham_Radio/MISC%20Manuals/Mac/emac%20service%20manual.pdf">Original Apple service manual.</a> Basic stuff.  </p>
+<p>My initial reference and guide for most of the process was this <a href="https://ierna.com/2006/07/02/emac-lcd-conversion/">2006 article</a> on an eMac LCD conversion. Quite detailed but it misses a few details, which I'll go over here.  </p>
+<h2>Connecting the logic board to a working screen and power supply</h2>
+<p>Once the machine taken apart, I've recovered the original power and video cables that were connected to the CRT board, and modified them to connect to Molex/VGA respectively.<br>
+The pinouts can be found on the <a href="https://web.archive.org/web/20180220163441/http://www.lbodnar.dsl.pipex.com/eServer/">Leo Bodnar archive</a>, alongside a more detailed breakout of the different boards present in the machine.</p>
+<p>As far as the power cable goes, it can really connect to anything that outputs both 12 and 5V -- As mentioned in the archive, the eMac actually expects 20 and 19V on a few of its pins for Firewire support, but using 12V for those works fine enough.  </p>
+<p>I did redirect the hard drive and DVD player to run off the PSU directly instead of the eMac's integrated down-converter board, in order to make sure those have the voltage they need.  </p>
+<p><img alt="damn that's a lot of icons" src="https://tvc-16.science/images/emac/emac (2).jpg">  </p>
+<p>Well whaddaya know, this actually works. Time to drop all this good stuff into a case.  </p>
+<h2>Dropping the LCD screen</h2>
+<p>Any well-proportioned 17" LCD fits the eMac front panel, but if you're like me and blindly followed the ierna blog thinking you could just slam it in and call it a day, you'll probably be surprised.  </p>
+<p><img alt="lcd dropped in emac front panel" src="https://tvc-16.science/images/emac/emac (3).jpg">  </p>
+<p>My screen had bigger bezels than the one he used, which required me to cut off the microphone support stand and use tape to fix it instead.<br>
+<img alt="microphone support(pic from ierna)" src="https://tvc-16.science/images/emac/micro.jpg"><br>
+(pic from ierna, as I didn't take a picture of this part.)  </p>
+<p>This made the screen fit fine in the panel, but the CRT cowl which comes on top of it was too small as well!<br>
+The cowl is essential to the structure of the machine, but luckily you can get away with just cutting the corners.<br>
+<img alt="damn that's a lot of icons" src="https://tvc-16.science/images/emac/emac (4).jpg">  </p>
+<p>As a tradeoff though, I didn't cut the outside of the case like ierna, so all those modifications are invisible.<br>
+Sure, I can't turn off the screen and the OSX Menu is slightly hidden by the front panel but ehh, I'll fix it in software.  </p>
+<h2>Mounting the power supply</h2>
+<p>Mounting a full-sized ATX PSU in the original case was challenging, and is frankly overkill considering the eMac doesn't draw that much power.<br>
+Sadly it's all I had on hand so I rolled with it.  </p>
+<p>There are mounting holes on the plate since it originally housed the analog board, but of course they don't line up whatsoever with ATX, so I had to make some custom mounting brackets to get it to stay fixed. I really hope you guys don't do this.  </p>
+<p><img alt="screwing those bottom screws with the plastic parts blocking your paths was a real joy" src="https://tvc-16.science/images/emac/emac (5).jpg">  </p>
+<p>One last hurdle caused by the ATX supply was that it was blocking the pins of the plastic case when putting the eMac back together.<br>
+The pins go in the two large holes on top you can see there, so I had to sand them down a bit to make them smaller.  </p>
+<p>And it's done! Well, almost.  </p>
+<h2>Display refresh rate hell</h2>
+<p><img alt="pictures taken moments before disaster" src="https://tvc-16.science/images/emac/emac (6).jpg">  </p>
+<p>So, I got 10.14 Tiger booted up, listened to some music through iTunes and it seems fine!<br>
+Then I went to toy a bit in the settings and everything fell apart.  </p>
+<p>As mentioned by lbodnard, the eMac's screen resolutions use <strong>very high</strong> refresh rates (up to 100Hz), which go far beyond what old TFT LCDs can handle.<br>
+OSX seemed to know about this at first and set a 75Hz rate so my LCD was usable, but a misstep on my part in System Settings set the resolution to an unusable rate.  </p>
+<p>Therefore, my eMac is left without a screen again. 😐<br>
+Resetting the resolution settings <a href="http://hints.macworld.com/article.php?story=2001100114532165">seems rather easy</a> if you have filesystem access, but I don't, so I'll probably have to take the machine apart again and plug in a newer screen that can handle the high rates.  </p>
+<p>If there's one warning to take from this, it's that you should probably enable Mac OS's built-in SSH/VNC servers so you can run the eMac headless -- Screen lockout happens easily!  </p>
+<h2>Update: Getting out of display rate hell</h2>
+<p>The solution to the above conundrum was indeed plugging in another screen. Luckily OSX wasn't stuck at some super high rate, so a more recent LCD did the trick.  </p>
+<p><img alt="all's right with the world thanks to switchresx" src="https://tvc-16.science/images/emac/emac_end.jpg">  </p>
+<p>I promptly installed an old version of <a href="http://www.madrau.com/index.html">SwitchResX</a> in order to disable all the extra resolutions the eMac adds to account for its normal CRT screen.<br>
+This means no more surprises when starting a game that goes to fullscreen and tries to guess the best resolution out of what the machine offers.  </p>
+<p>And I guess I'm finally done with this machine! It took quite a while.<br>
+<sub><sup>The hard drive is starting to fail though so I'll probably need to clone it and drop a new IDE drive in this sucker...</sup></sub></p>
+<h2>Final notes</h2>
+<p>My first experience with OSX was with 10.14 Mojave a few months back -- Using 10.4 Tiger on this machine, it's pretty funny how 98% of the UI has essentially stayed the same in 13 years.<br>
+Guess I'm too used to Windows switching everything around every couple of releases.  </p>
+<p>At least I don't have to learn how to use the Finder again!  </p>
+  </div><!-- /.entry-content -->
+  <a class="containerBox">
+    <img src="https://tvc-16.science/theme/img/button2.svg" class="img-responsive">
+    <div class="text-box pink-button">
+      <span class=" button-text pink-shadow">Comments</span>
+    </div>
+  </a> <br /><br /><br /><br /><br /><br /><br /><br />
+  <script src="https://utteranc.es/client.js" repo="difegue/TVC-16" issue-term="url" theme="github-light"
+    crossorigin="anonymous" async>
+  </script>
+</section>
+      </div>
+    </div>
+    <div class="bot-border project-background"></div>
+
+    <br />
+    <br />
+    <br />
+
+  </div>
+
+  <footer id="contentinfo" class="body" style="position:relative; overflow:hidden">
+    <div class="top-border hello-background"></div>
+    <div class="wrapper hello-background">
+      <div class="text">
+
+        <a class="containerBox">
+          <img src="https://tvc-16.science/theme/img/button1.svg" class="img-responsive">
+          <div class="text-box blue-button">
+            <span class=" button-text blue-shadow">About</span>
+          </div>
+        </a>
+
+        <div class="scroll-left">
+          <p>
+            <script language="JavaScript">
+              //never forget grugeisti ;_;7
+              var r_text = new Array();
+              r_text[0] = "This is COOL";
+              r_text[1] = "TOP-SHELF BLOG DEVICE";
+              r_text[2] = "ACCELERATED PORTFOLIO SYSTEM";
+              r_text[3] = "Lookin' cool !";
+              r_text[4] = "ENHANCED SVG GRAPHICS";
+              r_text[5] = "HIGH-SPEED CHEAP VPS";
+              r_text[6] = "DELUXE UPTIME EXPERIENCE";
+              r_text[7] = "BEST-IN-CLASS SCROLLING TEXT";
+              r_text[8] = "HIGH GRADE MULTICONTAINER SETUP";
+              var i = Math.floor(9 * Math.random())
+              document.write(r_text[i]);
+            </script>
+          </p>
+        </div>
+        Runnin' straight down the information highway in a 3$ Vultr VPS. <br /><br />
+        Typefaces used: <a href="https://rsms.me/inter/">Inter</a>, <a
+          href="https://blog.marsnev.com/2017/03/font-lemonmilk.html">Lemon/Milk</a>,
+        <a href="https://fonts.google.com/specimen/VT323">VT323</a>.
+        Built using <a href="https://github.com/difegue" rel="me"> Github Actions</a> and Pelican. <br />
+        You can talk to me on <a rel="me" href="https://bsky.app/profile/difegue.bsky.social">Bluesky</a> or <a rel="me"
+          href="https://kolektiva.social/@Difegue">Mastodon</a> if that's your thing.
+
+      </div>
+    </div>
+    <div class="bot-border hello-background"></div>
+  </footer><!-- /#contentinfo -->
+
+  <br />
+  <br />
+  <br />
+
+  <div class="footer-container" title="This COOL SYSTEM has been running...for some time now.">
+    <span class="footer-text">Uptime:
+      <br>
+      <span id="uptime">XXX days </span>
+    </span>
+    <img src="https://tvc-16.science/theme/img/footer.svg" class="footer-image">
+  </div>
+
+  <script src="https://tvc-16.science/theme/index.js"></script>
+</body>
+
+</html>

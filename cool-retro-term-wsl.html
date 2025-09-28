@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Blogopolis - Running cool-retro-term in Windows through WSL1</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <link
+    href="https://tvc-16.science/feeds/all.atom.xml"
+    type="application/atom+xml" rel="alternate" title="Blogopolis Full Atom Feed" />
+  <link
+    href="https://tvc-16.science/feeds/cool-tricks.atom.xml"
+    type="application/atom+xml" rel="alternate" title="Blogopolis Categories Atom Feed" />
+
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js'></script>
+  <script src='https://storage.ko-fi.com/cdn/scripts/overlay-widget.js'></script>
+  <script data-goatcounter="https://dingus.tvc-16.science/count" async src="//dingus.tvc-16.science/count.js"></script>
+
+  <link rel="apple-touch-icon" sizes="180x180" href="https://tvc-16.science/theme/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="https://tvc-16.science/theme/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="https://tvc-16.science/theme/favicon-16x16.png">
+  <link rel="manifest" href="https://tvc-16.science/theme/site.webmanifest">
+  <link rel="mask-icon" href="https://tvc-16.science/theme/safari-pinned-tab.svg" color="#f040b0">
+  <link rel="webmention" href="https://webmention.io/tvc-16.science/webmention" />
+  <link rel="pingback" href="https://webmention.io/tvc-16.science/xmlrpc" />
+  <meta name="msapplication-TileColor" content="#f1c711">
+  <meta name="theme-color" content="#f1c711">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta property="og:title" content="Running cool-retro-term in Windows through WSL1 - Blogopolis" />
+<meta property="og:type" content="article" />
+<meta property="og:description" content="<p>Javascript terminal emulators have nothing on this.</p>" />
+<meta property="og:url" content="https://tvc-16.science/cool-retro-term-wsl.html" />
+<meta property="og:image" content="https://tvc-16.science/images/crt-win.jpg" />
+
+  <link href="https://fonts.googleapis.com/css?family=Monoton" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=VT323" rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/bluesky-comments@0.9.0/dist/bluesky-comments.css">
+  <link rel="stylesheet" href="https://tvc-16.science/theme/css/style.css">
+  <link rel="stylesheet" href="https://tvc-16.science/theme/css/pygment.css">
+
+
+
+
+<meta name="twitter:card" content="summary_large_image">
+<meta property="og:title" content="Running cool-retro-term in Windows through WSL1 - Blogopolis" />
+<meta property="og:type" content="article" />
+<meta property="og:description" content="<p>Javascript terminal emulators have nothing on this.</p>" />
+<meta property="og:url" content="https://tvc-16.science/cool-retro-term-wsl.html" />
+<meta property="og:image" content="https://tvc-16.science/images/crt-win.jpg" />
+
+<meta name="tags" content="wsl" />
+<meta name="tags" content="cool-retro-term" />
+<meta name="tags" content="xming" />
+<meta name="tags" content="terminal" />
+<meta name="tags" content="crt" />
+
+</head>
+
+<body id="index" class="home">
+
+  <canvas id="stage"></canvas>
+  <header id="banner" class="body">
+    <center><img height="170px" src="https://tvc-16.science/theme/img/logotype.svg" /></center>
+  </header><!-- /#banner -->
+
+  <div id="mainText">
+
+    <h2 class="subtitle">
+
+      <a style="color:black !important" href="/projects.html">Projects</a>
+      🔸
+      <a style="color:black !important" href="/">Articles</a>
+      🔸
+      <a style="color:black !important" href="/categories.html">Categories</a>
+      🔸
+
+    </h2><!-- /#menu -->
+
+    <div class="top-border project-background"></div>
+    <div class="wrapper project-background">
+      <div class="text">
+<section id="content" class="body" style="max-width: 900px;margin-left: auto;margin-right: auto;">
+  <header>
+    <h2 class="entry-title">
+      <a href="https://tvc-16.science/cool-retro-term-wsl.html" rel="bookmark" title="Permalink to Running cool-retro-term in Windows through WSL1">
+        Running cool-retro-term in Windows through WSL1
+      </a>
+    </h2>
+    
+  </header>
+  <footer class="post-info terminal-text">
+    <time class="published" datetime="2019-04-21T20:00:00+02:00">
+      Sun 21 April 2019
+    </time>
+    <address class="vcard author">
+      By       <a class="url fn" href="https://tvc-16.science/author/difegue.html">Difegue</a>
+    </address>
+    <div class="category">
+      Category: <a href="https://tvc-16.science/category/cool-tricks.html">Cool Tricks</a>
+    </div>
+    <div class="tags">
+      Tags:
+      <a href="https://tvc-16.science/tag/wsl.html">wsl</a>
+      <a href="https://tvc-16.science/tag/cool-retro-term.html">cool-retro-term</a>
+      <a href="https://tvc-16.science/tag/xming.html">xming</a>
+      <a href="https://tvc-16.science/tag/terminal.html">terminal</a>
+      <a href="https://tvc-16.science/tag/crt.html">crt</a>
+    </div>
+    <div class="summary">
+      <p>Javascript terminal emulators have nothing on this.</p>
+    </div>
+
+  </footer><!-- /.post-info -->
+  <div class="entry-content">
+    <h1>2022 Update</h1>
+<p>Check <a href="./cool-retro-term-wsl2.html">this article</a> for updated and much simpler instructions using WSL2+WSLg. 🥳<br>
+Or you can keep reading below if you're stuck with WSL1 for some reason.  </p>
+<p>I often work with Linux environments through SSH on my Windows machine. As most people who use the command line on a semi-regular basis, I like looking at available alternatives/customizations to the stock terminal emulator.  </p>
+<p>On Windows, you've got a lot of solid alternatives such as cmder or the myriad of cool-looking emulators using web technologies under the hood. (I especially like <a href="https://github.com/felixse/FluentTerminal">Fluent Terminal</a>, which really gets my Win10 design language boner going!)  </p>
+<p>But this stuff man, it doesn't have the <em>bling</em>. The <em>hipster cred</em>.<br>
+<img alt="whoa dude now this is good stuff" src="https://tvc-16.science/images/crt-intro.png">  </p>
+<p><a href="https://github.com/Swordfish90/cool-retro-term">cool-retro-term</a> is a terminal emulator I often wished I had on Windows, for no other reason than to look cool. Nobody really ever bothered to port it to run on Windows however(and I wouldn't do it either tbh), so I swallowed my dreams of being an <em>epic hacker</em> and just opened up PuTTY for the umpteenth time.  </p>
+<p>Until now.<br>
+<img alt="bazinga" src="https://tvc-16.science/images/crt-win.jpg">  </p>
+<p>The Windows Subsystem for Linux nowadays just allows one to run the original emulator as-is with a simple X server port for Windows. I'll be giving a short how-to list here, tested on Windows 10 1809.</p>
+<h1>Activate WSL and download the required Linux dependencies</h1>
+<p>I'll let <a href="https://docs.microsoft.com/en-us/windows/wsl/install-win10">Microsoft speak for me</a> on the first point. I used Ubuntu as a base distro, but you can probably manage with another one.<br>
+Once in your WSL terminal, install the few dependencies you'll need:</p>
+<div class="highlight"><pre><span></span><code><span class="err">sudo apt-get update</span>
+<span class="err">sudo apt-get install libgl1 xfce4-terminal</span>
+</code></pre></div>
+
+
+<p>xfce4-terminal is a hefty download, but without it I was unable to get keyboard input to work in CRT. The errors were linked to XKB, so you might be able to manage by only installing xkb-data or similar packages.  </p>
+<h1>Download the cool-retro-term AppImage and extract it</h1>
+<p>The AppImage conveniently bundles up Qt and everything needed. WSL doesn't have fuse support however, so you'll have to extract it instead of running it as-is. </p>
+<div class="highlight"><pre><span></span><code><span class="err">wget https://github.com/Swordfish90/cool-retro-term/releases/download/1.1.1/Cool-Retro-Term-1.1.1-x86_64.AppImage</span>
+<span class="err">chmod a+x Cool-Retro-Term-1.1.1-x86_64.AppImage</span>
+<span class="err">./Cool-Retro-Term-1.1.1-x86_64.AppImage --appimage-extract</span>
+</code></pre></div>
+
+
+<p>Close your Linux CLI for now.</p>
+<h1>Boot 'er up with Xming</h1>
+<p>👉 Download and install <a href="https://sourceforge.net/projects/xming/">Xming</a> on the Windows side.  </p>
+<p>vcXsrv is another port of the X server to Windows that's often recommended in <a href="https://www.ctrl.blog/entry/how-to-x-on-wsl">X-on-WSL blogposts</a>, but it didn't work with CRT during my experiments. You can also try <a href="https://sourceforge.net/projects/freexer/">FreeXer</a>, or Cygwin's X server.  </p>
+<p>Once installed, just start it up and go back to Linux:  </p>
+<div class="highlight"><pre><span></span><code><span class="err">export DISPLAY=:0</span>
+<span class="err">cd squashfs-root</span>
+<span class="err">./AppRun</span>
+</code></pre></div>
+
+
+<p><img alt="lookin' hefty on cpu joker" src="https://tvc-16.science/images/crt-cpu.jpg"><br>
+From here on, you can right-click on the terminal to load a different graphical profile or make a custom one yourself.<br>
+Basically everything works as-is -- even urxvt mouse tracking!</p>
+<h1>Automating it all with some scripting</h1>
+<p>I jerry-rigged a pair of .bat/.sh scripts to start both Xming on the Windows side and CRT on the WSL side.</p>
+<p><strong>cool-retro-term.bat</strong></p>
+<div class="highlight"><pre><span></span><code><span class="err">start &quot;&quot; &quot;C:\Program Files (x86)\Xming\Xming.exe&quot; :0 -clipboard -multiwindow</span>
+<span class="err">start /min wsl -d ubuntu ./crt.sh</span>
+</code></pre></div>
+
+
+<p><strong>crt.sh</strong></p>
+<div class="highlight"><pre><span></span><code><span class="err">cd ~/squashfs-root &amp;&amp; export DISPLAY=:0.0 &amp;&amp; ./AppRun </span>
+</code></pre></div>
+
+
+<h1>Caveats</h1>
+<ul>
+<li>WSL <a href="https://github.com/Microsoft/WSL/issues/829">doesn't have GPU acceleration yet</a>. This is entirely running in software and as you can see in the <code>htop</code> above, easily eats more CPU than those newfangled javascript terminals. 😐 </li>
+<li>Pasting text into cool-retro-term works, but copying text from it doesn't. </li>
+<li>You can encounter a segfault or two if you mess with the graphical settings too much in one session. Once a profile is saved however, I've encountered no crashes in the few hours I spent playing with this.</li>
+</ul>
+<p>All things considered, this is basically a party trick at the moment and nothing else.<br>
+It's pretty cool with <code>ncmpcpp</code> though!</p>
+  </div><!-- /.entry-content -->
+  <a class="containerBox">
+    <img src="https://tvc-16.science/theme/img/button2.svg" class="img-responsive">
+    <div class="text-box pink-button">
+      <span class=" button-text pink-shadow">Comments</span>
+    </div>
+  </a> <br /><br /><br /><br /><br /><br /><br /><br />
+  <script src="https://utteranc.es/client.js" repo="difegue/TVC-16" issue-term="url" theme="github-light"
+    crossorigin="anonymous" async>
+  </script>
+</section>
+      </div>
+    </div>
+    <div class="bot-border project-background"></div>
+
+    <br />
+    <br />
+    <br />
+
+  </div>
+
+  <footer id="contentinfo" class="body" style="position:relative; overflow:hidden">
+    <div class="top-border hello-background"></div>
+    <div class="wrapper hello-background">
+      <div class="text">
+
+        <a class="containerBox">
+          <img src="https://tvc-16.science/theme/img/button1.svg" class="img-responsive">
+          <div class="text-box blue-button">
+            <span class=" button-text blue-shadow">About</span>
+          </div>
+        </a>
+
+        <div class="scroll-left">
+          <p>
+            <script language="JavaScript">
+              //never forget grugeisti ;_;7
+              var r_text = new Array();
+              r_text[0] = "This is COOL";
+              r_text[1] = "TOP-SHELF BLOG DEVICE";
+              r_text[2] = "ACCELERATED PORTFOLIO SYSTEM";
+              r_text[3] = "Lookin' cool !";
+              r_text[4] = "ENHANCED SVG GRAPHICS";
+              r_text[5] = "HIGH-SPEED CHEAP VPS";
+              r_text[6] = "DELUXE UPTIME EXPERIENCE";
+              r_text[7] = "BEST-IN-CLASS SCROLLING TEXT";
+              r_text[8] = "HIGH GRADE MULTICONTAINER SETUP";
+              var i = Math.floor(9 * Math.random())
+              document.write(r_text[i]);
+            </script>
+          </p>
+        </div>
+        Runnin' straight down the information highway in a 3$ Vultr VPS. <br /><br />
+        Typefaces used: <a href="https://rsms.me/inter/">Inter</a>, <a
+          href="https://blog.marsnev.com/2017/03/font-lemonmilk.html">Lemon/Milk</a>,
+        <a href="https://fonts.google.com/specimen/VT323">VT323</a>.
+        Built using <a href="https://github.com/difegue" rel="me"> Github Actions</a> and Pelican. <br />
+        You can talk to me on <a rel="me" href="https://bsky.app/profile/difegue.bsky.social">Bluesky</a> or <a rel="me"
+          href="https://kolektiva.social/@Difegue">Mastodon</a> if that's your thing.
+
+      </div>
+    </div>
+    <div class="bot-border hello-background"></div>
+  </footer><!-- /#contentinfo -->
+
+  <br />
+  <br />
+  <br />
+
+  <div class="footer-container" title="This COOL SYSTEM has been running...for some time now.">
+    <span class="footer-text">Uptime:
+      <br>
+      <span id="uptime">XXX days </span>
+    </span>
+    <img src="https://tvc-16.science/theme/img/footer.svg" class="footer-image">
+  </div>
+
+  <script src="https://tvc-16.science/theme/index.js"></script>
+</body>
+
+</html>

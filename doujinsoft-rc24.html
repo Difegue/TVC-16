@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Blogopolis - DoujinSoft x RiiConnect24 - A technical breakdown</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <link
+    href="https://tvc-16.science/feeds/all.atom.xml"
+    type="application/atom+xml" rel="alternate" title="Blogopolis Full Atom Feed" />
+  <link
+    href="https://tvc-16.science/feeds/software.atom.xml"
+    type="application/atom+xml" rel="alternate" title="Blogopolis Categories Atom Feed" />
+
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js'></script>
+  <script src='https://storage.ko-fi.com/cdn/scripts/overlay-widget.js'></script>
+  <script data-goatcounter="https://dingus.tvc-16.science/count" async src="//dingus.tvc-16.science/count.js"></script>
+
+  <link rel="apple-touch-icon" sizes="180x180" href="https://tvc-16.science/theme/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="https://tvc-16.science/theme/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="https://tvc-16.science/theme/favicon-16x16.png">
+  <link rel="manifest" href="https://tvc-16.science/theme/site.webmanifest">
+  <link rel="mask-icon" href="https://tvc-16.science/theme/safari-pinned-tab.svg" color="#f040b0">
+  <link rel="webmention" href="https://webmention.io/tvc-16.science/webmention" />
+  <link rel="pingback" href="https://webmention.io/tvc-16.science/xmlrpc" />
+  <meta name="msapplication-TileColor" content="#f1c711">
+  <meta name="theme-color" content="#f1c711">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta property="og:title" content="DoujinSoft x RiiConnect24 - A technical breakdown - Blogopolis" />
+<meta property="og:type" content="article" />
+<meta property="og:description" content="<p>Exploiting old Nintendo APIs for fun and profit.</p>" />
+<meta property="og:url" content="https://tvc-16.science/doujinsoft-rc24.html" />
+<meta property="og:image" content="https://tvc-16.science/images/doujinsoft/rc24.png" />
+
+  <link href="https://fonts.googleapis.com/css?family=Monoton" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=VT323" rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/bluesky-comments@0.9.0/dist/bluesky-comments.css">
+  <link rel="stylesheet" href="https://tvc-16.science/theme/css/style.css">
+  <link rel="stylesheet" href="https://tvc-16.science/theme/css/pygment.css">
+
+
+
+
+<meta name="twitter:card" content="summary_large_image">
+<meta property="og:title" content="DoujinSoft x RiiConnect24 - A technical breakdown - Blogopolis" />
+<meta property="og:type" content="article" />
+<meta property="og:description" content="<p>Exploiting old Nintendo APIs for fun and profit.</p>" />
+<meta property="og:url" content="https://tvc-16.science/doujinsoft-rc24.html" />
+<meta property="og:image" content="https://tvc-16.science/images/doujinsoft/rc24.png" />
+
+<meta name="tags" content="java" />
+<meta name="tags" content="nintendo" />
+<meta name="tags" content="wii" />
+<meta name="tags" content="wiiconnect24" />
+<meta name="tags" content="riiconnect24" />
+<meta name="tags" content="warioware" />
+<meta name="tags" content="doujinsoft" />
+<meta name="tags" content="mio" />
+
+</head>
+
+<body id="index" class="home">
+
+  <canvas id="stage"></canvas>
+  <header id="banner" class="body">
+    <center><img height="170px" src="https://tvc-16.science/theme/img/logotype.svg" /></center>
+  </header><!-- /#banner -->
+
+  <div id="mainText">
+
+    <h2 class="subtitle">
+
+      <a style="color:black !important" href="/projects.html">Projects</a>
+      🔸
+      <a style="color:black !important" href="/">Articles</a>
+      🔸
+      <a style="color:black !important" href="/categories.html">Categories</a>
+      🔸
+
+    </h2><!-- /#menu -->
+
+    <div class="top-border project-background"></div>
+    <div class="wrapper project-background">
+      <div class="text">
+<section id="content" class="body" style="max-width: 900px;margin-left: auto;margin-right: auto;">
+  <header>
+    <h2 class="entry-title">
+      <a href="https://tvc-16.science/doujinsoft-rc24.html" rel="bookmark" title="Permalink to DoujinSoft x RiiConnect24 - A technical breakdown">
+        DoujinSoft x RiiConnect24 - A technical breakdown
+      </a>
+    </h2>
+    
+  </header>
+  <footer class="post-info terminal-text">
+    <time class="published" datetime="2019-07-08T00:00:00+02:00">
+      Mon 08 July 2019
+    </time>
+    <address class="vcard author">
+      By       <a class="url fn" href="https://tvc-16.science/author/difegue.html">Difegue</a>
+    </address>
+    <div class="category">
+      Category: <a href="https://tvc-16.science/category/software.html">Software</a>
+    </div>
+    <div class="tags">
+      Tags:
+      <a href="https://tvc-16.science/tag/java.html">java</a>
+      <a href="https://tvc-16.science/tag/nintendo.html">nintendo</a>
+      <a href="https://tvc-16.science/tag/wii.html">wii</a>
+      <a href="https://tvc-16.science/tag/wiiconnect24.html">wiiconnect24</a>
+      <a href="https://tvc-16.science/tag/riiconnect24.html">riiconnect24</a>
+      <a href="https://tvc-16.science/tag/warioware.html">warioware</a>
+      <a href="https://tvc-16.science/tag/doujinsoft.html">doujinsoft</a>
+      <a href="https://tvc-16.science/tag/mio.html">mio</a>
+    </div>
+    <div class="summary">
+      <p>Exploiting old Nintendo APIs for fun and profit.</p>
+    </div>
+
+  </footer><!-- /.post-info -->
+  <div class="entry-content">
+    <p>I've recently dug out the old DoujinSoft codebase to <a href="/doujinsoft-2.html">interop with RiiConnect24</a>.<br>
+It's made in Java because I <a href="https://github.com/Difegue/DoujinSoft/tree/master/libs-ext/diyedit/diyedit-jar/1.0">use a Swing GUI application as a dependency</a> to handle all the WarioWare proprietary file-format decoding. You expecting me to learn reverse-engineering or something? 🐱‍👓  </p>
+<p>Thanks to the RiiConnect24 guys giving me the keys to the castle (a fake Wii friend number and some debug tools), I set out to finally give people an easy way to get games from DoujinSoft <strong>directly</strong> to their console.  </p>
+<p><img alt="d i r e c t l y" src="images/direct.gif"><br>
+papa iwata this one's for you  </p>
+<h2>📧 A quick primer on WiiConnect24 📧</h2>
+<p><code>The flowing light on the Wii is timed with the bird call of the Japanese bush warbler.</code></p>
+<p>WiiConnect24 was the cool name given by Nintendo to half of the Wii's networking features. (The other half being Nintendo Wi-Fi Connection) According to marketing, all it does is download data when the Wii is in standby mode, but it actually handles a bit more than that, namely:</p>
+<ul>
+<li>The entire friend system  </li>
+<li>The <a href="https://www.youtube.com/watch?v=afhwHfG0enY">Wii Message Board</a></li>
+<li>Receiving data from games or channels</li>
+<li>Executing a weird variant of JavaScript to handle said data</li>
+<li><a href="https://wiibrew.org/wiki/WiiConnect24">And some more junk</a>  </li>
+</ul>
+<p>The funny thing about WC24 is how it handles messaging: If you ever had a Wii back in 2006 you might have noticed you could add non-Wii devices as friends through their email address, and subsequently send and receive e-mail to/from them.  </p>
+<p><img alt="has anyone ever added a cellphone to their friends tho" src="images/wiifriend.gif"><br>
+PC users would see your Wii represented by a wxxxxxxxxxxxxxxxx@wii.com email address.<br>
+I always thought it was really cool of Nintendo to implement this extra layer of communication to the console! I mean, they had to do some extra work for this whole email integration to work, right?  </p>
+<p><sup>Right?</sup>  </p>
+<p>The truth is a bit more grounded and the opposite of my assumptions:<br>
+All of WiiConnect24's messaging is handled by emails. <strong>All of it.</strong></p>
+<div class="highlight"><pre><span></span><code><span class="n">Date</span><span class="o">:</span> <span class="mi">02</span> <span class="n">Jul</span> <span class="mi">2019</span> <span class="mi">18</span><span class="o">:</span><span class="mi">02</span><span class="o">:</span><span class="mi">00</span> <span class="o">-</span><span class="mi">0000</span>
+<span class="n">From</span><span class="o">:</span> <span class="n">w7475328617225276</span><span class="err">@</span><span class="n">wii</span><span class="o">.</span><span class="na">com</span>
+<span class="n">To</span><span class="o">:</span> <span class="n">w2227537699606042</span><span class="err">@</span><span class="n">wii</span><span class="o">.</span><span class="na">com</span>
+<span class="n">Message</span><span class="o">-</span><span class="n">Id</span><span class="o">:</span> <span class="o">&lt;</span><span class="mi">0000</span><span class="n">A001A8EC592CF1C3C03BF08FA</span><span class="err">@</span><span class="n">wii</span><span class="o">.</span><span class="na">com</span><span class="o">&gt;</span>
+<span class="n">X</span><span class="o">-</span><span class="n">Wii</span><span class="o">-</span><span class="n">AppId</span><span class="o">:</span> <span class="mi">2</span><span class="o">-</span><span class="mi">48414541</span><span class="o">-</span><span class="mi">0001</span>
+<span class="n">X</span><span class="o">-</span><span class="n">Wii</span><span class="o">-</span><span class="n">Cmd</span><span class="o">:</span> <span class="mi">00044001</span>
+<span class="n">MIME</span><span class="o">-</span><span class="n">Version</span><span class="o">:</span> <span class="mf">1.0</span>
+<span class="n">Content</span><span class="o">-</span><span class="n">Type</span><span class="o">:</span> <span class="n">text</span><span class="o">/</span><span class="n">plain</span><span class="o">;</span> <span class="n">charset</span><span class="o">=</span><span class="n">utf</span><span class="o">-</span><span class="mi">16</span><span class="n">be</span>
+<span class="n">Content</span><span class="o">-</span><span class="n">Transfer</span><span class="o">-</span><span class="n">Encoding</span><span class="o">:</span> <span class="n">base64</span>
+
+<span class="n">AEIAYQB6AGkAbgBnAGE</span><span class="o">=</span> <span class="o">(</span><span class="n">decodes</span> <span class="n">to</span> <span class="s2">&quot;Bazinga&quot;</span><span class="o">)</span>
+</code></pre></div>
+
+
+<p>A message between two Wiis really is just an email with a few custom headers, as seen above.<br>
+The upside is that this makes it extremely easy to understand how a game sends data, and how to fake it.</p>
+<h2>🤜 Being friends 🤛</h2>
+<p>For DoujinSoft to be able to send emails/content to other Wiis, said consoles must add our Wii number as a friend.<br>
+Surprisingly and (probably)unlike Nintendo's future implementations, the server doesn't track who's friend with who; All negotiation is done directly between the consoles.  </p>
+<p>A Wii sending a friend request to another will send an email looking a bit like this:  </p>
+<div class="highlight"><pre><span></span><code><span class="n">From</span><span class="o">:</span> <span class="n">w7475328617225276</span><span class="err">@</span><span class="n">wii</span><span class="o">.</span><span class="na">com</span>
+<span class="n">To</span><span class="o">:</span> <span class="n">w2227537699606042</span><span class="err">@</span><span class="n">wii</span><span class="o">.</span><span class="na">com</span>
+<span class="n">Message</span><span class="o">-</span><span class="n">Id</span><span class="o">:</span> <span class="o">&lt;</span><span class="mi">00066000</span><span class="n">A711EE8DEA72B03BEF879</span><span class="err">@</span><span class="n">wii</span><span class="o">.</span><span class="na">com</span><span class="o">&gt;</span> 
+<span class="n">Subject</span><span class="o">:</span> <span class="n">WC24</span> <span class="n">Cmd</span> <span class="n">Message</span> 
+<span class="n">X</span><span class="o">-</span><span class="n">Wii</span><span class="o">-</span><span class="n">AppId</span><span class="o">:</span> <span class="mi">0</span><span class="o">-</span><span class="mi">00000001</span><span class="o">-</span><span class="mi">0001</span> 
+<span class="n">X</span><span class="o">-</span><span class="n">Wii</span><span class="o">-</span><span class="n">Cmd</span><span class="o">:</span> <span class="mi">80010001</span> 
+<span class="n">MIME</span><span class="o">-</span><span class="n">Version</span><span class="o">:</span> <span class="mf">1.0</span> 
+<span class="n">Content</span><span class="o">-</span><span class="n">Type</span><span class="o">:</span> <span class="n">multipart</span><span class="o">/</span><span class="n">mixed</span><span class="o">;</span> 
+ <span class="n">boundary</span><span class="o">=</span><span class="s2">&quot;Boundary-NWC24-03BEF87900066&quot;</span> 
+
+<span class="o">--</span><span class="n">Boundary</span><span class="o">-</span><span class="n">NWC24</span><span class="o">-</span><span class="mi">03</span><span class="n">BEF87900066</span> 
+
+<span class="n">Content</span><span class="o">-</span><span class="n">Type</span><span class="o">:</span> <span class="n">text</span><span class="o">/</span><span class="n">plain</span><span class="o">;</span> <span class="n">charset</span><span class="o">=</span><span class="n">us</span><span class="o">-</span><span class="n">ascii</span> 
+<span class="n">Content</span><span class="o">-</span><span class="n">Transfer</span><span class="o">-</span><span class="n">Encoding</span><span class="o">:</span> <span class="mi">7</span><span class="n">bit</span> 
+
+<span class="n">WC24</span> <span class="n">Cmd</span> <span class="n">Message</span> 
+
+<span class="o">--</span><span class="n">Boundary</span><span class="o">-</span><span class="n">NWC24</span><span class="o">-</span><span class="mi">03</span><span class="n">BEF87900066</span> 
+
+<span class="n">Content</span><span class="o">-</span><span class="n">Type</span><span class="o">:</span> <span class="n">application</span><span class="o">/</span><span class="n">octet</span><span class="o">-</span><span class="n">stream</span><span class="o">;</span> 
+ <span class="n">name</span><span class="o">=</span><span class="n">a0000102</span><span class="o">.</span><span class="na">dat</span> 
+<span class="n">Content</span><span class="o">-</span><span class="n">Transfer</span><span class="o">-</span><span class="n">Encoding</span><span class="o">:</span> <span class="n">base64</span> 
+<span class="n">Content</span><span class="o">-</span><span class="n">Disposition</span><span class="o">:</span> <span class="n">attachment</span><span class="o">;</span> 
+ <span class="n">filename</span><span class="o">=</span><span class="n">a0000102</span><span class="o">.</span><span class="na">dat</span> 
+
+<span class="n">AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA</span> 
+<span class="n">AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA</span> 
+<span class="n">AAAAAAAAAAAAAAAAAAA</span><span class="o">=</span> 
+
+<span class="o">--</span><span class="n">Boundary</span><span class="o">-</span><span class="n">NWC24</span><span class="o">-</span><span class="mi">03</span><span class="n">BEF87900066</span><span class="o">--</span> 
+</code></pre></div>
+
+
+<p>Here, Wii number 7475 3286 1722 5276 sent a friend request to Wii number 2227 5376 9960 6042.<br>
+<code>X-Wii-AppId</code> and <code>X-Wii-Cmd</code> are changed from the defaults used in regular messages to inform WiiConnect24 this message is a Friend Request. (And therefore, it's not shown to the user on his console)  </p>
+<p>If the other Wii sends a similar message the other way then presto! The consoles are friends.<br>
+<img src="/images/utsuho-friends.jpg" style="width:300px" /><br>
+As a result, this is pretty easy to replicate for DoujinSoft: When the user gives us the Wii number to send content to, we send this mail beforehand to act as the friend request.<br>
+This approach requires the user to add our number to their console beforehand, which isn't too bothersome.  </p>
+<h2>🚚 Sending the goods over 🚛</h2>
+<p>If you've read the other article, you know that our final objective is to send WarioWare DIY content to other Wiis through WiiConnect24.<br>
+You've probably guessed then that when sending content to your friends from the game, it actually sends... emails.  </p>
+<p>The example below is for a Record, the lightest content in DIY, weighing at 8KB. Makes for a shorter email here:  </p>
+<div class="highlight"><pre><span></span><code><span class="n">From</span><span class="o">:</span> <span class="n">w7475328617225276</span><span class="err">@</span><span class="n">wii</span><span class="o">.</span><span class="na">com</span>
+<span class="n">To</span><span class="o">:</span> <span class="n">w2227537699606042</span><span class="err">@</span><span class="n">wii</span><span class="o">.</span><span class="na">com</span>
+<span class="n">Message</span><span class="o">-</span><span class="n">Id</span><span class="o">:</span> <span class="o">&lt;</span><span class="mi">00069000</span><span class="n">A711EE8DEA72B03BEF889</span><span class="err">@</span><span class="n">wii</span><span class="o">.</span><span class="na">com</span><span class="o">&gt;</span>
+<span class="n">Subject</span><span class="o">:</span> <span class="n">RR</span>
+<span class="n">X</span><span class="o">-</span><span class="n">Wii</span><span class="o">-</span><span class="n">AppId</span><span class="o">:</span> <span class="mi">0</span><span class="o">-</span><span class="mi">57413445</span><span class="o">-</span><span class="mi">3031</span>
+<span class="n">X</span><span class="o">-</span><span class="n">Wii</span><span class="o">-</span><span class="n">IconNew</span><span class="o">:</span> <span class="mi">57413445</span>
+<span class="n">MIME</span><span class="o">-</span><span class="n">Version</span><span class="o">:</span> <span class="mf">1.0</span>
+<span class="n">Content</span><span class="o">-</span><span class="n">Type</span><span class="o">:</span> <span class="n">multipart</span><span class="o">/</span><span class="n">mixed</span><span class="o">;</span>
+ <span class="n">boundary</span><span class="o">=</span><span class="s2">&quot;Boundary-NWC24-03BEF88900069&quot;</span>
+
+<span class="o">--</span><span class="n">Boundary</span><span class="o">-</span><span class="n">NWC24</span><span class="o">-</span><span class="mi">03</span><span class="n">BEF88900069</span>
+<span class="n">Content</span><span class="o">-</span><span class="n">Type</span><span class="o">:</span> <span class="n">text</span><span class="o">/</span><span class="n">plain</span><span class="o">;</span> <span class="n">charset</span><span class="o">=</span><span class="n">us</span><span class="o">-</span><span class="n">ascii</span>
+<span class="n">Content</span><span class="o">-</span><span class="n">Transfer</span><span class="o">-</span><span class="n">Encoding</span><span class="o">:</span> <span class="mi">7</span><span class="n">bit</span>
+
+
+<span class="o">--</span><span class="n">Boundary</span><span class="o">-</span><span class="n">NWC24</span><span class="o">-</span><span class="mi">03</span><span class="n">BEF88900069</span>
+<span class="n">Content</span><span class="o">-</span><span class="n">Type</span><span class="o">:</span> <span class="n">application</span><span class="o">/</span><span class="n">octet</span><span class="o">-</span><span class="n">stream</span><span class="o">;</span>
+ <span class="n">name</span><span class="o">=</span><span class="n">a0000105</span><span class="o">.</span><span class="na">dat</span>
+<span class="n">Content</span><span class="o">-</span><span class="n">Transfer</span><span class="o">-</span><span class="n">Encoding</span><span class="o">:</span> <span class="n">base64</span>
+<span class="n">Content</span><span class="o">-</span><span class="n">Disposition</span><span class="o">:</span> <span class="n">attachment</span><span class="o">;</span>
+ <span class="n">filename</span><span class="o">=</span><span class="n">a0000105</span><span class="o">.</span><span class="na">dat</span>
+
+<span class="n">EAAgAAQRABEAAAABRFMATUlPX1MABxcAAAAHVxIA61cAU3tOaWdodCAMV2FsayAicARBSwMgR2Ft</span>
+<span class="n">ZXOgEsAjBwAAd2904BPwEPAigOBIAQACBwEBABgAnxjwT7CZXGhpCHRuAFMgM6TA4QB2NuCREAAA</span>
+<span class="n">dRkvnPAwwfBBAAYA8AAAGBEQDgwKCSAHBVAHAAIEBwwDDhATGP</span><span class="c1">//oAHwH/DAIPAP8CHwM/8C/wMw</span>
+<span class="sr">/wBAA5ALAP//AT4AAQD8ICMwA5ALMBMD2fCFgLcB8KPgtQMCEAFCAgABDgAALjHuERj//</span><span class="n">wkQAjAH</span>
+<span class="n">Ef8QrAELDgEPDAETABj</span><span class="sr">/BbrAAwTAAxAjkAMHwAMF3QBZkAMAAFmQAxETAUEP/</span><span class="mi">5</span><span class="n">AHcSOxD5Ej8PPx</span>
+<span class="n">qPG6sewQBAMBQRMqDAwv7TMCAP8A9gURBwD</span><span class="o">+</span><span class="n">DiELuHIiCcGX8QPwZAkABAAJDBAVEAwJBLEB7AIB</span>
+<span class="n">YZADCf8VoAP</span><span class="sr">/8RPxE/ET8RPytvLI8toRE10CYRMOQRMB1yACBwIufwoyGyI3EA0SKxATEBcSN/</span><span class="n">yQ</span>
+<span class="n">AxJLEk9S19I3Ul8H</span><span class="sr">/38TIANSH3ELUSvyJ/In8ifz8ifzzPPe8/AEAvInAyf/</span><span class="n">IRYwB7M7ESNQ</span><span class="o">+</span><span class="n">wNj</span>
+<span class="n">IAPQH</span><span class="o">+</span><span class="n">PUVtA</span><span class="sr">/URML/xcgA/M7//M7czt0T/M7FC/0T/</span><span class="n">Tm9PjpsztUT3InEiIKCv8wB1USIPsPBV8N</span>
+<span class="n">QiMGwAPr1F9SR1JPCMADBgBZkANvAQBZkAME9E</span><span class="sr">/0T/RPZE//FX/</span><span class="mi">17</span><span class="n">vYA9hL0T1RPAP8A9m0GEQcA</span>
+<span class="sr">/g8hC3ZyCiXZ4JAD0QPmfgUKAQUKAQ0RFhENCgUF+GMDAWGQAwr/FqAD9WP/9WP1Y/</span><span class="n">Vj9wb3GPcq</span>
+<span class="mi">9</span><span class="n">E8Yi9cB1yACCARNCzQ</span><span class="sr">/IjcQDf8SKxATEBcSN5ADEksST1Ezx9I3Ul8I/xQgA1IfURP/USv2d/</span><span class="n">Z3</span>
+<span class="mi">9</span><span class="n">nf2d</span><span class="sr">/ga+Cz4Pv/0T0InIRYwB7M7ESNQ+wNj/yAD0B/YptA/URNXg9M794v/9E/3i/</span><span class="n">RP</span><span class="o">+</span><span class="n">S75QPlS</span>
+<span class="mi">9</span><span class="n">E8as1sTIgoLBh0SJhMg</span><span class="o">+</span><span class="mi">1</span><span class="n">ij</span><span class="sr">/xI32G/UX1JHUk/4rzZ3Vn//15v0T/if+J/0T/</span><span class="n">pC</span><span class="o">+</span><span class="n">lT6Zvv4nxvH</span>
+<span class="n">CaMnjjAHECmvesJwC</span><span class="o">+</span><span class="n">mj0QPqzgYLAgYACw4SFxIOCwa</span><span class="sr">/CoAECgWQA1Z/Vof5s/mz//</span><span class="n">mz</span><span class="o">+</span><span class="n">bP7Vvto</span>
+<span class="o">+</span><span class="mi">3</span><span class="n">r4nxzbeI9</span><span class="sr">/Cyq7IjQHORANWs+Yj1iX/xrvGvNa19I3Ws/Yj1eTUSv/+sf6x/rH+sf8avx8/</span><span class="n">I74</span>
+<span class="n">n</span><span class="sr">/9CJyvbMAezOxvfUPsDYyAD/1RXVF/c9tA/Wrd0P7rX+9v/+9v72/vb/</span><span class="n">X79kP2i</span><span class="o">+</span><span class="n">J8fA</span><span class="o">+</span><span class="n">D5c3D7</span>
+<span class="n">HPsGAgYJDmEJAAQABhIOEhXc799SMxWDFf4X9D</span><span class="sr">/DS4zvDfE/AQFYr/zvXi/8775T/pz//</span><span class="n">q75s7ET</span>
+<span class="n">EMk1W1qHFmMSF</span><span class="sr">/wQ49mz3ePVY9wD1D8M/38YoAP+A/4D/gP+A/+m/7jv/8q8714DF8/</span><span class="n">zHOk0Wx8d</span>
+<span class="sr">/xRl9lcfL94bn88f33FDtnf//O//F/8X/xf/F/8k/zb/SJfxEwAAFU0LDxUc5x96/x</span><span class="n">Q3nLtXfx3j</span>
+<span class="n">H7PyJ1dzPAf7URNRGx4DG981Tw78768XPwEB</span><span class="sr">/xfzO/8X/6D/sv/E//InbO+v8dQT2G/</span><span class="n">Wf9</span><span class="o">+</span><span class="n">uFFP0</span>
+<span class="n">kAP1U</span><span class="sr">/VjnxcJMAMACf8kXf4DHycfD19L9L9/qx+j6v86/gNfFwlPFxQv/g</span><span class="n">zfC4EfChQmX14HHxsA</span>
+<span class="n">H6ADfxaAA1AjlEP</span><span class="o">+</span><span class="n">EzvbW</span><span class="o">+</span><span class="n">Pc</span><span class="c1">//996z8b3gOd6x3z3gMZP/+e/v+w/8L+A14DD/8s8jAHEd8vE3//</span>
+<span class="n">DC8nkANXkxebsCuAT7YHDAMHDA8TBRgTDwwHD8oFD2n</span><span class="sr">/kAP1Y/8X/xf/F/4D/yD/Msv/</span><span class="n">RP4DAAB9</span>
+<span class="mi">8</span><span class="n">wwvEyI0</span><span class="sr">/wybEA1c953zXfvxKzjDUkf/Ul/d81Z3USv/F/8X/xf/F///ov+0/</span><span class="mi">8</span><span class="n">YeA3zvgicvCjAH</span>
+<span class="sr">/7M7HxeTK1MvHxNZw9+u0D//Xwdc59M7/xf/F/8X/xf/Iv7/NP9G/gNET/9xj4MPNP8/</span><span class="n">CAgQAv</span><span class="o">+</span><span class="n">Y</span>
+<span class="n">H6oUb</span><span class="sr">/AfwEP/8D9v5SUzFnD/9z/L//////H/n/+x/8Mv1QMCBAABvy8XDlVj/+7///+Q/6L/tP//</span>
+<span class="n">xv</span><span class="sr">/Y/+r//P//////HP8u7/9Au9s/EwE/GvAF8BfwKf/wO/BN8F/wcfCD8JXwp/C5//DL8N3w7/</span><span class="n">EB</span>
+<span class="mi">8</span><span class="n">RPxJfE38Un</span><span class="sr">/8VvxbfF/8ZHxo/G18cfx2f/x6/H98g/yIfIz8kXyV/Jp//J78o3yn/</span><span class="n">Kx8sPy1fLn</span>
+<span class="mi">8</span><span class="n">vn</span><span class="sr">/8wvzHfMv80HzU/Nl83fzif/zm/Ot87/z0fPj8/X0B/QZ//Qr9D30T/</span><span class="n">Rh9HP0hfSX9Kn89Lv0</span>
+<span class="n">zfTf9PH1Az</span><span class="o">/</span><span class="n">g</span>
+
+
+<span class="o">--</span><span class="n">Boundary</span><span class="o">-</span><span class="n">NWC24</span><span class="o">-</span><span class="mi">03</span><span class="n">BEF88900069</span><span class="o">--</span>
+</code></pre></div>
+
+
+<p>You'll notice <code>X-Wii-AppId</code> changed once again alongside a new header called <code>X-Wii-IconNew</code>, this time to match the title ID of the Wii game, DIY Showcase.  </p>
+<p><code>X-Wii-IconNew</code> tells the Wii System Menu that the game's channel icon has to be updated. Here, this is used to show a small envelope when you have content incoming.  </p>
+<p>The Game/Record/Comic itself is just added as an attachment to the mail. It's compressed using LZ10, a variant of the <a href="https://en.wikipedia.org/wiki/Lempel%E2%80%93Ziv%E2%80%93Storer%E2%80%93Szymanski">LZSS compression algorithm</a> Nintendo likes to use in GBA/NDS games.<br>
+Past that, it's base64-encoded, as specified in the mail's Content-Transfer-Encoding header. (base64 encoding is a classic when doing stuff with WC24)  </p>
+<p>Once again, doing this from DoujinSoft is as easy as sending mail over to the Wii console.<br>
+<img alt="gotem" src="/images/doujinsoft/dj_result.jpg"><br>
+Man, that was a bit too easy in hindsight, wasn't it? Let's push this a bit further.  </p>
+<h2>🎁 Bonus Round: Custom Wii Message Board letters 🎁</h2>
+<p>Remember receiving cute customized letters from Nintendo or other games?<br>
+<img alt="letters" src="/images/letters.jpg"><br>
+Games or channels, when pushing email to the Message Board, had the option to add custom data to change the envelope, the stationery used, and add a sound effect when opening the message.  </p>
+<p>This was a bit of an underused feature even back when the Wii was an active console, with most of Nintendo's own big games (Mario Galaxy, Smash Bros. Brawl) sending stuff with the default envelopes.<br>
+Some games <a href="http://www.studiousoctopus.com/?p=1229">did use it to great effect</a>, and it always felt a bit special to receive a custom letter.  </p>
+<p>There's little documentation about the custom stationery, but studying <a href="https://github.com/giantpune/mailboxbomb/blob/master/source/main.cpp#L173">message board exploits</a> quickly shows they're just email attachments as well, similar to DIY's games. 🧐  </p>
+<div class="highlight"><pre><span></span><code><span class="n">From</span><span class="o">:</span> <span class="n">w2227537699606042</span><span class="err">@</span><span class="n">rc24</span><span class="o">.</span><span class="na">xyz</span>
+<span class="n">To</span><span class="o">:</span> <span class="n">w7475328617225276</span><span class="err">@</span><span class="n">rc24</span><span class="o">.</span><span class="na">xyz</span>
+<span class="n">Subject</span><span class="o">:</span> <span class="o">=?</span><span class="n">UTF</span><span class="o">-</span><span class="mi">16</span><span class="n">BE</span><span class="o">?</span><span class="n">B</span><span class="o">?</span><span class="n">AFkAbwB1AHIAIABnAGEAbQBlAHMAIABhAHIAZQAgAHIAZQBhAGQAeQAh</span><span class="o">?=</span>
+<span class="n">X</span><span class="o">-</span><span class="n">Wii</span><span class="o">-</span><span class="n">AppId</span><span class="o">:</span> <span class="mi">2</span><span class="o">-</span><span class="mi">354</span><span class="n">E4541</span><span class="o">-</span><span class="mi">4142</span>
+<span class="n">X</span><span class="o">-</span><span class="n">Wii</span><span class="o">-</span><span class="n">Cmd</span><span class="o">:</span> <span class="mi">00042019</span>
+<span class="n">X</span><span class="o">-</span><span class="n">Wii</span><span class="o">-</span><span class="n">AltName</span><span class="o">:</span> <span class="n">AEQAbwB1AGoAaQBuAFMAbwBmAHQAIABTAHQAbwByAGU</span><span class="o">=</span>
+<span class="n">X</span><span class="o">-</span><span class="n">WiiFace</span><span class="o">:</span> <span class="n">gBYAQwAuAE4AbwByAHIAaQBzAAAAAFtAgZX3KDb4KCzG7AuQaKuokFxM</span>
+ <span class="n">BmloSrjSAIr9DiUEAFcAbwBsAHYAZQByAGkAbgBlAAA</span><span class="o">=</span>
+<span class="n">X</span><span class="o">-</span><span class="n">Wii</span><span class="o">-</span><span class="n">MB</span><span class="o">-</span><span class="n">NoReply</span><span class="o">:</span> <span class="o">-</span>
+<span class="n">MIME</span><span class="o">-</span><span class="n">Version</span><span class="o">:</span> <span class="mf">1.0</span>
+<span class="n">Content</span><span class="o">-</span><span class="n">Type</span><span class="o">:</span> <span class="n">multipart</span><span class="o">/</span><span class="n">mixed</span><span class="o">;</span>
+ <span class="n">boundary</span><span class="o">=</span><span class="s2">&quot;Boundary-NWC24-03BF040F00005&quot;</span>
+
+<span class="o">--</span><span class="n">Boundary</span><span class="o">-</span><span class="n">NWC24</span><span class="o">-</span><span class="mi">03</span><span class="n">BF040F00005</span>
+<span class="n">Content</span><span class="o">-</span><span class="n">Type</span><span class="o">:</span> <span class="n">text</span><span class="o">/</span><span class="n">plain</span><span class="o">;</span> <span class="n">charset</span><span class="o">=</span><span class="n">utf</span><span class="o">-</span><span class="mi">16</span><span class="n">be</span>
+<span class="n">Content</span><span class="o">-</span><span class="n">Transfer</span><span class="o">-</span><span class="n">Encoding</span><span class="o">:</span> <span class="n">base64</span>
+
+<span class="n">AFQAaABhAG4AawAgAHkAbwB1ACAAZgBvAHI</span><span class="o">[...]</span><span class="n">ACAAIAB</span><span class="o">+</span><span class="n">AH4AfgB</span><span class="o">+</span><span class="n">AH4</span><span class="o">=</span>
+
+<span class="o">--</span><span class="n">Boundary</span><span class="o">-</span><span class="n">NWC24</span><span class="o">-</span><span class="mi">03</span><span class="n">BF040F00005</span>
+<span class="n">Content</span><span class="o">-</span><span class="n">Type</span><span class="o">:</span> <span class="n">application</span><span class="o">/</span><span class="n">x</span><span class="o">-</span><span class="n">wii</span><span class="o">-</span><span class="n">msgboard</span><span class="o">;</span>
+ <span class="n">name</span><span class="o">=</span><span class="n">a0000009</span><span class="o">.</span><span class="na">wii</span>
+<span class="n">Content</span><span class="o">-</span><span class="n">Transfer</span><span class="o">-</span><span class="n">Encoding</span><span class="o">:</span> <span class="n">base64</span>
+<span class="n">Content</span><span class="o">-</span><span class="n">Disposition</span><span class="o">:</span> <span class="n">attachment</span><span class="o">;</span>
+ <span class="n">filename</span><span class="o">=</span><span class="n">a0000009</span><span class="o">.</span><span class="na">wii</span>
+
+<span class="n">Vao4LQAAACAAAABxAAAAoAAAAAAAAAA</span><span class="o">[...]</span><span class="n">AAAAAAAAAAAAAAAAAAAA</span>
+
+<span class="o">--</span><span class="n">Boundary</span><span class="o">-</span><span class="n">NWC24</span><span class="o">-</span><span class="mi">03</span><span class="n">BF040F00005</span><span class="o">--</span>
+</code></pre></div>
+
+
+<p>I've cut the actual data here as this stuff is getting <strong>real damn long</strong>, but I've added a few fun extras to demonstrate what can be done with WiiConnect24 mail:</p>
+<ul>
+<li>Yet another <code>X-Wii-AppId/X-Wii-Cmd</code> combo: At this point I'll admit I have no idea what this one does and just wholelifted it from messages sent by the Wii.  </li>
+<li><code>X-Wii-AltName</code> allows you to show a name of your choice on the envelope instead of the name the Wii gave your friend number; Useful for us as DoujinSoft is a <em>household name</em>, god dang it!</li>
+<li><code>X-WiiFace</code> is a base64 encoded Mii, that appears on the upper-left side of the envelope. This works for regular and custom envelopes without a hitch: In fact the Wii gives exactly <strong>zero fucks</strong> what your custom graphics are and will draw on top of it relentlessly.<br>
+<img alt="lookin cool" src="images/doujinsoft/wiimb_glitch.jpg"></li>
+<li><code>X-Wii-MB-NoReply</code> disables the "Reply" button for this message.</li>
+<li>And the final piece, the custom stationery, is stored as an attachment with Content-Type <code>x-wii-msgboard</code>. The graphics themselves are wrapped in a <a href="http://wiibrew.org/wiki/U8_archive">U8 archive</a>(crazy how many file formats you only ever encounter when dealing with Nintendo stuff), and base64-encoded as per the norm.  </li>
+</ul>
+<p>The result looks like this!<br>
+<img alt="letter" src="/images/doujinsoft/wiimb_custom1.jpg"><br>
+<img alt="stationery" src="/images/doujinsoft/wiimb_custom2.jpg">  </p>
+<p>Really gives us that fun, almost-official flair.  </p>
+<h2>Final spare thoughts</h2>
+<ul>
+<li>
+<p>The envelope notifications from <code>X-Wii-IconNew</code> take region into account, unlike(thankfully) everything else: DoujinSoft's emails are sent using the US title ID, so other regions sadly miss out on the envelope icon for their channel.<br>
+Luckily, the bonus custom letters kinda mitigate that by acting as a notification.  </p>
+</li>
+<li>
+<p>LZ10 compression turned out to be a bitch to find proper implementations for; I used <a href="http://www.romhacking.net/utilities/826/">a C library</a> which I compiled and bound to the Java code using JNA, turning the DoujinSoft server into an even bigger Frankenstein's monster. 👍  </p>
+</li>
+</ul>
+<p>I might write a second, clean server to collect emails from users when I get around to implementing survey box responses and games sent to the store from users' Wiis.  </p>
+<h2>References</h2>
+<p><a href="https://wiibrew.org/wiki//shared2/wc24/mbox">Wiibrew's breakdown of WC24 email</a><br>
+<a href="https://wiibrew.org/wiki/WiiConnect24/WC24_Content">More WC24 details from Wiibrew</a><br>
+<a href="https://bigredpimp.wordpress.com/2008/01/22/more-wii-message-header-fun/">Wii mail headers</a><br>
+<a href="https://github.com/RiiConnect24/WMB-Letterhead">All the official stationery, ripped by RiiConnect24.</a><br>
+<a href="https://drive.google.com/drive/folders/0B7vPmuZfN3sndnRVNmJ4amw5Mms">Said stationery in decoded image form if you just want to take a look</a></p>
+  </div><!-- /.entry-content -->
+  <a class="containerBox">
+    <img src="https://tvc-16.science/theme/img/button2.svg" class="img-responsive">
+    <div class="text-box pink-button">
+      <span class=" button-text pink-shadow">Comments</span>
+    </div>
+  </a> <br /><br /><br /><br /><br /><br /><br /><br />
+  <script src="https://utteranc.es/client.js" repo="difegue/TVC-16" issue-term="url" theme="github-light"
+    crossorigin="anonymous" async>
+  </script>
+</section>
+      </div>
+    </div>
+    <div class="bot-border project-background"></div>
+
+    <br />
+    <br />
+    <br />
+
+  </div>
+
+  <footer id="contentinfo" class="body" style="position:relative; overflow:hidden">
+    <div class="top-border hello-background"></div>
+    <div class="wrapper hello-background">
+      <div class="text">
+
+        <a class="containerBox">
+          <img src="https://tvc-16.science/theme/img/button1.svg" class="img-responsive">
+          <div class="text-box blue-button">
+            <span class=" button-text blue-shadow">About</span>
+          </div>
+        </a>
+
+        <div class="scroll-left">
+          <p>
+            <script language="JavaScript">
+              //never forget grugeisti ;_;7
+              var r_text = new Array();
+              r_text[0] = "This is COOL";
+              r_text[1] = "TOP-SHELF BLOG DEVICE";
+              r_text[2] = "ACCELERATED PORTFOLIO SYSTEM";
+              r_text[3] = "Lookin' cool !";
+              r_text[4] = "ENHANCED SVG GRAPHICS";
+              r_text[5] = "HIGH-SPEED CHEAP VPS";
+              r_text[6] = "DELUXE UPTIME EXPERIENCE";
+              r_text[7] = "BEST-IN-CLASS SCROLLING TEXT";
+              r_text[8] = "HIGH GRADE MULTICONTAINER SETUP";
+              var i = Math.floor(9 * Math.random())
+              document.write(r_text[i]);
+            </script>
+          </p>
+        </div>
+        Runnin' straight down the information highway in a 3$ Vultr VPS. <br /><br />
+        Typefaces used: <a href="https://rsms.me/inter/">Inter</a>, <a
+          href="https://blog.marsnev.com/2017/03/font-lemonmilk.html">Lemon/Milk</a>,
+        <a href="https://fonts.google.com/specimen/VT323">VT323</a>.
+        Built using <a href="https://github.com/difegue" rel="me"> Github Actions</a> and Pelican. <br />
+        You can talk to me on <a rel="me" href="https://bsky.app/profile/difegue.bsky.social">Bluesky</a> or <a rel="me"
+          href="https://kolektiva.social/@Difegue">Mastodon</a> if that's your thing.
+
+      </div>
+    </div>
+    <div class="bot-border hello-background"></div>
+  </footer><!-- /#contentinfo -->
+
+  <br />
+  <br />
+  <br />
+
+  <div class="footer-container" title="This COOL SYSTEM has been running...for some time now.">
+    <span class="footer-text">Uptime:
+      <br>
+      <span id="uptime">XXX days </span>
+    </span>
+    <img src="https://tvc-16.science/theme/img/footer.svg" class="footer-image">
+  </div>
+
+  <script src="https://tvc-16.science/theme/index.js"></script>
+</body>
+
+</html>

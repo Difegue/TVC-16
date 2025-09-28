@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Blogopolis - Publishing MpcNET on NuGet.org (feat. Github Actions)</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <link
+    href="https://tvc-16.science/feeds/all.atom.xml"
+    type="application/atom+xml" rel="alternate" title="Blogopolis Full Atom Feed" />
+  <link
+    href="https://tvc-16.science/feeds/software.atom.xml"
+    type="application/atom+xml" rel="alternate" title="Blogopolis Categories Atom Feed" />
+
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js'></script>
+  <script src='https://storage.ko-fi.com/cdn/scripts/overlay-widget.js'></script>
+  <script data-goatcounter="https://dingus.tvc-16.science/count" async src="//dingus.tvc-16.science/count.js"></script>
+
+  <link rel="apple-touch-icon" sizes="180x180" href="https://tvc-16.science/theme/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="https://tvc-16.science/theme/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="https://tvc-16.science/theme/favicon-16x16.png">
+  <link rel="manifest" href="https://tvc-16.science/theme/site.webmanifest">
+  <link rel="mask-icon" href="https://tvc-16.science/theme/safari-pinned-tab.svg" color="#f040b0">
+  <link rel="webmention" href="https://webmention.io/tvc-16.science/webmention" />
+  <link rel="pingback" href="https://webmention.io/tvc-16.science/xmlrpc" />
+  <meta name="msapplication-TileColor" content="#f1c711">
+  <meta name="theme-color" content="#f1c711">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta property="og:title" content="Publishing MpcNET on NuGet.org (feat. Github Actions) - Blogopolis" />
+<meta property="og:type" content="article" />
+<meta property="og:description" content="<p>Build your own MPD ✨experiences✨ in pure .NET!</p>" />
+<meta property="og:url" content="https://tvc-16.science/mpcnet-nuget.html" />
+<meta property="og:image" content="https://tvc-16.science/images/packages.png" />
+
+  <link href="https://fonts.googleapis.com/css?family=Monoton" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=VT323" rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/bluesky-comments@0.9.0/dist/bluesky-comments.css">
+  <link rel="stylesheet" href="https://tvc-16.science/theme/css/style.css">
+  <link rel="stylesheet" href="https://tvc-16.science/theme/css/pygment.css">
+
+
+
+
+<meta name="twitter:card" content="summary_large_image">
+<meta property="og:title" content="Publishing MpcNET on NuGet.org (feat. Github Actions) - Blogopolis" />
+<meta property="og:type" content="article" />
+<meta property="og:description" content="<p>Build your own MPD ✨experiences✨ in pure .NET!</p>" />
+<meta property="og:url" content="https://tvc-16.science/mpcnet-nuget.html" />
+<meta property="og:image" content="https://tvc-16.science/images/packages.png" />
+
+<meta name="tags" content="mpd" />
+<meta name="tags" content="c#" />
+<meta name="tags" content="nuget" />
+<meta name="tags" content=".net" />
+<meta name="tags" content="music" />
+<meta name="tags" content="stylophone" />
+<meta name="tags" content="github actions" />
+
+</head>
+
+<body id="index" class="home">
+
+  <canvas id="stage"></canvas>
+  <header id="banner" class="body">
+    <center><img height="170px" src="https://tvc-16.science/theme/img/logotype.svg" /></center>
+  </header><!-- /#banner -->
+
+  <div id="mainText">
+
+    <h2 class="subtitle">
+
+      <a style="color:black !important" href="/projects.html">Projects</a>
+      🔸
+      <a style="color:black !important" href="/">Articles</a>
+      🔸
+      <a style="color:black !important" href="/categories.html">Categories</a>
+      🔸
+
+    </h2><!-- /#menu -->
+
+    <div class="top-border project-background"></div>
+    <div class="wrapper project-background">
+      <div class="text">
+<section id="content" class="body" style="max-width: 900px;margin-left: auto;margin-right: auto;">
+  <header>
+    <h2 class="entry-title">
+      <a href="https://tvc-16.science/mpcnet-nuget.html" rel="bookmark" title="Permalink to Publishing MpcNET on NuGet.org (feat. Github Actions)">
+        Publishing MpcNET on NuGet.org (feat. Github Actions)
+      </a>
+    </h2>
+    
+  </header>
+  <footer class="post-info terminal-text">
+    <time class="published" datetime="2021-10-04T00:00:00+02:00">
+      Mon 04 October 2021
+    </time>
+    <address class="vcard author">
+      By       <a class="url fn" href="https://tvc-16.science/author/difegue.html">Difegue</a>
+    </address>
+    <div class="category">
+      Category: <a href="https://tvc-16.science/category/software.html">Software</a>
+    </div>
+    <div class="tags">
+      Tags:
+      <a href="https://tvc-16.science/tag/mpd.html">mpd</a>
+      <a href="https://tvc-16.science/tag/c.html">c#</a>
+      <a href="https://tvc-16.science/tag/nuget.html">nuget</a>
+      <a href="https://tvc-16.science/tag/net.html">.net</a>
+      <a href="https://tvc-16.science/tag/music.html">music</a>
+      <a href="https://tvc-16.science/tag/stylophone.html">stylophone</a>
+      <a href="https://tvc-16.science/tag/github-actions.html">github actions</a>
+    </div>
+    <div class="summary">
+      <p>Build your own MPD ✨experiences✨ in pure .NET!</p>
+    </div>
+
+  </footer><!-- /.post-info -->
+  <div class="entry-content">
+    <p>While building <a href="./stylophone.html">Stylophone</a>, I based my initial work on the <a href="https://github.com/glucaci/MpcNET">LibMpc.net</a> library, which I forked and improved with support for:  </p>
+<ul>
+<li>MPD Command Lists</li>
+<li>Binary Responses for <code>albumart</code> commands</li>
+<li>Various other commands that weren't implemented</li>
+</ul>
+<p>This put it a bit above existing offerings (well except <a href="https://musicpd.org/libs/libmpdclient/">libmpdclient</a> but that's not managed code), so I always wanted to release said fork as a standalone NuGet package.<br>
+And well, <a href="https://www.nuget.org/packages/MpcNET/">here we are!</a>  </p>
+<p>This package auto-builds and auto-uploads through GitHub Actions, so hopefully I won't have to do too much maintenance. ✌️  </p>
+<h1>GitHub Actions Workflow</h1>
+<p>Generating the NuGet package itself is pretty easy: Just build and <code>dotnet pack</code>!<br>
+To automatically generate different version numbers for each commit, I've used the awesome <a href="https://github.com/adamralph/minver">MinVer</a> NuGet package.<br>
+While it requires you to work with Git tags, I already do that for my release workflow, so it's 🆒!  </p>
+<p>NuGet automatically treats packages that have a prerelease string as <a href="https://docs.microsoft.com/en-us/nuget/create-packages/prerelease-packages">pre-versions</a>, but I didn't want to litter the NuGet repo with a package build for every commit...</p>
+<p>So I'm going to litter* <a href="https://github.com/Difegue/MpcNET/packages">GitHub Packages</a> instead!  </p>
+<p><img alt="hee ho here we go" src="https://tvc-16.science/images/packages.png">  </p>
+<p>GH Packages pairs exceptionally well with Actions, since you can just use the provided <code>GITHUB_TOKEN</code> for everything:  </p>
+<div class="highlight"><pre><span></span><code><span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Build and Test MpcNET</span>
+
+<span class="nt">on</span><span class="p">:</span>
+  <span class="nt">push</span><span class="p">:</span>
+    <span class="nt">branches</span><span class="p">:</span> <span class="p p-Indicator">[</span> <span class="nv">dev</span> <span class="p p-Indicator">]</span>
+
+<span class="nt">jobs</span><span class="p">:</span>
+
+  <span class="nt">build</span><span class="p">:</span>
+    <span class="nt">runs-on</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">windows-latest</span>  
+
+    <span class="nt">env</span><span class="p">:</span>
+      <span class="nt">Solution_Name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">MpcNET</span>    
+      <span class="nt">Configuration</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Release</span>     
+
+    <span class="nt">steps</span><span class="p">:</span>
+    <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Checkout</span>
+      <span class="nt">uses</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">actions/checkout@v2</span>
+      <span class="nt">with</span><span class="p">:</span>
+        <span class="nt">fetch-depth</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">0</span>
+
+    <span class="c1"># Add MSBuild to the PATH: https://github.com/microsoft/setup-msbuild</span>
+    <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Setup MSBuild.exe</span>
+      <span class="nt">uses</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">microsoft/setup-msbuild@v1.0.2</span>
+
+    <span class="c1"># Build package and upload to github packages</span>
+    <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Build package</span>
+      <span class="nt">working-directory</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">./Sources</span>
+      <span class="nt">run</span><span class="p">:</span> <span class="p p-Indicator">|</span>
+        <span class="no">dotnet nuget add source --username Difegue --password ${{ secrets.GITHUB_TOKEN }} --store-password-in-clear-text --name github &quot;https://nuget.pkg.github.com/Difegue/index.json&quot;</span>
+        <span class="no">dotnet build $env:Solution_Name --configuration $env:Configuration</span>
+        <span class="no">dotnet pack --configuration $env:Configuration -o ./ </span>
+        <span class="no">dotnet nuget push *.nupkg  --api-key ${{ secrets.GITHUB_TOKEN }} --source &quot;github&quot; --skip-duplicate</span>
+</code></pre></div>
+
+
+<p>For release packages, the recipe is essentially the same, except even simpler since we don't need to add GitHub as a source (We do need to add a nuget.org <a href="https://www.nuget.org/account/apikeys">API Key</a> to our repo secrets however):  </p>
+<div class="highlight"><pre><span></span><code><span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">New Version Release</span>
+
+<span class="nt">on</span><span class="p">:</span> 
+  <span class="nt">release</span><span class="p">:</span>
+    <span class="nt">types</span><span class="p">:</span> <span class="p p-Indicator">[</span><span class="nv">published</span><span class="p p-Indicator">]</span>
+
+<span class="nt">jobs</span><span class="p">:</span>
+
+  <span class="nt">build</span><span class="p">:</span>
+    <span class="nt">runs-on</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">windows-latest</span>  
+
+    <span class="nt">env</span><span class="p">:</span>
+      <span class="nt">Solution_Name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">MpcNET</span>    
+      <span class="nt">Configuration</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Release</span>     
+
+    <span class="nt">steps</span><span class="p">:</span>
+    <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Checkout</span>
+      <span class="nt">uses</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">actions/checkout@v2</span>
+      <span class="nt">with</span><span class="p">:</span>
+        <span class="nt">fetch-depth</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">0</span>
+
+    <span class="c1"># Add MSBuild to the PATH: https://github.com/microsoft/setup-msbuild</span>
+    <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Setup MSBuild.exe</span>
+      <span class="nt">uses</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">microsoft/setup-msbuild@v1.0.2</span>
+
+    <span class="c1"># Build package and upload to nuget.org</span>
+    <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Build package</span>
+      <span class="nt">working-directory</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">./Sources</span>
+      <span class="nt">run</span><span class="p">:</span> <span class="p p-Indicator">|</span>
+        <span class="no">dotnet build $env:Solution_Name --configuration $env:Configuration</span>
+        <span class="no">dotnet pack --configuration $env:Configuration -o ./</span>
+        <span class="no">dotnet nuget push *.nupkg  --api-key ${{ secrets.NUGET_API }} --source &quot;nuget.org&quot;</span>
+</code></pre></div>
+
+
+<p>* I'm probably going to have to add the <a href="https://github.com/marketplace/actions/delete-package-versions">Delete Package Versions</a> action to the mix at some point to avoid overloading GH's storage space. 😥 We'll see how popular the lib gets on its own. 😗  </p>
+<h1>Extra Links</h1>
+<p>See here for a more detailed walkthrough of NuGet builds on Actions:<br>
+<a href="https://acraven.medium.com/a-nuget-package-workflow-using-github-actions-7da8c6557863">https://acraven.medium.com/a-nuget-package-workflow-using-github-actions-7da8c6557863</a>  </p>
+<p>And here for explanations on MinVer: <a href="https://rehansaeed.com/the-easiest-way-to-version-nuget-packages/">https://rehansaeed.com/the-easiest-way-to-version-nuget-packages/</a>  </p>
+  </div><!-- /.entry-content -->
+  <a class="containerBox">
+    <img src="https://tvc-16.science/theme/img/button2.svg" class="img-responsive">
+    <div class="text-box pink-button">
+      <span class=" button-text pink-shadow">Comments</span>
+    </div>
+  </a> <br /><br /><br /><br /><br /><br /><br /><br />
+  <script src="https://utteranc.es/client.js" repo="difegue/TVC-16" issue-term="url" theme="github-light"
+    crossorigin="anonymous" async>
+  </script>
+</section>
+      </div>
+    </div>
+    <div class="bot-border project-background"></div>
+
+    <br />
+    <br />
+    <br />
+
+  </div>
+
+  <footer id="contentinfo" class="body" style="position:relative; overflow:hidden">
+    <div class="top-border hello-background"></div>
+    <div class="wrapper hello-background">
+      <div class="text">
+
+        <a class="containerBox">
+          <img src="https://tvc-16.science/theme/img/button1.svg" class="img-responsive">
+          <div class="text-box blue-button">
+            <span class=" button-text blue-shadow">About</span>
+          </div>
+        </a>
+
+        <div class="scroll-left">
+          <p>
+            <script language="JavaScript">
+              //never forget grugeisti ;_;7
+              var r_text = new Array();
+              r_text[0] = "This is COOL";
+              r_text[1] = "TOP-SHELF BLOG DEVICE";
+              r_text[2] = "ACCELERATED PORTFOLIO SYSTEM";
+              r_text[3] = "Lookin' cool !";
+              r_text[4] = "ENHANCED SVG GRAPHICS";
+              r_text[5] = "HIGH-SPEED CHEAP VPS";
+              r_text[6] = "DELUXE UPTIME EXPERIENCE";
+              r_text[7] = "BEST-IN-CLASS SCROLLING TEXT";
+              r_text[8] = "HIGH GRADE MULTICONTAINER SETUP";
+              var i = Math.floor(9 * Math.random())
+              document.write(r_text[i]);
+            </script>
+          </p>
+        </div>
+        Runnin' straight down the information highway in a 3$ Vultr VPS. <br /><br />
+        Typefaces used: <a href="https://rsms.me/inter/">Inter</a>, <a
+          href="https://blog.marsnev.com/2017/03/font-lemonmilk.html">Lemon/Milk</a>,
+        <a href="https://fonts.google.com/specimen/VT323">VT323</a>.
+        Built using <a href="https://github.com/difegue" rel="me"> Github Actions</a> and Pelican. <br />
+        You can talk to me on <a rel="me" href="https://bsky.app/profile/difegue.bsky.social">Bluesky</a> or <a rel="me"
+          href="https://kolektiva.social/@Difegue">Mastodon</a> if that's your thing.
+
+      </div>
+    </div>
+    <div class="bot-border hello-background"></div>
+  </footer><!-- /#contentinfo -->
+
+  <br />
+  <br />
+  <br />
+
+  <div class="footer-container" title="This COOL SYSTEM has been running...for some time now.">
+    <span class="footer-text">Uptime:
+      <br>
+      <span id="uptime">XXX days </span>
+    </span>
+    <img src="https://tvc-16.science/theme/img/footer.svg" class="footer-image">
+  </div>
+
+  <script src="https://tvc-16.science/theme/index.js"></script>
+</body>
+
+</html>
