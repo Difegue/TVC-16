@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Blogopolis - Monkey Trick: Use ResX localization in a Xamarin Mac/iOS app with Interface Builder</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <link
+    href="https://tvc-16.science/feeds/all.atom.xml"
+    type="application/atom+xml" rel="alternate" title="Blogopolis Full Atom Feed" />
+  <link
+    href="https://tvc-16.science/feeds/cool-tricks.atom.xml"
+    type="application/atom+xml" rel="alternate" title="Blogopolis Categories Atom Feed" />
+
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js'></script>
+  <script src='https://storage.ko-fi.com/cdn/scripts/overlay-widget.js'></script>
+  <script data-goatcounter="https://dingus.tvc-16.science/count" async src="//dingus.tvc-16.science/count.js"></script>
+
+  <link rel="apple-touch-icon" sizes="180x180" href="https://tvc-16.science/theme/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="https://tvc-16.science/theme/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="https://tvc-16.science/theme/favicon-16x16.png">
+  <link rel="manifest" href="https://tvc-16.science/theme/site.webmanifest">
+  <link rel="mask-icon" href="https://tvc-16.science/theme/safari-pinned-tab.svg" color="#f040b0">
+  <link rel="webmention" href="https://webmention.io/tvc-16.science/webmention" />
+  <link rel="pingback" href="https://webmention.io/tvc-16.science/xmlrpc" />
+  <meta name="msapplication-TileColor" content="#f1c711">
+  <meta name="theme-color" content="#f1c711">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta property="og:title" content="Monkey Trick: Use ResX localization in a Xamarin Mac/iOS app with Interface Builder - Blogopolis" />
+<meta property="og:type" content="article" />
+<meta property="og:description" content="<p>I have to get those monkey puns out before Microsoft fully gets rid of the Xamarin name.</p>" />
+<meta property="og:url" content="https://tvc-16.science/xamarin-resx.html" />
+<meta property="og:image" content="https://tvc-16.science/images/stylophone/xam-localization.png" />
+
+  <link href="https://fonts.googleapis.com/css?family=Monoton" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=VT323" rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/bluesky-comments@0.9.0/dist/bluesky-comments.css">
+  <link rel="stylesheet" href="https://tvc-16.science/theme/css/style.css">
+  <link rel="stylesheet" href="https://tvc-16.science/theme/css/pygment.css">
+
+
+
+
+<meta name="twitter:card" content="summary_large_image">
+<meta property="og:title" content="Monkey Trick: Use ResX localization in a Xamarin Mac/iOS app with Interface Builder - Blogopolis" />
+<meta property="og:type" content="article" />
+<meta property="og:description" content="<p>I have to get those monkey puns out before Microsoft fully gets rid of the Xamarin name.</p>" />
+<meta property="og:url" content="https://tvc-16.science/xamarin-resx.html" />
+<meta property="og:image" content="https://tvc-16.science/images/stylophone/xam-localization.png" />
+
+<meta name="tags" content="interface builder" />
+<meta name="tags" content="xamarin" />
+<meta name="tags" content="dotnet" />
+<meta name="tags" content="c#" />
+<meta name="tags" content="macos" />
+<meta name="tags" content="ios" />
+<meta name="tags" content="resx" />
+<meta name="tags" content="localization" />
+<meta name="tags" content="monkey trick" />
+
+</head>
+
+<body id="index" class="home">
+
+  <canvas id="stage"></canvas>
+  <header id="banner" class="body">
+    <center><img height="170px" src="https://tvc-16.science/theme/img/logotype.svg" /></center>
+  </header><!-- /#banner -->
+
+  <div id="mainText">
+
+    <h2 class="subtitle">
+
+      <a style="color:black !important" href="/projects.html">Projects</a>
+      🔸
+      <a style="color:black !important" href="/">Articles</a>
+      🔸
+      <a style="color:black !important" href="/categories.html">Categories</a>
+      🔸
+
+    </h2><!-- /#menu -->
+
+    <div class="top-border project-background"></div>
+    <div class="wrapper project-background">
+      <div class="text">
+<section id="content" class="body" style="max-width: 900px;margin-left: auto;margin-right: auto;">
+  <header>
+    <h2 class="entry-title">
+      <a href="https://tvc-16.science/xamarin-resx.html" rel="bookmark" title="Permalink to Monkey Trick: Use ResX localization in a Xamarin Mac/iOS app with Interface Builder">
+        Monkey Trick: Use ResX localization in a Xamarin Mac/iOS app with Interface Builder
+      </a>
+    </h2>
+    
+  </header>
+  <footer class="post-info terminal-text">
+    <time class="published" datetime="2022-12-02T00:00:00+01:00">
+      Fri 02 December 2022
+    </time>
+    <address class="vcard author">
+      By       <a class="url fn" href="https://tvc-16.science/author/difegue.html">Difegue</a>
+    </address>
+    <div class="category">
+      Category: <a href="https://tvc-16.science/category/cool-tricks.html">Cool Tricks</a>
+    </div>
+    <div class="tags">
+      Tags:
+      <a href="https://tvc-16.science/tag/interface-builder.html">interface builder</a>
+      <a href="https://tvc-16.science/tag/xamarin.html">xamarin</a>
+      <a href="https://tvc-16.science/tag/dotnet.html">dotnet</a>
+      <a href="https://tvc-16.science/tag/c.html">c#</a>
+      <a href="https://tvc-16.science/tag/macos.html">macos</a>
+      <a href="https://tvc-16.science/tag/ios.html">ios</a>
+      <a href="https://tvc-16.science/tag/resx.html">resx</a>
+      <a href="https://tvc-16.science/tag/localization.html">localization</a>
+      <a href="https://tvc-16.science/tag/monkey-trick.html">monkey trick</a>
+    </div>
+    <div class="summary">
+      <p>I have to get those monkey puns out before Microsoft fully gets rid of the Xamarin name.</p>
+    </div>
+
+  </footer><!-- /.post-info -->
+  <div class="entry-content">
+    <p>Apple recently removed their page about <a href="https://web.archive.org/web/20220406135312/https://developer.apple.com/xcode/interface-builder/">Interface Builder</a> from the Xcode documentation, likely as part of their push to dogfood SwiftUI to as many people as possible.<br>
+But I <strong>like</strong> <a href="https://medium.com/swlh/a-bit-about-interface-builder-ceffaf484580">Interface Builder</a>! Hell I'll go one beyond and even say I like Auto-Layout! ...When it works.  </p>
+<p>Keeping UI code separated from your main logic is always a sound architectural choice for me, and while I wish you could edit <a href="https://developer.apple.com/library/archive/documentation/General/Conceptual/Devpedia-CocoaApp/Storyboard.html">nibs/storyboards</a> by hand like with XAML, I'll still take IB and its visual designer over writing <code>new UIButton()</code> a thousand times.  </p>
+<p><a href="./stylophone-25.html">Stylophone</a>'s iOS port mostly uses Storyboards for its UI, but much of the logic code is written in .NET, and shared with its Windows/UWP brethren.<br>
+That includes localized text! I use <a href="https://learn.microsoft.com/en-us/dotnet/core/extensions/localization#resource-files">.resx</a> files to hold the localizations, which is very much a .NET concept.  </p>
+<p>So, here's a fairly easy way to use the interop magic in Xamarin/Microsoft.iOS to <strong>directly</strong> reference your localization keys in Interface Builder and have it just work.  </p>
+<h1>Subclassing UILabel</h1>
+<p>What we're going to do is simply pull the localized text once the view is loaded and assign it to all the <code>UILabels</code> objects in the view, but:<br>
+- in an automated fashion instead of having to write additional view code
+- relying only on data from Interface Builder(IB).  </p>
+<p>One of the nice things IB allows you to do is set <a href="https://sam.dods.co/blog/2014/04/08/user-defined-runtime-attributes-in-interface-builder.html">User Defined Runtime Attributes</a> on any control you lay out, which are basically arbitary key/value pairs.  </p>
+<p>If we rely on that, it becomes quite easy to write a <code>UILabel</code> subclass that looks in those attributes for a localization key, and then asks .NET about it:  </p>
+<div class="highlight"><pre><span></span><code><span class="k">using</span> <span class="nn">System</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">Foundation</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">Stylophone.Localization.Strings</span><span class="p">;</span>
+<span class="k">using</span> <span class="nn">UIKit</span><span class="p">;</span>
+
+<span class="k">namespace</span> <span class="nn">Stylophone.iOS.Helpers</span>
+<span class="p">{</span>
+    <span class="c1">// Make this subclass visible from the UIKit side of things</span>
+<span class="na">    [Register(nameof(LocalizedLabel))]</span>
+    <span class="k">public</span> <span class="k">class</span> <span class="nc">LocalizedLabel</span><span class="p">:</span> <span class="n">UILabel</span>
+    <span class="p">{</span>
+
+        <span class="c1">// This is our runtime attribute - name can be whatever you want!</span>
+<span class="na">        [Export(nameof(stringIdentifier))]</span>
+        <span class="k">public</span> <span class="n">NSString</span> <span class="n">stringIdentifier</span> <span class="p">{</span> <span class="k">get</span><span class="p">;</span> <span class="k">set</span><span class="p">;</span> <span class="p">}</span>
+
+        <span class="k">public</span> <span class="nf">LocalizedLabel</span><span class="p">(</span><span class="n">IntPtr</span> <span class="n">handle</span><span class="p">)</span> <span class="p">:</span> <span class="k">base</span><span class="p">(</span><span class="n">handle</span><span class="p">)</span>
+        <span class="p">{</span>
+        <span class="p">}</span>
+
+        <span class="k">void</span> <span class="nf">ReleaseDesignerOutlets</span><span class="p">()</span>
+        <span class="p">{</span>
+        <span class="p">}</span>
+
+        <span class="k">public</span> <span class="k">override</span> <span class="k">void</span> <span class="nf">AwakeFromNib</span><span class="p">()</span>
+        <span class="p">{</span>
+            <span class="k">base</span><span class="p">.</span><span class="n">AwakeFromNib</span><span class="p">();</span>
+
+            <span class="c1">// Use the text set in IB to find the matching property.</span>
+            <span class="c1">// Set the identifier in &quot;User Defined Runtime Attributes&quot;.</span>
+            <span class="kt">var</span> <span class="n">identifier</span> <span class="p">=</span> <span class="n">stringIdentifier</span> <span class="p">??</span> <span class="s">&quot;AppDisplayName&quot;</span><span class="p">;</span>
+
+            <span class="c1">// Get the property value to have the localized string.</span>
+            <span class="n">Text</span> <span class="p">=</span> <span class="n">Resources</span><span class="p">.</span><span class="n">ResourceManager</span><span class="p">.</span><span class="n">GetString</span><span class="p">(</span><span class="n">identifier</span><span class="p">);</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+
+
+<p>The <code>Resources</code> class here is the classic static class generated by ResXGenerator, which you should normally have if you store your localizations that way.  </p>
+<h1>Using the subclass in Interface Builder</h1>
+<p>Once your subclass is created, you should be able to define it as a "Custom class" for all the <code>UILabels</code> you want localized.    </p>
+<p>From that point on, all that's left to do is add your localization key as a runtime attribute under the <code>stringIdentifier</code> key:<br>
+<img alt="a screenshot of interface builder, my beloved" src="images/stylophone/xam-localization.png">  </p>
+<p>And you're done!  </p>
+<p><img src="/images/stylophone/stylo_ios_settings.png" style="width:300px" />  </p>
+<h1>Notes</h1>
+<p>This approach obviously only works if your text is in a <code>UILabel</code> -- While that should cover 95% of your app, it's likely you'll still have to hodgepodge some view code for more esoteric text placement, like in <code>UITableView</code> headers:  </p>
+<div class="highlight"><pre><span></span><code><span class="c1">// Localization not covered by LocalizedLabel</span>
+<span class="k">public</span> <span class="k">override</span> <span class="kt">string</span> <span class="nf">TitleForHeader</span><span class="p">(</span><span class="n">UITableView</span> <span class="n">tableView</span><span class="p">,</span> <span class="n">nint</span> <span class="n">section</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">return</span> <span class="p">(</span><span class="kt">int</span><span class="p">)</span><span class="n">section</span> <span class="k">switch</span>
+    <span class="p">{</span>
+        <span class="m">0</span> <span class="p">=&gt;</span> <span class="n">Resources</span><span class="p">.</span><span class="n">SettingsServer</span><span class="p">,</span>
+        <span class="m">1</span> <span class="p">=&gt;</span> <span class="n">Resources</span><span class="p">.</span><span class="n">SettingsLocalPlaybackHeader</span><span class="p">,</span>
+        <span class="m">2</span> <span class="p">=&gt;</span> <span class="n">Resources</span><span class="p">.</span><span class="n">SettingsDatabase</span><span class="p">,</span>
+        <span class="m">3</span> <span class="p">=&gt;</span> <span class="n">Resources</span><span class="p">.</span><span class="n">SettingsAnalytics</span><span class="p">,</span>
+        <span class="m">4</span> <span class="p">=&gt;</span> <span class="n">Resources</span><span class="p">.</span><span class="n">SettingsAbout</span><span class="p">,</span>
+        <span class="n">_</span> <span class="p">=&gt;</span> <span class="s">&quot;&quot;</span><span class="p">,</span>
+    <span class="p">};</span>
+<span class="p">}</span>
+</code></pre></div>
+
+
+<p>As a final note, keep in mind that ResX lookup will use the .NET Culture system, which has <a href="https://learn.microsoft.com/en-us/xamarin/ios/app-fundamentals/localization/#locale">slightly different language combinations</a> than iOS/macOS.<br>
+See <a href="https://learn.microsoft.com/en-us/xamarin/ios/app-fundamentals/localization/#specifying-default-and-supported-languages-in-infoplist">this</a> post for more information and how to declare languages in your Xamarin app.  </p>
+<p>Thanks for reading!  </p>
+  </div><!-- /.entry-content -->
+  <a class="containerBox">
+    <img src="https://tvc-16.science/theme/img/button2.svg" class="img-responsive">
+    <div class="text-box pink-button">
+      <span class=" button-text pink-shadow">Comments</span>
+    </div>
+  </a> <br /><br /><br /><br /><br /><br /><br /><br />
+  <script src="https://utteranc.es/client.js" repo="difegue/TVC-16" issue-term="url" theme="github-light"
+    crossorigin="anonymous" async>
+  </script>
+</section>
+      </div>
+    </div>
+    <div class="bot-border project-background"></div>
+
+    <br />
+    <br />
+    <br />
+
+  </div>
+
+  <footer id="contentinfo" class="body" style="position:relative; overflow:hidden">
+    <div class="top-border hello-background"></div>
+    <div class="wrapper hello-background">
+      <div class="text">
+
+        <a class="containerBox">
+          <img src="https://tvc-16.science/theme/img/button1.svg" class="img-responsive">
+          <div class="text-box blue-button">
+            <span class=" button-text blue-shadow">About</span>
+          </div>
+        </a>
+
+        <div class="scroll-left">
+          <p>
+            <script language="JavaScript">
+              //never forget grugeisti ;_;7
+              var r_text = new Array();
+              r_text[0] = "This is COOL";
+              r_text[1] = "TOP-SHELF BLOG DEVICE";
+              r_text[2] = "ACCELERATED PORTFOLIO SYSTEM";
+              r_text[3] = "Lookin' cool !";
+              r_text[4] = "ENHANCED SVG GRAPHICS";
+              r_text[5] = "HIGH-SPEED CHEAP VPS";
+              r_text[6] = "DELUXE UPTIME EXPERIENCE";
+              r_text[7] = "BEST-IN-CLASS SCROLLING TEXT";
+              r_text[8] = "HIGH GRADE MULTICONTAINER SETUP";
+              var i = Math.floor(9 * Math.random())
+              document.write(r_text[i]);
+            </script>
+          </p>
+        </div>
+        Runnin' straight down the information highway in a 3$ Vultr VPS. <br /><br />
+        Typefaces used: <a href="https://rsms.me/inter/">Inter</a>, <a
+          href="https://blog.marsnev.com/2017/03/font-lemonmilk.html">Lemon/Milk</a>,
+        <a href="https://fonts.google.com/specimen/VT323">VT323</a>.
+        Built using <a href="https://github.com/difegue" rel="me"> Github Actions</a> and Pelican. <br />
+        You can talk to me on <a rel="me" href="https://bsky.app/profile/difegue.bsky.social">Bluesky</a> or <a rel="me"
+          href="https://kolektiva.social/@Difegue">Mastodon</a> if that's your thing.
+
+      </div>
+    </div>
+    <div class="bot-border hello-background"></div>
+  </footer><!-- /#contentinfo -->
+
+  <br />
+  <br />
+  <br />
+
+  <div class="footer-container" title="This COOL SYSTEM has been running...for some time now.">
+    <span class="footer-text">Uptime:
+      <br>
+      <span id="uptime">XXX days </span>
+    </span>
+    <img src="https://tvc-16.science/theme/img/footer.svg" class="footer-image">
+  </div>
+
+  <script src="https://tvc-16.science/theme/index.js"></script>
+</body>
+
+</html>

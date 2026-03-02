@@ -1,0 +1,1164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Blogopolis - Cool Tricks</title><link href="https://tvc-16.science/" rel="alternate"></link><link href="https://tvc-16.science/feeds/cool-tricks.atom.xml" rel="self"></link><id>https://tvc-16.science/</id><updated>2024-09-21T00:00:00+02:00</updated><entry><title>Controlling an IKEA LED strip with video capture from game consoles</title><link href="https://tvc-16.science/ha-led-dazzle.html" rel="alternate"></link><published>2024-09-21T00:00:00+02:00</published><updated>2024-09-21T00:00:00+02:00</updated><author><name>Difegue</name></author><id>tag:tvc-16.science,2024-09-21:/ha-led-dazzle.html</id><summary type="html">&lt;p&gt;Finally... Home Assistant gaming.&lt;/p&gt;</summary><content type="html">&lt;p&gt;I have a nice LED strip lighting up my &lt;a href="./kallax-crt.html"&gt;gaming cabinet&lt;/a&gt;, but it's a bit clunky turning it on manually every time I'm gaming on the ole Wii.&lt;br&gt;
+The strip I bought is an &lt;a href="https://www.ikea.com/gb/en/p/ormanaes-led-lighting-strip-smart-wireless-dimmable-colour-and-white-spectrum-90541329/"&gt;IKEA Ormanas&lt;/a&gt;, which is Zigbee compatible and can plug in just fine to a Home Assistant installation. It's even multicolor! &lt;br&gt;
+&lt;img alt="Please don't look at my terrible led band routing i'm begging you" src="./images/kallax_crt.jpg"&gt;&lt;br&gt;
+So surely, we can make this strip light up on its own when the consoles are in use, right?  &lt;/p&gt;
+&lt;p&gt;The easiest way would obviously be a &lt;a href="https://community.home-assistant.io/t/what-are-the-recommended-energy-monitoring-smart-plugs-for-ha/589681"&gt;smart plug&lt;/a&gt; hooked up to the CRT that detects when it's drawing power...&lt;br&gt;
+But I had an old &lt;a href="https://en.wikipedia.org/wiki/Dazzle_(video_recorder)"&gt;Dazzle DVC100&lt;/a&gt; capture card lying around, so why not try to use that instead?  &lt;/p&gt;
+&lt;h1&gt;TV/Dazzle connection setup&lt;/h1&gt;
+&lt;p&gt;The Dazzle itself just takes standard composite video and stereo audio and feeds it to a computer over USB 2.0, so it's easy to just plug it to a splitter with the other bit going to your TV.  &lt;/p&gt;
+&lt;p&gt;I have to note here than plugging any sort of additional stuff to composite video can introduce significant &lt;strong&gt;interference and video noise&lt;/strong&gt; -- Personally I recently splurged on an &lt;a href="https://aliexpress.com/item/1005004428449908.html"&gt;automatic SCART switcher&lt;/a&gt;&lt;sup id="ref-1"&gt;&lt;a href="#note-1"&gt;*&lt;/a&gt;&lt;/sup&gt; that isolates TV and capture outputs perfectly, but your mileage may vary.  &lt;/p&gt;
+&lt;p&gt;As for the computer doing the capture - I have a Raspberry Pi close to the TV that I already use as a &lt;a href="https://github.com/badaix/snapcast/"&gt;snapcast&lt;/a&gt; client for music playback, so I just hooked the Dazzle to it. &lt;br&gt;
+&lt;img alt="Perfectly cromulant capture from the dazzle" src="./images/hass/dazzle_capture.jpg"&gt;&lt;br&gt;
+Configuring the DVC100 is substantially easier on Linux than it is on modern Windows - I just followed &lt;a href="https://github.com/danyfernandes/vhs-capture-pinnacle-linux"&gt;this guide&lt;/a&gt; to get perfectly cromulent captures out of the card.  &lt;/p&gt;
+&lt;p&gt;The DVC100 just acts as a webcam once configured, so its video feed can be exposed to your network as a MJPEG stream by something like &lt;a href="https://github.com/pikvm/ustreamer"&gt;&lt;code&gt;ustreamer&lt;/code&gt;&lt;/a&gt;.&lt;br&gt;
+I've slapped together this service file for that:  &lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="k"&gt;[Unit]&lt;/span&gt;
+&lt;span class="na"&gt;Description&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;ustreamer Dazzle&lt;/span&gt;
+&lt;span class="na"&gt;After&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;multi-user.target&lt;/span&gt;
+
+&lt;span class="k"&gt;[Service]&lt;/span&gt;
+&lt;span class="na"&gt;Type&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;simple&lt;/span&gt;
+&lt;span class="na"&gt;Restart&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;always&lt;/span&gt;
+&lt;span class="na"&gt;WorkingDirectory&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;/usr/local/bin&lt;/span&gt;
+&lt;span class="na"&gt;ExecStart&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;/usr/local/bin/ustreamer --host 0.0.0.0 -d /dev/video1 -r 720x576 -q 100 -a PAL -m RGB565 -p 8081&lt;/span&gt;
+
+&lt;span class="k"&gt;[Install]&lt;/span&gt;
+&lt;span class="na"&gt;WantedBy&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;multi-user.target&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;I use &lt;code&gt;/dev/video1&lt;/code&gt; here for the DVC100 since my Pi also has a normal webcam plugged in.&lt;br&gt;
+Depending on what you capture, you might want to mention NTSC/480i instead of PAL/576i for the video standard&lt;sup id="ref-2"&gt;&lt;a href="#note-2"&gt;**&lt;/a&gt;&lt;/sup&gt;.   &lt;/p&gt;
+&lt;p&gt;Since &lt;code&gt;ustreamer&lt;/code&gt; outputs as a MJPEG stream, you can add your video feed to HA directly. It's technically not necessary... but it's fun! And I now have an easy way to take screenshots when I'm playing on the CRT.&lt;br&gt;
+&lt;img alt="Did you know that DoujinSoft can send mail directly to your Wii in the current year? It's good shit" src="./images/hass/hass_gaming.png"&gt;  &lt;/p&gt;
+&lt;h1&gt;The Home Assistant sauce&lt;/h1&gt;
+&lt;p&gt;So now that we have a video feed in HA, surely it's easy to look at it and control the LED strip? Not quite 🫠  &lt;/p&gt;
+&lt;p&gt;We can use the &lt;a href="https://www.home-assistant.io/integrations/color_extractor/"&gt;Color Extractor integration&lt;/a&gt; to pick the predominant color from the captured image and apply it to your lights - Except that this integration will always &lt;strong&gt;turn on&lt;/strong&gt; the light, even if the current feed from the capture card is a black image.  &lt;/p&gt;
+&lt;p&gt;So we need an additional &lt;strong&gt;sensor&lt;/strong&gt; in HA to detect whether there's actual video coming from the capture card or not -- I struggled a bit for this before ending up with the perfectly dumb solution of &lt;em&gt;looking at the size of a screenshot from the video feed every second&lt;/em&gt;.  &lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="nl"&gt;command_line&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nl"&gt;sensor&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+&lt;span class="w"&gt;      &lt;/span&gt;&lt;span class="nl"&gt;name&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="k"&gt;Size&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="k"&gt;of&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;CRT&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;Stream&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;snapshot&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+&lt;span class="w"&gt;      &lt;/span&gt;&lt;span class="nl"&gt;scan_interval&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+&lt;span class="w"&gt;      &lt;/span&gt;&lt;span class="nl"&gt;command&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;curl -so /dev/null http://[ustreamer_server]:8081/snapshot -w &amp;#39;&amp;#39;%{size_download}&amp;#39;&amp;#39;&amp;#39;&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Horribly inefficient? Yes! But it works.&lt;br&gt;
+&lt;img alt="" src="./images/anything.jpg"&gt;  &lt;br&gt;
+The output capture from the Dazzle when nothing is outputting to it is about 100KBs&lt;sup id="ref-3"&gt;&lt;a href="#note-3"&gt;***&lt;/a&gt;&lt;/sup&gt;, so I check for 150 to have some margin.  &lt;/p&gt;
+&lt;p&gt;And that gives us our final script:  &lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="k"&gt;alias&lt;/span&gt;&lt;span class="err"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;Kallax&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;LED&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;Colorizer&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+&lt;span class="k"&gt;sequence&lt;/span&gt;&lt;span class="err"&gt;:&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+&lt;span class="w"&gt;  &lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="k"&gt;if&lt;/span&gt;&lt;span class="err"&gt;:&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+&lt;span class="w"&gt;      &lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="k"&gt;condition&lt;/span&gt;&lt;span class="err"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;numeric_state&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+&lt;span class="w"&gt;        &lt;/span&gt;&lt;span class="nl"&gt;entity_id&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;sensor&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;size_of_crt_stream_snapshot&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+&lt;span class="w"&gt;        &lt;/span&gt;&lt;span class="nl"&gt;above&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="mi"&gt;150000&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="k"&gt;then&lt;/span&gt;&lt;span class="err"&gt;:&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+&lt;span class="w"&gt;      &lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nl"&gt;service&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;color_extractor&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;turn_on&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+&lt;span class="w"&gt;        &lt;/span&gt;&lt;span class="nl"&gt;metadata&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="err"&gt;{}&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+&lt;span class="w"&gt;        &lt;/span&gt;&lt;span class="k"&gt;data&lt;/span&gt;&lt;span class="err"&gt;:&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+&lt;span class="w"&gt;          &lt;/span&gt;&lt;span class="nl"&gt;color_extract_url&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nl"&gt;http&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="o"&gt;//[&lt;/span&gt;&lt;span class="n"&gt;ustreamer_server&lt;/span&gt;&lt;span class="o"&gt;]&lt;/span&gt;&lt;span class="err"&gt;:&lt;/span&gt;&lt;span class="mi"&gt;8081&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;snapshot&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+&lt;span class="w"&gt;          &lt;/span&gt;&lt;span class="nl"&gt;brightness&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="mi"&gt;200&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+&lt;span class="w"&gt;          &lt;/span&gt;&lt;span class="nl"&gt;transition&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="mf"&gt;0.4&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+&lt;span class="w"&gt;        &lt;/span&gt;&lt;span class="nl"&gt;target&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+&lt;span class="w"&gt;          &lt;/span&gt;&lt;span class="nl"&gt;entity_id&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;light&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;ikea_of_sweden_ormanas_led_strip_light&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="k"&gt;else&lt;/span&gt;&lt;span class="err"&gt;:&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+&lt;span class="w"&gt;      &lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nl"&gt;service&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;light&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;turn_off&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+&lt;span class="w"&gt;        &lt;/span&gt;&lt;span class="nl"&gt;metadata&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="err"&gt;{}&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+&lt;span class="w"&gt;        &lt;/span&gt;&lt;span class="k"&gt;data&lt;/span&gt;&lt;span class="err"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="err"&gt;{}&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+&lt;span class="w"&gt;        &lt;/span&gt;&lt;span class="nl"&gt;target&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+&lt;span class="w"&gt;          &lt;/span&gt;&lt;span class="nl"&gt;entity_id&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;light&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;ikea_of_sweden_ormanas_led_strip_light&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+&lt;span class="nl"&gt;description&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="ss"&gt;&amp;quot;&amp;quot;&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+&lt;span class="nl"&gt;icon&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nl"&gt;mdi&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="nf"&gt;format&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;color&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;fill&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Notice that as mentioned previously, this doesn't use the video feed registered in HA at all and just hits the &lt;code&gt;ustreamer&lt;/code&gt; server directly. Which means you'll have to add its URL to &lt;code&gt;allowlist_external_urls&lt;/code&gt; in your Home Assistant &lt;a href="https://developers.home-assistant.io/docs/dev_101_config/"&gt;configuration&lt;/a&gt;.&lt;/p&gt;
+&lt;video autoplay loop src="./images/hass/castlehue.mp4" title=""&gt;&lt;/video&gt;
+
+&lt;p&gt;One could argue that it'd use less electricity to just turn on the LED strip all the time than to do all of this...&lt;br&gt;
+But would you get the Philips Hue™️ experience that way? Certainly not.  &lt;/p&gt;
+&lt;h1&gt;&lt;/h1&gt;
+&lt;p&gt;&lt;sup id="note-1"&gt;&lt;a href="#ref-1"&gt;*&lt;/a&gt; I'm aware of the irony of &lt;em&gt;"doesn't want to spend money on a smart plug but will dunk 100€ in a switcher so he doesn't have to push buttons manually to swap outputs"&lt;/em&gt;&lt;/sup&gt;&lt;br&gt;
+&lt;sup id="note-2"&gt;&lt;a href="#ref-2"&gt;**&lt;/a&gt; My SEGA Saturn is a Japanese model, so capturing it on PAL mode gives me a squished grayscale image - which is more than enough just to drive LED lights. &lt;/sup&gt;&lt;br&gt;
+&lt;sup id="note-3"&gt;&lt;a href="#ref-3"&gt;***&lt;/a&gt; If you have an image on screen that is pure white it actually can be lower than that due to how jpg compression works - So sometimes when using the Wii Menu which is predominantly white, my LEDs will turn off...&lt;br&gt;Writing a customized version of ColorExtractor would probably be a bit better than this. I found &lt;a href="https://github.com/xplus2/homeassistant-ambient-extractor"&gt;one&lt;/a&gt;, but it didn't work for me.&lt;/sup&gt;  &lt;/p&gt;</content><category term="Cool Tricks"></category><category term="home assistant"></category><category term="zigbee"></category><category term="ikea"></category><category term="led"></category><category term="dazzle"></category><category term="dvc100"></category><category term="video capture"></category><category term="gaming"></category><category term="jankfest philips hue facsimile"></category></entry><entry><title>Using UWP Update Tasks in a MSIX-packaged Win32 app</title><link href="https://tvc-16.science/netfx-updatetask.html" rel="alternate"></link><published>2024-06-07T00:00:00+02:00</published><updated>2024-06-07T00:00:00+02:00</updated><author><name>Difegue</name></author><id>tag:tvc-16.science,2024-06-07:/netfx-updatetask.html</id><summary type="html">&lt;p&gt;it's friday night and i'm deep in msix hell again&lt;/p&gt;</summary><content type="html">&lt;p&gt;&lt;strong&gt;Update Tasks&lt;/strong&gt; are a feature of MSIX that allows Windows to &lt;a href="https://learn.microsoft.com/en-us/windows/uwp/launch-resume/run-a-background-task-during-updatetask"&gt;run a piece of code when your package is updated&lt;/a&gt;, without needing to launch the entire app.&lt;br&gt;
+This is a feature that heralds from the UWP era, where it's fairly easy to use since you're fully in WinRT land already.. But if you're packaging a regular Win32 app instead, or the newer &lt;a href="https://github.com/microsoft/WindowsAppSDK/discussions/2314"&gt;Windows App SDK&lt;/a&gt;, it gets &lt;em&gt;tricky&lt;/em&gt;.  &lt;/p&gt;
+&lt;p&gt;And by tricky I mean &lt;em&gt;bullshit and barely documented&lt;/em&gt;, just like &lt;a href="./netfx-islands.html"&gt;last time&lt;/a&gt;!&lt;br&gt;
+Here's a walkthrough of how you can add an Update Task to any kind of MSIX package.  &lt;/p&gt;
+&lt;h1&gt;1. Create the background task class&lt;/h1&gt;
+&lt;p&gt;Since this feature relies on UWP's Background Tasks, your code needs to run in a &lt;a href="https://learn.microsoft.com/en-us/uwp/winrt-cref/winmd-files"&gt;Windows Runtime component&lt;/a&gt;, aka a &lt;code&gt;.winmd&lt;/code&gt;.&lt;br&gt;
+There are actually no differences here compared to the &lt;a href="https://learn.microsoft.com/en-us/windows/uwp/launch-resume/run-a-background-task-during-updatetask#step-1-create-the-background-task-class"&gt;UWP implementation&lt;/a&gt;; You can just create a Windows Runtime component project in VS and host your code in it, implementing &lt;code&gt;IBackgroundTask&lt;/code&gt;.  &lt;/p&gt;
+&lt;p&gt;You &lt;em&gt;can&lt;/em&gt; technically create a C# Class Library instead and &lt;a href="https://learn.microsoft.com/en-us/windows/apps/develop/platform/csharp-winrt/authoring"&gt;use CsWinRT to author the component&lt;/a&gt; if you really need NET6 instead of the old UWP-flavored NET Framework&lt;sup id="ref-1"&gt;&lt;a href="#note-1"&gt;*&lt;/a&gt;&lt;/sup&gt;.  &lt;/p&gt;
+&lt;p&gt;Once you've built your component, include your &lt;code&gt;.winmd&lt;/code&gt; in your packaged files.  &lt;/p&gt;
+&lt;p&gt;🛑 Make sure it has the same name as the &lt;strong&gt;namespace&lt;/strong&gt; of your UpdateTask! WinRT relies on naming to associate the winmd with the classes it contains. (&lt;code&gt;BackgroundTasks.winmd&lt;/code&gt; in this example.)  &lt;/p&gt;
+&lt;h1&gt;2. Declare the UpdateTask in the MSIX manifest&lt;/h1&gt;
+&lt;p&gt;This is where things get confusing -- With UWP, you just need to reference your freshly-authored component in the main app and add one line to the &lt;code&gt;appxmanifest&lt;/code&gt;:  &lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="nt"&gt;&amp;lt;Application&lt;/span&gt; &lt;span class="na"&gt;Id=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;YourWin32App&amp;quot;&lt;/span&gt;&lt;span class="nt"&gt;&amp;gt;&lt;/span&gt;
+  [...]
+  &lt;span class="nt"&gt;&amp;lt;Extensions&amp;gt;&lt;/span&gt;  
+    &lt;span class="nt"&gt;&amp;lt;Extension&lt;/span&gt; &lt;span class="na"&gt;Category=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;windows.updateTask&amp;quot;&lt;/span&gt; &lt;span class="na"&gt;EntryPoint=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;BackgroundTasks.UpdateTask&amp;quot;&lt;/span&gt;&lt;span class="nt"&gt;&amp;gt;&lt;/span&gt;  
+    &lt;span class="nt"&gt;&amp;lt;/Extension&amp;gt;&lt;/span&gt;  
+  &lt;span class="nt"&gt;&amp;lt;/Extensions&amp;gt;&lt;/span&gt;
+&lt;span class="nt"&gt;&amp;lt;/Application&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;But if you're packaging a Win32 app instead, said app has no knowledge of WinRT and won't be able to expose your &lt;code&gt;.winmd&lt;/code&gt;'s entrypoint on its own.  &lt;/p&gt;
+&lt;p&gt;Most of the documentation&lt;sup id="ref-2"&gt;&lt;a href="#note-2"&gt;**&lt;/a&gt;&lt;/sup&gt; about using UpdateTasks with Win32 apps comes from 2017 back when MSIX was still being called &lt;a href="https://stefanwick.com/2017/06/06/updatetask-for-desktop-bridge-apps/"&gt;Desktop Bridge&lt;/a&gt;, but basically the solution is to declare an &lt;strong&gt;in-process WinRT server&lt;/strong&gt; that'll get started by Windows and run your winmd.  &lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;The Windows Runtime (WinRT) supports the concept of In Process Servers, which allows for using objects that are in a different dll/winmd with super-fast performance and easy-to-use ABI.&lt;br&gt;
+&lt;sub&gt;(https://github.com/hez2010/WinRTServer)&lt;/sub&gt;  &lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="nt"&gt;&amp;lt;Package&amp;gt;&lt;/span&gt;
+  &lt;span class="nt"&gt;&amp;lt;Extensions&amp;gt;&lt;/span&gt;
+     &lt;span class="nt"&gt;&amp;lt;Extension&lt;/span&gt; &lt;span class="na"&gt;Category=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;windows.activatableClass.inProcessServer&amp;quot;&lt;/span&gt;&lt;span class="nt"&gt;&amp;gt;&lt;/span&gt;
+      &lt;span class="nt"&gt;&amp;lt;InProcessServer&amp;gt;&lt;/span&gt;
+        &lt;span class="nt"&gt;&amp;lt;Path&amp;gt;&lt;/span&gt;Your_Inproc_Server.exe&lt;span class="nt"&gt;&amp;lt;/Path&amp;gt;&lt;/span&gt;
+        &lt;span class="nt"&gt;&amp;lt;ActivatableClass&lt;/span&gt; &lt;span class="na"&gt;ActivatableClassId=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;BackgroundTasks.UpdateTask&amp;quot;&lt;/span&gt; &lt;span class="na"&gt;ThreadingModel=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;both&amp;quot;&lt;/span&gt; &lt;span class="nt"&gt;/&amp;gt;&lt;/span&gt;
+      &lt;span class="nt"&gt;&amp;lt;/InProcessServer&amp;gt;&lt;/span&gt;
+    &lt;span class="nt"&gt;&amp;lt;/Extension&amp;gt;&lt;/span&gt;
+  &lt;span class="nt"&gt;&amp;lt;/Extensions&amp;gt;&lt;/span&gt;
+&lt;span class="nt"&gt;&amp;lt;/Package&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;&lt;sub&gt;notice how this is under Package-&amp;gt;Extensions, not Package-&amp;gt;Applications-&amp;gt;Application-&amp;gt;Extensions like the previous one&lt;/sub&gt;  &lt;/p&gt;
+&lt;p&gt;And that's it! Install an update to your MSIX and the component will run -- You don't even need to modify your Win32 app.  &lt;/p&gt;
+&lt;h2&gt;🥳🥳🥳&lt;/h2&gt;
+&lt;p&gt;But I hear you ask, "&lt;em&gt;how do I build an inprocess WinRT server&lt;/em&gt;"?&lt;br&gt;
+&lt;img alt="fuck" src="./images/windows.jpg"&gt;  &lt;/p&gt;
+&lt;h2&gt;&lt;strong&gt;I don't know!&lt;/strong&gt;&lt;/h2&gt;
+&lt;p&gt;Thankfully Microsoft provides those to you, if you know where to look.  &lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;If your &lt;code&gt;.winmd&lt;/code&gt; contains &lt;strong&gt;managed code&lt;/strong&gt; (compiled .NET/MSIL), you can either use CsWinRT's &lt;a href="https://github.com/microsoft/CsWinRT/blob/master/docs/hosting.md"&gt;WinRT.Host.dll&lt;/a&gt;, or the built-in &lt;a href="https://strontic.github.io/xcyclopedia/library/clrhost.dll-5E23559AAC2A0FE3E5E35FC1124CC73D.html"&gt;CLRHost.dll&lt;/a&gt;&lt;sup id="ref-3"&gt;&lt;a href="#note-3"&gt;***&lt;/a&gt;&lt;/sup&gt;.  &lt;ul&gt;
+&lt;li&gt;I think &lt;code&gt;CLRHost.dll&lt;/code&gt; is more practical to use since it's in &lt;code&gt;System32&lt;/code&gt; and &lt;strong&gt;just werks™️&lt;/strong&gt;, whereas you'll have to embed &lt;code&gt;WinRT.Host.dll&lt;/code&gt; in your package.    &lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="nt"&gt;&amp;lt;InProcessServer&amp;gt;&lt;/span&gt;
+        &lt;span class="nt"&gt;&amp;lt;Path&amp;gt;&lt;/span&gt;[WinRT.Host.dll or CLRHost.dll]&lt;span class="nt"&gt;&amp;lt;/Path&amp;gt;&lt;/span&gt;
+        &lt;span class="nt"&gt;&amp;lt;ActivatableClass&lt;/span&gt; &lt;span class="na"&gt;ActivatableClassId=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;BackgroundTasks.UpdateTask&amp;quot;&lt;/span&gt; &lt;span class="na"&gt;ThreadingModel=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;both&amp;quot;&lt;/span&gt;&lt;span class="nt"&gt;/&amp;gt;&lt;/span&gt;
+&lt;span class="nt"&gt;&amp;lt;/InProcessServer&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;ul&gt;
+&lt;li&gt;If your &lt;code&gt;.winmd&lt;/code&gt; contains &lt;strong&gt;native code&lt;/strong&gt; because you &lt;a href="https://stackoverflow.com/questions/38183146/universal-windows-net-native-and-winmd-component-libraries"&gt;passed it through NET Native&lt;/a&gt;? &lt;strong&gt;&lt;em&gt;I have no fucking idea.&lt;/em&gt;&lt;/strong&gt;  &lt;ul&gt;
+&lt;li&gt;The logic seems to be that you need to reference the native code in your app dll &lt;a href="https://blogs.windows.com/windowsdeveloper/2017/07/06/calling-winrt-components-win32-process-via-desktop-bridge/"&gt;and use that&lt;/a&gt; as the inProcServer.  &lt;/li&gt;
+&lt;li&gt;I'd recommend just not using .NET Native for the WinRT component project tbh it's going to have like 5 lines of code who cares  &lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h1&gt;3. Bonus round: Escape the AppContainer sandbox in your UpdateTask&lt;/h1&gt;
+&lt;p&gt;Since your UpdateTask is a WinRT component, it'll run under UWP rules/AppContainer, even if you've wrapped your MSIX package with &lt;code&gt;runFullTrust&lt;/code&gt;.  &lt;/p&gt;
+&lt;p&gt;This can be annoying if you need to run code that's not available under the Universal Windows APIs, or if you need to read/write files outside of the sandbox.  &lt;/p&gt;
+&lt;p&gt;The only solution available to you is to make use of &lt;a href="https://learn.microsoft.com/en-us/uwp/api/windows.applicationmodel.fulltrustprocesslauncher?view=winrt-22621"&gt;FullTrustProcessLauncher&lt;/a&gt;, so you can invoke your Win32 app (&lt;a href="https://stefanwick.com/2018/04/06/uwp-with-desktop-extension-part-2/"&gt;or any other exe&lt;/a&gt;) from the WinRT component.  &lt;/p&gt;
+&lt;p&gt;This can look slightly schizophrenic if you're using your main app as the FullTrustProcess, since it'll look like it's registering itself:  &lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="nt"&gt;&amp;lt;Applications&amp;gt;&lt;/span&gt;
+  &lt;span class="nt"&gt;&amp;lt;Application&lt;/span&gt; &lt;span class="na"&gt;Id=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;App&amp;quot;&lt;/span&gt;
+    &lt;span class="na"&gt;Executable=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;MyWin32App.exe&amp;quot;&lt;/span&gt;
+    &lt;span class="na"&gt;EntryPoint=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;Windows.FullTrustApplication&amp;quot;&lt;/span&gt;&lt;span class="nt"&gt;&amp;gt;&lt;/span&gt;
+    &lt;span class="nt"&gt;&amp;lt;Extensions&amp;gt;&lt;/span&gt;
+      &lt;span class="c"&gt;&amp;lt;!-- Register ourselves as fullTrustProcess so it can be invoked from the updateTask component --&amp;gt;&lt;/span&gt;
+      &lt;span class="nt"&gt;&amp;lt;desktop:Extension&lt;/span&gt; &lt;span class="na"&gt;Category=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;windows.fullTrustProcess&amp;quot;&lt;/span&gt; &lt;span class="na"&gt;Executable=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;MyWin32App.exe&amp;quot;&lt;/span&gt;&lt;span class="nt"&gt;&amp;gt;&lt;/span&gt;
+        &lt;span class="nt"&gt;&amp;lt;desktop:FullTrustProcess&amp;gt;&lt;/span&gt;
+        &lt;span class="nt"&gt;&amp;lt;/desktop:FullTrustProcess&amp;gt;&lt;/span&gt;
+      &lt;span class="nt"&gt;&amp;lt;/desktop:Extension&amp;gt;&lt;/span&gt;
+      &lt;span class="nt"&gt;&amp;lt;Extension&lt;/span&gt; &lt;span class="na"&gt;Category=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;windows.updateTask&amp;quot;&lt;/span&gt; &lt;span class="na"&gt;EntryPoint=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;BackgroundTasks.UpdateTask&amp;quot;&lt;/span&gt;&lt;span class="nt"&gt;&amp;gt;&lt;/span&gt; 
+      &lt;span class="nt"&gt;&amp;lt;/Extension&amp;gt;&lt;/span&gt;
+    &lt;span class="nt"&gt;&amp;lt;/Extensions&amp;gt;&lt;/span&gt;
+  &lt;span class="nt"&gt;&amp;lt;/Application&amp;gt;&lt;/span&gt;
+&lt;span class="nt"&gt;&amp;lt;/Applications&amp;gt;&lt;/span&gt;
+
+&lt;span class="nt"&gt;&amp;lt;Extensions&amp;gt;&lt;/span&gt;
+  &lt;span class="nt"&gt;&amp;lt;Extension&lt;/span&gt; &lt;span class="na"&gt;Category=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;windows.activatableClass.inProcessServer&amp;quot;&lt;/span&gt;&lt;span class="nt"&gt;&amp;gt;&lt;/span&gt;
+    &lt;span class="nt"&gt;&amp;lt;InProcessServer&amp;gt;&lt;/span&gt;
+      &lt;span class="nt"&gt;&amp;lt;Path&amp;gt;&lt;/span&gt;CLRHost.dll&lt;span class="nt"&gt;&amp;lt;/Path&amp;gt;&lt;/span&gt;
+      &lt;span class="nt"&gt;&amp;lt;ActivatableClass&lt;/span&gt; &lt;span class="na"&gt;ActivatableClassId=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;BackgroundTasks.UpdateTask&amp;quot;&lt;/span&gt; &lt;span class="na"&gt;ThreadingModel=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;both&amp;quot;&lt;/span&gt; &lt;span class="nt"&gt;/&amp;gt;&lt;/span&gt;
+    &lt;span class="nt"&gt;&amp;lt;/InProcessServer&amp;gt;&lt;/span&gt;
+  &lt;span class="nt"&gt;&amp;lt;/Extension&amp;gt;&lt;/span&gt;
+&lt;span class="nt"&gt;&amp;lt;/Extensions&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;And the code in the WinRT component:  &lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="kt"&gt;var&lt;/span&gt; &lt;span class="n"&gt;quickLog&lt;/span&gt; &lt;span class="p"&gt;=&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;Update Task log you can write wherever&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; 
+
+&lt;span class="c1"&gt;// Being able to launch the fullTrustApp directly with a command line parameter requires API contract v2 (W11/22000+ only)&lt;/span&gt;
+&lt;span class="c1"&gt;// (Otherwise, the parameter needs to be in the MSIX manifest and you don&amp;#39;t get any feedback to log here)&lt;/span&gt;
+&lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;ApiInformation&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;IsApiContractPresent&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;Windows.ApplicationModel.FullTrustAppContract&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="m"&gt;2&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="m"&gt;0&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;
+&lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="kt"&gt;var&lt;/span&gt; &lt;span class="n"&gt;fullTrustLaunchOperation&lt;/span&gt; &lt;span class="p"&gt;=&lt;/span&gt; &lt;span class="n"&gt;FullTrustProcessLauncher&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;LaunchFullTrustProcessForCurrentAppWithArgumentsAsync&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;--commandLineArgumentForYourExe&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+    &lt;span class="n"&gt;fullTrustLaunchOperation&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;AsTask&lt;/span&gt;&lt;span class="p"&gt;().&lt;/span&gt;&lt;span class="n"&gt;Wait&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;
+
+    &lt;span class="kt"&gt;var&lt;/span&gt; &lt;span class="n"&gt;fullTrustResult&lt;/span&gt; &lt;span class="p"&gt;=&lt;/span&gt; &lt;span class="n"&gt;fullTrustLaunchOperation&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;GetResults&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;
+    &lt;span class="n"&gt;quickLog&lt;/span&gt; &lt;span class="p"&gt;+=&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;FullTrustLaunch result -- &amp;quot;&lt;/span&gt; &lt;span class="p"&gt;+&lt;/span&gt; &lt;span class="n"&gt;fullTrustResult&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;LaunchResult&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;ToString&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;
+
+    &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;fullTrustResult&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;LaunchResult&lt;/span&gt; &lt;span class="p"&gt;!=&lt;/span&gt; &lt;span class="n"&gt;FullTrustLaunchResult&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;Success&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+    &lt;span class="p"&gt;{&lt;/span&gt;
+        &lt;span class="n"&gt;quickLog&lt;/span&gt; &lt;span class="p"&gt;+=&lt;/span&gt; &lt;span class="s"&gt;&amp;quot; &amp;quot;&lt;/span&gt; &lt;span class="p"&gt;+&lt;/span&gt; &lt;span class="n"&gt;fullTrustResult&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;ExtendedError&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;Message&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="p"&gt;}&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h1&gt;&lt;/h1&gt;
+&lt;p&gt;&lt;sup id="note-1"&gt;&lt;a href="#ref-1"&gt;*&lt;/a&gt; 
+Keep in mind you can just use &lt;code&gt;LangVersion&lt;/code&gt; to get most of C#11's benefits, even on this old CLR..&lt;/sup&gt;&lt;br&gt;
+&lt;sup id="note-2"&gt;&lt;a href="#ref-2"&gt;**&lt;/a&gt; calling it documentation is a gross euphemism as it's basically just &lt;a href="https://github.com/microsoft/DesktopBridgeToUWP-Samples/tree/master/Samples/JourneyAcrossTheBridge_Build2017Edition/Step3"&gt;sample code&lt;/a&gt;, they didn't even have packaging projects back then so they did it all in javascript and guess what? They &lt;a href="https://github.com/apache/cordova-windows/issues/327"&gt;removed UWP javascript support&lt;/a&gt; in VS2019+ and downloading older visual studio versions requires a microsoft account (or just grab it off &lt;a href="https://community.chocolatey.org/packages/visualstudio2017community#files"&gt;chocolatey&lt;/a&gt;) just so I can see what this bloody sample from 2017 generates in the appxmanifest, fuck you &lt;/sup&gt;&lt;br&gt;
+&lt;sup id="note-3"&gt;&lt;a href="#ref-3"&gt;***&lt;/a&gt; There's also &lt;a href="https://stackoverflow.com/questions/55643010/what-is-uwphost-dll"&gt;UWPHost.dll/UWPShim.exe&lt;/a&gt;, which comes with the &lt;code&gt;NETCore.UniversalWindowsPlatform&lt;/code&gt; package. It's mostly used for in-development UWP apps when running under debug/without NET Native. Not sure why they weren't just using CLRHost.. &lt;/sup&gt;  &lt;/p&gt;</content><category term="Cool Tricks"></category><category term="wpf"></category><category term="uwp"></category><category term="C#"></category><category term="windows"></category><category term="winui"></category><category term="windows 11"></category><category term="net framework"></category><category term="msix"></category><category term="dotnet"></category><category term="very dangerous windows hack age 18 and up content"></category></entry><entry><title>An approach to data binding with .NET in an iOS app</title><link href="https://tvc-16.science/xamarin-binding.html" rel="alternate"></link><published>2024-03-31T00:00:00+01:00</published><updated>2024-03-31T00:00:00+01:00</updated><author><name>Difegue</name></author><id>tag:tvc-16.science,2024-03-31:/xamarin-binding.html</id><summary type="html">&lt;p&gt;Key-Value Observer on Timeless Temple&lt;/p&gt;</summary><content type="html">&lt;p&gt;It's been a while since my last &lt;a href="/xamarin-resx.html"&gt;Xamarinpost&lt;/a&gt;, but since I just released a &lt;a href="https://github.com/Difegue/Stylophone/releases/tag/2.6.2"&gt;Stylophone update&lt;/a&gt;, I'm in the mood to wax .NET again!  &lt;/p&gt;
+&lt;p&gt;Stylophone, as a Windows-first app, was built upon the principle of &lt;a href="https://learn.microsoft.com/en-us/dotnet/architecture/maui/mvvm"&gt;MVVM&lt;/a&gt;, which as a quick refresher:&lt;br&gt;
+- Isolates model and view code entirely&lt;br&gt;
+- Uses "&lt;em&gt;ViewModel&lt;/em&gt;" classes as glue between the two, exposing the model's data as properties the view picks up through &lt;strong&gt;data binding&lt;/strong&gt;.  &lt;/p&gt;
+&lt;p&gt;One of the key advantages of this pattern is, as the MS documentation says:  &lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;The app UI can be redesigned without touching the view model and model code [...]. Therefore, a new version of the view should work with the existing view model.  &lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;So if you can easily have multiple sets of UI with the same base... You should be able to have the same code for multiple platforms that run .NET, and only &lt;strong&gt;remake the view&lt;/strong&gt; for each platform! That's what &lt;a href="/stylophone-25"&gt;Stylophone does&lt;/a&gt;.  &lt;/p&gt;
+&lt;p&gt;&lt;img width="420" style="margin:0" src="https://tvc-16.science/images/stylophone/v25-ipad.jpg"/&gt; &lt;img width="420" style="margin:0" src="https://tvc-16.science/images/stylophone/v25-win.jpg"/&gt;  &lt;/p&gt;
+&lt;p&gt;Data-binding comes for free on Windows thanks to XAML, but what about iOS?&lt;br&gt;
+Can we bind our .NET code to native UIKit views so they just update automagically?  &lt;/p&gt;
+&lt;p&gt;As it turns out, yes! There &lt;strong&gt;is&lt;/strong&gt; a native data-binding mechanism for Apple platforms!&lt;br&gt;
+Well, kinda.  &lt;/p&gt;
+&lt;h3&gt;Cocoa Bindings&lt;/h3&gt;
+&lt;p&gt;&lt;a href="https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/CocoaBindings/Concepts/WhatAreBindings.html"&gt;Cocoa Bindings&lt;/a&gt; is a piece of AppKit tech that allows you to do data-binding on Mac apps out of the box. It just works!™️&lt;br&gt;
+&lt;img alt="Cocoa Bindings" src="https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/CocoaBindings/art/sliderbindings_2x.png"&gt;&lt;br&gt;
+Apple's flavor of data-binding relies on two elements:  &lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;em&gt;Key-Value Coding&lt;/em&gt; (KVC), which gives access to an object’s property with a specified name (a &lt;strong&gt;Keypath&lt;/strong&gt;)&lt;/li&gt;
+&lt;li&gt;&lt;em&gt;Key-Value Observing&lt;/em&gt; (KVO), which allows an object to receive notifications of changes to values in other objects  &lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;For dotnetheads, this is basically &lt;em&gt;C# properties&lt;/em&gt; and &lt;code&gt;INotifyPropertyChanged&lt;/code&gt;.  &lt;/p&gt;
+&lt;p&gt;That all sounds nice and easy to plug into..except Cocoa Bindings aren't available on UIKit/iOS.&lt;br&gt;
+The components are, however! &lt;/p&gt;
+&lt;h3&gt;Reimplementing Cocoa Bindings&lt;/h3&gt;
+&lt;p&gt;Since UIKit still supports key-value coding, we can just create our own Bindings.&lt;br&gt;
+Creating a .NET databinder for iOS basically means doing two things:  &lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Keep track of &lt;code&gt;PropertyChanged&lt;/code&gt; events on the C#/ViewModel side and update your views through &lt;strong&gt;KVC&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;Keep track of view changes through &lt;strong&gt;KVO&lt;/strong&gt; and update your properties on the ViewModel  &lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;First, let's create our own &lt;code&gt;Binding&lt;/code&gt; class that would act as universal glue code between C# and native objects.  &lt;br&gt;
+Xamarin's automatic type conversion is very useful here, so we don't need to write a lot of code at all:  &lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;    &lt;span class="k"&gt;public&lt;/span&gt; &lt;span class="k"&gt;class&lt;/span&gt; &lt;span class="nc"&gt;Binding&lt;/span&gt;
+    &lt;span class="p"&gt;{&lt;/span&gt;
+        &lt;span class="c1"&gt;// Native UIKit object, and path to its KVC property&lt;/span&gt;
+        &lt;span class="k"&gt;public&lt;/span&gt; &lt;span class="n"&gt;NSObject&lt;/span&gt; &lt;span class="n"&gt;Object&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt; &lt;span class="k"&gt;get&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="k"&gt;set&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="p"&gt;}&lt;/span&gt;
+        &lt;span class="k"&gt;public&lt;/span&gt; &lt;span class="n"&gt;NSString&lt;/span&gt; &lt;span class="n"&gt;Keypath&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt; &lt;span class="k"&gt;get&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="k"&gt;set&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="p"&gt;}&lt;/span&gt;
+
+        &lt;span class="c1"&gt;// C# property, this uses reflection&lt;/span&gt;
+        &lt;span class="k"&gt;public&lt;/span&gt; &lt;span class="n"&gt;PropertyInfo&lt;/span&gt; &lt;span class="n"&gt;Property&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt; &lt;span class="k"&gt;get&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="k"&gt;set&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="p"&gt;}&lt;/span&gt;
+
+        &lt;span class="c1"&gt;/// Update our C# property with information from Key-Value Observing&lt;/span&gt;
+        &lt;span class="c1"&gt;/// Since KVO cannot give you type information, you must provide the type yourself.&lt;/span&gt;
+        &lt;span class="k"&gt;public&lt;/span&gt; &lt;span class="k"&gt;void&lt;/span&gt; &lt;span class="n"&gt;UpdateProperty&lt;/span&gt;&lt;span class="p"&gt;&amp;lt;&lt;/span&gt;&lt;span class="n"&gt;T&lt;/span&gt;&lt;span class="p"&gt;&amp;gt;(&lt;/span&gt;&lt;span class="n"&gt;INotifyPropertyChanged&lt;/span&gt; &lt;span class="n"&gt;targeTViewModel&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;NSObservedChange&lt;/span&gt; &lt;span class="n"&gt;change&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+        &lt;span class="p"&gt;{&lt;/span&gt;
+            &lt;span class="kt"&gt;var&lt;/span&gt; &lt;span class="n"&gt;nativeValue&lt;/span&gt; &lt;span class="p"&gt;=&lt;/span&gt; &lt;span class="n"&gt;change&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;NewValue&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+
+            &lt;span class="kt"&gt;object&lt;/span&gt; &lt;span class="k"&gt;value&lt;/span&gt; &lt;span class="p"&gt;=&lt;/span&gt; &lt;span class="k"&gt;typeof&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;T&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="k"&gt;switch&lt;/span&gt;
+            &lt;span class="p"&gt;{&lt;/span&gt;
+                &lt;span class="c1"&gt;// Cast to .NET types &lt;/span&gt;
+                &lt;span class="n"&gt;Type&lt;/span&gt; &lt;span class="n"&gt;t&lt;/span&gt; &lt;span class="n"&gt;when&lt;/span&gt; &lt;span class="n"&gt;t&lt;/span&gt; &lt;span class="p"&gt;==&lt;/span&gt; &lt;span class="k"&gt;typeof&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;=&amp;gt;&lt;/span&gt; &lt;span class="p"&gt;((&lt;/span&gt;&lt;span class="n"&gt;NSNumber&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="n"&gt;nativeValue&lt;/span&gt;&lt;span class="p"&gt;).&lt;/span&gt;&lt;span class="n"&gt;Int32Value&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+                &lt;span class="n"&gt;Type&lt;/span&gt; &lt;span class="n"&gt;t&lt;/span&gt; &lt;span class="n"&gt;when&lt;/span&gt; &lt;span class="n"&gt;t&lt;/span&gt; &lt;span class="p"&gt;==&lt;/span&gt; &lt;span class="k"&gt;typeof&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;long&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;=&amp;gt;&lt;/span&gt; &lt;span class="p"&gt;((&lt;/span&gt;&lt;span class="n"&gt;NSNumber&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="n"&gt;nativeValue&lt;/span&gt;&lt;span class="p"&gt;).&lt;/span&gt;&lt;span class="n"&gt;Int64Value&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+                &lt;span class="n"&gt;Type&lt;/span&gt; &lt;span class="n"&gt;t&lt;/span&gt; &lt;span class="n"&gt;when&lt;/span&gt; &lt;span class="n"&gt;t&lt;/span&gt; &lt;span class="p"&gt;==&lt;/span&gt; &lt;span class="k"&gt;typeof&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;double&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;=&amp;gt;&lt;/span&gt; &lt;span class="p"&gt;((&lt;/span&gt;&lt;span class="n"&gt;NSNumber&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="n"&gt;nativeValue&lt;/span&gt;&lt;span class="p"&gt;).&lt;/span&gt;&lt;span class="n"&gt;DoubleValue&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+                &lt;span class="n"&gt;Type&lt;/span&gt; &lt;span class="n"&gt;t&lt;/span&gt; &lt;span class="n"&gt;when&lt;/span&gt; &lt;span class="n"&gt;t&lt;/span&gt; &lt;span class="p"&gt;==&lt;/span&gt; &lt;span class="k"&gt;typeof&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;bool&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;=&amp;gt;&lt;/span&gt; &lt;span class="p"&gt;((&lt;/span&gt;&lt;span class="n"&gt;NSNumber&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="n"&gt;nativeValue&lt;/span&gt;&lt;span class="p"&gt;).&lt;/span&gt;&lt;span class="n"&gt;BoolValue&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+                &lt;span class="n"&gt;Type&lt;/span&gt; &lt;span class="n"&gt;t&lt;/span&gt; &lt;span class="n"&gt;when&lt;/span&gt; &lt;span class="n"&gt;t&lt;/span&gt; &lt;span class="p"&gt;==&lt;/span&gt; &lt;span class="k"&gt;typeof&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;string&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;=&amp;gt;&lt;/span&gt; &lt;span class="p"&gt;((&lt;/span&gt;&lt;span class="n"&gt;NSString&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="n"&gt;nativeValue&lt;/span&gt;&lt;span class="p"&gt;).&lt;/span&gt;&lt;span class="n"&gt;ToString&lt;/span&gt;&lt;span class="p"&gt;(),&lt;/span&gt;
+                &lt;span class="n"&gt;_&lt;/span&gt; &lt;span class="p"&gt;=&amp;gt;&lt;/span&gt; &lt;span class="k"&gt;throw&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="c1"&gt;// A wrapper class should be used in that case &lt;/span&gt;
+            &lt;span class="p"&gt;};&lt;/span&gt;
+
+            &lt;span class="c1"&gt;// Set the value on our viewmodel&lt;/span&gt;
+            &lt;span class="n"&gt;Property&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;SetValue&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;targeTViewModel&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="k"&gt;value&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+        &lt;span class="p"&gt;}&lt;/span&gt;
+
+        &lt;span class="c1"&gt;/// Update the NSObject&amp;#39;s value at the specified keypath with the property.&lt;/span&gt;
+        &lt;span class="k"&gt;public&lt;/span&gt; &lt;span class="k"&gt;void&lt;/span&gt; &lt;span class="nf"&gt;UpdateNSObject&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;object&lt;/span&gt; &lt;span class="k"&gt;value&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+        &lt;span class="p"&gt;{&lt;/span&gt;
+            &lt;span class="c1"&gt;// Box the value into a native UIKit type&lt;/span&gt;
+            &lt;span class="c1"&gt;// (If binding to more complex types than int/bool/strings, this will fail! A wrapper class should be used in that case)&lt;/span&gt;
+            &lt;span class="kt"&gt;var&lt;/span&gt; &lt;span class="n"&gt;nativeValue&lt;/span&gt; &lt;span class="p"&gt;=&lt;/span&gt; &lt;span class="n"&gt;NSObject&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;FromObject&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="k"&gt;value&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+
+            &lt;span class="c1"&gt;// KVC operations need to run on the main thread&lt;/span&gt;
+            &lt;span class="n"&gt;UIApplication&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;SharedApplication&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;BeginInvokeOnMainThread&lt;/span&gt;&lt;span class="p"&gt;(()&lt;/span&gt; &lt;span class="p"&gt;=&amp;gt;&lt;/span&gt;
+            &lt;span class="p"&gt;{&lt;/span&gt;
+                &lt;span class="c1"&gt;// https://developer.apple.com/documentation/objectivec/nsobject/1418139-setvalue?language=objc&lt;/span&gt;
+                &lt;span class="n"&gt;Object&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;SetValueForKeyPath&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;nativeValue&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;Keypath&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+            &lt;span class="p"&gt;});&lt;/span&gt;
+        &lt;span class="p"&gt;}&lt;/span&gt;
+
+
+    &lt;span class="p"&gt;};&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Then, our &lt;code&gt;PropertyBinder&lt;/code&gt; can just create instances of this object for each property you want to bind, and listen to notifications from both sides:  &lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;    &lt;span class="k"&gt;public&lt;/span&gt; &lt;span class="k"&gt;class&lt;/span&gt; &lt;span class="nc"&gt;PropertyBinder&lt;/span&gt;&lt;span class="p"&gt;&amp;lt;&lt;/span&gt;&lt;span class="n"&gt;TViewModel&lt;/span&gt;&lt;span class="p"&gt;&amp;gt;:&lt;/span&gt; &lt;span class="n"&gt;IDisposable&lt;/span&gt; &lt;span class="k"&gt;where&lt;/span&gt; &lt;span class="n"&gt;TViewModel&lt;/span&gt; &lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="n"&gt;INotifyPropertyChanged&lt;/span&gt;
+    &lt;span class="p"&gt;{&lt;/span&gt;
+        &lt;span class="c1"&gt;// Per-property name bindings&lt;/span&gt;
+        &lt;span class="k"&gt;private&lt;/span&gt; &lt;span class="k"&gt;readonly&lt;/span&gt; &lt;span class="n"&gt;Dictionary&lt;/span&gt;&lt;span class="p"&gt;&amp;lt;&lt;/span&gt;&lt;span class="kt"&gt;string&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;IList&lt;/span&gt;&lt;span class="p"&gt;&amp;lt;&lt;/span&gt;&lt;span class="n"&gt;Binding&lt;/span&gt;&lt;span class="p"&gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;_bindings&lt;/span&gt; &lt;span class="p"&gt;=&lt;/span&gt; &lt;span class="k"&gt;new&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;
+        &lt;span class="c1"&gt;// Per-property name &lt;/span&gt;
+        &lt;span class="k"&gt;private&lt;/span&gt; &lt;span class="k"&gt;readonly&lt;/span&gt; &lt;span class="n"&gt;Dictionary&lt;/span&gt;&lt;span class="p"&gt;&amp;lt;&lt;/span&gt;&lt;span class="kt"&gt;string&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;IDisposable&lt;/span&gt;&lt;span class="p"&gt;&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;_observers&lt;/span&gt; &lt;span class="p"&gt;=&lt;/span&gt; &lt;span class="k"&gt;new&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;
+        &lt;span class="k"&gt;private&lt;/span&gt; &lt;span class="n"&gt;TViewModel&lt;/span&gt; &lt;span class="n"&gt;_observableObject&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+
+        &lt;span class="k"&gt;public&lt;/span&gt; &lt;span class="nf"&gt;PropertyBinder&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;TViewModel&lt;/span&gt; &lt;span class="n"&gt;viewModel&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+        &lt;span class="p"&gt;{&lt;/span&gt;
+            &lt;span class="n"&gt;_observableObject&lt;/span&gt; &lt;span class="p"&gt;=&lt;/span&gt; &lt;span class="n"&gt;viewModel&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+            &lt;span class="c1"&gt;// Listen to C# property changes&lt;/span&gt;
+            &lt;span class="n"&gt;_observableObject&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;PropertyChanged&lt;/span&gt; &lt;span class="p"&gt;+=&lt;/span&gt; &lt;span class="n"&gt;OnObservablePropertyChanged&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+        &lt;span class="p"&gt;}&lt;/span&gt;
+
+        &lt;span class="k"&gt;public&lt;/span&gt; &lt;span class="k"&gt;void&lt;/span&gt; &lt;span class="nf"&gt;Dispose&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+        &lt;span class="p"&gt;{&lt;/span&gt;
+            &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;_observableObject&lt;/span&gt; &lt;span class="p"&gt;!=&lt;/span&gt; &lt;span class="k"&gt;null&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+                &lt;span class="n"&gt;_observableObject&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;PropertyChanged&lt;/span&gt; &lt;span class="p"&gt;-=&lt;/span&gt; &lt;span class="n"&gt;OnObservablePropertyChanged&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+
+            &lt;span class="c1"&gt;// Dispose our observers&lt;/span&gt;
+            &lt;span class="k"&gt;foreach&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;IDisposable&lt;/span&gt; &lt;span class="n"&gt;observer&lt;/span&gt; &lt;span class="k"&gt;in&lt;/span&gt; &lt;span class="n"&gt;_observers&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;Values&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+                &lt;span class="n"&gt;observer&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;Dispose&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;
+        &lt;span class="p"&gt;}&lt;/span&gt;
+
+        &lt;span class="c1"&gt;// Bind a NSObject&amp;#39;s keypath to a property of our observableObject&lt;/span&gt;
+        &lt;span class="k"&gt;public&lt;/span&gt; &lt;span class="k"&gt;void&lt;/span&gt; &lt;span class="n"&gt;Bind&lt;/span&gt;&lt;span class="p"&gt;&amp;lt;&lt;/span&gt;&lt;span class="n"&gt;T&lt;/span&gt;&lt;span class="p"&gt;&amp;gt;(&lt;/span&gt;&lt;span class="n"&gt;NSObject&lt;/span&gt; &lt;span class="n"&gt;obj&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kt"&gt;string&lt;/span&gt; &lt;span class="n"&gt;keypath&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kt"&gt;string&lt;/span&gt; &lt;span class="n"&gt;property&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kt"&gt;bool&lt;/span&gt; &lt;span class="n"&gt;isTwoWay&lt;/span&gt; &lt;span class="p"&gt;=&lt;/span&gt; &lt;span class="k"&gt;false&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+            &lt;span class="p"&gt;=&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;Bind&lt;/span&gt;&lt;span class="p"&gt;&amp;lt;&lt;/span&gt;&lt;span class="n"&gt;T&lt;/span&gt;&lt;span class="p"&gt;&amp;gt;(&lt;/span&gt;&lt;span class="n"&gt;obj&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="k"&gt;new&lt;/span&gt; &lt;span class="n"&gt;NSString&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;keypath&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt; &lt;span class="n"&gt;property&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;isTwoWay&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+
+        &lt;span class="k"&gt;private&lt;/span&gt; &lt;span class="k"&gt;void&lt;/span&gt; &lt;span class="nf"&gt;OnObservablePropertyChanged&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;object&lt;/span&gt; &lt;span class="n"&gt;sender&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;PropertyChangedEventArgs&lt;/span&gt; &lt;span class="n"&gt;e&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+        &lt;span class="p"&gt;{&lt;/span&gt;
+            &lt;span class="kt"&gt;var&lt;/span&gt; &lt;span class="n"&gt;properties&lt;/span&gt; &lt;span class="p"&gt;=&lt;/span&gt; &lt;span class="k"&gt;new&lt;/span&gt; &lt;span class="n"&gt;List&lt;/span&gt;&lt;span class="p"&gt;&amp;lt;&lt;/span&gt;&lt;span class="kt"&gt;string&lt;/span&gt;&lt;span class="p"&gt;&amp;gt;();&lt;/span&gt;
+
+            &lt;span class="c1"&gt;// The PropertyChanged event can indicate all properties on the object have changed by using either null or String.Empty as&lt;/span&gt;
+            &lt;span class="c1"&gt;// the property name in the PropertyChangedEventArgs.&lt;/span&gt;
+            &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;string&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;IsNullOrEmpty&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;e&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;PropertyName&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;
+            &lt;span class="p"&gt;{&lt;/span&gt;
+                &lt;span class="n"&gt;properties&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;AddRange&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;_bindings&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;Keys&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+            &lt;span class="p"&gt;}&lt;/span&gt;
+            &lt;span class="k"&gt;else&lt;/span&gt; &lt;span class="nf"&gt;if&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;_bindings&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;ContainsKey&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;e&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;PropertyName&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt; &lt;span class="c1"&gt;// Only one property has changed&lt;/span&gt;
+            &lt;span class="p"&gt;{&lt;/span&gt;
+                &lt;span class="n"&gt;properties&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;Add&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;e&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;PropertyName&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+            &lt;span class="p"&gt;}&lt;/span&gt;
+
+            &lt;span class="k"&gt;foreach&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;var&lt;/span&gt; &lt;span class="n"&gt;property&lt;/span&gt; &lt;span class="k"&gt;in&lt;/span&gt; &lt;span class="n"&gt;properties&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+            &lt;span class="p"&gt;{&lt;/span&gt;
+                &lt;span class="kt"&gt;var&lt;/span&gt; &lt;span class="n"&gt;bindings&lt;/span&gt; &lt;span class="p"&gt;=&lt;/span&gt; &lt;span class="n"&gt;_bindings&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;GetValueOrDefault&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;property&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+                &lt;span class="k"&gt;foreach&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;var&lt;/span&gt; &lt;span class="n"&gt;binding&lt;/span&gt; &lt;span class="k"&gt;in&lt;/span&gt; &lt;span class="n"&gt;bindings&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="c1"&gt;// Update all bindings for this property&lt;/span&gt;
+                    &lt;span class="n"&gt;binding&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;UpdateNSObject&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;binding&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;Property&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;GetValue&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;_observableObject&lt;/span&gt;&lt;span class="p"&gt;));&lt;/span&gt;
+            &lt;span class="p"&gt;}&lt;/span&gt;
+        &lt;span class="p"&gt;}&lt;/span&gt;
+
+        &lt;span class="k"&gt;private&lt;/span&gt; &lt;span class="k"&gt;void&lt;/span&gt; &lt;span class="n"&gt;Bind&lt;/span&gt;&lt;span class="p"&gt;&amp;lt;&lt;/span&gt;&lt;span class="n"&gt;T&lt;/span&gt;&lt;span class="p"&gt;&amp;gt;(&lt;/span&gt;&lt;span class="n"&gt;NSObject&lt;/span&gt; &lt;span class="n"&gt;obj&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;NSString&lt;/span&gt; &lt;span class="n"&gt;keypath&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kt"&gt;string&lt;/span&gt; &lt;span class="n"&gt;property&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kt"&gt;bool&lt;/span&gt; &lt;span class="n"&gt;isTwoWay&lt;/span&gt; &lt;span class="p"&gt;=&lt;/span&gt; &lt;span class="k"&gt;false&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+        &lt;span class="p"&gt;{&lt;/span&gt;
+            &lt;span class="kt"&gt;var&lt;/span&gt; &lt;span class="n"&gt;propertyInfo&lt;/span&gt; &lt;span class="p"&gt;=&lt;/span&gt; &lt;span class="n"&gt;GetProperty&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;property&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+            &lt;span class="kt"&gt;var&lt;/span&gt; &lt;span class="n"&gt;propertyValue&lt;/span&gt; &lt;span class="p"&gt;=&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;T&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="n"&gt;propertyInfo&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;GetValue&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;_observableObject&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+
+            &lt;span class="c1"&gt;// Create C#/UIKit binding and add it to the list to keep track of it&lt;/span&gt;
+            &lt;span class="kt"&gt;var&lt;/span&gt; &lt;span class="n"&gt;binding&lt;/span&gt; &lt;span class="p"&gt;=&lt;/span&gt;
+                &lt;span class="k"&gt;new&lt;/span&gt; &lt;span class="n"&gt;Binding&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt; &lt;span class="n"&gt;Object&lt;/span&gt; &lt;span class="p"&gt;=&lt;/span&gt; &lt;span class="n"&gt;obj&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;Keypath&lt;/span&gt; &lt;span class="p"&gt;=&lt;/span&gt; &lt;span class="n"&gt;keypath&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;Property&lt;/span&gt; &lt;span class="p"&gt;=&lt;/span&gt; &lt;span class="n"&gt;propertyInfo&lt;/span&gt; &lt;span class="p"&gt;};&lt;/span&gt;
+
+            &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;_bindings&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;ContainsKey&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;property&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;
+                &lt;span class="n"&gt;_bindings&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;GetValueOrDefault&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;property&lt;/span&gt;&lt;span class="p"&gt;).&lt;/span&gt;&lt;span class="n"&gt;Add&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;binding&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+            &lt;span class="k"&gt;else&lt;/span&gt;
+                &lt;span class="n"&gt;_bindings&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;Add&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;property&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="k"&gt;new&lt;/span&gt; &lt;span class="n"&gt;List&lt;/span&gt;&lt;span class="p"&gt;&amp;lt;&lt;/span&gt;&lt;span class="n"&gt;Binding&lt;/span&gt;&lt;span class="p"&gt;&amp;gt;(&lt;/span&gt;&lt;span class="k"&gt;new&lt;/span&gt;&lt;span class="p"&gt;[]&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt; &lt;span class="n"&gt;binding&lt;/span&gt; &lt;span class="p"&gt;}));&lt;/span&gt;
+
+            &lt;span class="c1"&gt;// Set the initial value &lt;/span&gt;
+            &lt;span class="n"&gt;binding&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;UpdateNSObject&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;propertyValue&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+
+            &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;isTwoWay&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+            &lt;span class="p"&gt;{&lt;/span&gt;
+                &lt;span class="c1"&gt;// Create an Observer with KVO to keep track of UIKit-side changes&lt;/span&gt;
+                &lt;span class="c1"&gt;// https://developer.apple.com/documentation/objectivec/nsobject/1412787-addobserver  &lt;/span&gt;
+                &lt;span class="kt"&gt;var&lt;/span&gt; &lt;span class="n"&gt;observer&lt;/span&gt; &lt;span class="p"&gt;=&lt;/span&gt; &lt;span class="n"&gt;obj&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;AddObserver&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;keypath&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;NSKeyValueObservingOptions&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;OldNew&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+                    &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;c&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;=&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;binding&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;UpdateProperty&lt;/span&gt;&lt;span class="p"&gt;&amp;lt;&lt;/span&gt;&lt;span class="n"&gt;T&lt;/span&gt;&lt;span class="p"&gt;&amp;gt;(&lt;/span&gt;&lt;span class="n"&gt;_observableObject&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;c&lt;/span&gt;&lt;span class="p"&gt;));&lt;/span&gt;
+                &lt;span class="c1"&gt;//      ^ Xamarin conveniently provides a version of this API call that  &lt;/span&gt;
+                &lt;span class="c1"&gt;// takes a .NET event, so we can directly invoke our Binding object&amp;#39;s Update.&lt;/span&gt;
+                &lt;span class="n"&gt;_observers&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;Add&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;obj&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;Handle&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;ToString&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt; &lt;span class="p"&gt;+&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;-&amp;quot;&lt;/span&gt; &lt;span class="p"&gt;+&lt;/span&gt; &lt;span class="n"&gt;keypath&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;observer&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+            &lt;span class="p"&gt;}&lt;/span&gt;
+        &lt;span class="p"&gt;}&lt;/span&gt;
+
+        &lt;span class="k"&gt;private&lt;/span&gt; &lt;span class="n"&gt;PropertyInfo&lt;/span&gt; &lt;span class="nf"&gt;GetProperty&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;string&lt;/span&gt; &lt;span class="n"&gt;propertyName&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+        &lt;span class="p"&gt;{&lt;/span&gt;
+            &lt;span class="c1"&gt;// Small optimization to avoid calling reflection every time&lt;/span&gt;
+            &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;_bindings&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;ContainsKey&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;propertyName&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;
+                &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="n"&gt;_bindings&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;propertyName&lt;/span&gt;&lt;span class="p"&gt;].&lt;/span&gt;&lt;span class="n"&gt;First&lt;/span&gt;&lt;span class="p"&gt;().&lt;/span&gt;&lt;span class="n"&gt;Property&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+
+            &lt;span class="kt"&gt;var&lt;/span&gt; &lt;span class="n"&gt;propertyInfo&lt;/span&gt; &lt;span class="p"&gt;=&lt;/span&gt; &lt;span class="k"&gt;typeof&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;TViewModel&lt;/span&gt;&lt;span class="p"&gt;).&lt;/span&gt;&lt;span class="n"&gt;GetProperty&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;propertyName&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+            &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="n"&gt;propertyInfo&lt;/span&gt; &lt;span class="p"&gt;??&lt;/span&gt; &lt;span class="k"&gt;throw&lt;/span&gt; &lt;span class="k"&gt;new&lt;/span&gt; &lt;span class="n"&gt;ArgumentException&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="err"&gt;$&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;Property {propertyName} not found on observable object {typeof(TViewModel).Name}&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+        &lt;span class="p"&gt;}&lt;/span&gt;
+
+    &lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;And that's it!&lt;br&gt;
+Usage is then as simple as creating a PropertyBinder from your view code:  &lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="k"&gt;public&lt;/span&gt; &lt;span class="n"&gt;RandomViewModel&lt;/span&gt; &lt;span class="n"&gt;ViewModel&lt;/span&gt; &lt;span class="p"&gt;=&lt;/span&gt; &lt;span class="k"&gt;new&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="n"&gt;Name&lt;/span&gt; &lt;span class="p"&gt;=&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;};&lt;/span&gt; 
+&lt;span class="k"&gt;public&lt;/span&gt; &lt;span class="n"&gt;UILabel&lt;/span&gt; &lt;span class="n"&gt;NameLabel&lt;/span&gt; &lt;span class="p"&gt;=&lt;/span&gt; &lt;span class="k"&gt;new&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;
+&lt;span class="k"&gt;public&lt;/span&gt; &lt;span class="n"&gt;PropertyBinder&lt;/span&gt;&lt;span class="p"&gt;&amp;lt;&lt;/span&gt;&lt;span class="n"&gt;PlaylistViewModel&lt;/span&gt;&lt;span class="p"&gt;&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;Binder&lt;/span&gt; &lt;span class="p"&gt;=&amp;gt;&lt;/span&gt; &lt;span class="k"&gt;new&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;ViewModel&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+
+&lt;span class="k"&gt;public&lt;/span&gt; &lt;span class="k"&gt;override&lt;/span&gt; &lt;span class="k"&gt;void&lt;/span&gt; &lt;span class="nf"&gt;AwakeFromNib&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+&lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="k"&gt;base&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;AwakeFromNib&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;
+    &lt;span class="c1"&gt;// Bind keypath &amp;quot;text&amp;quot; of UILabel to the Name property of our viewmodel&lt;/span&gt;
+    &lt;span class="n"&gt;Binder&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;Bind&lt;/span&gt;&lt;span class="p"&gt;&amp;lt;&lt;/span&gt;&lt;span class="kt"&gt;string&lt;/span&gt;&lt;span class="p"&gt;&amp;gt;(&lt;/span&gt;&lt;span class="n"&gt;NameLabel&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;text&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;nameof&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;ViewModel&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;Name&lt;/span&gt;&lt;span class="p"&gt;));&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h3&gt;wait fuck this is iOS&lt;/h3&gt;
+&lt;p&gt;One final gotcha is that for KVO to work, aka for &lt;a href="https://developer.apple.com/documentation/objectivec/nsobject/1412787-addobserver?language=objc"&gt;AddObserver&lt;/a&gt; to correctly create Observers and send notifications, your native UI controls must be &lt;strong&gt;KVO-compliant&lt;/strong&gt;.  &lt;/p&gt;
+&lt;p&gt;This is a funny Apple word to mean that the controls have to send notifications when their properties change - You can kind of think of it like DependencyProperties in XAML? It's a bit different though.&lt;br&gt;
+According to &lt;a href="https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/KeyValueObserving/Articles/KVOBasics.html"&gt;Apple documentation&lt;/a&gt;:  &lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Not all classes are KVO-compliant for all properties. [...] Typically properties in Apple-supplied frameworks are only KVO-compliant if they are documented as such.  &lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Basically, this means that since iOS didn't have Cocoa Bindings, they didn't give a single shit and most UIKit controls &lt;a href="https://stackoverflow.com/questions/6114261/how-reliable-is-kvo-with-uikit"&gt;will &lt;strong&gt;not&lt;/strong&gt; work with KVO&lt;/a&gt;.&lt;br&gt;
+So for Two-Way bindings, controls like &lt;code&gt;UISwitch&lt;/code&gt; won't notify our &lt;code&gt;Binding&lt;/code&gt; class when the user clicks on them! &lt;em&gt;Doushio?&lt;/em&gt;  &lt;/p&gt;
+&lt;p&gt;Well, the easiest solution is basically to do Apple's job in their place, and subclass the UIKit controls you need to &lt;em&gt;make&lt;/em&gt; them comply.&lt;br&gt;
+Which is &lt;a href="https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/KeyValueObserving/Articles/KVOCompliance.html#//apple_ref/doc/uid/20002178-BAJEAIEE"&gt;very easy&lt;/a&gt; as long as you only need a few properties:  &lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="na"&gt;[Register(nameof(KvoUISwitch))]&lt;/span&gt;
+&lt;span class="k"&gt;public&lt;/span&gt; &lt;span class="k"&gt;class&lt;/span&gt; &lt;span class="nc"&gt;KvoUISwitch&lt;/span&gt; &lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="n"&gt;UISwitch&lt;/span&gt;
+&lt;span class="p"&gt;{&lt;/span&gt;
+
+    &lt;span class="k"&gt;public&lt;/span&gt; &lt;span class="nf"&gt;KvoUISwitch&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;IntPtr&lt;/span&gt; &lt;span class="n"&gt;handle&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="k"&gt;base&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;handle&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+    &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="p"&gt;}&lt;/span&gt;
+
+    &lt;span class="k"&gt;void&lt;/span&gt; &lt;span class="nf"&gt;ReleaseDesignerOutlets&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+    &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="p"&gt;}&lt;/span&gt;
+
+    &lt;span class="k"&gt;public&lt;/span&gt; &lt;span class="k"&gt;override&lt;/span&gt; &lt;span class="k"&gt;void&lt;/span&gt; &lt;span class="nf"&gt;AwakeFromNib&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+    &lt;span class="p"&gt;{&lt;/span&gt;
+        &lt;span class="k"&gt;base&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;AwakeFromNib&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;
+
+        &lt;span class="c1"&gt;// This will trigger when the switch value changes&lt;/span&gt;
+        &lt;span class="n"&gt;AddTarget&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;NotifyChange&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;UIControlEvent&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;ValueChanged&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+    &lt;span class="p"&gt;}&lt;/span&gt;
+
+    &lt;span class="k"&gt;private&lt;/span&gt; &lt;span class="k"&gt;void&lt;/span&gt; &lt;span class="nf"&gt;NotifyChange&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;object&lt;/span&gt; &lt;span class="n"&gt;sender&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;EventArgs&lt;/span&gt; &lt;span class="n"&gt;e&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+    &lt;span class="p"&gt;{&lt;/span&gt;
+        &lt;span class="c1"&gt;// low-budget kvo compliance&lt;/span&gt;
+        &lt;span class="n"&gt;WillChangeValue&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;on&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+        &lt;span class="n"&gt;DidChangeValue&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;on&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+    &lt;span class="p"&gt;}&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;There would be more complex things to add here (&lt;code&gt;ICommand&lt;/code&gt; support, Managed object wrapping in bindings, Converters aka &lt;code&gt;NSValueTransformers&lt;/code&gt; on the UIKit side), but I invite you to just peek at the &lt;a href="https://github.com/Difegue/Stylophone/blob/dev/Sources/Stylophone.iOS/Helpers/PropertyBinder.cs"&gt;Stylophone source&lt;/a&gt; if you're interested.&lt;br&gt;
+Have a nice day!  &lt;/p&gt;</content><category term="Cool Tricks"></category><category term="xamarin"></category><category term="dotnet"></category><category term="c#"></category><category term="macos"></category><category term="ios"></category><category term="mvvm"></category><category term="data binding"></category><category term="cocoa bindings"></category><category term="monkey trick"></category><category term="key-value coding"></category></entry><entry><title>Using System XAML Islands in a MSIX-packaged .NET Framework app</title><link href="https://tvc-16.science/netfx-islands.html" rel="alternate"></link><published>2023-12-04T00:00:00+01:00</published><updated>2023-12-04T00:00:00+01:00</updated><author><name>Difegue</name></author><id>tag:tvc-16.science,2023-12-04:/netfx-islands.html</id><summary type="html">&lt;p&gt;MUX, WUX... more like FUX this shit eyy gotem&lt;/p&gt;</summary><content type="html">&lt;p&gt;Here's a &lt;em&gt;"I want this to pop up in SEO results despite all the AI garbage flooding search results"&lt;/em&gt; article I wish I had on hand.  &lt;/p&gt;
+&lt;p&gt;&lt;a href="https://learn.microsoft.com/en-us/windows/apps/desktop/modernize/xaml-islands"&gt;XAML Islands&lt;/a&gt; is the catch-all term for the technologies that allow you to host WinRT/UWP user interface elements in apps built with other desktop frameworks, like WPF and al.  &lt;/p&gt;
+&lt;p&gt;Since nothing about modern Windows UI is simple, there are &lt;strong&gt;two&lt;/strong&gt; versions of XAML Islands:  &lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;one embedded into the OS/platform XAML (&lt;a href="https://learn.microsoft.com/en-us/uwp/api/windows.ui.xaml.hosting?view=winrt-22621"&gt;&lt;code&gt;Windows.UI.Xaml.Hosting&lt;/code&gt;&lt;/a&gt;),  &lt;/li&gt;
+&lt;li&gt;one included as part of the &lt;em&gt;Windows App SDK&lt;/em&gt;. (&lt;a href="https://learn.microsoft.com/en-us/windows/windows-app-sdk/api/winrt/microsoft.ui.xaml.hosting"&gt;&lt;code&gt;Microsoft.UI.Xaml.Hosting&lt;/code&gt;&lt;/a&gt;)  &lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;This post will only talk about &lt;code&gt;Windows.UI.Xaml.Hosting&lt;/code&gt;.  &lt;/p&gt;
+&lt;p&gt;The easiest way to use XAML Islands in a WPF (or Winforms) app remains the &lt;a href="https://github.com/CommunityToolkit/Microsoft.Toolkit.Win32"&gt;Microsoft.Toolkit.Win32 package&lt;/a&gt; -- It's been archived as Microsoft wants you to use &lt;code&gt;Microsoft.UI.Xaml.Hosting&lt;/code&gt;, but there's no convenient WPF integration for that just yet.  &lt;/p&gt;
+&lt;p&gt;Now, if like me you tend to read Microsoft documentation as gospel, you might think that this package won't work on &lt;a href="https://learn.microsoft.com/en-us/windows/apps/desktop/modernize/xaml-islands#not-supported"&gt;.NET Framework codebases&lt;/a&gt;...  &lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;XAML Islands are supported only in apps that target .NET Core 3.x  &lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;But that's wrong! It is merely &lt;em&gt;unsupported&lt;/em&gt;. The &lt;a href="https://www.nuget.org/packages/Microsoft.Toolkit.Wpf.UI.Controls"&gt;package itself&lt;/a&gt; works perfectly fine on both &lt;code&gt;netcore3&lt;/code&gt; and &lt;code&gt;netfx&lt;/code&gt;&lt;sup id="ref-1"&gt;&lt;a href="#note-1"&gt;*&lt;/a&gt;&lt;/sup&gt;.&lt;br&gt;
+Well, not quite perfectly fine -- there are a number of pitfalls on .NET Framework I'll try to cover here.  &lt;/p&gt;
+&lt;h2&gt;Application Manifest&lt;/h2&gt;
+&lt;p&gt;The XAML islands toolchain in the Toolkit &lt;strong&gt;needs&lt;/strong&gt; your app to have a &lt;a href="https://learn.microsoft.com/en-us/windows/win32/sbscs/application-manifests"&gt;manifest&lt;/a&gt;, as it will &lt;a href="https://github.com/CommunityToolkit/Microsoft.Toolkit.Win32/issues/258#issuecomment-721421236"&gt;inject&lt;/a&gt; a &lt;code&gt;maxversiontested Id='10.0.18362.0'&lt;/code&gt; attribute into it to ensure it works with XAML Islands&lt;sup id="ref-2"&gt;&lt;a href="#note-2"&gt;**&lt;/a&gt;&lt;/sup&gt;.&lt;/p&gt;
+&lt;p&gt;You really don't need much in said manifest (and you can add the attribute yourself), here's a sample:  &lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="cp"&gt;&amp;lt;?xml version=&amp;quot;1.0&amp;quot; encoding=&amp;quot;utf-8&amp;quot;?&amp;gt;&lt;/span&gt;
+&lt;span class="nt"&gt;&amp;lt;assembly&lt;/span&gt; &lt;span class="na"&gt;manifestVersion=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;1.0&amp;quot;&lt;/span&gt; &lt;span class="na"&gt;xmlns=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;urn:schemas-microsoft-com:asm.v1&amp;quot;&lt;/span&gt;&lt;span class="nt"&gt;&amp;gt;&lt;/span&gt;
+  &lt;span class="nt"&gt;&amp;lt;assemblyIdentity&lt;/span&gt; &lt;span class="na"&gt;version=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;1.0.0.0&amp;quot;&lt;/span&gt; &lt;span class="na"&gt;name=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;MyApplication.app&amp;quot;&lt;/span&gt;&lt;span class="nt"&gt;/&amp;gt;&lt;/span&gt;
+  &lt;span class="nt"&gt;&amp;lt;trustInfo&lt;/span&gt; &lt;span class="na"&gt;xmlns=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;urn:schemas-microsoft-com:asm.v2&amp;quot;&lt;/span&gt;&lt;span class="nt"&gt;&amp;gt;&lt;/span&gt;
+    &lt;span class="nt"&gt;&amp;lt;security&amp;gt;&lt;/span&gt;
+      &lt;span class="nt"&gt;&amp;lt;requestedPrivileges&lt;/span&gt; &lt;span class="na"&gt;xmlns=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;urn:schemas-microsoft-com:asm.v3&amp;quot;&lt;/span&gt;&lt;span class="nt"&gt;&amp;gt;&lt;/span&gt;
+        &lt;span class="c"&gt;&amp;lt;!-- UAC Manifest Options&lt;/span&gt;
+&lt;span class="c"&gt;             If you want to change the Windows User Account Control level replace the &lt;/span&gt;
+&lt;span class="c"&gt;             requestedExecutionLevel node with one of the following.&lt;/span&gt;
+
+&lt;span class="c"&gt;        &amp;lt;requestedExecutionLevel  level=&amp;quot;asInvoker&amp;quot; uiAccess=&amp;quot;false&amp;quot; /&amp;gt;&lt;/span&gt;
+&lt;span class="c"&gt;        &amp;lt;requestedExecutionLevel  level=&amp;quot;requireAdministrator&amp;quot; uiAccess=&amp;quot;false&amp;quot; /&amp;gt;&lt;/span&gt;
+&lt;span class="c"&gt;        &amp;lt;requestedExecutionLevel  level=&amp;quot;highestAvailable&amp;quot; uiAccess=&amp;quot;false&amp;quot; /&amp;gt;&lt;/span&gt;
+
+&lt;span class="c"&gt;            Specifying requestedExecutionLevel element will disable file and registry virtualization. &lt;/span&gt;
+&lt;span class="c"&gt;            Remove this element if your application requires this virtualization for backwards&lt;/span&gt;
+&lt;span class="c"&gt;            compatibility.&lt;/span&gt;
+&lt;span class="c"&gt;        --&amp;gt;&lt;/span&gt;
+        &lt;span class="nt"&gt;&amp;lt;requestedExecutionLevel&lt;/span&gt; &lt;span class="na"&gt;level=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;asInvoker&amp;quot;&lt;/span&gt; &lt;span class="na"&gt;uiAccess=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;false&amp;quot;&lt;/span&gt; &lt;span class="nt"&gt;/&amp;gt;&lt;/span&gt;
+      &lt;span class="nt"&gt;&amp;lt;/requestedPrivileges&amp;gt;&lt;/span&gt;
+    &lt;span class="nt"&gt;&amp;lt;/security&amp;gt;&lt;/span&gt;
+  &lt;span class="nt"&gt;&amp;lt;/trustInfo&amp;gt;&lt;/span&gt;
+
+  &lt;span class="nt"&gt;&amp;lt;compatibility&lt;/span&gt; &lt;span class="na"&gt;xmlns=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;urn:schemas-microsoft-com:compatibility.v1&amp;quot;&lt;/span&gt;&lt;span class="nt"&gt;&amp;gt;&lt;/span&gt;
+    &lt;span class="nt"&gt;&amp;lt;application&amp;gt;&lt;/span&gt;
+      &lt;span class="c"&gt;&amp;lt;!-- A list of the Windows versions that this application has been tested on&lt;/span&gt;
+&lt;span class="c"&gt;           and is designed to work with. Uncomment the appropriate elements&lt;/span&gt;
+&lt;span class="c"&gt;           and Windows will automatically select the most compatible environment. --&amp;gt;&lt;/span&gt;
+
+      &lt;span class="c"&gt;&amp;lt;!-- Windows 10 --&amp;gt;&lt;/span&gt;
+      &lt;span class="nt"&gt;&amp;lt;supportedOS&lt;/span&gt; &lt;span class="na"&gt;Id=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;{8e0f7a12-bfb3-4fe8-b9a5-48fd50a15a9a}&amp;quot;&lt;/span&gt; &lt;span class="nt"&gt;/&amp;gt;&lt;/span&gt;
+      &lt;span class="nt"&gt;&amp;lt;maxversiontested&lt;/span&gt; &lt;span class="na"&gt;Id=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;10.0.18362&amp;quot;&lt;/span&gt; &lt;span class="nt"&gt;/&amp;gt;&lt;/span&gt;
+
+    &lt;span class="nt"&gt;&amp;lt;/application&amp;gt;&lt;/span&gt;
+  &lt;span class="nt"&gt;&amp;lt;/compatibility&amp;gt;&lt;/span&gt;
+
+  &lt;span class="nt"&gt;&amp;lt;application&lt;/span&gt; &lt;span class="na"&gt;xmlns=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;urn:schemas-microsoft-com:asm.v3&amp;quot;&lt;/span&gt;&lt;span class="nt"&gt;&amp;gt;&lt;/span&gt;
+    &lt;span class="nt"&gt;&amp;lt;windowsSettings&amp;gt;&lt;/span&gt;
+      &lt;span class="c"&gt;&amp;lt;!-- Use PerMonitorV2, default to PerMonitor on systems where V2 isn&amp;#39;t available. This order is required to use System XAML Islands correctly. --&amp;gt;&lt;/span&gt;
+      &lt;span class="nt"&gt;&amp;lt;dpiAwareness&lt;/span&gt; &lt;span class="na"&gt;xmlns=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;http://schemas.microsoft.com/SMI/2016/WindowsSettings&amp;quot;&lt;/span&gt;&lt;span class="nt"&gt;&amp;gt;&lt;/span&gt;PerMonitorV2, PerMonitor&lt;span class="nt"&gt;&amp;lt;/dpiAwareness&amp;gt;&lt;/span&gt;
+    &lt;span class="nt"&gt;&amp;lt;/windowsSettings&amp;gt;&lt;/span&gt;
+  &lt;span class="nt"&gt;&amp;lt;/application&amp;gt;&lt;/span&gt;
+
+&lt;span class="nt"&gt;&amp;lt;/assembly&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h2&gt;MSIX Packaging&lt;/h2&gt;
+&lt;p&gt;If you're shipping your app in a MSIX/Appx package for Microsoft Store usage, you need to include the following files in your package:  &lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="err"&gt;Microsoft.Toolkit.Wpf.UI.Controls.dll&lt;/span&gt;
+&lt;span class="err"&gt;Microsoft.Toolkit.Wpf.UI.XamlHost.dll&lt;/span&gt;
+&lt;span class="err"&gt;Microsoft.Toolkit.Win32.UI.XamlHost.dll&lt;/span&gt;
+&lt;span class="err"&gt;Microsoft.Toolkit.Win32.UI.XamlHost.winmd&lt;/span&gt;
+&lt;span class="err"&gt;Microsoft.Toolkit.Win32.UI.XamlHost.Managed.dll&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Well, so far nothing out of the ordinary -- But the app might still &lt;strong&gt;crash&lt;/strong&gt; once packaged, complaining about a Windows Runtime type missing. &lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Could not find Windows Runtime type Microsoft.Toolkit.Win32.UI.XamlHost.IXamlMetadataContainer  &lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Why would that be?  &lt;/p&gt;
+&lt;p&gt;There's an &lt;a href="https://github.com/dotnet/wpf/issues/1290#issuecomment-512944811"&gt;obscure bug&lt;/a&gt; with MSIX packages where if you're including WinMDs (Windows Runtime metadata), they &lt;strong&gt;must be at the root of the package&lt;/strong&gt;. Otherwise, they just.. won't be made available to your app.&lt;br&gt;
+&lt;img alt="wow" src="images/wow.jpg"&gt;&lt;br&gt;
+I personally just use raw filemaps with &lt;code&gt;MakeAppx&lt;/code&gt; instead of relying on Windows Application Packaging projects as it's frankly easier, but the github link above has csproj steps you can use:  &lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;  &lt;span class="c"&gt;&amp;lt;!-- Stomp the path to application executable.&lt;/span&gt;
+&lt;span class="c"&gt;    This task will copy the main exe to the appx root folder.&lt;/span&gt;
+&lt;span class="c"&gt;   --&amp;gt;&lt;/span&gt;
+  &lt;span class="nt"&gt;&amp;lt;Target&lt;/span&gt; &lt;span class="na"&gt;Name=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;_StompSourceProjectForWapProject&amp;quot;&lt;/span&gt; &lt;span class="na"&gt;BeforeTargets=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;_ConvertItems&amp;quot;&lt;/span&gt;&lt;span class="nt"&gt;&amp;gt;&lt;/span&gt;
+    &lt;span class="nt"&gt;&amp;lt;ItemGroup&amp;gt;&lt;/span&gt;
+      &lt;span class="c"&gt;&amp;lt;!-- Stomp all &amp;quot;SourceProject&amp;quot; values for all incoming dependencies to flatten the package. --&amp;gt;&lt;/span&gt;
+      &lt;span class="nt"&gt;&amp;lt;_TemporaryFilteredWapProjOutput&lt;/span&gt; &lt;span class="na"&gt;Include=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;@(_FilteredNonWapProjProjectOutput)&amp;quot;&lt;/span&gt; &lt;span class="nt"&gt;/&amp;gt;&lt;/span&gt;
+      &lt;span class="nt"&gt;&amp;lt;_FilteredNonWapProjProjectOutput&lt;/span&gt; &lt;span class="na"&gt;Remove=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;@(_TemporaryFilteredWapProjOutput)&amp;quot;&lt;/span&gt; &lt;span class="nt"&gt;/&amp;gt;&lt;/span&gt;
+      &lt;span class="nt"&gt;&amp;lt;_FilteredNonWapProjProjectOutput&lt;/span&gt; &lt;span class="na"&gt;Include=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;@(_TemporaryFilteredWapProjOutput)&amp;quot;&lt;/span&gt;&lt;span class="nt"&gt;&amp;gt;&lt;/span&gt;
+      &lt;span class="c"&gt;&amp;lt;!-- Blank the SourceProject here to vend all files into the root of the package. --&amp;gt;&lt;/span&gt;
+      &lt;span class="nt"&gt;&amp;lt;SourceProject&amp;gt;&amp;lt;/SourceProject&amp;gt;&lt;/span&gt;
+      &lt;span class="nt"&gt;&amp;lt;/_FilteredNonWapProjProjectOutput&amp;gt;&lt;/span&gt;
+    &lt;span class="nt"&gt;&amp;lt;/ItemGroup&amp;gt;&lt;/span&gt;
+  &lt;span class="nt"&gt;&amp;lt;/Target&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;And after all that mess... You should finally have your UWP controls!  &lt;/p&gt;
+&lt;p&gt;Was it worth it? Probably not, you can't even use Windows 11 styling/WinUI 2 unless you start dabbling in &lt;a href="https://learn.microsoft.com/en-us/windows/apps/desktop/modernize/framework-packages/use-the-dynamic-dependency-api"&gt;Dynamic Dependencies.&lt;/a&gt;&lt;sup id="ref-3"&gt;&lt;a href="#note-3"&gt;***&lt;/a&gt;&lt;/sup&gt;  &lt;/p&gt;
+&lt;h2&gt;Bonus round: MediaPlayerElement + AdaptiveMediaSource&lt;/h2&gt;
+&lt;p&gt;This is a small extra thing that doesn't really warrant a separate post... One of the major reasons you'd want to use XAML Islands is for the UWP &lt;a href="https://learn.microsoft.com/en-us/uwp/api/windows.ui.xaml.controls.mediaplayerelement?view=winrt-22621"&gt;MediaPlayerElement&lt;/a&gt; (the others being the Map or InkCanvas stuff).  &lt;/p&gt;
+&lt;p&gt;&lt;img alt="MediaPlayerElement in its natural habitat" src="https://github.com/MicrosoftDocs/windows-dev-docs/raw/docs/hub/apps/design/controls/images/controls/mtc_double_video_inprod.png"&gt;  &lt;/p&gt;
+&lt;p&gt;The Toolkit package comes with a wrapper for MediaPlayerElement that allows you to simply set an URL as a &lt;code&gt;MediaSource&lt;/code&gt;; But if you want to use an &lt;a href="https://learn.microsoft.com/en-us/samples/microsoft/windows-universal-samples/adaptivestreaming/"&gt;AdaptiveMediaSource&lt;/a&gt; instead to customize bitrate selection or something else, it won't let you.  &lt;/p&gt;
+&lt;p&gt;In their infinite wisdom, the Toolkit devs thought they'd be helpful and add a &lt;a href="https://github.com/CommunityToolkit/Microsoft.Toolkit.Win32/blob/9c1463e328a33168d0b0e7c7bea975838f35128f/Microsoft.Toolkit.Wpf.UI.Controls/MediaPlayerElement/MediaPlayerElement.cs#L61"&gt;custom converter&lt;/a&gt; to automatically map URLs to &lt;code&gt;MediaSource&lt;/code&gt;s in XAML... Except that converter will &lt;a href="https://github.com/CommunityToolkit/Microsoft.Toolkit.Win32/blob/9c1463e328a33168d0b0e7c7bea975838f35128f/Microsoft.Toolkit.Wpf.UI.Controls/MediaPlayerElement/MediaSourceConverter.cs#L25"&gt;crash the app&lt;/a&gt; if you use &lt;code&gt;AdaptiveMediaSource&lt;/code&gt;, which doesn't have a &lt;code&gt;Uri&lt;/code&gt; property.  &lt;/p&gt;
+&lt;p&gt;As it stands, the best solution I found is to duplicate the MediaPlayerElement control and just remove this binding at line 61. ¯\_(ツ)_/¯  &lt;/p&gt;
+&lt;h1&gt;&lt;/h1&gt;
+&lt;p&gt;&lt;sup id="note-1"&gt;&lt;a href="#ref-1"&gt;*&lt;/a&gt; 
+Aand it's broken in .NET 5 and above as those CLRs &lt;a href="https://github.com/dotnet/runtime/issues/35318"&gt;don't support .winmds&lt;/a&gt; natively anymore... You can still hack it with cswinrt but it's probably not worth it tbh&lt;/sup&gt;&lt;br&gt;
+&lt;sup id="note-2"&gt;&lt;a href="#ref-2"&gt;**&lt;/a&gt; which is frankly speaking a terrible idea?? why wouldn't you just document that developers need to add the attribute instead of bothering to do it yourself? Almost makes you think there's some conspiracy on the Microsoft side to document &lt;code&gt;app.manifest&lt;/code&gt; files as little as humanly possible &lt;/sup&gt;&lt;br&gt;
+&lt;sup id="note-3"&gt;&lt;a href="#ref-3"&gt;***&lt;/a&gt; which also has two different implementations i cant take this anymore &lt;/sup&gt;  &lt;/p&gt;</content><category term="Cool Tricks"></category><category term="xaml islands"></category><category term="wpf"></category><category term="uwp"></category><category term="C#"></category><category term="windows"></category><category term="windows 11"></category><category term="net framework"></category><category term="msix"></category><category term="very dangerous windows hack age 18 and up content"></category></entry><entry><title>Monkey Trick: Use ResX localization in a Xamarin Mac/iOS app with Interface Builder</title><link href="https://tvc-16.science/xamarin-resx.html" rel="alternate"></link><published>2022-12-02T00:00:00+01:00</published><updated>2022-12-02T00:00:00+01:00</updated><author><name>Difegue</name></author><id>tag:tvc-16.science,2022-12-02:/xamarin-resx.html</id><summary type="html">&lt;p&gt;I have to get those monkey puns out before Microsoft fully gets rid of the Xamarin name.&lt;/p&gt;</summary><content type="html">&lt;p&gt;Apple recently removed their page about &lt;a href="https://web.archive.org/web/20220406135312/https://developer.apple.com/xcode/interface-builder/"&gt;Interface Builder&lt;/a&gt; from the Xcode documentation, likely as part of their push to dogfood SwiftUI to as many people as possible.&lt;br&gt;
+But I &lt;strong&gt;like&lt;/strong&gt; &lt;a href="https://medium.com/swlh/a-bit-about-interface-builder-ceffaf484580"&gt;Interface Builder&lt;/a&gt;! Hell I'll go one beyond and even say I like Auto-Layout! ...When it works.  &lt;/p&gt;
+&lt;p&gt;Keeping UI code separated from your main logic is always a sound architectural choice for me, and while I wish you could edit &lt;a href="https://developer.apple.com/library/archive/documentation/General/Conceptual/Devpedia-CocoaApp/Storyboard.html"&gt;nibs/storyboards&lt;/a&gt; by hand like with XAML, I'll still take IB and its visual designer over writing &lt;code&gt;new UIButton()&lt;/code&gt; a thousand times.  &lt;/p&gt;
+&lt;p&gt;&lt;a href="./stylophone-25.html"&gt;Stylophone&lt;/a&gt;'s iOS port mostly uses Storyboards for its UI, but much of the logic code is written in .NET, and shared with its Windows/UWP brethren.&lt;br&gt;
+That includes localized text! I use &lt;a href="https://learn.microsoft.com/en-us/dotnet/core/extensions/localization#resource-files"&gt;.resx&lt;/a&gt; files to hold the localizations, which is very much a .NET concept.  &lt;/p&gt;
+&lt;p&gt;So, here's a fairly easy way to use the interop magic in Xamarin/Microsoft.iOS to &lt;strong&gt;directly&lt;/strong&gt; reference your localization keys in Interface Builder and have it just work.  &lt;/p&gt;
+&lt;h1&gt;Subclassing UILabel&lt;/h1&gt;
+&lt;p&gt;What we're going to do is simply pull the localized text once the view is loaded and assign it to all the &lt;code&gt;UILabels&lt;/code&gt; objects in the view, but:&lt;br&gt;
+- in an automated fashion instead of having to write additional view code
+- relying only on data from Interface Builder(IB).  &lt;/p&gt;
+&lt;p&gt;One of the nice things IB allows you to do is set &lt;a href="https://sam.dods.co/blog/2014/04/08/user-defined-runtime-attributes-in-interface-builder.html"&gt;User Defined Runtime Attributes&lt;/a&gt; on any control you lay out, which are basically arbitary key/value pairs.  &lt;/p&gt;
+&lt;p&gt;If we rely on that, it becomes quite easy to write a &lt;code&gt;UILabel&lt;/code&gt; subclass that looks in those attributes for a localization key, and then asks .NET about it:  &lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="k"&gt;using&lt;/span&gt; &lt;span class="nn"&gt;System&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="k"&gt;using&lt;/span&gt; &lt;span class="nn"&gt;Foundation&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="k"&gt;using&lt;/span&gt; &lt;span class="nn"&gt;Stylophone.Localization.Strings&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="k"&gt;using&lt;/span&gt; &lt;span class="nn"&gt;UIKit&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+
+&lt;span class="k"&gt;namespace&lt;/span&gt; &lt;span class="nn"&gt;Stylophone.iOS.Helpers&lt;/span&gt;
+&lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="c1"&gt;// Make this subclass visible from the UIKit side of things&lt;/span&gt;
+&lt;span class="na"&gt;    [Register(nameof(LocalizedLabel))]&lt;/span&gt;
+    &lt;span class="k"&gt;public&lt;/span&gt; &lt;span class="k"&gt;class&lt;/span&gt; &lt;span class="nc"&gt;LocalizedLabel&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="n"&gt;UILabel&lt;/span&gt;
+    &lt;span class="p"&gt;{&lt;/span&gt;
+
+        &lt;span class="c1"&gt;// This is our runtime attribute - name can be whatever you want!&lt;/span&gt;
+&lt;span class="na"&gt;        [Export(nameof(stringIdentifier))]&lt;/span&gt;
+        &lt;span class="k"&gt;public&lt;/span&gt; &lt;span class="n"&gt;NSString&lt;/span&gt; &lt;span class="n"&gt;stringIdentifier&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt; &lt;span class="k"&gt;get&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="k"&gt;set&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="p"&gt;}&lt;/span&gt;
+
+        &lt;span class="k"&gt;public&lt;/span&gt; &lt;span class="nf"&gt;LocalizedLabel&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;IntPtr&lt;/span&gt; &lt;span class="n"&gt;handle&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="k"&gt;base&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;handle&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+        &lt;span class="p"&gt;{&lt;/span&gt;
+        &lt;span class="p"&gt;}&lt;/span&gt;
+
+        &lt;span class="k"&gt;void&lt;/span&gt; &lt;span class="nf"&gt;ReleaseDesignerOutlets&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+        &lt;span class="p"&gt;{&lt;/span&gt;
+        &lt;span class="p"&gt;}&lt;/span&gt;
+
+        &lt;span class="k"&gt;public&lt;/span&gt; &lt;span class="k"&gt;override&lt;/span&gt; &lt;span class="k"&gt;void&lt;/span&gt; &lt;span class="nf"&gt;AwakeFromNib&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+        &lt;span class="p"&gt;{&lt;/span&gt;
+            &lt;span class="k"&gt;base&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;AwakeFromNib&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;
+
+            &lt;span class="c1"&gt;// Use the text set in IB to find the matching property.&lt;/span&gt;
+            &lt;span class="c1"&gt;// Set the identifier in &amp;quot;User Defined Runtime Attributes&amp;quot;.&lt;/span&gt;
+            &lt;span class="kt"&gt;var&lt;/span&gt; &lt;span class="n"&gt;identifier&lt;/span&gt; &lt;span class="p"&gt;=&lt;/span&gt; &lt;span class="n"&gt;stringIdentifier&lt;/span&gt; &lt;span class="p"&gt;??&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;AppDisplayName&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+
+            &lt;span class="c1"&gt;// Get the property value to have the localized string.&lt;/span&gt;
+            &lt;span class="n"&gt;Text&lt;/span&gt; &lt;span class="p"&gt;=&lt;/span&gt; &lt;span class="n"&gt;Resources&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;ResourceManager&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;GetString&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;identifier&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+        &lt;span class="p"&gt;}&lt;/span&gt;
+    &lt;span class="p"&gt;}&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;The &lt;code&gt;Resources&lt;/code&gt; class here is the classic static class generated by ResXGenerator, which you should normally have if you store your localizations that way.  &lt;/p&gt;
+&lt;h1&gt;Using the subclass in Interface Builder&lt;/h1&gt;
+&lt;p&gt;Once your subclass is created, you should be able to define it as a "Custom class" for all the &lt;code&gt;UILabels&lt;/code&gt; you want localized.    &lt;/p&gt;
+&lt;p&gt;From that point on, all that's left to do is add your localization key as a runtime attribute under the &lt;code&gt;stringIdentifier&lt;/code&gt; key:&lt;br&gt;
+&lt;img alt="a screenshot of interface builder, my beloved" src="images/stylophone/xam-localization.png"&gt;  &lt;/p&gt;
+&lt;p&gt;And you're done!  &lt;/p&gt;
+&lt;p&gt;&lt;img src="/images/stylophone/stylo_ios_settings.png" style="width:300px" /&gt;  &lt;/p&gt;
+&lt;h1&gt;Notes&lt;/h1&gt;
+&lt;p&gt;This approach obviously only works if your text is in a &lt;code&gt;UILabel&lt;/code&gt; -- While that should cover 95% of your app, it's likely you'll still have to hodgepodge some view code for more esoteric text placement, like in &lt;code&gt;UITableView&lt;/code&gt; headers:  &lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="c1"&gt;// Localization not covered by LocalizedLabel&lt;/span&gt;
+&lt;span class="k"&gt;public&lt;/span&gt; &lt;span class="k"&gt;override&lt;/span&gt; &lt;span class="kt"&gt;string&lt;/span&gt; &lt;span class="nf"&gt;TitleForHeader&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;UITableView&lt;/span&gt; &lt;span class="n"&gt;tableView&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;nint&lt;/span&gt; &lt;span class="n"&gt;section&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="n"&gt;section&lt;/span&gt; &lt;span class="k"&gt;switch&lt;/span&gt;
+    &lt;span class="p"&gt;{&lt;/span&gt;
+        &lt;span class="m"&gt;0&lt;/span&gt; &lt;span class="p"&gt;=&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;Resources&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;SettingsServer&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+        &lt;span class="m"&gt;1&lt;/span&gt; &lt;span class="p"&gt;=&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;Resources&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;SettingsLocalPlaybackHeader&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+        &lt;span class="m"&gt;2&lt;/span&gt; &lt;span class="p"&gt;=&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;Resources&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;SettingsDatabase&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+        &lt;span class="m"&gt;3&lt;/span&gt; &lt;span class="p"&gt;=&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;Resources&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;SettingsAnalytics&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+        &lt;span class="m"&gt;4&lt;/span&gt; &lt;span class="p"&gt;=&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;Resources&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;SettingsAbout&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+        &lt;span class="n"&gt;_&lt;/span&gt; &lt;span class="p"&gt;=&amp;gt;&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+    &lt;span class="p"&gt;};&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;As a final note, keep in mind that ResX lookup will use the .NET Culture system, which has &lt;a href="https://learn.microsoft.com/en-us/xamarin/ios/app-fundamentals/localization/#locale"&gt;slightly different language combinations&lt;/a&gt; than iOS/macOS.&lt;br&gt;
+See &lt;a href="https://learn.microsoft.com/en-us/xamarin/ios/app-fundamentals/localization/#specifying-default-and-supported-languages-in-infoplist"&gt;this&lt;/a&gt; post for more information and how to declare languages in your Xamarin app.  &lt;/p&gt;
+&lt;p&gt;Thanks for reading!  &lt;/p&gt;</content><category term="Cool Tricks"></category><category term="interface builder"></category><category term="xamarin"></category><category term="dotnet"></category><category term="c#"></category><category term="macos"></category><category term="ios"></category><category term="resx"></category><category term="localization"></category><category term="monkey trick"></category></entry><entry><title>Running cool-retro-term in Windows through WSL2 and WSLg</title><link href="https://tvc-16.science/cool-retro-term-wsl2.html" rel="alternate"></link><published>2022-11-27T20:00:00+01:00</published><updated>2022-11-27T20:00:00+01:00</updated><author><name>Difegue</name></author><id>tag:tvc-16.science,2022-11-27:/cool-retro-term-wsl2.html</id><summary type="html">&lt;p&gt;Javascript terminal emulators &lt;em&gt;still&lt;/em&gt; have nothing on this.&lt;/p&gt;</summary><content type="html">&lt;p&gt;The original &lt;a href="./cool-retro-term-wsl.html"&gt;cool-retro-term on WSL&lt;/a&gt; blogpost is still one of the most-viewed ones on this website for some reason, but it's gotten quite a bit out of date now that WSL ships with a built-in X server. &lt;sup&gt;well achctually it's not X, wslg uses &lt;a href="https://devblogs.microsoft.com/commandline/wslg-architecture/"&gt;wayland&lt;/a&gt; with Xwayland etc etc whatever&lt;/sup&gt;  &lt;/p&gt;
+&lt;p&gt;WSLg + WSL2 was limited to Windows 11 for quite a while, but that &lt;a href="https://devblogs.microsoft.com/commandline/the-windows-subsystem-for-linux-in-the-microsoft-store-is-now-generally-available-on-windows-10-and-11/"&gt;very recently&lt;/a&gt; changed, so I feel it's a nice time to re-try the whole cool-retro-term in Windows experience. Let's get rolling!  &lt;/p&gt;
+&lt;h1&gt;Install WSL2 and the required dependencies&lt;/h1&gt;
+&lt;p&gt;WSL is much easier to install these days, you can just run: &lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="err"&gt;wsl.exe --install&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;to get WSL2, an Ubuntu default distro and the WSLg system distro.  &lt;/p&gt;
+&lt;h1&gt;Download the cool-retro-term AppImage and run it&lt;/h1&gt;
+&lt;p&gt;cool-retro-term doesn't seem to have an AppImage up for their recent 1.2.0 due to &lt;a href="https://github.com/Swordfish90/cool-retro-term/issues/698"&gt;CI issues&lt;/a&gt;, so I'll just keep using the ol' reliable 1.1.1 for this.  &lt;/p&gt;
+&lt;p&gt;WSL2 supports AppImages much better than WSL1 used to do, so you just have to run the following:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="err"&gt;wget https://github.com/Swordfish90/cool-retro-term/releases/download/1.1.1/Cool-Retro-Term-1.1.1-x86_64.AppImage&lt;/span&gt;
+&lt;span class="err"&gt;chmod a+x Cool-Retro-Term-1.1.1-x86_64.AppImage&lt;/span&gt;
+&lt;span class="err"&gt;./Cool-Retro-Term-1.1.1-x86_64.AppImage &lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;And that's it, you're done!  &lt;/p&gt;
+&lt;p&gt;&lt;img alt="wow, no more pegging my cpu at 100%!" src="./images/crt-wsl2.jpg"&gt;  &lt;/p&gt;
+&lt;p&gt;Similarly, the .bat shortcut to start CRT becomes much, &lt;em&gt;much&lt;/em&gt; shorter:  &lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;cool-retro-term.bat&lt;/strong&gt;&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="err"&gt;start /min wsl -d ubuntu [folder where you saved the appimage]/Cool-Retro-Term-1.1.1-x86_64.AppImage &lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h1&gt;Potential issues and troubleshooting&lt;/h1&gt;
+&lt;p&gt;If you get an error like &lt;code&gt;QXcbConnection: Could not connect to display&lt;/code&gt;, it's likely the WSLg Wayland compositor is acting up for some reason.&lt;br&gt;
+I recommend first trying a full restart of the WSL VM using &lt;code&gt;wsl.exe --shutdown&lt;/code&gt; in a PowerShell window.&lt;br&gt;
+If that doesn't help, you might have some luck following the instructions &lt;a href="https://github.com/microsoft/wslg/wiki/Diagnosing-%22cannot-open-display%22-type-issues-with-WSLg"&gt;here.&lt;/a&gt;  &lt;/p&gt;
+&lt;p&gt;WSL2+WSLg fixes essentially all the &lt;a href="./cool-retro-term-wsl.html#caveats"&gt;caveats&lt;/a&gt; from the previous article, so you now have GPU acceleration, working copy-paste, all the bells and whistles. 🎊&lt;br&gt;
+My only gripe with WSLg is that it tries its best to apply Windows DPI settings but &lt;a href="https://github.com/microsoft/wslg/issues/3"&gt;doesn't always succeed&lt;/a&gt;, so if you're running at high DPI, you might have to tweak the CRT settings a bit to have it look nice for you.  &lt;/p&gt;
+&lt;h1&gt;Using apt instead of the AppImage&lt;/h1&gt;
+&lt;p&gt;I personally think the AppImage is the fastest way to setup CRT and have it up to date, but since the WSL2 default user distro is Ubuntu, you can easily just do &lt;code&gt;apt update &amp;amp;&amp;amp; apt install cool-retro-term&lt;/code&gt;.  &lt;/p&gt;
+&lt;p&gt;This approach has the advantage of bundling a &lt;code&gt;.desktop&lt;/code&gt; file, so you can start CRT directly from the Windows Start Menu:  &lt;/p&gt;
+&lt;p&gt;&lt;img alt="Cool Retro Term(Ubuntu) in the Start Menu." src="./images/crt-start.jpg"&gt;&lt;/p&gt;</content><category term="Cool Tricks"></category><category term="wsl"></category><category term="cool-retro-term"></category><category term="wslg"></category><category term="terminal"></category><category term="crt"></category></entry><entry><title>Apply Mica to a WPF app on Windows 11</title><link href="https://tvc-16.science/mica-wpf.html" rel="alternate"></link><published>2021-10-13T00:00:00+02:00</published><updated>2021-10-13T00:00:00+02:00</updated><author><name>Difegue</name></author><id>tag:tvc-16.science,2021-10-13:/mica-wpf.html</id><summary type="html">&lt;p&gt;I don't need no Windows.UI.Composition.&lt;/p&gt;</summary><content type="html">&lt;p&gt;The &lt;a href="https://docs.microsoft.com/en-us/windows/apps/design/style/mica"&gt;Mica&lt;/a&gt; material is one of the hypest parts of Windows 11 app design, but just like Acrylic before it,&lt;br&gt;
+it's a royal pain to use if you're unable to move your entire app to rely on the UWP/WinUI stack.  &lt;br&gt;
+&lt;sup&gt;(Even &lt;a href="https://github.com/microsoft/microsoft-ui-xaml/issues/5319"&gt;XAML Islands&lt;/a&gt; can't save you here)&lt;/sup&gt;  &lt;/p&gt;
+&lt;p&gt;Now sure, you could add a WinRT &lt;a href="https://github.com/microsoft/Windows.UI.Composition-Win32-Samples"&gt;Visual Brush&lt;/a&gt; to your app, then use raw Windows.UI.Composition APIs to build the material, mimicking what &lt;a href="https://github.com/microsoft/microsoft-ui-xaml/blob/main/dev/Materials/Backdrop/MicaController.cpp"&gt;WinUI&lt;/a&gt; does... but I guess not even Microsoft wants to suffer through that, since they added a &lt;a href="https://docs.microsoft.com/en-us/windows/win32/api/dwmapi/nf-dwmapi-dwmsetwindowattribute"&gt;DwmWindowAttribute&lt;/a&gt; to apply a Mica brush to any given HWND.  &lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="n"&gt;enum&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;DWMWINDOWATTRIBUTE&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+&lt;span class="err"&gt;{&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="n"&gt;DWMWA_NCRENDERING_ENABLED&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt;              &lt;/span&gt;&lt;span class="o"&gt;//&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;[&lt;/span&gt;&lt;span class="n"&gt;get&lt;/span&gt;&lt;span class="o"&gt;]&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="k"&gt;Is&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;non&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;client&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;rendering&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;enabled&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;disabled&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="o"&gt;[&lt;/span&gt;&lt;span class="n"&gt;...&lt;/span&gt;&lt;span class="o"&gt;]&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="w"&gt;   &lt;/span&gt;&lt;span class="n"&gt;DWMWA_USE_HOSTBACKDROPBRUSH&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt;                &lt;/span&gt;&lt;span class="o"&gt;//&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;[&lt;/span&gt;&lt;span class="n"&gt;set&lt;/span&gt;&lt;span class="o"&gt;]&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;BOOL&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;Allows&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;the&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="k"&gt;use&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="k"&gt;of&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="k"&gt;host&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;backdrop&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;brushes&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="k"&gt;for&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;the&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="k"&gt;window&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="w"&gt;   &lt;/span&gt;&lt;span class="n"&gt;DWMWA_USE_IMMERSIVE_DARK_MODE&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="mi"&gt;20&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt;         &lt;/span&gt;&lt;span class="o"&gt;//&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;[&lt;/span&gt;&lt;span class="n"&gt;set&lt;/span&gt;&lt;span class="o"&gt;]&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;BOOL&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;Allows&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;a&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="k"&gt;window&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="k"&gt;to&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;either&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="k"&gt;use&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;the&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;accent&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;color&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="ow"&gt;or&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;dark&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;according&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="k"&gt;to&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;the&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="k"&gt;user&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;Color&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;Mode&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;preferences&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="w"&gt;   &lt;/span&gt;&lt;span class="n"&gt;DWMWA_WINDOW_CORNER_PREFERENCE&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="mi"&gt;33&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt;        &lt;/span&gt;&lt;span class="o"&gt;//&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;[&lt;/span&gt;&lt;span class="n"&gt;set&lt;/span&gt;&lt;span class="o"&gt;]&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;WINDOW_CORNER_PREFERENCE&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;Controls&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;the&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;policy&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;that&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;rounds&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="k"&gt;top&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="k"&gt;level&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="k"&gt;window&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;corners&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="w"&gt;   &lt;/span&gt;&lt;span class="n"&gt;DWMWA_BORDER_COLOR&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt;                         &lt;/span&gt;&lt;span class="o"&gt;//&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;[&lt;/span&gt;&lt;span class="n"&gt;set&lt;/span&gt;&lt;span class="o"&gt;]&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;COLORREF&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;The&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;color&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="k"&gt;of&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;the&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;thin&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;border&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;around&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;a&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="k"&gt;top&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="k"&gt;level&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="k"&gt;window&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="w"&gt;   &lt;/span&gt;&lt;span class="n"&gt;DWMWA_CAPTION_COLOR&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt;                        &lt;/span&gt;&lt;span class="o"&gt;//&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;[&lt;/span&gt;&lt;span class="n"&gt;set&lt;/span&gt;&lt;span class="o"&gt;]&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;COLORREF&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;The&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;color&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="k"&gt;of&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;the&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;caption&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="w"&gt;   &lt;/span&gt;&lt;span class="n"&gt;DWMWA_TEXT_COLOR&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt;                           &lt;/span&gt;&lt;span class="o"&gt;//&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;[&lt;/span&gt;&lt;span class="n"&gt;set&lt;/span&gt;&lt;span class="o"&gt;]&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;COLORREF&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;The&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;color&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="k"&gt;of&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;the&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;caption&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nc"&gt;text&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="w"&gt;   &lt;/span&gt;&lt;span class="n"&gt;DWMWA_VISIBLE_FRAME_BORDER_THICKNESS&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt;       &lt;/span&gt;&lt;span class="o"&gt;//&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;[&lt;/span&gt;&lt;span class="n"&gt;get&lt;/span&gt;&lt;span class="o"&gt;]&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;UINT&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;width&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="k"&gt;of&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;the&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;visible&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;border&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;around&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;a&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;thick&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;frame&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="k"&gt;window&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+&lt;span class="o"&gt;[&lt;/span&gt;&lt;span class="n"&gt;...&lt;/span&gt;&lt;span class="o"&gt;]&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="w"&gt;   &lt;/span&gt;&lt;span class="n"&gt;DWMWA_MICA_EFFECT&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="mi"&gt;1029&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt;                   &lt;/span&gt;&lt;span class="o"&gt;//&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;[&lt;/span&gt;&lt;span class="n"&gt;set&lt;/span&gt;&lt;span class="o"&gt;]&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;BOOL&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;undocumented&lt;/span&gt;&lt;span class="vm"&gt;??&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="n"&gt;DWMWA_LAST&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+&lt;span class="err"&gt;}&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;The &lt;a href="https://devblogs.microsoft.com/oldnewthing/?p=41373"&gt;usual warnings&lt;/a&gt; apply since this attribute is undocumented, but if it's anything like the &lt;a href="https://withinrafael.com/2018/02/02/adding-acrylic-blur-to-your-windows-10-apps-redstone-4-desktop-apps/"&gt;Acrylic&lt;/a&gt; WindowCompositionAttribute trick, &lt;strike&gt;it should at least work until WinUI 3 is far enough in development.&lt;/strike&gt; lmao &lt;/p&gt;
+&lt;p&gt;(&lt;strong&gt;Note&lt;/strong&gt;: This attribute was removed from Windows 11 in insider build &lt;em&gt;22494&lt;/em&gt;, and replaced by &lt;code&gt;DWMWA_SYSTEMBACKDROP_TYPE&lt;/code&gt; in builds &lt;em&gt;22523&lt;/em&gt; and up. Scroll to the bottom of the article for more info!)&lt;/p&gt;
+&lt;p&gt;Applying this flag to a HWND in WPF is quite easy:  &lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="k"&gt;public&lt;/span&gt; &lt;span class="k"&gt;partial&lt;/span&gt; &lt;span class="k"&gt;class&lt;/span&gt; &lt;span class="nc"&gt;MainWindow&lt;/span&gt; &lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="n"&gt;Window&lt;/span&gt;
+&lt;span class="p"&gt;{&lt;/span&gt;
+&lt;span class="na"&gt;    [DllImport(&amp;quot;dwmapi.dll&amp;quot;)]&lt;/span&gt;
+    &lt;span class="k"&gt;public&lt;/span&gt; &lt;span class="k"&gt;static&lt;/span&gt; &lt;span class="k"&gt;extern&lt;/span&gt; &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="nf"&gt;DwmSetWindowAttribute&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;IntPtr&lt;/span&gt; &lt;span class="n"&gt;hwnd&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;DwmWindowAttribute&lt;/span&gt; &lt;span class="n"&gt;dwAttribute&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="k"&gt;ref&lt;/span&gt; &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;pvAttribute&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;cbAttribute&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+
+&lt;span class="na"&gt;    [Flags]&lt;/span&gt;
+    &lt;span class="k"&gt;public&lt;/span&gt; &lt;span class="k"&gt;enum&lt;/span&gt; &lt;span class="n"&gt;DwmWindowAttribute&lt;/span&gt; &lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="kt"&gt;uint&lt;/span&gt;
+    &lt;span class="p"&gt;{&lt;/span&gt;
+        &lt;span class="n"&gt;DWMWA_USE_IMMERSIVE_DARK_MODE&lt;/span&gt; &lt;span class="p"&gt;=&lt;/span&gt; &lt;span class="m"&gt;20&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+        &lt;span class="n"&gt;DWMWA_MICA_EFFECT&lt;/span&gt; &lt;span class="p"&gt;=&lt;/span&gt; &lt;span class="m"&gt;1029&lt;/span&gt;
+    &lt;span class="p"&gt;}&lt;/span&gt;
+
+    &lt;span class="k"&gt;public&lt;/span&gt; &lt;span class="nf"&gt;MainWindow&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+    &lt;span class="p"&gt;{&lt;/span&gt;
+        &lt;span class="n"&gt;InitializeComponent&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;
+        &lt;span class="n"&gt;ContentRendered&lt;/span&gt; &lt;span class="p"&gt;+=&lt;/span&gt; &lt;span class="n"&gt;Window_ContentRendered&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="p"&gt;}&lt;/span&gt;
+
+    &lt;span class="k"&gt;private&lt;/span&gt; &lt;span class="k"&gt;void&lt;/span&gt; &lt;span class="nf"&gt;Window_ContentRendered&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;object&lt;/span&gt; &lt;span class="n"&gt;sender&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;System&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;EventArgs&lt;/span&gt; &lt;span class="n"&gt;e&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+    &lt;span class="p"&gt;{&lt;/span&gt;
+        &lt;span class="c1"&gt;// Apply Mica brush&lt;/span&gt;
+        &lt;span class="n"&gt;UpdateStyleAttributes&lt;/span&gt;&lt;span class="p"&gt;((&lt;/span&gt;&lt;span class="n"&gt;HwndSource&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="n"&gt;sender&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+    &lt;span class="p"&gt;}&lt;/span&gt;
+
+    &lt;span class="k"&gt;public&lt;/span&gt; &lt;span class="k"&gt;static&lt;/span&gt; &lt;span class="k"&gt;void&lt;/span&gt; &lt;span class="nf"&gt;UpdateStyleAttributes&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;HwndSource&lt;/span&gt; &lt;span class="n"&gt;hwnd&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+    &lt;span class="p"&gt;{&lt;/span&gt;
+        &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;trueValue&lt;/span&gt; &lt;span class="p"&gt;=&lt;/span&gt; &lt;span class="m"&gt;0&lt;/span&gt;&lt;span class="n"&gt;x01&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+        &lt;span class="n"&gt;DwmSetWindowAttribute&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;hwnd&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;Handle&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;DwmWindowAttribute&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;DWMWA_MICA_EFFECT&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="k"&gt;ref&lt;/span&gt; &lt;span class="n"&gt;trueValue&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;Marshal&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;SizeOf&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="k"&gt;typeof&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt;&lt;span class="p"&gt;)));&lt;/span&gt;
+    &lt;span class="p"&gt;}&lt;/span&gt;
+
+    &lt;span class="k"&gt;private&lt;/span&gt; &lt;span class="k"&gt;void&lt;/span&gt; &lt;span class="nf"&gt;Window_Loaded&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;object&lt;/span&gt; &lt;span class="n"&gt;sender&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;RoutedEventArgs&lt;/span&gt; &lt;span class="n"&gt;e&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+    &lt;span class="p"&gt;{&lt;/span&gt;
+        &lt;span class="c1"&gt;// Get PresentationSource&lt;/span&gt;
+        &lt;span class="n"&gt;PresentationSource&lt;/span&gt; &lt;span class="n"&gt;presentationSource&lt;/span&gt; &lt;span class="p"&gt;=&lt;/span&gt; &lt;span class="n"&gt;PresentationSource&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;FromVisual&lt;/span&gt;&lt;span class="p"&gt;((&lt;/span&gt;&lt;span class="n"&gt;Visual&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="n"&gt;sender&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+
+        &lt;span class="c1"&gt;// Subscribe to PresentationSource&amp;#39;s ContentRendered event&lt;/span&gt;
+        &lt;span class="n"&gt;presentationSource&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;ContentRendered&lt;/span&gt; &lt;span class="p"&gt;+=&lt;/span&gt; &lt;span class="n"&gt;Window_ContentRendered&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="p"&gt;}&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;To get the brush to actually show, we also need to remove WPF's built-in chrome with a &lt;a href="https://docs.microsoft.com/en-us/dotnet/api/system.windows.shell.windowchrome"&gt;WindowChrome&lt;/a&gt; override:&lt;br&gt;
+(You can also use &lt;code&gt;WindowStyle.None&lt;/code&gt;, but &lt;code&gt;WindowChrome&lt;/code&gt; lets you keep the system controls, which will come in handy.)  &lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="nt"&gt;&amp;lt;Window&lt;/span&gt; &lt;span class="na"&gt;x:Class=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;MicaTest.MainWindow&amp;quot;&lt;/span&gt;
+        &lt;span class="na"&gt;Background=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;Transparent&amp;quot;&lt;/span&gt;&lt;span class="nt"&gt;&amp;gt;&lt;/span&gt;
+    &lt;span class="nt"&gt;&amp;lt;WindowChrome.WindowChrome&amp;gt;&lt;/span&gt;
+            &lt;span class="nt"&gt;&amp;lt;WindowChrome&lt;/span&gt;
+            &lt;span class="na"&gt;CaptionHeight=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;20&amp;quot;&lt;/span&gt;
+            &lt;span class="na"&gt;ResizeBorderThickness=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;8&amp;quot;&lt;/span&gt;
+            &lt;span class="na"&gt;CornerRadius=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;0&amp;quot;&lt;/span&gt;
+            &lt;span class="na"&gt;GlassFrameThickness=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;-1&amp;quot;&lt;/span&gt;
+            &lt;span class="na"&gt;UseAeroCaptionButtons=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;True&amp;quot;&lt;/span&gt; &lt;span class="nt"&gt;/&amp;gt;&lt;/span&gt;
+    &lt;span class="nt"&gt;&amp;lt;/WindowChrome.WindowChrome&amp;gt;&lt;/span&gt;
+
+    &lt;span class="nt"&gt;&amp;lt;TextBlock&lt;/span&gt; &lt;span class="na"&gt;HorizontalAlignment=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;Center&amp;quot;&lt;/span&gt; &lt;span class="na"&gt;VerticalAlignment=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;Center&amp;quot;&lt;/span&gt;&lt;span class="nt"&gt;&amp;gt;&lt;/span&gt;Hello from Mica on WPF!&lt;span class="nt"&gt;&amp;lt;/TextBlock&amp;gt;&lt;/span&gt;
+&lt;span class="nt"&gt;&amp;lt;/Window&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;&lt;img alt="a perfectly cromulent white wpf window with mica on top." src="https://tvc-16.science/images/mica/mica_wpf_white.png"&gt;  &lt;/p&gt;
+&lt;p&gt;At this point, you'll have the material, but it &lt;strong&gt;won't change with the Windows theme&lt;/strong&gt;.&lt;br&gt;
+Mica looks way better in Dark Mode than in Light&lt;sup&gt;&lt;sub&gt;(Don't @ me)&lt;/sub&gt;&lt;/sup&gt;, so to handle that, you'll need to add the &lt;code&gt;DWMWA_USE_IMMERSIVE_DARK_MODE&lt;/code&gt; flag to the mix.  &lt;/p&gt;
+&lt;p&gt;This flag, when set, currently &lt;strong&gt;forces&lt;/strong&gt; the Mica brush to render in dark mode, so it has to be toggled on or off depending on the current Windows theme.&lt;br&gt;
+That means we need some way to detect theme changes, and &lt;em&gt;while&lt;/em&gt; you could use some more Win32 for that, I got lazy and just slapped &lt;a href="https://github.com/Kinnara/ModernWpf"&gt;ModernWpf&lt;/a&gt; on top of the app:  &lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;    &lt;span class="k"&gt;private&lt;/span&gt; &lt;span class="k"&gt;void&lt;/span&gt; &lt;span class="nf"&gt;Window_ContentRendered&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;object&lt;/span&gt; &lt;span class="n"&gt;sender&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;System&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;EventArgs&lt;/span&gt; &lt;span class="n"&gt;e&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+    &lt;span class="p"&gt;{&lt;/span&gt;
+        &lt;span class="c1"&gt;// Apply Mica brush and ImmersiveDarkMode if needed&lt;/span&gt;
+        &lt;span class="n"&gt;UpdateStyleAttributes&lt;/span&gt;&lt;span class="p"&gt;((&lt;/span&gt;&lt;span class="n"&gt;HwndSource&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="n"&gt;sender&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+
+        &lt;span class="c1"&gt;// Hook to Windows theme change to reapply the brushes when needed&lt;/span&gt;
+        &lt;span class="n"&gt;ModernWpf&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;ThemeManager&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;Current&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;ActualApplicationThemeChanged&lt;/span&gt; &lt;span class="p"&gt;+=&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;s&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;ev&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;=&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;UpdateStyleAttributes&lt;/span&gt;&lt;span class="p"&gt;((&lt;/span&gt;&lt;span class="n"&gt;HwndSource&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="n"&gt;sender&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+    &lt;span class="p"&gt;}&lt;/span&gt;
+
+    &lt;span class="k"&gt;public&lt;/span&gt; &lt;span class="k"&gt;static&lt;/span&gt; &lt;span class="k"&gt;void&lt;/span&gt; &lt;span class="nf"&gt;UpdateStyleAttributes&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;HwndSource&lt;/span&gt; &lt;span class="n"&gt;hwnd&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+    &lt;span class="p"&gt;{&lt;/span&gt;
+        &lt;span class="c1"&gt;// You can avoid using ModernWpf here and just rely on Win32 APIs or registry parsing if you want to.&lt;/span&gt;
+        &lt;span class="kt"&gt;var&lt;/span&gt; &lt;span class="n"&gt;darkThemeEnabled&lt;/span&gt; &lt;span class="p"&gt;=&lt;/span&gt; &lt;span class="n"&gt;ModernWpf&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;ThemeManager&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;Current&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;ActualApplicationTheme&lt;/span&gt; &lt;span class="p"&gt;==&lt;/span&gt; &lt;span class="n"&gt;ModernWpf&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;ApplicationTheme&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;Dark&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+
+        &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;trueValue&lt;/span&gt; &lt;span class="p"&gt;=&lt;/span&gt; &lt;span class="m"&gt;0&lt;/span&gt;&lt;span class="n"&gt;x01&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+        &lt;span class="kt"&gt;int&lt;/span&gt; &lt;span class="n"&gt;falseValue&lt;/span&gt; &lt;span class="p"&gt;=&lt;/span&gt; &lt;span class="m"&gt;0&lt;/span&gt;&lt;span class="n"&gt;x00&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+
+        &lt;span class="c1"&gt;// Set dark mode before applying the material, otherwise you&amp;#39;ll get an ugly flash when displaying the window.&lt;/span&gt;
+        &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;darkThemeEnabled&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+            &lt;span class="n"&gt;DwmSetWindowAttribute&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;source&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;Handle&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;DwmWindowAttribute&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;DWMWA_USE_IMMERSIVE_DARK_MODE&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="k"&gt;ref&lt;/span&gt; &lt;span class="n"&gt;trueValue&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;Marshal&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;SizeOf&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="k"&gt;typeof&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt;&lt;span class="p"&gt;)));&lt;/span&gt;
+        &lt;span class="k"&gt;else&lt;/span&gt;
+            &lt;span class="nf"&gt;DwmSetWindowAttribute&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;source&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;Handle&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;DwmWindowAttribute&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;DWMWA_USE_IMMERSIVE_DARK_MODE&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="k"&gt;ref&lt;/span&gt; &lt;span class="n"&gt;falseValue&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;Marshal&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;SizeOf&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="k"&gt;typeof&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt;&lt;span class="p"&gt;)));&lt;/span&gt;
+
+        &lt;span class="n"&gt;DwmSetWindowAttribute&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;source&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;Handle&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;DwmWindowAttribute&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;DWMWA_MICA_EFFECT&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="k"&gt;ref&lt;/span&gt; &lt;span class="n"&gt;trueValue&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;Marshal&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;SizeOf&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="k"&gt;typeof&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;int&lt;/span&gt;&lt;span class="p"&gt;)));&lt;/span&gt;
+    &lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;ModernWpf also allows you to easily have Theme-aware resources on WPF, which is super convenient and basically gives us our final sample:&lt;br&gt;
+&lt;img alt="look ma no composition" src="https://tvc-16.science/images/mica/mica_wpf.jpg"&gt;  &lt;/p&gt;
+&lt;p&gt;And since we left in system controls, that means we get Windows 11's snap assist out of the box like all the cool kids do:&lt;br&gt;
+&lt;img alt="everyday i'm snapping" src="https://tvc-16.science/images/mica/mica_wpf_snap.png"&gt;  &lt;/p&gt;
+&lt;h3&gt;You can find the full sample &lt;a href="https://github.com/Difegue/Mica-WPF-Sample"&gt;here.&lt;/a&gt;&lt;/h3&gt;
+&lt;h2&gt;Closing thoughts&lt;/h2&gt;
+&lt;p&gt;If you run this sample on Windows 10, both those DWM Attributes do nothing, so you're left with the kinda boring Windows 10 chrome:  &lt;/p&gt;
+&lt;p&gt;&lt;img alt="modernwpf styles voluntarily removed to prove this isn't just a UWP app or something" src="https://tvc-16.science/images/mica/mica_win10.jpg"&gt;  &lt;/p&gt;
+&lt;p&gt;Which will respect the user's &lt;em&gt;Apply the accent color to the window borders&lt;/em&gt; preference, so you'll either have an accent color like I do, or pure black/white.&lt;br&gt;
+You can toy with the &lt;code&gt;GlassFrameThickness&lt;/code&gt; attribute if you want to reclaim some non-chrome space. 👍  &lt;/p&gt;
+&lt;p&gt;You might've noticed the system controls have a weird padding to the right: This comes from &lt;code&gt;WindowChrome&lt;/code&gt; not having been updated for Windows 10 and keeping the old window border sizes.  &lt;/p&gt;
+&lt;p&gt;This is fixable by adding &lt;code&gt;NonClientFrameEdges="Bottom,Left,Right"&lt;/code&gt;, but it causes a host of other issues so I didn't include it in the sample.&lt;br&gt;
+You can find some more info about that &lt;a href="https://github.com/dotnet/wpf/issues/3887"&gt;here&lt;/a&gt;.&lt;/p&gt;
+&lt;h2&gt;Windows 11 22523+ Update&lt;/h2&gt;
+&lt;p&gt;&lt;code&gt;DWMWA_MICA_EFFECT = 1029&lt;/code&gt; has been replaced by the public API (!) &lt;code&gt;DWMWA_SYSTEMBACKDROP_TYPE = 38&lt;/code&gt; in &lt;a href="https://twitter.com/StartIsBack/status/1471262840313065474?s=20"&gt;build 22523&lt;/a&gt;, which functions mostly the same although with some much-desired improvements.  &lt;/p&gt;
+&lt;p&gt;The attribute accepts an int instead of just a boolean and can enable different backdrop types:  &lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="err"&gt;DWMSBT_AUTO = 0,&lt;/span&gt;
+&lt;span class="err"&gt;DWMSBT_DISABLE = 1, // None&lt;/span&gt;
+&lt;span class="err"&gt;DWMSBT_MAINWINDOW = 2, // Mica&lt;/span&gt;
+&lt;span class="err"&gt;DWMSBT_TRANSIENTWINDOW = 3, // Acrylic&lt;/span&gt;
+&lt;span class="err"&gt;DWMSBT_TABBEDWINDOW = 4 // Tabbed&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;As per StartIsBack, "Tabbed is just untinted / unblended Mica, i.e. heavily blurred wallpaper."  &lt;/p&gt;
+&lt;p&gt;You can find updated WPF sample code that uses this attribute &lt;a href="https://github.com/dongle-the-gadget/SystemBackdropTypes"&gt;here.&lt;/a&gt;  &lt;/p&gt;
+&lt;p&gt;&lt;img alt="Acrylic attribute" src="https://user-images.githubusercontent.com/29563098/146360322-5ee76a3e-49ac-4ef4-881b-e1a8e5dd959a.png"&gt;  &lt;/p&gt;
+&lt;p&gt;&lt;img alt="Mica attribute" src="https://user-images.githubusercontent.com/29563098/146360362-8b7cb5f1-6053-4c13-a7b8-b2b910500f50.png"&gt;  &lt;/p&gt;
+&lt;p&gt;&lt;img alt="Tabbed attribute" src="https://user-images.githubusercontent.com/29563098/146360394-4f6773f1-35b1-4136-9ad8-1e1a923afc0b.png"&gt;  &lt;/p&gt;</content><category term="Cool Tricks"></category><category term="mica"></category><category term="wpf"></category><category term="C#"></category><category term="modernwpf"></category><category term="windows 11"></category><category term="dwm"></category><category term="very dangerous windows hack age 18 and up content"></category></entry><entry><title>Hacking your way around both Homebrew and macOS to use libarchive</title><link href="https://tvc-16.science/homebrew-libarchive.html" rel="alternate"></link><published>2020-05-25T00:00:00+02:00</published><updated>2020-05-25T00:00:00+02:00</updated><author><name>Difegue</name></author><id>tag:tvc-16.science,2020-05-25:/homebrew-libarchive.html</id><summary type="html">&lt;p&gt;I also learned more about how to build a Perl module than I actually wanted to.&lt;/p&gt;</summary><content type="html">&lt;p&gt;The LANraragi &lt;a href="https://formulae.brew.sh/formula/lanraragi"&gt;Homebrew Port&lt;/a&gt; was recently merged into the core repository, making access to the world's only(&lt;em&gt;and therefore best&lt;/em&gt;) Perl manga manager easy to all Macs.  &lt;/p&gt;
+&lt;p&gt;Getting the port to the acceptable level of standards for the core repository wasn't easy and needed one cool trick.  &lt;/p&gt;
+&lt;h1&gt;The libarchive conundrum&lt;/h1&gt;
+&lt;p&gt;LRR depends on the well-known &lt;a href="https://www.libarchive.org/"&gt;libarchive&lt;/a&gt; project to handle archives.&lt;br&gt;
+It's so well-known that Apple themselves use and bundle it in releases of macOS.  &lt;/p&gt;
+&lt;p&gt;Homebrew tries to be a good citizen by not installing dependencies which are already bundled by macOS if possible.&lt;br&gt;
+This makes sense! No need having &lt;code&gt;libarchive&lt;/code&gt; in triplicate if the system version does the job.  &lt;/p&gt;
+&lt;p&gt;Auditing the Homebrew formula henceforth gives you the following error:  &lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;Dependency &lt;span class="s1"&gt;&amp;#39;libarchive&amp;#39;&lt;/span&gt; is provided by macOS&lt;span class="p"&gt;;&lt;/span&gt; please replace &lt;span class="s1"&gt;&amp;#39;depends_on&amp;#39;&lt;/span&gt; with &lt;span class="s1"&gt;&amp;#39;uses_from_macos&amp;#39;&lt;/span&gt;.
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;So the Homebrew formula for LRR should &lt;code&gt;uses_from_macos "libarchive"&lt;/code&gt;. Sounds easy! Except not.  &lt;/p&gt;
+&lt;p&gt;In their infinite wisdom, Apple made the decision that their libarchive should be &lt;a href="https://stackoverflow.com/a/3167763"&gt;private API.&lt;/a&gt;&lt;br&gt;
+As such, they only include a &lt;strong&gt;compiled&lt;/strong&gt; version of libarchive, without the function headers.  &lt;/p&gt;
+&lt;p&gt;This would be fine if I was shipping precompiled executables that could call this compiled libarchive directly, but for better or worse, this is Perl! 🐫  &lt;/p&gt;
+&lt;p&gt;The way I use the lib is through a pair of &lt;a href="https://en.wikipedia.org/wiki/XS_%28Perl%29"&gt;XS Modules&lt;/a&gt;, which are basically C programs compiled on the user's machine when the module is installed.&lt;br&gt;
+&lt;img alt="wish I had an archive.h" src="https://tvc-16.science/images/libarchivexs.png"&gt;&lt;br&gt;
+And so, we're hosed. Without the headers, the modules can't compile, making the Homebrew formula impossible to build on a stock Mac.  &lt;/p&gt;
+&lt;p&gt;This makes Homebrew's order a tall one:  &lt;/p&gt;
+&lt;h3&gt;"Use the bundled libarchive, except you can't compile anything that relies on it."&lt;/h3&gt;
+&lt;h1&gt;Sideloading headers&lt;/h1&gt;
+&lt;p&gt;The easiest solution here is providing the libarchive headers ourselves.&lt;br&gt;
+Apple's version might be modified in some fashion from the original source code, so it's better to grab the headers directly &lt;a href="https://opensource.apple.com/source/libarchive/"&gt;from them:&lt;/a&gt;  &lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="c1"&gt;# libarchive headers from macOS 10.15 source&lt;/span&gt;
+  &lt;span class="n"&gt;resource&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;libarchive-headers-10.15&amp;quot;&lt;/span&gt; &lt;span class="k"&gt;do&lt;/span&gt;
+    &lt;span class="n"&gt;url&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;https://opensource.apple.com/tarballs/libarchive/libarchive-72.11.2.tar.gz&amp;quot;&lt;/span&gt;
+    &lt;span class="n"&gt;sha256&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;655b9270db794ba0b27052fd37b1750514b06769213656ab81e30727322e401f&amp;quot;&lt;/span&gt;
+  &lt;span class="k"&gt;end&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;(And you probably get nerd cred for jamming apple.com as a dependency in your formula. 😎)  &lt;/p&gt;
+&lt;p&gt;Homebrew decompresses resource tarballs on its own, so all we have to do to use the headers is move them in a custom &lt;code&gt;include&lt;/code&gt; folder in our install:  &lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;  &lt;span class="n"&gt;resource&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;libarchive-headers-10.15&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;stage&lt;/span&gt; &lt;span class="k"&gt;do&lt;/span&gt;
+    &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;libexec&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;include&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;install&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;libarchive/libarchive/archive.h&amp;quot;&lt;/span&gt;
+    &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;libexec&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;include&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;install&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;libarchive/libarchive/archive_entry.h&amp;quot;&lt;/span&gt;
+  &lt;span class="k"&gt;end&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;And just add said folder using good ol' &lt;a href="https://en.wikipedia.org/wiki/CFLAGS"&gt;CFLAGS&lt;/a&gt;, so that the Perl Modules will automatically pick up the folder when compiling the XS scripts.  &lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="no"&gt;ENV&lt;/span&gt;&lt;span class="o"&gt;[&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;CFLAGS&amp;quot;&lt;/span&gt;&lt;span class="o"&gt;]&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;-I&amp;quot;&lt;/span&gt;&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="n"&gt;libexec&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;include&amp;quot;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;&lt;code&gt;libexec&lt;/code&gt; is automatically mapped by brew to a directory like &lt;code&gt;/usr/local/Cellar/foo/0.1/libexec&lt;/code&gt;.&lt;br&gt;
+And we're done!  &lt;/p&gt;
+&lt;p&gt;&lt;img alt="oh no" src="https://tvc-16.science/images/brew-fail.png"&gt;&lt;br&gt;
+&lt;img alt="YOU GAIN CPAN" src="https://tvc-16.science/images/bullshit.jpg"&gt;&lt;/p&gt;
+&lt;h1&gt;Fixing the CPAN modules&lt;/h1&gt;
+&lt;p&gt;Astute observers have probably noticed the error in the previous screenshot:&lt;br&gt;
+The &lt;code&gt;cc&lt;/code&gt; command called to compile the XS script does not include the &lt;code&gt;libexec&lt;/code&gt; folder as an include. Why?&lt;br&gt;
+Some background first.  &lt;/p&gt;
+&lt;p&gt;There exist a variety of ways to handle building/installing a CPAN module in Perl, and this article &lt;a href="https://metacpan.org/pod/Module::Install"&gt;wouldn't&lt;/a&gt; be &lt;a href="https://metacpan.org/pod/Module::Build"&gt;enough&lt;/a&gt; to &lt;a href="https://metacpan.org/pod/Dist::Zilla"&gt;talk&lt;/a&gt; about &lt;a href="https://metacpan.org/pod/ExtUtils::MakeMaker"&gt;all of them&lt;/a&gt;.  &lt;/p&gt;
+&lt;p&gt;As said earlier, I use two XS Modules that both consume libarchive:  &lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;Archive::Extract::Libarchive&lt;/code&gt; (✅ builds fine with the new CFLAGS)&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;Archive::Peek::Libarchive&lt;/code&gt; (❌ doesn't work yet)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;You'd think that with such similar namespaces, both would use the same installer... Wrong! 😱&lt;br&gt;
+Peek uses &lt;code&gt;ExtUtils::MakeMaker&lt;/code&gt;, and Extract uses &lt;code&gt;Module::Build&lt;/code&gt;.  &lt;/p&gt;
+&lt;p&gt;So let's focus on MakeMaker for a bit.&lt;br&gt;
+You basically use it by writing a Perl-style Makefile, &lt;code&gt;Makefile.PL&lt;/code&gt;, which when interpreted by Perl will spit out a &lt;em&gt;regular&lt;/em&gt; Makefile to use with your &lt;em&gt;regular&lt;/em&gt; make/make install combo.  &lt;/p&gt;
+&lt;p&gt;When building this Makefile, MakeMaker will &lt;strong&gt;not&lt;/strong&gt; take into account your custom CFLAGS environment variable, instead opting to use the one that was used &lt;a href="http://coding.derkeiler.com/Archive/Perl/comp.lang.perl.misc/2005-11/msg01613.html"&gt;when your version of Perl was built.&lt;/a&gt;&lt;br&gt;
+In our case, the Perl we use comes from homebrew, and is built with esoteric include paths such as &lt;code&gt;/usr/local/Cellar/perl/5.30.2_1/lib/perl5/5.20.2/darwin-thread-multi-2level/CORE&lt;/code&gt;. The horror.  &lt;/p&gt;
+&lt;p&gt;Now of course, Makefile.PL writers can add extra include paths, and our failing module certainly &lt;a href="https://metacpan.org/source/REHSACK/Archive-Peek-Libarchive-0.38/Makefile.PL#L95"&gt;does so&lt;/a&gt;, using another package called Config::AutoConf.&lt;br&gt;
+Said module's documentation is a bit &lt;a href="https://metacpan.org/pod/Config::AutoConf#_get_extra_compiler_flags"&gt;empty&lt;/a&gt; as to how it figures out the extra compiler flags, and this rabbit hole has gone on long enough, so let's just &lt;strong&gt;patch the Makefile directly in Homebrew.&lt;/strong&gt;  &lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="n"&gt;resource&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;Archive::Peek::Libarchive&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;stage&lt;/span&gt; &lt;span class="k"&gt;do&lt;/span&gt;
+      &lt;span class="n"&gt;inreplace&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;Makefile.PL&amp;quot;&lt;/span&gt; &lt;span class="k"&gt;do&lt;/span&gt; &lt;span class="o"&gt;|&lt;/span&gt;&lt;span class="n"&gt;s&lt;/span&gt;&lt;span class="o"&gt;|&lt;/span&gt;
+        &lt;span class="n"&gt;s&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;gsub!&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;$autoconf-&amp;gt;_get_extra_compiler_flags&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;  
+                &lt;span class="s2"&gt;&amp;quot;$autoconf-&amp;gt;_get_extra_compiler_flags .$ENV{CFLAGS}&amp;quot;&lt;/span&gt;
+      &lt;span class="k"&gt;end&lt;/span&gt;
+      &lt;span class="o"&gt;[...]&lt;/span&gt;
+&lt;span class="k"&gt;end&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;By adding the environment variable ourselves, the cumbersome module finally builds, and we're out of Perl module building hell.  &lt;/p&gt;
+&lt;p&gt;&lt;img alt="took me three releases to get a working homebrew version" src="https://tvc-16.science/images/over.jpg"&gt;  &lt;/p&gt;
+&lt;h1&gt;Spare thoughts&lt;/h1&gt;
+&lt;p&gt;I use the 10.15 headers from Apple, as they're the only ones that actually include all the functions used by LANraragi.&lt;br&gt;
+This of course means that some functions are not available for both High Sierra and Mojave.&lt;br&gt;
+Luckily all this stuff fails rather gracefully, with no stability issues.  &lt;/p&gt;
+&lt;p&gt;LRR is the &lt;a href="https://github.com/Homebrew/homebrew-core/search?q=uses_from_macos+%22libarchive%22&amp;amp;unscoped_q=uses_from_macos+%22libarchive%22"&gt;only formula&lt;/a&gt; in homebrew/core using this trick with libarchive.&lt;br&gt;
+The other are &lt;strong&gt;weaksauce&lt;/strong&gt;, using a duplicate version instead. Plebeians!  &lt;/p&gt;
+&lt;p&gt;Jokes aside, it is a bit weird for the homebrew audit bot to consider libarchive to be bundled by the OS, where it is clearly unusable out of the box for something as simple as a &lt;code&gt;make&lt;/code&gt; scenario. 😐  &lt;/p&gt;</content><category term="Cool Tricks"></category><category term="macos"></category><category term="homebrew"></category><category term="libarchive"></category><category term="headers"></category><category term="apple"></category><category term="perl"></category><category term="makefile"></category><category term="makemaker"></category><category term="cflags"></category></entry><entry><title>Deploying an ephemeral macOS environment through Github Actions</title><link href="https://tvc-16.science/mac-github-actions.html" rel="alternate"></link><published>2019-10-25T00:00:00+02:00</published><updated>2019-10-25T00:00:00+02:00</updated><author><name>Difegue</name></author><id>tag:tvc-16.science,2019-10-25:/mac-github-actions.html</id><summary type="html">&lt;p&gt;I don't think they meant this when they said "Think Different".&lt;/p&gt;</summary><content type="html">&lt;p&gt;Oh no! Someone's giving me &lt;a href="https://github.com/Difegue/LANraragi/pull/221"&gt;macOS stuff to test&lt;/a&gt; and I don't have access to any Mac whatsoever this weekend!&lt;br&gt;
+&lt;em&gt;What in the doushio can I do?&lt;/em&gt;  &lt;/p&gt;
+&lt;p&gt;Most solutions for getting a virtualized Mac running involve downloading the 7GB-something setup from Apple, installing it in &lt;a href="https://github.com/foxlet/macOS-Simple-KVM"&gt;some form of virtualization&lt;/a&gt; software, setting up a bunch of bullshit magical variables to masquerade your VM as an iMac and then waiting through the entire installation process.  &lt;/p&gt;
+&lt;p&gt;Past that, you'll also need to add an Apple Account, download Xcode and its glorious 6 GBs of awful IDE design, etc etc &lt;em&gt;jesus this is going to eat my entire weekend&lt;/em&gt;&lt;br&gt;
+&lt;sub&gt;&lt;sup&gt;you can technically only download the xcode command line tools and they're like 200MBs but I'm trying to overdramatize a bit here&lt;/sup&gt;&lt;/sub&gt;  &lt;/p&gt;
+&lt;p&gt;The other solution is of course to rent a Mac VPS, but as this is a super niche market, prices are &lt;a href="https://www.macstadium.com/pricing"&gt;atrociously expensive&lt;/a&gt; for what amounts to me running &lt;code&gt;homebrew&lt;/code&gt; for about 30 minutes.  &lt;/p&gt;
+&lt;h2&gt;Jumping into Actions&lt;/h2&gt;
+&lt;p&gt;Since GitHub Actions introduced matrix builds recently, there very conveniently are &lt;a href="https://help.github.com/en/github/automating-your-workflow-with-github-actions/software-in-virtual-environments-for-github-actions#macos-1014"&gt;macOS runners&lt;/a&gt; for me to run code on. And they come with a &lt;strong&gt;lot&lt;/strong&gt; of devtools preinstalled, making for a rather comfy experience.  &lt;/p&gt;
+&lt;p&gt;At this point I could just write an Actions script running my &lt;code&gt;homebrew&lt;/code&gt; code and be done with it, but I thought I could have something a bit more flexible.&lt;br&gt;
+Hot off the trail of &lt;a href="./lcl-pebble.html"&gt;my last Actions venture&lt;/a&gt;, I thought about using the &lt;a href="https://github.com/marketplace/actions/debugging-with-tmate"&gt;tmate&lt;/a&gt; action to spawn a SSH session on the Mac runner for me. It'd basically give me an &lt;strong&gt;on-demand, pre-provisioned&lt;/strong&gt; macOS command line whenever I'd want!  &lt;/p&gt;
+&lt;p&gt;&lt;img alt="ANYTHING" src="https://tvc-16.science/images/anything.jpg"&gt;&lt;br&gt;
+&lt;sub&gt;&lt;sup&gt;For up to 6 hours of execution time but honestly that's already way too much &lt;/sup&gt;&lt;/sub&gt;  &lt;/p&gt;
+&lt;h2&gt;Writing the Action&lt;/h2&gt;
+&lt;p&gt;Using the tmate action as-is would basically make this setup dead simple, but it &lt;a href="https://github.com/mxschmitt/action-tmate/issues/3"&gt;doesn't work on Mac runners as-is.&lt;/a&gt; Darn.  &lt;/p&gt;
+&lt;p&gt;Luckily the entire action is really easy to replicate in bash, so I just wrote my own:  &lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="nt"&gt;name&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="l l-Scalar l-Scalar-Plain"&gt;Summon Steve Jobs&lt;/span&gt;
+
+&lt;span class="nt"&gt;on&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="p p-Indicator"&gt;[&lt;/span&gt;&lt;span class="nv"&gt;push&lt;/span&gt;&lt;span class="p p-Indicator"&gt;]&lt;/span&gt;
+
+&lt;span class="nt"&gt;jobs&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+  &lt;span class="nt"&gt;build&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+
+    &lt;span class="nt"&gt;runs-on&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="l l-Scalar l-Scalar-Plain"&gt;macOS-10.14&lt;/span&gt;
+
+    &lt;span class="nt"&gt;steps&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+    &lt;span class="p p-Indicator"&gt;-&lt;/span&gt; &lt;span class="nt"&gt;uses&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="l l-Scalar l-Scalar-Plain"&gt;actions/checkout@v1&lt;/span&gt;
+    &lt;span class="p p-Indicator"&gt;-&lt;/span&gt; &lt;span class="nt"&gt;name&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="l l-Scalar l-Scalar-Plain"&gt;Install tmate&lt;/span&gt;
+      &lt;span class="nt"&gt;run&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="p p-Indicator"&gt;|&lt;/span&gt;
+        &lt;span class="no"&gt;brew install tmate openssh screenfetch&lt;/span&gt;
+        &lt;span class="no"&gt;echo -e &amp;#39;y\n&amp;#39;|ssh-keygen -q -t rsa -N &amp;quot;&amp;quot; -f ~/.ssh/id_rsa&lt;/span&gt;
+        &lt;span class="no"&gt;tmate -S /tmp/tmate.sock new-session -d&lt;/span&gt;
+        &lt;span class="no"&gt;tmate -S /tmp/tmate.sock wait tmate-ready&lt;/span&gt;
+    &lt;span class="p p-Indicator"&gt;-&lt;/span&gt; &lt;span class="nt"&gt;name&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="l l-Scalar l-Scalar-Plain"&gt;It just works&lt;/span&gt;
+      &lt;span class="nt"&gt;run&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="p p-Indicator"&gt;|&lt;/span&gt;
+        &lt;span class="no"&gt;screenfetch&lt;/span&gt;
+        &lt;span class="no"&gt;SSH=&amp;quot;$(tmate -S /tmp/tmate.sock display -p &amp;#39;#{tmate_ssh}&amp;#39;)&amp;quot;&lt;/span&gt;
+        &lt;span class="no"&gt;WEB=&amp;quot;$(tmate -S /tmp/tmate.sock display -p &amp;#39;#{tmate_web}&amp;#39;)&amp;quot;&lt;/span&gt;
+        &lt;span class="no"&gt;echo &amp;quot;SSH: ${SSH}&amp;quot;&lt;/span&gt;
+        &lt;span class="no"&gt;echo &amp;quot;Web: ${WEB}&amp;quot;&lt;/span&gt;
+        &lt;span class="no"&gt;echo &amp;quot;You can now connect to the tmate session.&amp;quot;&lt;/span&gt;
+        &lt;span class="no"&gt;while true; do &lt;/span&gt;
+          &lt;span class="no"&gt;# loop infinitely&lt;/span&gt;
+          &lt;span class="no"&gt;sleep 10&lt;/span&gt;
+        &lt;span class="no"&gt;done&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;The only issue here is that quitting the session doesn't automatically end the run like the original action does, but it's good enough.™  &lt;/p&gt;
+&lt;p&gt;&lt;img alt="rebel rebel how could they know" src="https://tvc-16.science/images/macactions.png"&gt;&lt;/p&gt;
+&lt;h2&gt;Spare Thoughts&lt;/h2&gt;
+&lt;p&gt;I was curious about whether you could get VNC output on this, but while the command to enable VNC works, the runners don't expose anything for you to connect to.&lt;/p&gt;
+&lt;p&gt;Since I wanked this to debug the upcoming Homebrew support for LRR, it's totally legal and not breaking the &lt;a href="https://help.github.com/en/github/automating-your-workflow-with-github-actions/about-github-actions#usage-limits"&gt;Actions TOS&lt;/a&gt; in any way. 😇  &lt;/p&gt;</content><category term="Cool Tricks"></category><category term="github actions"></category><category term="apple"></category><category term="macos"></category><category term="vm"></category><category term="homebrew"></category></entry><entry><title>Webscraping my bank with GitHub Actions and displaying it on a Pebble SmartWatch</title><link href="https://tvc-16.science/lcl-pebble.html" rel="alternate"></link><published>2019-08-31T00:00:00+02:00</published><updated>2019-08-31T00:00:00+02:00</updated><author><name>Difegue</name></author><id>tag:tvc-16.science,2019-08-31:/lcl-pebble.html</id><summary type="html">&lt;p&gt;Giving my bank account to GitHub so they can tell my watch how much money is in it? Sure!&lt;/p&gt;</summary><content type="html">&lt;p&gt;I had some &lt;a href="https://github.com/Difegue/Chaotic-Realm/tree/master/lcl-hack"&gt;old code&lt;/a&gt; laying around to scrape the &lt;a href="https://www.lcl.fr/"&gt;Crédit Lyonnais&lt;/a&gt; account pages and convert my account balance/details to JSON.  &lt;/p&gt;
+&lt;p&gt;I used this for a few years to quickly have my account balance on my phone, then gave up on it once the bank's mobile app caught up.&lt;br&gt;
+Recently though, &lt;a href="http://rebble.io/2019/07/24/its-timeline-time.html"&gt;Rebble revived Timeline&lt;/a&gt; and I do love my Pebble Watches more than my phone, so I thought I'd put the ol' lcl.js scraper back on the saddle.  &lt;/p&gt;
+&lt;h1&gt;Wait! What the fuck even &lt;strong&gt;is&lt;/strong&gt; Timeline ?&lt;/h1&gt;
+&lt;p&gt;&lt;img alt="timeline" src="images/timeline.jpg"&gt;  &lt;/p&gt;
+&lt;p&gt;Pebble smartwatches feature a scrollable timeline of events the user can reach/read in one button press. The events that end up in Timeline can come from the phone's calendar as well as third-party applications.  &lt;/p&gt;
+&lt;p&gt;If you want more details, I recommend looking up the &lt;a href="https://pebble-help-legacy.rebble.io/help.getpebble.com/customer/en/portal/articles/2541544-timelinee140.html?b_id=12263"&gt;Pebble documentation archive&lt;/a&gt;.  &lt;/p&gt;
+&lt;p&gt;What interests us here is the third-party application part, brought back from the ashes by &lt;a href="http://rebble.io"&gt;Rebble&lt;/a&gt;.&lt;br&gt;
+By using a token generated by the watch, we can send data to the timeline through a webhook. And combined with the LCL bank account scraper, the results are pretty easy to figure out:  &lt;/p&gt;
+&lt;p&gt;&lt;img alt="fuck this" src="images/dosh.jpg"&gt;&lt;/p&gt;
+&lt;p&gt;Moneybills, right on the wrist!&lt;/p&gt;
+&lt;h1&gt;Unearthing the LCL scraper and making it work again&lt;/h1&gt;
+&lt;p&gt;The bad thing about online banking is that the web services that come with it are usually unpractical and severely outdated. The &lt;strong&gt;good&lt;/strong&gt; thing in that though, is that when you're scraping a bank website for data, your implementation will last years without bugs caused by redesigns. ✌  &lt;/p&gt;
+&lt;p&gt;When I pulled out my old scraping code, the only thing I had to rework was the login sequence. (Alongside a quick port to &lt;a href="https://github.com/GoogleChrome/puppeteer"&gt;Puppeteer&lt;/a&gt; since PhantomJS is basically dead now)&lt;br&gt;
+I used the mobile version of the website to login back in 2015, but alas it is no more.&lt;br&gt;
+Which means I'm stuck dealing with this abomination coming straight from every French banking website:  &lt;/p&gt;
+&lt;p&gt;&lt;img alt="fuck this" src="images/lcl_keyboard.png"&gt;&lt;/p&gt;
+&lt;p&gt;The &lt;code&gt;"click on the jpegs to enter your keycode"&lt;/code&gt; login page.&lt;br&gt;
+I hate this thing for a myriad of reasons, and the implementation is actually quite solid here:  &lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;You can't just enter the keycode straight into the HTML input on the right: Clicks on the keyboard enter a &lt;em&gt;scrambled&lt;/em&gt; number into the input, which is then decoded later down the login sequence by some JavaScript bullshit dark magic.  &lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;The order of the numbers is &lt;em&gt;randomized&lt;/em&gt; on each load of the login page, so you can't just record clicks at a specific position either.  &lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;The keyboard is rendered as a single image, with the areas you have to click defined by a HTML &lt;a href="https://www.w3schools.com/tags/tag_map.asp"&gt;imagemap&lt;/a&gt;.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Since I'm already down the rabbit hole of webscraping/JavaScript automation, the solution I used here is a suitable waste of processing power: I load up the &lt;a href="https://github.com/tesseract-ocr"&gt;Tesseract engine&lt;/a&gt; and &lt;strong&gt;scan the keyboard image&lt;/strong&gt; to find out the order of the numbers in the page.  &lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="nx"&gt;await&lt;/span&gt; &lt;span class="nx"&gt;page&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;screenshot&lt;/span&gt;&lt;span class="p"&gt;({&lt;/span&gt;&lt;span class="nx"&gt;path&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;keyboard.png&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;});&lt;/span&gt;
+
+&lt;span class="c1"&gt;// Just OCR the damn keyboard&lt;/span&gt;
+&lt;span class="nx"&gt;ocrResult&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nx"&gt;await&lt;/span&gt; &lt;span class="nx"&gt;Tesseract&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;recognize&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;keyboard.png&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;span class="c1"&gt;// Get something like 34980 15267&lt;/span&gt;
+&lt;span class="nx"&gt;map&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nx"&gt;ocrResult&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;text&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;split&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="sr"&gt;/ /&lt;/span&gt;&lt;span class="p"&gt;)[&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;].&lt;/span&gt;&lt;span class="nx"&gt;replace&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="sr"&gt;/[^\d]/g&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;).&lt;/span&gt;&lt;span class="nx"&gt;trim&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt; 
+
+&lt;span class="c1"&gt;// Click on the areas matching the numbers we received, according to the code in env&lt;/span&gt;
+&lt;span class="c1"&gt;// DOM IDs are idImageClavier_01-10, going by column:&lt;/span&gt;
+&lt;span class="c1"&gt;// 1 3 5 7 9&lt;/span&gt;
+&lt;span class="c1"&gt;// 2 4 6 8 10&lt;/span&gt;
+&lt;span class="nx"&gt;code&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nx"&gt;process&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;env&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;LCL_CODE&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;toString&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;
+
+&lt;span class="c1"&gt;// Rearrange the keyboard map to match the DOM IDs:&lt;/span&gt;
+&lt;span class="nx"&gt;map&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nx"&gt;map&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;charAt&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="nx"&gt;map&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;charAt&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;5&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="nx"&gt;map&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;charAt&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="p"&gt;[...]&lt;/span&gt;&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="nx"&gt;map&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;charAt&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;4&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="nx"&gt;map&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;charAt&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;9&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+
+&lt;span class="c1"&gt;// Go through code character by character, find its location on the map and hit the matching area&lt;/span&gt;
+&lt;span class="k"&gt;while&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;code&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;length&lt;/span&gt; &lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+&lt;span class="kr"&gt;char&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nx"&gt;code&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;charAt&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;span class="nx"&gt;code&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nx"&gt;code&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;slice&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+
+&lt;span class="nx"&gt;posInMap&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nx"&gt;map&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;indexOf&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kr"&gt;char&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;span class="nx"&gt;posInMap&lt;/span&gt;&lt;span class="o"&gt;++&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="c1"&gt;//DOM IDs start at 1&lt;/span&gt;
+
+&lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;posInMap&lt;/span&gt; &lt;span class="o"&gt;!==&lt;/span&gt; &lt;span class="mi"&gt;10&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+    &lt;span class="nx"&gt;posInMap&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;0&amp;quot;&lt;/span&gt;&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="nx"&gt;posInMap&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+
+&lt;span class="c1"&gt;//console.log(&amp;quot;Clicking on &amp;quot;+ char +&amp;quot; at #idImageClavier_&amp;quot;+posInMap);&lt;/span&gt;
+&lt;span class="nx"&gt;await&lt;/span&gt; &lt;span class="nx"&gt;page&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;evaluate&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;selector&lt;/span&gt;&lt;span class="p"&gt;=&amp;gt;&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt; &lt;span class="nx"&gt;$&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;selector&lt;/span&gt;&lt;span class="p"&gt;).&lt;/span&gt;&lt;span class="nx"&gt;click&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt; &lt;span class="p"&gt;},&lt;/span&gt;
+                    &lt;span class="s1"&gt;&amp;#39;#idImageClavier_&amp;#39;&lt;/span&gt;&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="nx"&gt;posInMap&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;I hate this. But one click on the login button later and &lt;em&gt;hacker voice I'm in&lt;/em&gt;&lt;br&gt;
+The rest of the code consists on mangling the bank's internal API to get readable JSON.  &lt;/p&gt;
+&lt;h1&gt;Pushing the account balance to Timeline&lt;/h1&gt;
+&lt;p&gt;Once I have recovered the data from the generated JSON, pushing it to the watch is much easier:  &lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="err"&gt;curl -X PUT https://timeline-api.rebble.io/v1/user/pins/cool-pin-id &lt;/span&gt;
+&lt;span class="err"&gt;    --header &amp;quot;Content-Type: application/json&amp;quot; &lt;/span&gt;
+&lt;span class="err"&gt;    --header &amp;quot;X-User-Token: watch_token&amp;quot; &lt;/span&gt;
+&lt;span class="err"&gt;    -d &amp;#39;{ &lt;/span&gt;
+&lt;span class="err"&gt;        &amp;quot;id&amp;quot;: &amp;quot;cool-pin-id&amp;quot;, &lt;/span&gt;
+&lt;span class="err"&gt;        &amp;quot;time&amp;quot;: &amp;quot;2019-08-30T22:43:56Z&amp;quot;, &lt;/span&gt;
+&lt;span class="err"&gt;        &amp;quot;layout&amp;quot;: { &lt;/span&gt;
+&lt;span class="err"&gt;                  &amp;quot;type&amp;quot;: &amp;quot;genericPin&amp;quot;, &lt;/span&gt;
+&lt;span class="err"&gt;                  &amp;quot;title&amp;quot;: &amp;quot;Account name&amp;quot;, &lt;/span&gt;
+&lt;span class="err"&gt;                  &amp;quot;body&amp;quot;: &amp;quot;Account code&amp;quot;, &lt;/span&gt;
+&lt;span class="err"&gt;                  &amp;quot;subtitle&amp;quot;: &amp;quot;+ 9 999,99 €&amp;quot;, &lt;/span&gt;
+&lt;span class="err"&gt;                  &amp;quot;tinyIcon&amp;quot;: &amp;quot;system://images/STOCKS_EVENT&amp;quot; &lt;/span&gt;
+&lt;span class="err"&gt;                  } &lt;/span&gt;
+&lt;span class="err"&gt;        }&amp;#39; &lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;The &lt;a href="https://developer.rebble.io/developer.pebble.com/guides/pebble-timeline/pin-structure/index.html"&gt;Pebble developer documentation&lt;/a&gt; is a godsend here!&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;cool-pin-id&lt;/code&gt; must be a different ID for each new Timeline pin pushed. I just get my OS to generate UUIDs for that but you might want to do it another way.  &lt;/p&gt;
+&lt;p&gt;The watch token can be generated using this &lt;a href="https://github.com/Willow-Systems/pebble-generate-token"&gt;handy Pebble app.&lt;/a&gt;  &lt;/p&gt;
+&lt;h1&gt;Jamming this whole thing in Github Actions&lt;/h1&gt;
+&lt;p&gt;While this is all cool and good, I was wary of running this script on my server regularly.&lt;br&gt;
+I mean, it &lt;strong&gt;does&lt;/strong&gt; use your bank credentials and you can't be paranoid enough.  &lt;/p&gt;
+&lt;p&gt;Back in 2015, I was running it on a computer that didn't accept incoming connections; Said computer would just upload the JSON generated by the script every few hours to the server.&lt;br&gt;
+But this is 2019 and caring about security is &lt;em&gt;so passé&lt;/em&gt;, so I'm just gonna give my bank details to GitHub Actions.  &lt;/p&gt;
+&lt;p&gt;&lt;img alt="hot dog" src="images/dangerzone.png"&gt;  &lt;/p&gt;
+&lt;p&gt;&lt;em&gt;Yeehaw!&lt;/em&gt; The Actions script itself isn't anything to write about, but hey, it's on &lt;a href="https://twitter.com/github/status/1159511691480260608"&gt;Actions v2&lt;/a&gt;!  &lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="nt"&gt;name&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="l l-Scalar l-Scalar-Plain"&gt;Get bank details and push to Pebble&lt;/span&gt;
+
+&lt;span class="nt"&gt;on&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+  &lt;span class="nt"&gt;schedule&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+  &lt;span class="p p-Indicator"&gt;-&lt;/span&gt; &lt;span class="nt"&gt;cron&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="l l-Scalar l-Scalar-Plain"&gt;0 9 * * *&lt;/span&gt;
+
+&lt;span class="nt"&gt;jobs&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+  &lt;span class="nt"&gt;build&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+
+    &lt;span class="nt"&gt;runs-on&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="l l-Scalar l-Scalar-Plain"&gt;ubuntu-latest&lt;/span&gt;
+
+    &lt;span class="nt"&gt;steps&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+    &lt;span class="p p-Indicator"&gt;-&lt;/span&gt; &lt;span class="nt"&gt;uses&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="l l-Scalar l-Scalar-Plain"&gt;actions/checkout@v1&lt;/span&gt;
+    &lt;span class="p p-Indicator"&gt;-&lt;/span&gt; &lt;span class="nt"&gt;name&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="l l-Scalar l-Scalar-Plain"&gt;Use Node.js&lt;/span&gt;
+      &lt;span class="nt"&gt;uses&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="l l-Scalar l-Scalar-Plain"&gt;actions/setup-node@v1&lt;/span&gt;
+      &lt;span class="nt"&gt;with&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+        &lt;span class="nt"&gt;node-version&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="l l-Scalar l-Scalar-Plain"&gt;12.x&lt;/span&gt;
+    &lt;span class="p p-Indicator"&gt;-&lt;/span&gt; &lt;span class="nt"&gt;name&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="l l-Scalar l-Scalar-Plain"&gt;NPM install&lt;/span&gt;
+      &lt;span class="nt"&gt;run&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="p p-Indicator"&gt;|&lt;/span&gt;
+        &lt;span class="no"&gt;npm install&lt;/span&gt;
+    &lt;span class="p p-Indicator"&gt;-&lt;/span&gt; &lt;span class="nt"&gt;name&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="l l-Scalar l-Scalar-Plain"&gt;Epic lcl hack&lt;/span&gt;
+      &lt;span class="nt"&gt;env&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+        &lt;span class="nt"&gt;LCL_ID&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="l l-Scalar l-Scalar-Plain"&gt;${{ secrets.LCL_ID }}&lt;/span&gt;
+        &lt;span class="nt"&gt;LCL_CODE&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="l l-Scalar l-Scalar-Plain"&gt;${{ secrets.LCL_CODE }}&lt;/span&gt;
+      &lt;span class="nt"&gt;run&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="p p-Indicator"&gt;|&lt;/span&gt;
+        &lt;span class="no"&gt;node lclscraper.js  &lt;/span&gt;
+    &lt;span class="p p-Indicator"&gt;-&lt;/span&gt; &lt;span class="nt"&gt;name&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="l l-Scalar l-Scalar-Plain"&gt;Push pebble timeline pin&lt;/span&gt;
+      &lt;span class="nt"&gt;env&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+        &lt;span class="nt"&gt;TIMELINE_TOKEN&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="l l-Scalar l-Scalar-Plain"&gt;${{ secrets.TIMELINE_TOKEN }}&lt;/span&gt;
+      &lt;span class="nt"&gt;run&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="p p-Indicator"&gt;|&lt;/span&gt; 
+        &lt;span class="no"&gt;LAB1=$(cat lcl.json | jq -r &amp;#39;.[0].label&amp;#39;)&lt;/span&gt;
+        &lt;span class="no"&gt;TOT1=$(cat lcl.json | jq -r &amp;#39;.[0].total&amp;#39;)&lt;/span&gt;
+        &lt;span class="no"&gt;CODE1=$(cat lcl.json | jq -r &amp;#39;.[0].code&amp;#39;)&lt;/span&gt;
+        &lt;span class="no"&gt;DATE=$(date +%s | jq &amp;#39;todate&amp;#39;)&lt;/span&gt;
+        &lt;span class="no"&gt;UUID=$(cat /proc/sys/kernel/random/uuid)&lt;/span&gt;
+        &lt;span class="no"&gt;TIMELINE_JSON=&amp;quot;{\&amp;quot;id\&amp;quot;: \&amp;quot;$UUID\&amp;quot;,\&amp;quot;time\&amp;quot;: $DATE,\&amp;quot;layout\&amp;quot;: {\&amp;quot;type\&amp;quot;: \&amp;quot;genericPin\&amp;quot;,\&amp;quot;title\&amp;quot;: \&amp;quot;$LAB1\&amp;quot;,\&amp;quot;body\&amp;quot;: \&amp;quot;$CODE1\&amp;quot;,\&amp;quot;subtitle\&amp;quot;: \&amp;quot;$TOT1 €\&amp;quot;,\&amp;quot;tinyIcon\&amp;quot;: \&amp;quot;system://images/STOCKS_EVENT\&amp;quot;}}&amp;quot;&lt;/span&gt;
+        &lt;span class="no"&gt;echo $TIMELINE_JSON&lt;/span&gt;
+        &lt;span class="no"&gt;curl -X PUT https://timeline-api.rebble.io/v1/user/pins/$UUID --header &amp;quot;Content-Type: application/json&amp;quot; --header &amp;quot;X-User-Token: $TIMELINE_TOKEN&amp;quot; -d &amp;quot;$TIMELINE_JSON&amp;quot;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;The job installs the required node.js dependencies (Tesseract and Puppeteer), runs the scraper, and pushes a timeline JSON to Rebble.&lt;br&gt;
+Pretty easy, isn't it?&lt;/p&gt;
+&lt;h1&gt;Closing thoughts&lt;/h1&gt;
+&lt;p&gt;The inspiration and info for this came from &lt;a href="https://willow.systems/integrate-pebble-with-ifttt-once-again/"&gt;Will0's blog&lt;/a&gt;, although I couldn't use his IFTTT proxy as-is due to errors with non-ASCII characters. 😅  &lt;/p&gt;
+&lt;p&gt;I used &lt;a href="https://github.com/marketplace/actions/debugging-with-tmate"&gt;tmate&lt;/a&gt; to debug on the GitHub Actions side this time around, and it was quite convenient! Would be better if the web terminal supported pasting, however.  &lt;/p&gt;
+&lt;p&gt;&lt;a href="https://ec.europa.eu/info/law/payment-services-psd-2-directive-eu-2015-2366_en"&gt;Payment Services Directive 2&lt;/a&gt; will start being enforced in a few days: It forces European banks to add generic APIs for bank aggregators.&lt;br&gt;
+Sadly that doesn't seem to mean proper APIs being made available for consumers as well. 🙃  &lt;/p&gt;
+&lt;p&gt;It also mandates strong authentication, which hopefully means those stupid image keyboards will go away and be replaced by proper 2FA.&lt;/p&gt;
+&lt;p&gt;I guess now that I wrote this article my bank will add a captcha or some shit to the login window.  &lt;/p&gt;</content><category term="Cool Tricks"></category><category term="github actions"></category><category term="puppeteer"></category><category term="tesseract"></category><category term="pebble"></category><category term="rebble"></category><category term="timeline"></category><category term="epic bank hacks"></category></entry><entry><title>Running cool-retro-term in Windows through WSL1</title><link href="https://tvc-16.science/cool-retro-term-wsl.html" rel="alternate"></link><published>2019-04-21T20:00:00+02:00</published><updated>2019-04-21T20:00:00+02:00</updated><author><name>Difegue</name></author><id>tag:tvc-16.science,2019-04-21:/cool-retro-term-wsl.html</id><summary type="html">&lt;p&gt;Javascript terminal emulators have nothing on this.&lt;/p&gt;</summary><content type="html">&lt;h1&gt;2022 Update&lt;/h1&gt;
+&lt;p&gt;Check &lt;a href="./cool-retro-term-wsl2.html"&gt;this article&lt;/a&gt; for updated and much simpler instructions using WSL2+WSLg. 🥳&lt;br&gt;
+Or you can keep reading below if you're stuck with WSL1 for some reason.  &lt;/p&gt;
+&lt;p&gt;I often work with Linux environments through SSH on my Windows machine. As most people who use the command line on a semi-regular basis, I like looking at available alternatives/customizations to the stock terminal emulator.  &lt;/p&gt;
+&lt;p&gt;On Windows, you've got a lot of solid alternatives such as cmder or the myriad of cool-looking emulators using web technologies under the hood. (I especially like &lt;a href="https://github.com/felixse/FluentTerminal"&gt;Fluent Terminal&lt;/a&gt;, which really gets my Win10 design language boner going!)  &lt;/p&gt;
+&lt;p&gt;But this stuff man, it doesn't have the &lt;em&gt;bling&lt;/em&gt;. The &lt;em&gt;hipster cred&lt;/em&gt;.&lt;br&gt;
+&lt;img alt="whoa dude now this is good stuff" src="https://tvc-16.science/images/crt-intro.png"&gt;  &lt;/p&gt;
+&lt;p&gt;&lt;a href="https://github.com/Swordfish90/cool-retro-term"&gt;cool-retro-term&lt;/a&gt; is a terminal emulator I often wished I had on Windows, for no other reason than to look cool. Nobody really ever bothered to port it to run on Windows however(and I wouldn't do it either tbh), so I swallowed my dreams of being an &lt;em&gt;epic hacker&lt;/em&gt; and just opened up PuTTY for the umpteenth time.  &lt;/p&gt;
+&lt;p&gt;Until now.&lt;br&gt;
+&lt;img alt="bazinga" src="https://tvc-16.science/images/crt-win.jpg"&gt;  &lt;/p&gt;
+&lt;p&gt;The Windows Subsystem for Linux nowadays just allows one to run the original emulator as-is with a simple X server port for Windows. I'll be giving a short how-to list here, tested on Windows 10 1809.&lt;/p&gt;
+&lt;h1&gt;Activate WSL and download the required Linux dependencies&lt;/h1&gt;
+&lt;p&gt;I'll let &lt;a href="https://docs.microsoft.com/en-us/windows/wsl/install-win10"&gt;Microsoft speak for me&lt;/a&gt; on the first point. I used Ubuntu as a base distro, but you can probably manage with another one.&lt;br&gt;
+Once in your WSL terminal, install the few dependencies you'll need:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="err"&gt;sudo apt-get update&lt;/span&gt;
+&lt;span class="err"&gt;sudo apt-get install libgl1 xfce4-terminal&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;xfce4-terminal is a hefty download, but without it I was unable to get keyboard input to work in CRT. The errors were linked to XKB, so you might be able to manage by only installing xkb-data or similar packages.  &lt;/p&gt;
+&lt;h1&gt;Download the cool-retro-term AppImage and extract it&lt;/h1&gt;
+&lt;p&gt;The AppImage conveniently bundles up Qt and everything needed. WSL doesn't have fuse support however, so you'll have to extract it instead of running it as-is. &lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="err"&gt;wget https://github.com/Swordfish90/cool-retro-term/releases/download/1.1.1/Cool-Retro-Term-1.1.1-x86_64.AppImage&lt;/span&gt;
+&lt;span class="err"&gt;chmod a+x Cool-Retro-Term-1.1.1-x86_64.AppImage&lt;/span&gt;
+&lt;span class="err"&gt;./Cool-Retro-Term-1.1.1-x86_64.AppImage --appimage-extract&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Close your Linux CLI for now.&lt;/p&gt;
+&lt;h1&gt;Boot 'er up with Xming&lt;/h1&gt;
+&lt;p&gt;👉 Download and install &lt;a href="https://sourceforge.net/projects/xming/"&gt;Xming&lt;/a&gt; on the Windows side.  &lt;/p&gt;
+&lt;p&gt;vcXsrv is another port of the X server to Windows that's often recommended in &lt;a href="https://www.ctrl.blog/entry/how-to-x-on-wsl"&gt;X-on-WSL blogposts&lt;/a&gt;, but it didn't work with CRT during my experiments. You can also try &lt;a href="https://sourceforge.net/projects/freexer/"&gt;FreeXer&lt;/a&gt;, or Cygwin's X server.  &lt;/p&gt;
+&lt;p&gt;Once installed, just start it up and go back to Linux:  &lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="err"&gt;export DISPLAY=:0&lt;/span&gt;
+&lt;span class="err"&gt;cd squashfs-root&lt;/span&gt;
+&lt;span class="err"&gt;./AppRun&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;&lt;img alt="lookin' hefty on cpu joker" src="https://tvc-16.science/images/crt-cpu.jpg"&gt;&lt;br&gt;
+From here on, you can right-click on the terminal to load a different graphical profile or make a custom one yourself.&lt;br&gt;
+Basically everything works as-is -- even urxvt mouse tracking!&lt;/p&gt;
+&lt;h1&gt;Automating it all with some scripting&lt;/h1&gt;
+&lt;p&gt;I jerry-rigged a pair of .bat/.sh scripts to start both Xming on the Windows side and CRT on the WSL side.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;cool-retro-term.bat&lt;/strong&gt;&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="err"&gt;start &amp;quot;&amp;quot; &amp;quot;C:\Program Files (x86)\Xming\Xming.exe&amp;quot; :0 -clipboard -multiwindow&lt;/span&gt;
+&lt;span class="err"&gt;start /min wsl -d ubuntu ./crt.sh&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;&lt;strong&gt;crt.sh&lt;/strong&gt;&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="err"&gt;cd ~/squashfs-root &amp;amp;&amp;amp; export DISPLAY=:0.0 &amp;amp;&amp;amp; ./AppRun &lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h1&gt;Caveats&lt;/h1&gt;
+&lt;ul&gt;
+&lt;li&gt;WSL &lt;a href="https://github.com/Microsoft/WSL/issues/829"&gt;doesn't have GPU acceleration yet&lt;/a&gt;. This is entirely running in software and as you can see in the &lt;code&gt;htop&lt;/code&gt; above, easily eats more CPU than those newfangled javascript terminals. 😐 &lt;/li&gt;
+&lt;li&gt;Pasting text into cool-retro-term works, but copying text from it doesn't. &lt;/li&gt;
+&lt;li&gt;You can encounter a segfault or two if you mess with the graphical settings too much in one session. Once a profile is saved however, I've encountered no crashes in the few hours I spent playing with this.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;All things considered, this is basically a party trick at the moment and nothing else.&lt;br&gt;
+It's pretty cool with &lt;code&gt;ncmpcpp&lt;/code&gt; though!&lt;/p&gt;</content><category term="Cool Tricks"></category><category term="wsl"></category><category term="cool-retro-term"></category><category term="xming"></category><category term="terminal"></category><category term="crt"></category></entry></feed>

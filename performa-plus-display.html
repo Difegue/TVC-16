@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Blogopolis - Fixing an Apple Performa Plus CRT Display</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <link
+    href="https://tvc-16.science/feeds/all.atom.xml"
+    type="application/atom+xml" rel="alternate" title="Blogopolis Full Atom Feed" />
+  <link
+    href="https://tvc-16.science/feeds/hardware.atom.xml"
+    type="application/atom+xml" rel="alternate" title="Blogopolis Categories Atom Feed" />
+
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js'></script>
+  <script src='https://storage.ko-fi.com/cdn/scripts/overlay-widget.js'></script>
+  <script data-goatcounter="https://dingus.tvc-16.science/count" async src="//dingus.tvc-16.science/count.js"></script>
+
+  <link rel="apple-touch-icon" sizes="180x180" href="https://tvc-16.science/theme/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="https://tvc-16.science/theme/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="https://tvc-16.science/theme/favicon-16x16.png">
+  <link rel="manifest" href="https://tvc-16.science/theme/site.webmanifest">
+  <link rel="mask-icon" href="https://tvc-16.science/theme/safari-pinned-tab.svg" color="#f040b0">
+  <link rel="webmention" href="https://webmention.io/tvc-16.science/webmention" />
+  <link rel="pingback" href="https://webmention.io/tvc-16.science/xmlrpc" />
+  <meta name="msapplication-TileColor" content="#f1c711">
+  <meta name="theme-color" content="#f1c711">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta property="og:title" content="Fixing an Apple Performa Plus CRT Display - Blogopolis" />
+<meta property="og:type" content="article" />
+<meta property="og:description" content="<p>I ain't afraid of no CRT.</p>" />
+<meta property="og:url" content="https://tvc-16.science/performa-plus-display.html" />
+<meta property="og:image" content="https://tvc-16.science/images/performa/performa8.jpg" />
+
+  <link href="https://fonts.googleapis.com/css?family=Monoton" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=VT323" rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/bluesky-comments@0.9.0/dist/bluesky-comments.css">
+  <link rel="stylesheet" href="https://tvc-16.science/theme/css/style.css">
+  <link rel="stylesheet" href="https://tvc-16.science/theme/css/pygment.css">
+
+
+
+
+<meta name="twitter:card" content="summary_large_image">
+<meta property="og:title" content="Fixing an Apple Performa Plus CRT Display - Blogopolis" />
+<meta property="og:type" content="article" />
+<meta property="og:description" content="<p>I ain't afraid of no CRT.</p>" />
+<meta property="og:url" content="https://tvc-16.science/performa-plus-display.html" />
+<meta property="og:image" content="https://tvc-16.science/images/performa/performa8.jpg" />
+
+<meta name="tags" content="apple" />
+<meta name="tags" content="macintosh" />
+<meta name="tags" content="mac" />
+<meta name="tags" content="performa" />
+<meta name="tags" content="crt" />
+<meta name="tags" content="diy" />
+<meta name="tags" content="retrocomputing" />
+
+</head>
+
+<body id="index" class="home">
+
+  <canvas id="stage"></canvas>
+  <header id="banner" class="body">
+    <center><img height="170px" src="https://tvc-16.science/theme/img/logotype.svg" /></center>
+  </header><!-- /#banner -->
+
+  <div id="mainText">
+
+    <h2 class="subtitle">
+
+      <a style="color:black !important" href="/projects.html">Projects</a>
+      🔸
+      <a style="color:black !important" href="/">Articles</a>
+      🔸
+      <a style="color:black !important" href="/categories.html">Categories</a>
+      🔸
+
+    </h2><!-- /#menu -->
+
+    <div class="top-border project-background"></div>
+    <div class="wrapper project-background">
+      <div class="text">
+<section id="content" class="body" style="max-width: 900px;margin-left: auto;margin-right: auto;">
+  <header>
+    <h2 class="entry-title">
+      <a href="https://tvc-16.science/performa-plus-display.html" rel="bookmark" title="Permalink to Fixing an Apple Performa Plus CRT Display">
+        Fixing an Apple Performa Plus CRT Display
+      </a>
+    </h2>
+    
+  </header>
+  <footer class="post-info terminal-text">
+    <time class="published" datetime="2019-12-27T00:00:00+01:00">
+      Fri 27 December 2019
+    </time>
+    <address class="vcard author">
+      By       <a class="url fn" href="https://tvc-16.science/author/difegue.html">Difegue</a>
+    </address>
+    <div class="category">
+      Category: <a href="https://tvc-16.science/category/hardware.html">Hardware</a>
+    </div>
+    <div class="tags">
+      Tags:
+      <a href="https://tvc-16.science/tag/apple.html">apple</a>
+      <a href="https://tvc-16.science/tag/macintosh.html">macintosh</a>
+      <a href="https://tvc-16.science/tag/mac.html">mac</a>
+      <a href="https://tvc-16.science/tag/performa.html">performa</a>
+      <a href="https://tvc-16.science/tag/crt.html">crt</a>
+      <a href="https://tvc-16.science/tag/diy.html">diy</a>
+      <a href="https://tvc-16.science/tag/retrocomputing.html">retrocomputing</a>
+    </div>
+    <div class="summary">
+      <p>I ain't afraid of no CRT.</p>
+    </div>
+
+  </footer><!-- /.post-info -->
+  <div class="entry-content">
+    <p><img alt="domo watashi wa performa-san desu" src="https://tvc-16.science/images/performa/performa.jpg"><br>
+This is an Apple Performa Plus Display. It's...a completely standard Shadow Mask CRT.  </p>
+<div class="highlight"><pre><span></span><code><span class="err">The Apple Performa Plus Display was a low-end Goldstar-built 14-inch monitor designed and fabricated for the Macintosh Performa series. Apple slightly modified this device to create the Apple Color Plus monitor, which was essentially the Performa Plus Display in a nicer case. The Apple Performa Plus Display also had a tilt &amp; swivel stand.</span>
+</code></pre></div>
+
+
+<p>I liked the size though, so I grabbed it! Only issue is that its cable was cut off.<br>
+<img alt="this is fucking barbaric but what do you expect out of a screen with no detachable cable" src="https://tvc-16.science/images/performa/performa2.jpg"></p>
+<p>The tube seemed to work fine when powered on, although there's no real way to make sure without feeding it a proper video signal! What the hell, let's take it apart.<br>
+<img alt="dude it's alright CRTs can't kill yo-*dies in flyback transformer*" src="https://tvc-16.science/images/performa/performa3.jpg">  </p>
+<p>The inside circuit looked pretty much perfect -- No blown caps or anything weird that'd have made me give up on the spot.<br>
+What I'm interested in is the internal video connector here, which is at the other end of the cut-off cable:  </p>
+<p><img alt="wish I had a time machine to '94 to ask apple/goldstar engineers why the ground isn't in the connector" src="https://tvc-16.science/images/performa/performa4.jpg"><br>
+Of course, there's no detailed information on the net about the pinout of an internal video connector for a one-off CRT monitor.<br>
+The Service Manual certainly doesn't help either:<br>
+<img alt="haha yeah fuck you apple" src="https://tvc-16.science/images/performa/performaservice.png"><br>
+So, how am I going to remake the cable for this thing?  </p>
+<h1>Technotes to the rescue</h1>
+<div class="highlight"><pre><span></span><code><span class="err">Technical Notes provide late breaking information about new Apple technologies and supplementary documentation discussing some of the more complex issues related to programming for the Mac OS.</span>
+</code></pre></div>
+
+
+<p>I was surprised to see that old Mac hardware is actually quite well documented thanks to Apple's old <a href="https://developer.apple.com/library/archive/navigation/#">technotes</a>.<br>
+I used a <a href="https://www.fenestrated.net/mac/mirrors/Apple%20Technotes%20(As%20of%202002)/">mirror from 2002</a> to shorten a bit the amount of articles I had to search/read through, but you can certainly pull all the info you need from the official site.  </p>
+<p>Looking at the <a href="https://www.fenestrated.net/mac/mirrors/Apple%20Technotes%20(As%20of%202002)/hw/hw_08.html">Color Monitor Connections</a> article basically gave me all the info I needed.<br>
+Since this is Apple, Macintosh screens don't use classic VGA but DA-15 connectors with a custom pinout:<br>
+<img alt="Macintosh II Video Card and Macintosh IIci Built-in Video" src="https://tvc-16.science/images/performa/mac_video.gif"><br>
+Looking at this pinout and the way the cables are laid out/colored in the internal video connector, you can theorize a mapping. Let's look back at what is in the CRT:  </p>
+<ul>
+<li>The red/blue/white wires are each paired with a matching ground(black) wire.</li>
+<li>After that, there is only one brown wire and two black wires left.</li>
+<li>The chassis (global) ground isn't even on the connector, making it rather obvious.  </li>
+</ul>
+<p>It's easy to guess that the pairs of red/blue/white match the color signals (<code>RED/RED.GND</code>, <code>BLU/BLU.GND</code>, etc.). <sup><sub>It's a bit weird that Green is represented by a white wire, I guess they didn't have green ? </sup></sub><br>
+What about the brown wire, though?  </p>
+<p>The last piece of the puzzle is that Mac screens don't use Horizontal/Vertical Sync like VGA, instead preferring to use <a href="https://en.wikipedia.org/wiki/Component_video_sync">Composite Sync</a>.<br>
+The DA-15 pinout above has pins for VGA-style <code>HSYNC/VSYNC</code>, but those are meant for those not-at-all common cases where you'd hook up a VGA screen to your Mac with an adapter.  </p>
+<p>Therefore, there are only <strong>two</strong> wires to hook up for the Sync signal (<code>CSYNC</code> and <code>CSYNC.GND</code>), instead of the four for VGA.(<code>HSYNC/VSYNC</code> and their matching grounds)<br>
+It seems then likely that the brown wire is the <code>CSYNC</code> signal!  </p>
+<h3>But aren't you missing some pins from the DA-15 picture?</h3>
+<p>I am! I didn't talk about <code>SENSE0/1/2</code> yet.<br>
+Those pins are meant to be grounded in specific ways to tell the Mac what kind of screen we're plugging in. For example:  </p>
+<div class="highlight"><pre><span></span><code><span class="err">The Macintosh LC requires that pin 4 (SENSE0) be connected to Ground to signal the connection of a 640 x 480 monitor. The Macintosh LC requires that pin 4 and 10 (SENSE0 and SENSE2) be connected to Ground to signal the connection of a 512 x 384 monitor (i.e., the Macintosh 12&quot; RGB Display). The Macintosh LC requires that pin 10 (SENSE2) be connected to Ground to signal the connection of a VGA monitor. Pin 7 (SENSE1) is grounded in the Macintosh LC.</span>
+</code></pre></div>
+
+
+<p>The way those pins are interpreted depends on the Macintosh you're plugging the screen into, but the one we're interested in never seems to change much: <code>Grounding SENSE0 means the monitor is 640x480.</code><br>
+That's the resolution of the Performa Plus, so I'll be leaving the other two pins alone.  </p>
+<h1>Time to connect</h1>
+<p>I grabbed a cheap DA-15 cable off AliExpress and made an atrocious Frankencable out of it:<br>
+<img alt="end my life" src="https://tvc-16.science/images/performa/performa5.jpg">  </p>
+<p>The connections mostly match what I wrote above, except some yellow/white cables magically appeared at the end that weren't in the video connector.<br>
+I guessed those were probably only there for DA-15 compliance and led nowhere, so I left 'em unconnected.  </p>
+<p>I hooked up the other end of the cable to a <a href="https://twitter.com/Difegue/status/1206696379483148289?s=20">freshly-salvaged</a> Macintosh IIvx, powered everything on expecting to get a horribly mangled image and:  </p>
+<p><img alt="haha this is a disaste-wait what" src="https://tvc-16.science/images/performa/performa6.jpg"><br>
+<sup><sub>Wow this actually works </sup></sub> I mean <strong>of course it works!</strong><br>
+<img alt="based" src="https://tvc-16.science/images/performa/izutsumi.gif"></p>
+<h1>Screen size and final observations</h1>
+<p><img alt="Macintosh IIvx" src="https://tvc-16.science/images/performa/performa7.jpg"><br>
+The image quality is surprisingly good for a makeshift cable here -- No parasites or blurry picture.<br>
+Although I found it odd that the image doesn't fill the screen entirely.<br>
+Since the IIvx is a pretty old Mac(running System 7), I thought its video card might not have the horsepower to handle 640x480.  </p>
+<p>No worries! Time to upgrade a bit and try the cable out on a Power Mac G3:<br>
+<img alt="Power Mac G3" src="https://tvc-16.science/images/performa/performa8.jpg"><br>
+This is <strong>slightly</strong> better! But not by much.<br>
+The resolution utility in Mac OS 9 does say the screen resolution is at 640x480, so there are a few possible reasons:</p>
+<ul>
+<li>The CRT itself is configured to display the image like this  </li>
+<li>The screen actually supports resolutions higher than 640x480 and I fucked up forcing the resolution through <code>SENSE0</code>  </li>
+<li>Those white/yellow cables aren't there just for show pardner 🤠</li>
+</ul>
+<p>For option 1 the only way out is aligning the CRT manually.<br>
+While I'm less afraid of being zapped by CRTs after working on the eMac, this is next level and messing with factory settings is probably a terrible idea.</p>
+<p>Option 2 can be tested on the Power Mac G3 by overriding the resolution with <a href="https://www.madrau.com/SRXv3/html/SR2/indexSR2.html">SwitchRes2</a>, which I'll try later.<br>
+And if it's option 3, I probably won't even bother since the cable is already <em>pretty good™</em> as it stands.  </p>
+<p><img alt="Can't believe I bothered that much just for a dumb Apple sticker" src="https://tvc-16.science/images/performa/performa9.jpg"><br>
+I thank the gods of NASA in these festive times for the gift that is duct tape. Happy 2020!  </p>
+  </div><!-- /.entry-content -->
+  <a class="containerBox">
+    <img src="https://tvc-16.science/theme/img/button2.svg" class="img-responsive">
+    <div class="text-box pink-button">
+      <span class=" button-text pink-shadow">Comments</span>
+    </div>
+  </a> <br /><br /><br /><br /><br /><br /><br /><br />
+  <script src="https://utteranc.es/client.js" repo="difegue/TVC-16" issue-term="url" theme="github-light"
+    crossorigin="anonymous" async>
+  </script>
+</section>
+      </div>
+    </div>
+    <div class="bot-border project-background"></div>
+
+    <br />
+    <br />
+    <br />
+
+  </div>
+
+  <footer id="contentinfo" class="body" style="position:relative; overflow:hidden">
+    <div class="top-border hello-background"></div>
+    <div class="wrapper hello-background">
+      <div class="text">
+
+        <a class="containerBox">
+          <img src="https://tvc-16.science/theme/img/button1.svg" class="img-responsive">
+          <div class="text-box blue-button">
+            <span class=" button-text blue-shadow">About</span>
+          </div>
+        </a>
+
+        <div class="scroll-left">
+          <p>
+            <script language="JavaScript">
+              //never forget grugeisti ;_;7
+              var r_text = new Array();
+              r_text[0] = "This is COOL";
+              r_text[1] = "TOP-SHELF BLOG DEVICE";
+              r_text[2] = "ACCELERATED PORTFOLIO SYSTEM";
+              r_text[3] = "Lookin' cool !";
+              r_text[4] = "ENHANCED SVG GRAPHICS";
+              r_text[5] = "HIGH-SPEED CHEAP VPS";
+              r_text[6] = "DELUXE UPTIME EXPERIENCE";
+              r_text[7] = "BEST-IN-CLASS SCROLLING TEXT";
+              r_text[8] = "HIGH GRADE MULTICONTAINER SETUP";
+              var i = Math.floor(9 * Math.random())
+              document.write(r_text[i]);
+            </script>
+          </p>
+        </div>
+        Runnin' straight down the information highway in a 3$ Vultr VPS. <br /><br />
+        Typefaces used: <a href="https://rsms.me/inter/">Inter</a>, <a
+          href="https://blog.marsnev.com/2017/03/font-lemonmilk.html">Lemon/Milk</a>,
+        <a href="https://fonts.google.com/specimen/VT323">VT323</a>.
+        Built using <a href="https://github.com/difegue" rel="me"> Github Actions</a> and Pelican. <br />
+        You can talk to me on <a rel="me" href="https://bsky.app/profile/difegue.bsky.social">Bluesky</a> or <a rel="me"
+          href="https://kolektiva.social/@Difegue">Mastodon</a> if that's your thing.
+
+      </div>
+    </div>
+    <div class="bot-border hello-background"></div>
+  </footer><!-- /#contentinfo -->
+
+  <br />
+  <br />
+  <br />
+
+  <div class="footer-container" title="This COOL SYSTEM has been running...for some time now.">
+    <span class="footer-text">Uptime:
+      <br>
+      <span id="uptime">XXX days </span>
+    </span>
+    <img src="https://tvc-16.science/theme/img/footer.svg" class="footer-image">
+  </div>
+
+  <script src="https://tvc-16.science/theme/index.js"></script>
+</body>
+
+</html>

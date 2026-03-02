@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Blogopolis - Webscraping my bank with GitHub Actions and displaying it on a Pebble SmartWatch</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <link
+    href="https://tvc-16.science/feeds/all.atom.xml"
+    type="application/atom+xml" rel="alternate" title="Blogopolis Full Atom Feed" />
+  <link
+    href="https://tvc-16.science/feeds/cool-tricks.atom.xml"
+    type="application/atom+xml" rel="alternate" title="Blogopolis Categories Atom Feed" />
+
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js'></script>
+  <script src='https://storage.ko-fi.com/cdn/scripts/overlay-widget.js'></script>
+  <script data-goatcounter="https://dingus.tvc-16.science/count" async src="//dingus.tvc-16.science/count.js"></script>
+
+  <link rel="apple-touch-icon" sizes="180x180" href="https://tvc-16.science/theme/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="https://tvc-16.science/theme/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="https://tvc-16.science/theme/favicon-16x16.png">
+  <link rel="manifest" href="https://tvc-16.science/theme/site.webmanifest">
+  <link rel="mask-icon" href="https://tvc-16.science/theme/safari-pinned-tab.svg" color="#f040b0">
+  <link rel="webmention" href="https://webmention.io/tvc-16.science/webmention" />
+  <link rel="pingback" href="https://webmention.io/tvc-16.science/xmlrpc" />
+  <meta name="msapplication-TileColor" content="#f1c711">
+  <meta name="theme-color" content="#f1c711">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta property="og:title" content="Webscraping my bank with GitHub Actions and displaying it on a Pebble SmartWatch - Blogopolis" />
+<meta property="og:type" content="article" />
+<meta property="og:description" content="<p>Giving my bank account to GitHub so they can tell my watch how much money is in it? Sure!</p>" />
+<meta property="og:url" content="https://tvc-16.science/lcl-pebble.html" />
+<meta property="og:image" content="https://tvc-16.science/images/dosh.jpg" />
+
+  <link href="https://fonts.googleapis.com/css?family=Monoton" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=VT323" rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/bluesky-comments@0.9.0/dist/bluesky-comments.css">
+  <link rel="stylesheet" href="https://tvc-16.science/theme/css/style.css">
+  <link rel="stylesheet" href="https://tvc-16.science/theme/css/pygment.css">
+
+
+
+
+<meta name="twitter:card" content="summary_large_image">
+<meta property="og:title" content="Webscraping my bank with GitHub Actions and displaying it on a Pebble SmartWatch - Blogopolis" />
+<meta property="og:type" content="article" />
+<meta property="og:description" content="<p>Giving my bank account to GitHub so they can tell my watch how much money is in it? Sure!</p>" />
+<meta property="og:url" content="https://tvc-16.science/lcl-pebble.html" />
+<meta property="og:image" content="https://tvc-16.science/images/dosh.jpg" />
+
+<meta name="tags" content="github actions" />
+<meta name="tags" content="puppeteer" />
+<meta name="tags" content="tesseract" />
+<meta name="tags" content="pebble" />
+<meta name="tags" content="rebble" />
+<meta name="tags" content="timeline" />
+<meta name="tags" content="epic bank hacks" />
+
+</head>
+
+<body id="index" class="home">
+
+  <canvas id="stage"></canvas>
+  <header id="banner" class="body">
+    <center><img height="170px" src="https://tvc-16.science/theme/img/logotype.svg" /></center>
+  </header><!-- /#banner -->
+
+  <div id="mainText">
+
+    <h2 class="subtitle">
+
+      <a style="color:black !important" href="/projects.html">Projects</a>
+      🔸
+      <a style="color:black !important" href="/">Articles</a>
+      🔸
+      <a style="color:black !important" href="/categories.html">Categories</a>
+      🔸
+
+    </h2><!-- /#menu -->
+
+    <div class="top-border project-background"></div>
+    <div class="wrapper project-background">
+      <div class="text">
+<section id="content" class="body" style="max-width: 900px;margin-left: auto;margin-right: auto;">
+  <header>
+    <h2 class="entry-title">
+      <a href="https://tvc-16.science/lcl-pebble.html" rel="bookmark" title="Permalink to Webscraping my bank with GitHub Actions and displaying it on a Pebble SmartWatch">
+        Webscraping my bank with GitHub Actions and displaying it on a Pebble SmartWatch
+      </a>
+    </h2>
+    
+  </header>
+  <footer class="post-info terminal-text">
+    <time class="published" datetime="2019-08-31T00:00:00+02:00">
+      Sat 31 August 2019
+    </time>
+    <address class="vcard author">
+      By       <a class="url fn" href="https://tvc-16.science/author/difegue.html">Difegue</a>
+    </address>
+    <div class="category">
+      Category: <a href="https://tvc-16.science/category/cool-tricks.html">Cool Tricks</a>
+    </div>
+    <div class="tags">
+      Tags:
+      <a href="https://tvc-16.science/tag/github-actions.html">github actions</a>
+      <a href="https://tvc-16.science/tag/puppeteer.html">puppeteer</a>
+      <a href="https://tvc-16.science/tag/tesseract.html">tesseract</a>
+      <a href="https://tvc-16.science/tag/pebble.html">pebble</a>
+      <a href="https://tvc-16.science/tag/rebble.html">rebble</a>
+      <a href="https://tvc-16.science/tag/timeline.html">timeline</a>
+      <a href="https://tvc-16.science/tag/epic-bank-hacks.html">epic bank hacks</a>
+    </div>
+    <div class="summary">
+      <p>Giving my bank account to GitHub so they can tell my watch how much money is in it? Sure!</p>
+    </div>
+
+  </footer><!-- /.post-info -->
+  <div class="entry-content">
+    <p>I had some <a href="https://github.com/Difegue/Chaotic-Realm/tree/master/lcl-hack">old code</a> laying around to scrape the <a href="https://www.lcl.fr/">Crédit Lyonnais</a> account pages and convert my account balance/details to JSON.  </p>
+<p>I used this for a few years to quickly have my account balance on my phone, then gave up on it once the bank's mobile app caught up.<br>
+Recently though, <a href="http://rebble.io/2019/07/24/its-timeline-time.html">Rebble revived Timeline</a> and I do love my Pebble Watches more than my phone, so I thought I'd put the ol' lcl.js scraper back on the saddle.  </p>
+<h1>Wait! What the fuck even <strong>is</strong> Timeline ?</h1>
+<p><img alt="timeline" src="images/timeline.jpg">  </p>
+<p>Pebble smartwatches feature a scrollable timeline of events the user can reach/read in one button press. The events that end up in Timeline can come from the phone's calendar as well as third-party applications.  </p>
+<p>If you want more details, I recommend looking up the <a href="https://pebble-help-legacy.rebble.io/help.getpebble.com/customer/en/portal/articles/2541544-timelinee140.html?b_id=12263">Pebble documentation archive</a>.  </p>
+<p>What interests us here is the third-party application part, brought back from the ashes by <a href="http://rebble.io">Rebble</a>.<br>
+By using a token generated by the watch, we can send data to the timeline through a webhook. And combined with the LCL bank account scraper, the results are pretty easy to figure out:  </p>
+<p><img alt="fuck this" src="images/dosh.jpg"></p>
+<p>Moneybills, right on the wrist!</p>
+<h1>Unearthing the LCL scraper and making it work again</h1>
+<p>The bad thing about online banking is that the web services that come with it are usually unpractical and severely outdated. The <strong>good</strong> thing in that though, is that when you're scraping a bank website for data, your implementation will last years without bugs caused by redesigns. ✌  </p>
+<p>When I pulled out my old scraping code, the only thing I had to rework was the login sequence. (Alongside a quick port to <a href="https://github.com/GoogleChrome/puppeteer">Puppeteer</a> since PhantomJS is basically dead now)<br>
+I used the mobile version of the website to login back in 2015, but alas it is no more.<br>
+Which means I'm stuck dealing with this abomination coming straight from every French banking website:  </p>
+<p><img alt="fuck this" src="images/lcl_keyboard.png"></p>
+<p>The <code>"click on the jpegs to enter your keycode"</code> login page.<br>
+I hate this thing for a myriad of reasons, and the implementation is actually quite solid here:  </p>
+<ul>
+<li>
+<p>You can't just enter the keycode straight into the HTML input on the right: Clicks on the keyboard enter a <em>scrambled</em> number into the input, which is then decoded later down the login sequence by some JavaScript bullshit dark magic.  </p>
+</li>
+<li>
+<p>The order of the numbers is <em>randomized</em> on each load of the login page, so you can't just record clicks at a specific position either.  </p>
+</li>
+<li>
+<p>The keyboard is rendered as a single image, with the areas you have to click defined by a HTML <a href="https://www.w3schools.com/tags/tag_map.asp">imagemap</a>.</p>
+</li>
+</ul>
+<p>Since I'm already down the rabbit hole of webscraping/JavaScript automation, the solution I used here is a suitable waste of processing power: I load up the <a href="https://github.com/tesseract-ocr">Tesseract engine</a> and <strong>scan the keyboard image</strong> to find out the order of the numbers in the page.  </p>
+<div class="highlight"><pre><span></span><code><span class="nx">await</span> <span class="nx">page</span><span class="p">.</span><span class="nx">screenshot</span><span class="p">({</span><span class="nx">path</span><span class="o">:</span> <span class="s2">&quot;keyboard.png&quot;</span><span class="p">});</span>
+
+<span class="c1">// Just OCR the damn keyboard</span>
+<span class="nx">ocrResult</span> <span class="o">=</span> <span class="nx">await</span> <span class="nx">Tesseract</span><span class="p">.</span><span class="nx">recognize</span><span class="p">(</span><span class="s1">&#39;keyboard.png&#39;</span><span class="p">);</span>
+<span class="c1">// Get something like 34980 15267</span>
+<span class="nx">map</span> <span class="o">=</span> <span class="nx">ocrResult</span><span class="p">.</span><span class="nx">text</span><span class="p">.</span><span class="nx">split</span><span class="p">(</span><span class="sr">/ /</span><span class="p">)[</span><span class="mi">0</span><span class="p">].</span><span class="nx">replace</span><span class="p">(</span><span class="sr">/[^\d]/g</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">).</span><span class="nx">trim</span><span class="p">();</span> 
+
+<span class="c1">// Click on the areas matching the numbers we received, according to the code in env</span>
+<span class="c1">// DOM IDs are idImageClavier_01-10, going by column:</span>
+<span class="c1">// 1 3 5 7 9</span>
+<span class="c1">// 2 4 6 8 10</span>
+<span class="nx">code</span> <span class="o">=</span> <span class="nx">process</span><span class="p">.</span><span class="nx">env</span><span class="p">.</span><span class="nx">LCL_CODE</span><span class="p">.</span><span class="nx">toString</span><span class="p">();</span>
+
+<span class="c1">// Rearrange the keyboard map to match the DOM IDs:</span>
+<span class="nx">map</span> <span class="o">=</span> <span class="nx">map</span><span class="p">.</span><span class="nx">charAt</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">+</span><span class="nx">map</span><span class="p">.</span><span class="nx">charAt</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span><span class="o">+</span><span class="nx">map</span><span class="p">.</span><span class="nx">charAt</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">+</span><span class="p">[...]</span><span class="o">+</span><span class="nx">map</span><span class="p">.</span><span class="nx">charAt</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span><span class="o">+</span><span class="nx">map</span><span class="p">.</span><span class="nx">charAt</span><span class="p">(</span><span class="mi">9</span><span class="p">);</span>
+
+<span class="c1">// Go through code character by character, find its location on the map and hit the matching area</span>
+<span class="k">while</span> <span class="p">(</span><span class="nx">code</span><span class="p">.</span><span class="nx">length</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+<span class="kr">char</span> <span class="o">=</span> <span class="nx">code</span><span class="p">.</span><span class="nx">charAt</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+<span class="nx">code</span> <span class="o">=</span> <span class="nx">code</span><span class="p">.</span><span class="nx">slice</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+
+<span class="nx">posInMap</span> <span class="o">=</span> <span class="nx">map</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="kr">char</span><span class="p">);</span>
+<span class="nx">posInMap</span><span class="o">++</span><span class="p">;</span> <span class="c1">//DOM IDs start at 1</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="nx">posInMap</span> <span class="o">!==</span> <span class="mi">10</span><span class="p">)</span>
+    <span class="nx">posInMap</span> <span class="o">=</span> <span class="s2">&quot;0&quot;</span><span class="o">+</span><span class="nx">posInMap</span><span class="p">;</span>
+
+<span class="c1">//console.log(&quot;Clicking on &quot;+ char +&quot; at #idImageClavier_&quot;+posInMap);</span>
+<span class="nx">await</span> <span class="nx">page</span><span class="p">.</span><span class="nx">evaluate</span><span class="p">(</span><span class="nx">selector</span><span class="p">=&gt;</span> <span class="p">{</span> <span class="nx">$</span><span class="p">(</span><span class="nx">selector</span><span class="p">).</span><span class="nx">click</span><span class="p">();</span> <span class="p">},</span>
+                    <span class="s1">&#39;#idImageClavier_&#39;</span><span class="o">+</span><span class="nx">posInMap</span><span class="p">);</span>
+
+<span class="p">}</span>
+</code></pre></div>
+
+
+<p>I hate this. But one click on the login button later and <em>hacker voice I'm in</em><br>
+The rest of the code consists on mangling the bank's internal API to get readable JSON.  </p>
+<h1>Pushing the account balance to Timeline</h1>
+<p>Once I have recovered the data from the generated JSON, pushing it to the watch is much easier:  </p>
+<div class="highlight"><pre><span></span><code><span class="err">curl -X PUT https://timeline-api.rebble.io/v1/user/pins/cool-pin-id </span>
+<span class="err">    --header &quot;Content-Type: application/json&quot; </span>
+<span class="err">    --header &quot;X-User-Token: watch_token&quot; </span>
+<span class="err">    -d &#39;{ </span>
+<span class="err">        &quot;id&quot;: &quot;cool-pin-id&quot;, </span>
+<span class="err">        &quot;time&quot;: &quot;2019-08-30T22:43:56Z&quot;, </span>
+<span class="err">        &quot;layout&quot;: { </span>
+<span class="err">                  &quot;type&quot;: &quot;genericPin&quot;, </span>
+<span class="err">                  &quot;title&quot;: &quot;Account name&quot;, </span>
+<span class="err">                  &quot;body&quot;: &quot;Account code&quot;, </span>
+<span class="err">                  &quot;subtitle&quot;: &quot;+ 9 999,99 €&quot;, </span>
+<span class="err">                  &quot;tinyIcon&quot;: &quot;system://images/STOCKS_EVENT&quot; </span>
+<span class="err">                  } </span>
+<span class="err">        }&#39; </span>
+</code></pre></div>
+
+
+<p>The <a href="https://developer.rebble.io/developer.pebble.com/guides/pebble-timeline/pin-structure/index.html">Pebble developer documentation</a> is a godsend here!</p>
+<p><code>cool-pin-id</code> must be a different ID for each new Timeline pin pushed. I just get my OS to generate UUIDs for that but you might want to do it another way.  </p>
+<p>The watch token can be generated using this <a href="https://github.com/Willow-Systems/pebble-generate-token">handy Pebble app.</a>  </p>
+<h1>Jamming this whole thing in Github Actions</h1>
+<p>While this is all cool and good, I was wary of running this script on my server regularly.<br>
+I mean, it <strong>does</strong> use your bank credentials and you can't be paranoid enough.  </p>
+<p>Back in 2015, I was running it on a computer that didn't accept incoming connections; Said computer would just upload the JSON generated by the script every few hours to the server.<br>
+But this is 2019 and caring about security is <em>so passé</em>, so I'm just gonna give my bank details to GitHub Actions.  </p>
+<p><img alt="hot dog" src="images/dangerzone.png">  </p>
+<p><em>Yeehaw!</em> The Actions script itself isn't anything to write about, but hey, it's on <a href="https://twitter.com/github/status/1159511691480260608">Actions v2</a>!  </p>
+<div class="highlight"><pre><span></span><code><span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Get bank details and push to Pebble</span>
+
+<span class="nt">on</span><span class="p">:</span>
+  <span class="nt">schedule</span><span class="p">:</span>
+  <span class="p p-Indicator">-</span> <span class="nt">cron</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">0 9 * * *</span>
+
+<span class="nt">jobs</span><span class="p">:</span>
+  <span class="nt">build</span><span class="p">:</span>
+
+    <span class="nt">runs-on</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">ubuntu-latest</span>
+
+    <span class="nt">steps</span><span class="p">:</span>
+    <span class="p p-Indicator">-</span> <span class="nt">uses</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">actions/checkout@v1</span>
+    <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Use Node.js</span>
+      <span class="nt">uses</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">actions/setup-node@v1</span>
+      <span class="nt">with</span><span class="p">:</span>
+        <span class="nt">node-version</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">12.x</span>
+    <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">NPM install</span>
+      <span class="nt">run</span><span class="p">:</span> <span class="p p-Indicator">|</span>
+        <span class="no">npm install</span>
+    <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Epic lcl hack</span>
+      <span class="nt">env</span><span class="p">:</span>
+        <span class="nt">LCL_ID</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">${{ secrets.LCL_ID }}</span>
+        <span class="nt">LCL_CODE</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">${{ secrets.LCL_CODE }}</span>
+      <span class="nt">run</span><span class="p">:</span> <span class="p p-Indicator">|</span>
+        <span class="no">node lclscraper.js  </span>
+    <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Push pebble timeline pin</span>
+      <span class="nt">env</span><span class="p">:</span>
+        <span class="nt">TIMELINE_TOKEN</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">${{ secrets.TIMELINE_TOKEN }}</span>
+      <span class="nt">run</span><span class="p">:</span> <span class="p p-Indicator">|</span> 
+        <span class="no">LAB1=$(cat lcl.json | jq -r &#39;.[0].label&#39;)</span>
+        <span class="no">TOT1=$(cat lcl.json | jq -r &#39;.[0].total&#39;)</span>
+        <span class="no">CODE1=$(cat lcl.json | jq -r &#39;.[0].code&#39;)</span>
+        <span class="no">DATE=$(date +%s | jq &#39;todate&#39;)</span>
+        <span class="no">UUID=$(cat /proc/sys/kernel/random/uuid)</span>
+        <span class="no">TIMELINE_JSON=&quot;{\&quot;id\&quot;: \&quot;$UUID\&quot;,\&quot;time\&quot;: $DATE,\&quot;layout\&quot;: {\&quot;type\&quot;: \&quot;genericPin\&quot;,\&quot;title\&quot;: \&quot;$LAB1\&quot;,\&quot;body\&quot;: \&quot;$CODE1\&quot;,\&quot;subtitle\&quot;: \&quot;$TOT1 €\&quot;,\&quot;tinyIcon\&quot;: \&quot;system://images/STOCKS_EVENT\&quot;}}&quot;</span>
+        <span class="no">echo $TIMELINE_JSON</span>
+        <span class="no">curl -X PUT https://timeline-api.rebble.io/v1/user/pins/$UUID --header &quot;Content-Type: application/json&quot; --header &quot;X-User-Token: $TIMELINE_TOKEN&quot; -d &quot;$TIMELINE_JSON&quot;</span>
+</code></pre></div>
+
+
+<p>The job installs the required node.js dependencies (Tesseract and Puppeteer), runs the scraper, and pushes a timeline JSON to Rebble.<br>
+Pretty easy, isn't it?</p>
+<h1>Closing thoughts</h1>
+<p>The inspiration and info for this came from <a href="https://willow.systems/integrate-pebble-with-ifttt-once-again/">Will0's blog</a>, although I couldn't use his IFTTT proxy as-is due to errors with non-ASCII characters. 😅  </p>
+<p>I used <a href="https://github.com/marketplace/actions/debugging-with-tmate">tmate</a> to debug on the GitHub Actions side this time around, and it was quite convenient! Would be better if the web terminal supported pasting, however.  </p>
+<p><a href="https://ec.europa.eu/info/law/payment-services-psd-2-directive-eu-2015-2366_en">Payment Services Directive 2</a> will start being enforced in a few days: It forces European banks to add generic APIs for bank aggregators.<br>
+Sadly that doesn't seem to mean proper APIs being made available for consumers as well. 🙃  </p>
+<p>It also mandates strong authentication, which hopefully means those stupid image keyboards will go away and be replaced by proper 2FA.</p>
+<p>I guess now that I wrote this article my bank will add a captcha or some shit to the login window.  </p>
+  </div><!-- /.entry-content -->
+  <a class="containerBox">
+    <img src="https://tvc-16.science/theme/img/button2.svg" class="img-responsive">
+    <div class="text-box pink-button">
+      <span class=" button-text pink-shadow">Comments</span>
+    </div>
+  </a> <br /><br /><br /><br /><br /><br /><br /><br />
+  <script src="https://utteranc.es/client.js" repo="difegue/TVC-16" issue-term="url" theme="github-light"
+    crossorigin="anonymous" async>
+  </script>
+</section>
+      </div>
+    </div>
+    <div class="bot-border project-background"></div>
+
+    <br />
+    <br />
+    <br />
+
+  </div>
+
+  <footer id="contentinfo" class="body" style="position:relative; overflow:hidden">
+    <div class="top-border hello-background"></div>
+    <div class="wrapper hello-background">
+      <div class="text">
+
+        <a class="containerBox">
+          <img src="https://tvc-16.science/theme/img/button1.svg" class="img-responsive">
+          <div class="text-box blue-button">
+            <span class=" button-text blue-shadow">About</span>
+          </div>
+        </a>
+
+        <div class="scroll-left">
+          <p>
+            <script language="JavaScript">
+              //never forget grugeisti ;_;7
+              var r_text = new Array();
+              r_text[0] = "This is COOL";
+              r_text[1] = "TOP-SHELF BLOG DEVICE";
+              r_text[2] = "ACCELERATED PORTFOLIO SYSTEM";
+              r_text[3] = "Lookin' cool !";
+              r_text[4] = "ENHANCED SVG GRAPHICS";
+              r_text[5] = "HIGH-SPEED CHEAP VPS";
+              r_text[6] = "DELUXE UPTIME EXPERIENCE";
+              r_text[7] = "BEST-IN-CLASS SCROLLING TEXT";
+              r_text[8] = "HIGH GRADE MULTICONTAINER SETUP";
+              var i = Math.floor(9 * Math.random())
+              document.write(r_text[i]);
+            </script>
+          </p>
+        </div>
+        Runnin' straight down the information highway in a 3$ Vultr VPS. <br /><br />
+        Typefaces used: <a href="https://rsms.me/inter/">Inter</a>, <a
+          href="https://blog.marsnev.com/2017/03/font-lemonmilk.html">Lemon/Milk</a>,
+        <a href="https://fonts.google.com/specimen/VT323">VT323</a>.
+        Built using <a href="https://github.com/difegue" rel="me"> Github Actions</a> and Pelican. <br />
+        You can talk to me on <a rel="me" href="https://bsky.app/profile/difegue.bsky.social">Bluesky</a> or <a rel="me"
+          href="https://kolektiva.social/@Difegue">Mastodon</a> if that's your thing.
+
+      </div>
+    </div>
+    <div class="bot-border hello-background"></div>
+  </footer><!-- /#contentinfo -->
+
+  <br />
+  <br />
+  <br />
+
+  <div class="footer-container" title="This COOL SYSTEM has been running...for some time now.">
+    <span class="footer-text">Uptime:
+      <br>
+      <span id="uptime">XXX days </span>
+    </span>
+    <img src="https://tvc-16.science/theme/img/footer.svg" class="footer-image">
+  </div>
+
+  <script src="https://tvc-16.science/theme/index.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Blogopolis - Masquerading a WSL Distro as a Windows Port, Part 2</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <link
+    href="https://tvc-16.science/feeds/all.atom.xml"
+    type="application/atom+xml" rel="alternate" title="Blogopolis Full Atom Feed" />
+  <link
+    href="https://tvc-16.science/feeds/lanraragi.atom.xml"
+    type="application/atom+xml" rel="alternate" title="Blogopolis Categories Atom Feed" />
+
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js'></script>
+  <script src='https://storage.ko-fi.com/cdn/scripts/overlay-widget.js'></script>
+  <script data-goatcounter="https://dingus.tvc-16.science/count" async src="//dingus.tvc-16.science/count.js"></script>
+
+  <link rel="apple-touch-icon" sizes="180x180" href="https://tvc-16.science/theme/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="https://tvc-16.science/theme/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="https://tvc-16.science/theme/favicon-16x16.png">
+  <link rel="manifest" href="https://tvc-16.science/theme/site.webmanifest">
+  <link rel="mask-icon" href="https://tvc-16.science/theme/safari-pinned-tab.svg" color="#f040b0">
+  <link rel="webmention" href="https://webmention.io/tvc-16.science/webmention" />
+  <link rel="pingback" href="https://webmention.io/tvc-16.science/xmlrpc" />
+  <meta name="msapplication-TileColor" content="#f1c711">
+  <meta name="theme-color" content="#f1c711">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta property="og:title" content="Masquerading a WSL Distro as a Windows Port, Part 2 - Blogopolis" />
+<meta property="og:type" content="article" />
+<meta property="og:description" content="<p>Interacting with WSL from managed code isn't as easy as I'd thought.</p>" />
+<meta property="og:url" content="https://tvc-16.science/wsl-karen-2.html" />
+<meta property="og:image" content="https://tvc-16.science/images/karen-dark.jpg" />
+
+  <link href="https://fonts.googleapis.com/css?family=Monoton" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=VT323" rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/bluesky-comments@0.9.0/dist/bluesky-comments.css">
+  <link rel="stylesheet" href="https://tvc-16.science/theme/css/style.css">
+  <link rel="stylesheet" href="https://tvc-16.science/theme/css/pygment.css">
+
+
+
+
+<meta name="twitter:card" content="summary_large_image">
+<meta property="og:title" content="Masquerading a WSL Distro as a Windows Port, Part 2 - Blogopolis" />
+<meta property="og:type" content="article" />
+<meta property="og:description" content="<p>Interacting with WSL from managed code isn't as easy as I'd thought.</p>" />
+<meta property="og:url" content="https://tvc-16.science/wsl-karen-2.html" />
+<meta property="og:image" content="https://tvc-16.science/images/karen-dark.jpg" />
+
+<meta name="tags" content="wsl" />
+<meta name="tags" content="wpf" />
+<meta name="tags" content="c#" />
+
+</head>
+
+<body id="index" class="home">
+
+  <canvas id="stage"></canvas>
+  <header id="banner" class="body">
+    <center><img height="170px" src="https://tvc-16.science/theme/img/logotype.svg" /></center>
+  </header><!-- /#banner -->
+
+  <div id="mainText">
+
+    <h2 class="subtitle">
+
+      <a style="color:black !important" href="/projects.html">Projects</a>
+      🔸
+      <a style="color:black !important" href="/">Articles</a>
+      🔸
+      <a style="color:black !important" href="/categories.html">Categories</a>
+      🔸
+
+    </h2><!-- /#menu -->
+
+    <div class="top-border project-background"></div>
+    <div class="wrapper project-background">
+      <div class="text">
+<section id="content" class="body" style="max-width: 900px;margin-left: auto;margin-right: auto;">
+  <header>
+    <h2 class="entry-title">
+      <a href="https://tvc-16.science/wsl-karen-2.html" rel="bookmark" title="Permalink to Masquerading a WSL Distro as a Windows Port, Part 2">
+        Masquerading a WSL Distro as a Windows Port, Part 2
+      </a>
+    </h2>
+    
+  </header>
+  <footer class="post-info terminal-text">
+    <time class="published" datetime="2019-06-06T00:00:00+02:00">
+      Thu 06 June 2019
+    </time>
+    <address class="vcard author">
+      By       <a class="url fn" href="https://tvc-16.science/author/difegue.html">Difegue</a>
+    </address>
+    <div class="category">
+      Category: <a href="https://tvc-16.science/category/lanraragi.html">LANraragi</a>
+    </div>
+    <div class="tags">
+      Tags:
+      <a href="https://tvc-16.science/tag/wsl.html">wsl</a>
+      <a href="https://tvc-16.science/tag/wpf.html">wpf</a>
+      <a href="https://tvc-16.science/tag/c.html">c#</a>
+    </div>
+    <div class="summary">
+      <p>Interacting with WSL from managed code isn't as easy as I'd thought.</p>
+    </div>
+
+  </footer><!-- /.post-info -->
+  <div class="entry-content">
+    <p><a href="https://tvc-16.science/wsl-karen-1.html">Previously,</a> we got to the point where we had a WSL distro installed seamlessly to the user's computer, alongside all the shortcuts, bells and whistles of a proper Windows application.<br>
+Let's talk a bit about the Windows GUI part of the magic trick.  </p>
+<h2>A simple, taskbar-based GUI</h2>
+<p>Since the bulk of the interaction with LANraragi won't be made from this GUI, I wanted to make it as unobtrusive as possible, while still featuring some <a href="https://www.microsoft.com/design/fluent/">Fluent Design</a>.  </p>
+<p>I got some inspiration from Docker for Windows' <a href="https://docs.docker.com/docker-for-windows/images/docker-app-welcome.png">welcome screen</a> and the OneDrive app in W10, who both pop-up small windows from their tray icons.</p>
+<p><img alt="light themin'" src="https://tvc-16.science/images/karen-light.jpg">  </p>
+<p>I rolled <a href="https://www.nuget.org/packages/Hardcodet.NotifyIcon.Wpf/">this handy</a> NuGet package to get the tray icon part out of the way and got to work designin'.  </p>
+<p>Fluent Design would've been almighty easy to pull off had I used <a href="https://docs.microsoft.com/en-us/windows/apps/desktop/modernize/xaml-islands">XAML Islands</a>, but I didn't want to be <strong>too</strong> bleeding edge and restrict the app to 1903 and up purely for cool visual effects. Maybe in a few years. 🏝   </p>
+<p>Instead, I rolled Acrylic the <a href="https://withinrafael.com/2018/02/01/adding-acrylic-blur-to-your-windows-10-apps-redstone-4-desktop-apps/">DIY way</a>, and Dark Theme by <a href="https://engy.us/blog/2018/10/20/dark-theme-in-wpf/">looking up the registry.</a> The buttons are just some custom XAML <a href="https://github.com/Difegue/Karen/blob/master/Karen/App.xaml#L69">theming</a>.  </p>
+<p>The final result is probably overkill for an interface most people will only look at for 5 seconds, but I couldn't help it. </p>
+<h2>WSL interop from WPF</h2>
+<p>The GUI interops with WSL in four different ways.<br>
+I expected to use the <a href="https://docs.microsoft.com/en-us/windows/desktop/api/_wsl/">WSL API</a> to do all of these with P/Invokes galore, but encountered a few hitches where I had to run <code>wslconfig.exe</code> and <code>wsl.exe</code> instead through NET's Process API.</p>
+<h3>🐧 Check that the Linux Distro is actually installed</h3>
+<p><code>WslIsDistributionRegistered</code> flat out <a href="https://stackoverflow.com/questions/55681500/why-did-wslapi-suddenly-stop-working-in-wpf-applications">doesn't work</a> in a GUI application for now. I had to make due with running <code>wslconfig.exe /l</code> and parsing its output to find my distro name.  </p>
+<p>(I initially toyed with the idea of being able to uninstall/install the Distro from the GUI using <code>WslRegisterDistribution</code>, which would allow for easy updates, but not being able to specify the folder the distro lands in kinda put a stop to that.)</p>
+<h3>🐱‍💻 Execute a Perl one-liner to fetch the LANraragi Version number installed in it</h3>
+<p>Using some <a href="https://mojolicious.org/perldoc/ojo">ojo</a> magic ⚡⚡⚡ :</p>
+<div class="highlight"><pre><span></span><code>perl -Mojo -E <span class="s2">&quot;my </span><span class="nv">$conf</span><span class="s2"> = eval(f(qw(/home/koyomi/lanraragi/lrr.conf))-&gt;slurp); say %</span><span class="nv">$conf</span><span class="s2">{version}.q/ - &#39;/.%</span><span class="nv">$conf</span><span class="s2">{version_name}.q/&#39;/ &quot;</span>
+</code></pre></div>
+
+
+<p>This version is then displayed on the GUI.<br>
+I <strong>could've</strong> used <code>WslLaunch</code> here to run my one-liner, but the function requires a rather hefty baggage to get started(more on that later). The <code>WslLaunchInteractive</code> variant just works, but it pops up a console and we don't want any of that.  </p>
+<p>Instead, I simply run my one-liner in <code>wsl.exe</code> and fetch the text result.</p>
+<h3>📂 Set up a symbolic link to the content folder specified in the GUI</h3>
+<p>When the user gives us his content folder, it's a pure Windows path. <br>
+I quickly convert it to its WSL equivalent and setup a symlink to a designated folder in the Linux filesystem:  </p>
+<div class="highlight"><pre><span></span><code><span class="c1">// Map the user&#39;s content folder to its WSL equivalent</span>
+<span class="c1">// This means lowercasing the drive letter, removing the : and replacing every \ by a /.</span>
+<span class="kt">string</span> <span class="n">winPath</span> <span class="p">=</span> <span class="n">Properties</span><span class="p">.</span><span class="n">Settings</span><span class="p">.</span><span class="n">Default</span><span class="p">.</span><span class="n">ContentFolder</span><span class="p">;</span>
+<span class="kt">string</span> <span class="n">contentFolder</span> <span class="p">=</span> <span class="s">&quot;/mnt/&quot;</span> <span class="p">+</span> <span class="n">Char</span><span class="p">.</span><span class="n">ToLowerInvariant</span><span class="p">(</span><span class="n">winPath</span><span class="p">[</span><span class="m">0</span><span class="p">])</span> <span class="p">+</span> <span class="n">winPath</span><span class="p">.</span><span class="n">Substring</span><span class="p">(</span><span class="m">1</span><span class="p">).</span><span class="n">Replace</span><span class="p">(</span><span class="s">&quot;:&quot;</span><span class="p">,</span> <span class="s">&quot;&quot;</span><span class="p">).</span><span class="n">Replace</span><span class="p">(</span><span class="s">&quot;\\&quot;</span><span class="p">,</span> <span class="s">&quot;/&quot;</span><span class="p">);</span>
+</code></pre></div>
+
+
+<h3>🆙 Start and stop the Linux server</h3>
+<ul>
+<li>
+<p><code>WslLaunch</code> is used to start the server. I use the same customized init system as in my Docker images, so all the setup save for the symlinks done above is already there. The function requires opened STDIN/STDOUT/STDERR streams to pipe the process into, so I <a href="https://docs.microsoft.com/en-us/windows/console/allocconsole">create a hidden console</a> to magically give my GUI usable console streams.</p>
+</li>
+<li>
+<p>There's no API function available to terminate/stop a currently running WSL distro. While <code>WslLaunch</code> gives you the PID of the process you start in WSL, Linux processes aren't hard-tethered to their parents. I always seemed to get a bunch of child processes laying around even after killing said PID, so I added a call to <code>wslconfig.exe /terminate</code> to the mix. This is the one thing that doesn't work in 1803, since <a href="https://github.com/microsoft/WSL/issues/3253">/terminate was sneakily added in an Insider build.</a> ¯_(ツ)_/¯</p>
+</li>
+</ul>
+<p>Using an extra <a href="https://www.nuget.org/packages/HideConsoleOnClose/">NuGet</a> package, I got a user-friendly Log Console without even really trying at all. 🥤😎</p>
+<p><img alt="it's not WSL without a terminal hidden somewhere is it" src="https://tvc-16.science/images/karen-dark.jpg">  </p>
+<p>This is just the console created from <code>AllocConsole</code>, shown and hidden when the user clicks the "Log Console" button. The NuGet package adds some extra sorcery to make sure closing the console simply hides it again.</p>
+<h2>Final thoughts</h2>
+<p>Packing up an entire WSL distribution seemed way too clumsy to pull off at first, but Microsoft's tooling actually makes disposable distros pretty easy to do! I could almost put this on the store if it wasn't for the fact I'm horribly twisting what WSL was originally made for. <em>Please forgive me Rich Turner for I have sinned</em>  </p>
+<p>My Docker images are pretty lightweight since I went all in on Alpine a few months back, so the full downloadable Windows package clocks in at <strong>85 MBs</strong>, with a few more optimizations possible in the future.<br>
+That's less than your average Electron application. 😏  </p>
+<p>You can check the full source code for this crazy thing <a href="https://github.com/Difegue/Karen">here.</a> Thanks for reading!</p>
+  </div><!-- /.entry-content -->
+  <a class="containerBox">
+    <img src="https://tvc-16.science/theme/img/button2.svg" class="img-responsive">
+    <div class="text-box pink-button">
+      <span class=" button-text pink-shadow">Comments</span>
+    </div>
+  </a> <br /><br /><br /><br /><br /><br /><br /><br />
+  <script src="https://utteranc.es/client.js" repo="difegue/TVC-16" issue-term="url" theme="github-light"
+    crossorigin="anonymous" async>
+  </script>
+</section>
+      </div>
+    </div>
+    <div class="bot-border project-background"></div>
+
+    <br />
+    <br />
+    <br />
+
+  </div>
+
+  <footer id="contentinfo" class="body" style="position:relative; overflow:hidden">
+    <div class="top-border hello-background"></div>
+    <div class="wrapper hello-background">
+      <div class="text">
+
+        <a class="containerBox">
+          <img src="https://tvc-16.science/theme/img/button1.svg" class="img-responsive">
+          <div class="text-box blue-button">
+            <span class=" button-text blue-shadow">About</span>
+          </div>
+        </a>
+
+        <div class="scroll-left">
+          <p>
+            <script language="JavaScript">
+              //never forget grugeisti ;_;7
+              var r_text = new Array();
+              r_text[0] = "This is COOL";
+              r_text[1] = "TOP-SHELF BLOG DEVICE";
+              r_text[2] = "ACCELERATED PORTFOLIO SYSTEM";
+              r_text[3] = "Lookin' cool !";
+              r_text[4] = "ENHANCED SVG GRAPHICS";
+              r_text[5] = "HIGH-SPEED CHEAP VPS";
+              r_text[6] = "DELUXE UPTIME EXPERIENCE";
+              r_text[7] = "BEST-IN-CLASS SCROLLING TEXT";
+              r_text[8] = "HIGH GRADE MULTICONTAINER SETUP";
+              var i = Math.floor(9 * Math.random())
+              document.write(r_text[i]);
+            </script>
+          </p>
+        </div>
+        Runnin' straight down the information highway in a 3$ Vultr VPS. <br /><br />
+        Typefaces used: <a href="https://rsms.me/inter/">Inter</a>, <a
+          href="https://blog.marsnev.com/2017/03/font-lemonmilk.html">Lemon/Milk</a>,
+        <a href="https://fonts.google.com/specimen/VT323">VT323</a>.
+        Built using <a href="https://github.com/difegue" rel="me"> Github Actions</a> and Pelican. <br />
+        You can talk to me on <a rel="me" href="https://bsky.app/profile/difegue.bsky.social">Bluesky</a> or <a rel="me"
+          href="https://kolektiva.social/@Difegue">Mastodon</a> if that's your thing.
+
+      </div>
+    </div>
+    <div class="bot-border hello-background"></div>
+  </footer><!-- /#contentinfo -->
+
+  <br />
+  <br />
+  <br />
+
+  <div class="footer-container" title="This COOL SYSTEM has been running...for some time now.">
+    <span class="footer-text">Uptime:
+      <br>
+      <span id="uptime">XXX days </span>
+    </span>
+    <img src="https://tvc-16.science/theme/img/footer.svg" class="footer-image">
+  </div>
+
+  <script src="https://tvc-16.science/theme/index.js"></script>
+</body>
+
+</html>
