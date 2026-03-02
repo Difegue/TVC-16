@@ -4,8 +4,8 @@ Category: Techoposting
 Tags: techo, hobonichi, stationery, phone, app
 Slug: techo-app-review
 Authors: Difegue  
-HeroImage: images/techo/app.jpg 
-BskyPost: at://difegue.tvc-16.science/app.bsky.feed.post/3m7ddvteiqc2i
+HeroImage: images/techo/app2.jpg 
+BskyPost: at://difegue.tvc-16.science/app.bsky.feed.post/3mg2c67axmc23
 Summary: tl;dr it's pretty good but what even is their business model
 
 The [Hobonichi Techo app](https://techoapp.1101.com/en/) is finally available in English on both iOS and Android! Wow!  
@@ -110,13 +110,13 @@ Especially nowadays when it feels easier than ever to only remember the awful sh
 
 So even if you think journaling is too difficult, I'd recommend trying it out!  
 ![crt engaging in self-reflection](./images/crt_beach.jpg)  
-Now from a tech perspective, I do have qualms about how the app effectively locks you in unless you pay to export your data, and the mandatory online connection and cloud synchronization doesn't really sit well with me considering this app **by nature** processes a lot of your personal information.  
-Although considering this is a closed-source app<sup id="ref-4">[#](#note-4)</sup> I think I should give up on the whole personal information part anyway...  
+Now from a tech perspective, I do have qualms about how the app effectively locks you in unless you pay to export your data, and the mandatory online connection and cloud synchronization doesn't really sit well with me considering this app **by nature** processes a lot of your personal information<sup id="ref-4">[#](#note-4)</sup>.  
 
-There's also no telling whether the app will remain like this... Updates could make it better, or **worse**!  
-The business model seems to be praying that enough people pay for the premium plan to subsidize the free users, but considering how bad the value is on the subscription I have my doubts this will prove viable.  
+There's also no telling whether the app will remain like this; The business model seems to be praying that enough people pay for the premium plan to subsidize the free users, but considering how bad the value is on the subscription I have my doubts this will prove viable.  
 
-As things stand, I'm going to stick with Hobonichi's app for a bit longer as I think it works quite well as a companion to my physical planner; I can't leave my buddy Froggo alone........  
+Nonetheless... I'm going to stick with the Techo app for a bit longer as I **do** think it works quite well as a companion to my physical planner.  
+I'll keep the more detailed/personal journaling to said physical though, the app is good at data collecting and that's what it shall do! I'm keen to use it to store sleep data from my Pebble watch once that does Health sync again...  
+
 
 #
 
