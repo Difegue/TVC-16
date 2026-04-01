@@ -5,7 +5,7 @@ Tags: apple, macintosh, mac, macos, crt, diy, retrocomputing, marchintosh
 Slug: globaltalk-2026
 Authors: Difegue
 HeroImage: images/globaltalk/flynn.jpg
-BskyPost: at://difegue.tvc-16.science/app.bsky.feed.post/3lkyfnq7fbv26
+BskyPost: at://difegue.tvc-16.science/app.bsky.feed.post/3mifhetoifc2r
 Summary: i am once again jacking in to the dunelab through ethertalk 
 
 Wow, we're a quarter through the year already! That means it's [MARCHintosh](https://marchintosh.com/) time!  
