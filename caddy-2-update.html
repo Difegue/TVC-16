@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Blogopolis - Updating the TVC-16 to Caddy 2</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <link
+    href="https://tvc-16.science/feeds/all.atom.xml"
+    type="application/atom+xml" rel="alternate" title="Blogopolis Full Atom Feed" />
+  <link
+    href="https://tvc-16.science/feeds/software.atom.xml"
+    type="application/atom+xml" rel="alternate" title="Blogopolis Categories Atom Feed" />
+
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js'></script>
+  <script src='https://storage.ko-fi.com/cdn/scripts/overlay-widget.js'></script>
+  <script data-goatcounter="https://dingus.tvc-16.science/count" async src="//dingus.tvc-16.science/count.js"></script>
+
+  <link rel="apple-touch-icon" sizes="180x180" href="https://tvc-16.science/theme/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="https://tvc-16.science/theme/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="https://tvc-16.science/theme/favicon-16x16.png">
+  <link rel="manifest" href="https://tvc-16.science/theme/site.webmanifest">
+  <link rel="mask-icon" href="https://tvc-16.science/theme/safari-pinned-tab.svg" color="#f040b0">
+  <link rel="webmention" href="https://webmention.io/tvc-16.science/webmention" />
+  <link rel="pingback" href="https://webmention.io/tvc-16.science/xmlrpc" />
+  <meta name="msapplication-TileColor" content="#f1c711">
+  <meta name="theme-color" content="#f1c711">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta property="og:title" content="Updating the TVC-16 to Caddy 2 - Blogopolis" />
+<meta property="og:type" content="article" />
+<meta property="og:description" content="<p>Put on some music and spend a comfy evening whooping out some webhook wizardry. 🧙‍♂️</p>" />
+<meta property="og:url" content="https://tvc-16.science/caddy-2-update.html" />
+<meta property="og:image" content="https://tvc-16.science/images/tamamo.jpg" />
+
+  <link href="https://fonts.googleapis.com/css?family=Monoton" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=VT323" rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/bluesky-comments@0.9.0/dist/bluesky-comments.css">
+  <link rel="stylesheet" href="https://tvc-16.science/theme/css/style.css">
+  <link rel="stylesheet" href="https://tvc-16.science/theme/css/pygment.css">
+
+
+
+
+<meta name="twitter:card" content="summary_large_image">
+<meta property="og:title" content="Updating the TVC-16 to Caddy 2 - Blogopolis" />
+<meta property="og:type" content="article" />
+<meta property="og:description" content="<p>Put on some music and spend a comfy evening whooping out some webhook wizardry. 🧙‍♂️</p>" />
+<meta property="og:url" content="https://tvc-16.science/caddy-2-update.html" />
+<meta property="og:image" content="https://tvc-16.science/images/tamamo.jpg" />
+
+<meta name="tags" content="docker" />
+<meta name="tags" content="goatcounter" />
+<meta name="tags" content="caddy" />
+<meta name="tags" content="webhook" />
+
+</head>
+
+<body id="index" class="home">
+
+  <canvas id="stage"></canvas>
+  <header id="banner" class="body">
+    <center><img height="170px" src="https://tvc-16.science/theme/img/logotype.svg" /></center>
+  </header><!-- /#banner -->
+
+  <div id="mainText">
+
+    <h2 class="subtitle">
+
+      <a style="color:black !important" href="/projects.html">Projects</a>
+      🔸
+      <a style="color:black !important" href="/">Articles</a>
+      🔸
+      <a style="color:black !important" href="/categories.html">Categories</a>
+      🔸
+
+    </h2><!-- /#menu -->
+
+    <div class="top-border project-background"></div>
+    <div class="wrapper project-background">
+      <div class="text">
+<section id="content" class="body" style="max-width: 900px;margin-left: auto;margin-right: auto;">
+  <header>
+    <h2 class="entry-title">
+      <a href="https://tvc-16.science/caddy-2-update.html" rel="bookmark" title="Permalink to Updating the TVC-16 to Caddy 2">
+        Updating the TVC-16 to Caddy 2
+      </a>
+    </h2>
+    
+  </header>
+  <footer class="post-info terminal-text">
+    <time class="published" datetime="2021-07-06T22:00:00+02:00">
+      Tue 06 July 2021
+    </time>
+    <address class="vcard author">
+      By       <a class="url fn" href="https://tvc-16.science/author/difegue.html">Difegue</a>
+    </address>
+    <div class="category">
+      Category: <a href="https://tvc-16.science/category/software.html">Software</a>
+    </div>
+    <div class="tags">
+      Tags:
+      <a href="https://tvc-16.science/tag/docker.html">docker</a>
+      <a href="https://tvc-16.science/tag/goatcounter.html">goatcounter</a>
+      <a href="https://tvc-16.science/tag/caddy.html">caddy</a>
+      <a href="https://tvc-16.science/tag/webhook.html">webhook</a>
+    </div>
+    <div class="summary">
+      <p>Put on some music and spend a comfy evening whooping out some webhook wizardry. 🧙‍♂️</p>
+    </div>
+
+  </footer><!-- /.post-info -->
+  <div class="entry-content">
+    <p><a href="https://caddyserver.com/v2">Caddy 2</a> has been out for a little more than a year and I finally got off my ass to update my server setup. 🤠<br>
+Feel free to read the <a href="./blogopolis-docker">OG post</a> about the Caddy 1 setup to get some extra context.  </p>
+<h1>Updating the Caddyfile</h1>
+<p>For non-initiates, the <a href="https://caddyserver.com/docs/caddyfile">Caddyfile</a> is essentially the entire server configuration.
+There's surprisingly little changes to it!<br>
+I essentially went from something like this:  </p>
+<div class="highlight"><pre><span></span><code><span class="nx">tvc</span><span class="o">-</span><span class="mf">16.</span><span class="nx">science</span><span class="p">,</span> <span class="nx">www</span><span class="p">.</span><span class="nx">tvc</span><span class="o">-</span><span class="mf">16.</span><span class="nx">science</span> <span class="p">{</span>
+    <span class="nx">tls</span> <span class="o">*******</span>
+    <span class="nx">root</span> <span class="o">/</span><span class="kd">var</span><span class="err">/www/html</span>
+    <span class="nx">git</span> <span class="p">{</span>
+        <span class="nx">repo</span>     <span class="nx">github</span><span class="p">.</span><span class="nx">com</span><span class="o">/</span><span class="nx">difegue</span><span class="o">/</span><span class="nx">TVC</span><span class="o">-</span><span class="mi">16</span>
+        <span class="nx">branch</span>   <span class="nx">gh</span><span class="o">-</span><span class="nx">pages</span>
+        <span class="nx">pull</span><span class="o">-</span><span class="nx">args</span> <span class="o">--</span><span class="nx">allow</span><span class="o">-</span><span class="nx">unrelated</span><span class="o">-</span><span class="nx">histories</span> <span class="o">-</span><span class="nx">s</span> <span class="nx">recursive</span> <span class="o">-</span><span class="nx">X</span> <span class="nx">theirs</span>
+        <span class="nx">hook</span> <span class="o">/</span><span class="nx">webhook</span> <span class="nx">mywebhooksecret</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="nx">lrr</span><span class="p">.</span><span class="nx">tvc</span><span class="o">-</span><span class="mf">16.</span><span class="nx">science</span> <span class="p">{</span>
+    <span class="nx">tls</span> <span class="o">*******</span>
+    <span class="nx">proxy</span> <span class="o">/</span> <span class="nx">localhost</span><span class="o">:</span><span class="mi">3000</span>
+<span class="p">}</span>
+
+<span class="nx">diy</span><span class="p">.</span><span class="nx">tvc</span><span class="o">-</span><span class="mf">16.</span><span class="nx">science</span> <span class="p">{</span>
+    <span class="nx">tls</span> <span class="o">*******</span>
+    <span class="nx">proxy</span> <span class="o">/</span> <span class="nx">localhost</span><span class="o">:</span><span class="mi">8080</span>
+<span class="p">}</span>
+
+<span class="nx">dingus</span><span class="p">.</span><span class="nx">tvc</span><span class="o">-</span><span class="mf">16.</span><span class="nx">science</span> <span class="p">{</span>
+    <span class="nx">tls</span> <span class="o">*******</span>
+    <span class="nx">proxy</span> <span class="o">/</span> <span class="nx">localhost</span><span class="o">:</span><span class="mi">7777</span> <span class="p">{</span>
+        <span class="nx">header_upstream</span> <span class="nx">Host</span> <span class="p">{</span><span class="nx">host</span><span class="p">}</span>
+        <span class="nx">header_upstream</span> <span class="nx">X</span><span class="o">-</span><span class="nx">Real</span><span class="o">-</span><span class="nx">IP</span> <span class="p">{</span><span class="nx">remote</span><span class="p">}</span>
+        <span class="nx">header_upstream</span> <span class="nx">X</span><span class="o">-</span><span class="nx">Forwarded</span><span class="o">-</span><span class="nx">For</span> <span class="p">{</span><span class="nx">remote</span><span class="p">}</span>
+        <span class="nx">header_upstream</span> <span class="nx">X</span><span class="o">-</span><span class="nx">Forwarded</span><span class="o">-</span><span class="nx">Proto</span> <span class="p">{</span><span class="nx">scheme</span><span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+
+
+<p>To this:  </p>
+<div class="highlight"><pre><span></span><code><span class="nx">tvc</span><span class="o">-</span><span class="mf">16.</span><span class="nx">science</span> <span class="p">{</span>
+    <span class="nx">tls</span> <span class="o">*******</span>
+    <span class="nx">root</span> <span class="o">*</span> <span class="err">/var/www/html</span>
+    <span class="nx">file_server</span>
+<span class="p">}</span>
+
+<span class="nx">www</span><span class="p">.</span><span class="nx">tvc</span><span class="o">-</span><span class="mf">16.</span><span class="nx">science</span> <span class="p">{</span>
+    <span class="nx">redir</span> <span class="nx">https</span><span class="o">:</span><span class="c1">//tvc-16.science{uri}</span>
+<span class="p">}</span>
+
+<span class="nx">lrr</span><span class="p">.</span><span class="nx">tvc</span><span class="o">-</span><span class="mf">16.</span><span class="nx">science</span> <span class="p">{</span>
+    <span class="nx">tls</span> <span class="o">*******</span>
+    <span class="nx">reverse_proxy</span> <span class="nx">localhost</span><span class="o">:</span><span class="mi">3000</span>
+<span class="p">}</span>
+
+<span class="nx">diy</span><span class="p">.</span><span class="nx">tvc</span><span class="o">-</span><span class="mf">16.</span><span class="nx">science</span> <span class="p">{</span>
+    <span class="nx">tls</span> <span class="o">*******</span>
+    <span class="nx">reverse_proxy</span> <span class="nx">localhost</span><span class="o">:</span><span class="mi">8080</span>
+<span class="p">}</span>
+
+<span class="nx">dingus</span><span class="p">.</span><span class="nx">tvc</span><span class="o">-</span><span class="mf">16.</span><span class="nx">science</span> <span class="p">{</span>
+    <span class="nx">tls</span> <span class="o">*******</span>
+    <span class="nx">reverse_proxy</span> <span class="nx">localhost</span><span class="o">:</span><span class="mi">7777</span> <span class="p">{</span>
+        <span class="nx">header_up</span> <span class="nx">X</span><span class="o">-</span><span class="nx">Real</span><span class="o">-</span><span class="nx">IP</span> <span class="p">{</span><span class="nx">http</span><span class="p">.</span><span class="nx">request</span><span class="p">.</span><span class="nx">remote</span><span class="p">}</span>
+        <span class="nx">header_up</span> <span class="nx">X</span><span class="o">-</span><span class="nx">Forwarded</span><span class="o">-</span><span class="nx">For</span> <span class="p">{</span><span class="nx">http</span><span class="p">.</span><span class="nx">request</span><span class="p">.</span><span class="nx">remote</span><span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+
+
+<p>The reverse proxies map as-is, and the configuration to make my <a href="https://github.com/zgoat/goatcounter">GoatCounter</a> instance work correctly is actually even simpler, since Caddy v2 passes <a href="https://github.com/caddyserver/caddy/issues/2873">most headers through now.</a>  </p>
+<p>But as you might've noticed, the <code>git</code> section which automatically updated the static pages you're reading right now...is gone! 👻</p>
+<h1>Swapping out my Webhook Implementation</h1>
+<p>As a quick refresher for how the <code>git</code> integration worked (read the Caddy 1 post for more details!):  </p>
+<ul>
+<li>When the TVC-16 <a href="https://github.com/Difegue/TVC-16">Git repo</a> is updated, GitHub sends a <code>POST</code> request to a <code>tvc-16.science</code> subdomain, triggering a pull of the updated repo's <code>gh-pages</code> branch, which contains the static HTML files for the blog, built with <a href="https://blog.getpelican.com/">Pelican</a>.  </li>
+</ul>
+<p>With Caddy 1, it was super easy to use the built-in <a href="https://web.archive.org/web/20190131203258/https://caddyserver.com/docs/http.git">git plugin</a> to setup a built-in webhook endpoint that Github could then hit. Sadly, Caddy 2 doesn't bundle a git plugin anymore! 😢  </p>
+<p>You can use a <a href="https://caddy.community/t/v2-git-webhooks/10207">community one</a> if you build your Caddy yourself (<code>xcaddy</code> is a very nice tool to do that), but I don't really fancy rebuilding my webserver myself whenever I want to update.  </p>
+<p>So, I switched to a <strong>standalone server</strong> to handle webhooks!<br>
+To keep with the theme of <em>"I guess I'm using stuff written in Go now"</em>, I went with <a href="https://github.com/adnanh/webhook">webhook.</a> <sub>very original name and not confusing at all thanks</sub><br>
+<code>webhook</code> is sadly a bit more verbose to setup than the ole Caddy integration, but the overall concept is the same:  </p>
+<p>1️⃣ Setup your hook's ID and rules in a <code>hooks.json</code> file, to run a git pull in <code>/var/www/html</code> when it's hit:  </p>
+<div class="highlight"><pre><span></span><code><span class="p">[</span>
+    <span class="p">{</span>
+        <span class="s2">&quot;id&quot;</span><span class="o">:</span> <span class="s2">&quot;mikon&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;execute-command&quot;</span><span class="o">:</span> <span class="s2">&quot;/usr/local/bin/update_static.sh&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;command-working-directory&quot;</span><span class="o">:</span> <span class="s2">&quot;/var/www/html&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;trigger-rule&quot;</span><span class="o">:</span> <span class="p">{</span>
+            <span class="s2">&quot;and&quot;</span><span class="o">:</span> <span class="p">[</span>
+                <span class="p">{</span>
+                    <span class="s2">&quot;match&quot;</span><span class="o">:</span> <span class="p">{</span>
+                        <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="s2">&quot;payload-hash-sha1&quot;</span><span class="p">,</span>
+                        <span class="s2">&quot;secret&quot;</span><span class="o">:</span> <span class="s2">&quot;TheWebHookSecret&quot;</span><span class="p">,</span>
+                        <span class="s2">&quot;parameter&quot;</span><span class="o">:</span> <span class="p">{</span>
+                            <span class="s2">&quot;source&quot;</span><span class="o">:</span> <span class="s2">&quot;header&quot;</span><span class="p">,</span>
+                            <span class="s2">&quot;name&quot;</span><span class="o">:</span> <span class="s2">&quot;X-Hub-Signature&quot;</span>
+                        <span class="p">}</span>
+                    <span class="p">}</span>
+                <span class="p">},</span>
+                <span class="p">{</span>
+                    <span class="s2">&quot;match&quot;</span><span class="o">:</span> <span class="p">{</span>
+                        <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="s2">&quot;value&quot;</span><span class="p">,</span>
+                        <span class="s2">&quot;value&quot;</span><span class="o">:</span> <span class="s2">&quot;refs/heads/gh-pages&quot;</span><span class="p">,</span>
+                        <span class="s2">&quot;parameter&quot;</span><span class="o">:</span> <span class="p">{</span>
+                            <span class="s2">&quot;source&quot;</span><span class="o">:</span> <span class="s2">&quot;payload&quot;</span><span class="p">,</span>
+                            <span class="s2">&quot;name&quot;</span><span class="o">:</span> <span class="s2">&quot;ref&quot;</span>
+                        <span class="p">}</span>
+                    <span class="p">}</span>
+                <span class="p">}</span>
+            <span class="p">]</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">]</span>
+</code></pre></div>
+
+
+<p>It's easier to use a bash script as the <code>execute-command</code> here since <code>webhook</code> doesn't accept inline arguments, but the script itself is just a one-liner:  </p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4</pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="ch">#!/bin/bash</span>
+
+<span class="c1"># This runs in /var/www/html, which already contains an initialized copy of the git repo.</span>
+git pull --allow-unrelated-histories -s recursive -X theirs
+</code></pre></div>
+</td></tr></table>
+
+<p>2️⃣ Start the <code>webhook</code> server:  </p>
+<div class="highlight"><pre><span></span><code><span class="err">webhook -hooks hooks.json -port 4000 -verbose</span>
+</code></pre></div>
+
+
+<p>3️⃣ Add a subdomain to your website and your Caddyfile to reverse-proxy it:  </p>
+<div class="highlight"><pre><span></span><code><span class="err">tamamo.tvc-16.science {</span>
+<span class="err">    tls *******</span>
+<span class="err">    reverse_proxy localhost:4000</span>
+<span class="err">}</span>
+</code></pre></div>
+
+
+<p>4️⃣ Add the webhook to your GitHub repo, and you're done!  </p>
+<p>Since it goes through Caddy, you get SSL verification that <em>just works</em> out of the box.<br>
+<img alt="🦊 mikon!" src="https://tvc-16.science/images/webhook.png"><br>
+GitHub actually sends <em>two</em> POST requests (one when <code>master</code> is pushed, and one when <code>gh-pages</code> is updated by GitHub Actions), but <code>webhook</code> will filter the first one out since it doesn't match the <code>refs/heads/gh-pages</code> rule.  </p>
+<div class="highlight"><pre><span></span><code><span class="o">[</span><span class="n">webhook</span><span class="o">]</span><span class="w"> </span><span class="mi">2021</span><span class="o">/</span><span class="mi">07</span><span class="o">/</span><span class="mi">05</span><span class="w"> </span><span class="mi">23</span><span class="err">:</span><span class="mi">36</span><span class="err">:</span><span class="mi">50</span><span class="w"> </span><span class="o">[</span><span class="n">8a4b2a</span><span class="o">]</span><span class="w"> </span><span class="n">finished</span><span class="w"> </span><span class="n">handling</span><span class="w"> </span><span class="n">mikon</span><span class="w"></span>
+<span class="o">[</span><span class="n">webhook</span><span class="o">]</span><span class="w"> </span><span class="mi">2021</span><span class="o">/</span><span class="mi">07</span><span class="o">/</span><span class="mi">05</span><span class="w"> </span><span class="mi">23</span><span class="err">:</span><span class="mi">39</span><span class="err">:</span><span class="mi">01</span><span class="w"> </span><span class="n">Started</span><span class="w"> </span><span class="n">POST</span><span class="w"> </span><span class="o">/</span><span class="n">hooks</span><span class="o">/</span><span class="n">mikon</span><span class="w"></span>
+<span class="o">[</span><span class="n">webhook</span><span class="o">]</span><span class="w"> </span><span class="mi">2021</span><span class="o">/</span><span class="mi">07</span><span class="o">/</span><span class="mi">05</span><span class="w"> </span><span class="mi">23</span><span class="err">:</span><span class="mi">39</span><span class="err">:</span><span class="mi">01</span><span class="w"> </span><span class="o">[</span><span class="n">b556e5</span><span class="o">]</span><span class="w"> </span><span class="n">incoming</span><span class="w"> </span><span class="n">HTTP</span><span class="w"> </span><span class="n">request</span><span class="w"> </span>
+<span class="o">[</span><span class="n">webhook</span><span class="o">]</span><span class="w"> </span><span class="mi">2021</span><span class="o">/</span><span class="mi">07</span><span class="o">/</span><span class="mi">05</span><span class="w"> </span><span class="mi">23</span><span class="err">:</span><span class="mi">39</span><span class="err">:</span><span class="mi">01</span><span class="w"> </span><span class="o">[</span><span class="n">b556e5</span><span class="o">]</span><span class="w"> </span><span class="n">mikon</span><span class="w"> </span><span class="n">got</span><span class="w"> </span><span class="n">matched</span><span class="w"></span>
+<span class="o">[</span><span class="n">webhook</span><span class="o">]</span><span class="w"> </span><span class="mi">2021</span><span class="o">/</span><span class="mi">07</span><span class="o">/</span><span class="mi">05</span><span class="w"> </span><span class="mi">23</span><span class="err">:</span><span class="mi">39</span><span class="err">:</span><span class="mi">01</span><span class="w"> </span><span class="o">[</span><span class="n">b556e5</span><span class="o">]</span><span class="w"> </span><span class="n">mikon</span><span class="w"> </span><span class="n">got</span><span class="w"> </span><span class="n">matched</span><span class="p">,</span><span class="w"> </span><span class="n">but</span><span class="w"> </span><span class="n">didn</span><span class="err">&#39;</span><span class="n">t</span><span class="w"> </span><span class="k">get</span><span class="w"> </span><span class="n">triggered</span><span class="w"> </span><span class="n">because</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="k">trigger</span><span class="w"> </span><span class="n">rules</span><span class="w"> </span><span class="n">were</span><span class="w"> </span><span class="ow">not</span><span class="w"> </span><span class="n">satisfied</span><span class="w"></span>
+<span class="o">[</span><span class="n">webhook</span><span class="o">]</span><span class="w"> </span><span class="mi">2021</span><span class="o">/</span><span class="mi">07</span><span class="o">/</span><span class="mi">05</span><span class="w"> </span><span class="mi">23</span><span class="err">:</span><span class="mi">39</span><span class="err">:</span><span class="mi">01</span><span class="w"> </span><span class="n">Completed</span><span class="w"> </span><span class="mi">200</span><span class="w"> </span><span class="n">OK</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="mf">11.868297</span><span class="n">ms</span><span class="w"></span>
+</code></pre></div>
+
+
+<h1>Closing thoughts</h1>
+<p>I was kinda worried about redoing the autodeploy setup as Caddy 2 doesn't support it out of the box, but <code>webhook</code> seems to be a solid alternative.<br>
+Not having to replace it again whenever I end up re-switching HTTP servers is also a bonus!  </p>
+<p>The usual way of deploying this static blog stuff is to do the Pelican build on the host machine directly instead of using CI, but I prefer putting the grunt work outside of this woefully underpowered 3$ VPS that's already running about 5 services too many.  </p>
+<p>Here's a Tamamo for having made it to the end.<br>
+<img alt="UNIXCHADS win yet again!" src="https://tvc-16.science/images/tamamo.jpg">  </p>
+  </div><!-- /.entry-content -->
+  <a class="containerBox">
+    <img src="https://tvc-16.science/theme/img/button2.svg" class="img-responsive">
+    <div class="text-box pink-button">
+      <span class=" button-text pink-shadow">Comments</span>
+    </div>
+  </a> <br /><br /><br /><br /><br /><br /><br /><br />
+  <script src="https://utteranc.es/client.js" repo="difegue/TVC-16" issue-term="url" theme="github-light"
+    crossorigin="anonymous" async>
+  </script>
+</section>
+      </div>
+    </div>
+    <div class="bot-border project-background"></div>
+
+    <br />
+    <br />
+    <br />
+
+  </div>
+
+  <footer id="contentinfo" class="body" style="position:relative; overflow:hidden">
+    <div class="top-border hello-background"></div>
+    <div class="wrapper hello-background">
+      <div class="text">
+
+        <a class="containerBox">
+          <img src="https://tvc-16.science/theme/img/button1.svg" class="img-responsive">
+          <div class="text-box blue-button">
+            <span class=" button-text blue-shadow">About</span>
+          </div>
+        </a>
+
+        <div class="scroll-left">
+          <p>
+            <script language="JavaScript">
+              //never forget grugeisti ;_;7
+              var r_text = new Array();
+              r_text[0] = "This is COOL";
+              r_text[1] = "TOP-SHELF BLOG DEVICE";
+              r_text[2] = "ACCELERATED PORTFOLIO SYSTEM";
+              r_text[3] = "Lookin' cool !";
+              r_text[4] = "ENHANCED SVG GRAPHICS";
+              r_text[5] = "HIGH-SPEED CHEAP VPS";
+              r_text[6] = "DELUXE UPTIME EXPERIENCE";
+              r_text[7] = "BEST-IN-CLASS SCROLLING TEXT";
+              r_text[8] = "HIGH GRADE MULTICONTAINER SETUP";
+              var i = Math.floor(9 * Math.random())
+              document.write(r_text[i]);
+            </script>
+          </p>
+        </div>
+        Runnin' straight down the information highway in a 3$ Vultr VPS. <br /><br />
+        Typefaces used: <a href="https://rsms.me/inter/">Inter</a>, <a
+          href="https://blog.marsnev.com/2017/03/font-lemonmilk.html">Lemon/Milk</a>,
+        <a href="https://fonts.google.com/specimen/VT323">VT323</a>.
+        Built using <a href="https://github.com/difegue" rel="me"> Github Actions</a> and Pelican. <br />
+        You can talk to me on <a rel="me" href="https://bsky.app/profile/difegue.bsky.social">Bluesky</a> or <a rel="me"
+          href="https://kolektiva.social/@Difegue">Mastodon</a> if that's your thing.
+
+      </div>
+    </div>
+    <div class="bot-border hello-background"></div>
+  </footer><!-- /#contentinfo -->
+
+  <br />
+  <br />
+  <br />
+
+  <div class="footer-container" title="This COOL SYSTEM has been running...for some time now.">
+    <span class="footer-text">Uptime:
+      <br>
+      <span id="uptime">XXX days </span>
+    </span>
+    <img src="https://tvc-16.science/theme/img/footer.svg" class="footer-image">
+  </div>
+
+  <script src="https://tvc-16.science/theme/index.js"></script>
+</body>
+
+</html>

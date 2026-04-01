@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Blogopolis - Running cool-retro-term in Windows through WSL2 and WSLg</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <link
+    href="https://tvc-16.science/feeds/all.atom.xml"
+    type="application/atom+xml" rel="alternate" title="Blogopolis Full Atom Feed" />
+  <link
+    href="https://tvc-16.science/feeds/cool-tricks.atom.xml"
+    type="application/atom+xml" rel="alternate" title="Blogopolis Categories Atom Feed" />
+
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js'></script>
+  <script src='https://storage.ko-fi.com/cdn/scripts/overlay-widget.js'></script>
+  <script data-goatcounter="https://dingus.tvc-16.science/count" async src="//dingus.tvc-16.science/count.js"></script>
+
+  <link rel="apple-touch-icon" sizes="180x180" href="https://tvc-16.science/theme/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="https://tvc-16.science/theme/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="https://tvc-16.science/theme/favicon-16x16.png">
+  <link rel="manifest" href="https://tvc-16.science/theme/site.webmanifest">
+  <link rel="mask-icon" href="https://tvc-16.science/theme/safari-pinned-tab.svg" color="#f040b0">
+  <link rel="webmention" href="https://webmention.io/tvc-16.science/webmention" />
+  <link rel="pingback" href="https://webmention.io/tvc-16.science/xmlrpc" />
+  <meta name="msapplication-TileColor" content="#f1c711">
+  <meta name="theme-color" content="#f1c711">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta property="og:title" content="Running cool-retro-term in Windows through WSL2 and WSLg - Blogopolis" />
+<meta property="og:type" content="article" />
+<meta property="og:description" content="<p>Javascript terminal emulators <em>still</em> have nothing on this.</p>" />
+<meta property="og:url" content="https://tvc-16.science/cool-retro-term-wsl2.html" />
+<meta property="og:image" content="https://tvc-16.science/images/crt-wsl2.jpg" />
+
+  <link href="https://fonts.googleapis.com/css?family=Monoton" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=VT323" rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/bluesky-comments@0.9.0/dist/bluesky-comments.css">
+  <link rel="stylesheet" href="https://tvc-16.science/theme/css/style.css">
+  <link rel="stylesheet" href="https://tvc-16.science/theme/css/pygment.css">
+
+
+
+
+<meta name="twitter:card" content="summary_large_image">
+<meta property="og:title" content="Running cool-retro-term in Windows through WSL2 and WSLg - Blogopolis" />
+<meta property="og:type" content="article" />
+<meta property="og:description" content="<p>Javascript terminal emulators <em>still</em> have nothing on this.</p>" />
+<meta property="og:url" content="https://tvc-16.science/cool-retro-term-wsl2.html" />
+<meta property="og:image" content="https://tvc-16.science/images/crt-wsl2.jpg" />
+
+<meta name="tags" content="wsl" />
+<meta name="tags" content="cool-retro-term" />
+<meta name="tags" content="wslg" />
+<meta name="tags" content="terminal" />
+<meta name="tags" content="crt" />
+
+</head>
+
+<body id="index" class="home">
+
+  <canvas id="stage"></canvas>
+  <header id="banner" class="body">
+    <center><img height="170px" src="https://tvc-16.science/theme/img/logotype.svg" /></center>
+  </header><!-- /#banner -->
+
+  <div id="mainText">
+
+    <h2 class="subtitle">
+
+      <a style="color:black !important" href="/projects.html">Projects</a>
+      🔸
+      <a style="color:black !important" href="/">Articles</a>
+      🔸
+      <a style="color:black !important" href="/categories.html">Categories</a>
+      🔸
+
+    </h2><!-- /#menu -->
+
+    <div class="top-border project-background"></div>
+    <div class="wrapper project-background">
+      <div class="text">
+<section id="content" class="body" style="max-width: 900px;margin-left: auto;margin-right: auto;">
+  <header>
+    <h2 class="entry-title">
+      <a href="https://tvc-16.science/cool-retro-term-wsl2.html" rel="bookmark" title="Permalink to Running cool-retro-term in Windows through WSL2 and WSLg">
+        Running cool-retro-term in Windows through WSL2 and WSLg
+      </a>
+    </h2>
+    
+  </header>
+  <footer class="post-info terminal-text">
+    <time class="published" datetime="2022-11-27T20:00:00+01:00">
+      Sun 27 November 2022
+    </time>
+    <address class="vcard author">
+      By       <a class="url fn" href="https://tvc-16.science/author/difegue.html">Difegue</a>
+    </address>
+    <div class="category">
+      Category: <a href="https://tvc-16.science/category/cool-tricks.html">Cool Tricks</a>
+    </div>
+    <div class="tags">
+      Tags:
+      <a href="https://tvc-16.science/tag/wsl.html">wsl</a>
+      <a href="https://tvc-16.science/tag/cool-retro-term.html">cool-retro-term</a>
+      <a href="https://tvc-16.science/tag/wslg.html">wslg</a>
+      <a href="https://tvc-16.science/tag/terminal.html">terminal</a>
+      <a href="https://tvc-16.science/tag/crt.html">crt</a>
+    </div>
+    <div class="summary">
+      <p>Javascript terminal emulators <em>still</em> have nothing on this.</p>
+    </div>
+
+  </footer><!-- /.post-info -->
+  <div class="entry-content">
+    <p>The original <a href="./cool-retro-term-wsl.html">cool-retro-term on WSL</a> blogpost is still one of the most-viewed ones on this website for some reason, but it's gotten quite a bit out of date now that WSL ships with a built-in X server. <sup>well achctually it's not X, wslg uses <a href="https://devblogs.microsoft.com/commandline/wslg-architecture/">wayland</a> with Xwayland etc etc whatever</sup>  </p>
+<p>WSLg + WSL2 was limited to Windows 11 for quite a while, but that <a href="https://devblogs.microsoft.com/commandline/the-windows-subsystem-for-linux-in-the-microsoft-store-is-now-generally-available-on-windows-10-and-11/">very recently</a> changed, so I feel it's a nice time to re-try the whole cool-retro-term in Windows experience. Let's get rolling!  </p>
+<h1>Install WSL2 and the required dependencies</h1>
+<p>WSL is much easier to install these days, you can just run: </p>
+<div class="highlight"><pre><span></span><code><span class="err">wsl.exe --install</span>
+</code></pre></div>
+
+
+<p>to get WSL2, an Ubuntu default distro and the WSLg system distro.  </p>
+<h1>Download the cool-retro-term AppImage and run it</h1>
+<p>cool-retro-term doesn't seem to have an AppImage up for their recent 1.2.0 due to <a href="https://github.com/Swordfish90/cool-retro-term/issues/698">CI issues</a>, so I'll just keep using the ol' reliable 1.1.1 for this.  </p>
+<p>WSL2 supports AppImages much better than WSL1 used to do, so you just have to run the following:</p>
+<div class="highlight"><pre><span></span><code><span class="err">wget https://github.com/Swordfish90/cool-retro-term/releases/download/1.1.1/Cool-Retro-Term-1.1.1-x86_64.AppImage</span>
+<span class="err">chmod a+x Cool-Retro-Term-1.1.1-x86_64.AppImage</span>
+<span class="err">./Cool-Retro-Term-1.1.1-x86_64.AppImage </span>
+</code></pre></div>
+
+
+<p>And that's it, you're done!  </p>
+<p><img alt="wow, no more pegging my cpu at 100%!" src="./images/crt-wsl2.jpg">  </p>
+<p>Similarly, the .bat shortcut to start CRT becomes much, <em>much</em> shorter:  </p>
+<p><strong>cool-retro-term.bat</strong></p>
+<div class="highlight"><pre><span></span><code><span class="err">start /min wsl -d ubuntu [folder where you saved the appimage]/Cool-Retro-Term-1.1.1-x86_64.AppImage </span>
+</code></pre></div>
+
+
+<h1>Potential issues and troubleshooting</h1>
+<p>If you get an error like <code>QXcbConnection: Could not connect to display</code>, it's likely the WSLg Wayland compositor is acting up for some reason.<br>
+I recommend first trying a full restart of the WSL VM using <code>wsl.exe --shutdown</code> in a PowerShell window.<br>
+If that doesn't help, you might have some luck following the instructions <a href="https://github.com/microsoft/wslg/wiki/Diagnosing-%22cannot-open-display%22-type-issues-with-WSLg">here.</a>  </p>
+<p>WSL2+WSLg fixes essentially all the <a href="./cool-retro-term-wsl.html#caveats">caveats</a> from the previous article, so you now have GPU acceleration, working copy-paste, all the bells and whistles. 🎊<br>
+My only gripe with WSLg is that it tries its best to apply Windows DPI settings but <a href="https://github.com/microsoft/wslg/issues/3">doesn't always succeed</a>, so if you're running at high DPI, you might have to tweak the CRT settings a bit to have it look nice for you.  </p>
+<h1>Using apt instead of the AppImage</h1>
+<p>I personally think the AppImage is the fastest way to setup CRT and have it up to date, but since the WSL2 default user distro is Ubuntu, you can easily just do <code>apt update &amp;&amp; apt install cool-retro-term</code>.  </p>
+<p>This approach has the advantage of bundling a <code>.desktop</code> file, so you can start CRT directly from the Windows Start Menu:  </p>
+<p><img alt="Cool Retro Term(Ubuntu) in the Start Menu." src="./images/crt-start.jpg"></p>
+  </div><!-- /.entry-content -->
+  <a class="containerBox">
+    <img src="https://tvc-16.science/theme/img/button2.svg" class="img-responsive">
+    <div class="text-box pink-button">
+      <span class=" button-text pink-shadow">Comments</span>
+    </div>
+  </a> <br /><br /><br /><br /><br /><br /><br /><br />
+  <script src="https://utteranc.es/client.js" repo="difegue/TVC-16" issue-term="url" theme="github-light"
+    crossorigin="anonymous" async>
+  </script>
+</section>
+      </div>
+    </div>
+    <div class="bot-border project-background"></div>
+
+    <br />
+    <br />
+    <br />
+
+  </div>
+
+  <footer id="contentinfo" class="body" style="position:relative; overflow:hidden">
+    <div class="top-border hello-background"></div>
+    <div class="wrapper hello-background">
+      <div class="text">
+
+        <a class="containerBox">
+          <img src="https://tvc-16.science/theme/img/button1.svg" class="img-responsive">
+          <div class="text-box blue-button">
+            <span class=" button-text blue-shadow">About</span>
+          </div>
+        </a>
+
+        <div class="scroll-left">
+          <p>
+            <script language="JavaScript">
+              //never forget grugeisti ;_;7
+              var r_text = new Array();
+              r_text[0] = "This is COOL";
+              r_text[1] = "TOP-SHELF BLOG DEVICE";
+              r_text[2] = "ACCELERATED PORTFOLIO SYSTEM";
+              r_text[3] = "Lookin' cool !";
+              r_text[4] = "ENHANCED SVG GRAPHICS";
+              r_text[5] = "HIGH-SPEED CHEAP VPS";
+              r_text[6] = "DELUXE UPTIME EXPERIENCE";
+              r_text[7] = "BEST-IN-CLASS SCROLLING TEXT";
+              r_text[8] = "HIGH GRADE MULTICONTAINER SETUP";
+              var i = Math.floor(9 * Math.random())
+              document.write(r_text[i]);
+            </script>
+          </p>
+        </div>
+        Runnin' straight down the information highway in a 3$ Vultr VPS. <br /><br />
+        Typefaces used: <a href="https://rsms.me/inter/">Inter</a>, <a
+          href="https://blog.marsnev.com/2017/03/font-lemonmilk.html">Lemon/Milk</a>,
+        <a href="https://fonts.google.com/specimen/VT323">VT323</a>.
+        Built using <a href="https://github.com/difegue" rel="me"> Github Actions</a> and Pelican. <br />
+        You can talk to me on <a rel="me" href="https://bsky.app/profile/difegue.bsky.social">Bluesky</a> or <a rel="me"
+          href="https://kolektiva.social/@Difegue">Mastodon</a> if that's your thing.
+
+      </div>
+    </div>
+    <div class="bot-border hello-background"></div>
+  </footer><!-- /#contentinfo -->
+
+  <br />
+  <br />
+  <br />
+
+  <div class="footer-container" title="This COOL SYSTEM has been running...for some time now.">
+    <span class="footer-text">Uptime:
+      <br>
+      <span id="uptime">XXX days </span>
+    </span>
+    <img src="https://tvc-16.science/theme/img/footer.svg" class="footer-image">
+  </div>
+
+  <script src="https://tvc-16.science/theme/index.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Blogopolis - Using PS/2 keyboard/mice on old Macs with Arduino</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <link
+    href="https://tvc-16.science/feeds/all.atom.xml"
+    type="application/atom+xml" rel="alternate" title="Blogopolis Full Atom Feed" />
+  <link
+    href="https://tvc-16.science/feeds/hardware.atom.xml"
+    type="application/atom+xml" rel="alternate" title="Blogopolis Categories Atom Feed" />
+
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js'></script>
+  <script src='https://storage.ko-fi.com/cdn/scripts/overlay-widget.js'></script>
+  <script data-goatcounter="https://dingus.tvc-16.science/count" async src="//dingus.tvc-16.science/count.js"></script>
+
+  <link rel="apple-touch-icon" sizes="180x180" href="https://tvc-16.science/theme/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="https://tvc-16.science/theme/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="https://tvc-16.science/theme/favicon-16x16.png">
+  <link rel="manifest" href="https://tvc-16.science/theme/site.webmanifest">
+  <link rel="mask-icon" href="https://tvc-16.science/theme/safari-pinned-tab.svg" color="#f040b0">
+  <link rel="webmention" href="https://webmention.io/tvc-16.science/webmention" />
+  <link rel="pingback" href="https://webmention.io/tvc-16.science/xmlrpc" />
+  <meta name="msapplication-TileColor" content="#f1c711">
+  <meta name="theme-color" content="#f1c711">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta property="og:title" content="Using PS/2 keyboard/mice on old Macs with Arduino - Blogopolis" />
+<meta property="og:type" content="article" />
+<meta property="og:description" content="<p>It's time to deal with ADB. Not the Android one!</p>" />
+<meta property="og:url" content="https://tvc-16.science/adbuino-ps2.html" />
+<meta property="og:image" content="https://tvc-16.science/images/adb/adbduino-final.jpg" />
+
+  <link href="https://fonts.googleapis.com/css?family=Monoton" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=VT323" rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/bluesky-comments@0.9.0/dist/bluesky-comments.css">
+  <link rel="stylesheet" href="https://tvc-16.science/theme/css/style.css">
+  <link rel="stylesheet" href="https://tvc-16.science/theme/css/pygment.css">
+
+
+
+
+<meta name="twitter:card" content="summary_large_image">
+<meta property="og:title" content="Using PS/2 keyboard/mice on old Macs with Arduino - Blogopolis" />
+<meta property="og:type" content="article" />
+<meta property="og:description" content="<p>It's time to deal with ADB. Not the Android one!</p>" />
+<meta property="og:url" content="https://tvc-16.science/adbuino-ps2.html" />
+<meta property="og:image" content="https://tvc-16.science/images/adb/adbduino-final.jpg" />
+
+<meta name="tags" content="apple" />
+<meta name="tags" content="macintosh" />
+<meta name="tags" content="mac" />
+<meta name="tags" content="arduino" />
+<meta name="tags" content="adb" />
+<meta name="tags" content="ps/2" />
+<meta name="tags" content="diy" />
+<meta name="tags" content="retrocomputing" />
+
+</head>
+
+<body id="index" class="home">
+
+  <canvas id="stage"></canvas>
+  <header id="banner" class="body">
+    <center><img height="170px" src="https://tvc-16.science/theme/img/logotype.svg" /></center>
+  </header><!-- /#banner -->
+
+  <div id="mainText">
+
+    <h2 class="subtitle">
+
+      <a style="color:black !important" href="/projects.html">Projects</a>
+      🔸
+      <a style="color:black !important" href="/">Articles</a>
+      🔸
+      <a style="color:black !important" href="/categories.html">Categories</a>
+      🔸
+
+    </h2><!-- /#menu -->
+
+    <div class="top-border project-background"></div>
+    <div class="wrapper project-background">
+      <div class="text">
+<section id="content" class="body" style="max-width: 900px;margin-left: auto;margin-right: auto;">
+  <header>
+    <h2 class="entry-title">
+      <a href="https://tvc-16.science/adbuino-ps2.html" rel="bookmark" title="Permalink to Using PS/2 keyboard/mice on old Macs with Arduino">
+        Using PS/2 keyboard/mice on old Macs with Arduino
+      </a>
+    </h2>
+    
+  </header>
+  <footer class="post-info terminal-text">
+    <time class="published" datetime="2020-02-12T00:00:00+01:00">
+      Wed 12 February 2020
+    </time>
+    <address class="vcard author">
+      By       <a class="url fn" href="https://tvc-16.science/author/difegue.html">Difegue</a>
+    </address>
+    <div class="category">
+      Category: <a href="https://tvc-16.science/category/hardware.html">Hardware</a>
+    </div>
+    <div class="tags">
+      Tags:
+      <a href="https://tvc-16.science/tag/apple.html">apple</a>
+      <a href="https://tvc-16.science/tag/macintosh.html">macintosh</a>
+      <a href="https://tvc-16.science/tag/mac.html">mac</a>
+      <a href="https://tvc-16.science/tag/arduino.html">arduino</a>
+      <a href="https://tvc-16.science/tag/adb.html">adb</a>
+      <a href="https://tvc-16.science/tag/ps2.html">ps/2</a>
+      <a href="https://tvc-16.science/tag/diy.html">diy</a>
+      <a href="https://tvc-16.science/tag/retrocomputing.html">retrocomputing</a>
+    </div>
+    <div class="summary">
+      <p>It's time to deal with ADB. Not the Android one!</p>
+    </div>
+
+  </footer><!-- /.post-info -->
+  <div class="entry-content">
+    <p>My Mac fleet has been progressing nicely with all the <a href="https://tvc-16.science/emac-lcd-mod.html">previous</a> <a href="https://tvc-16.science/performa-plus-display.html">restorations</a>, but I still didn't have a way to control the pre-OSX machines. Those machines came to me keyboardless, and I initially thought it'd be no problem at all!<br>
+Alas, I did not know about the terrifying Apple Desktop Bus.<br>
+<img alt="noooooooo" src="https://tvc-16.science/images/adb/pinout.jpg"><br>
+<a href="https://en.wikipedia.org/wiki/Apple_Desktop_Bus">ADB for short</a>, this connector was used to plug keyboards, mice, joysticks and what have you into Macintoshes until USB took over.  Since I won't be able to use my old PS/2 stuff, might as well invest into some ADB devic--
+<img alt="the apple tax is fucking real" src="https://tvc-16.science/images/adb/ebay.jpg">  </p>
+<h2>😥 😥 😥</h2>
+<p>I shouldn't be surprised really, but I feel bad shelling out 40€ for a yellowed keyboard/mouse combo when I already have tons of PC ones laying around.  </p>
+<h1>A quick tour of ADB replacement solutions</h1>
+<p>There aren't many solutions to convert other devices to ADB on the market.<br>
+The best one seems to be the <a href="https://www.bigmessowires.com/usb-wombat">USB-ADB Wombat</a>, but that doesn't exactly come cheap either!<br>
+Although it basically offers the full shebang and works with more modern USB keyboards.<br>
+<img alt="wombat" src="https://tvc-16.science/images/adb/wombat.jpg"><br>
+You also have <a href="http://www.geethree.com/adb/">this thing</a>, which <em>a contrario</em> is rather old and only works for mice. Meh.  </p>
+<p>Turning to DIY solutions, most of the stuff out there is meant to use ADB keyboards on modern machines, using code from <a href="https://github.com/tmk/tmk_keyboard/tree/master/converter/adb_usb">TMK</a>. People really love their Apple Extended Keyboards!<br>
+Which is nice and all, but the opposite of what I need.  </p>
+<p>After a bit more searching I did end up finding <a href="http://thinkclassic.org/viewtopic.php?id=630">this spare forum post.</a><br>
+PS/2 to ADB, both keyboard and mouse running off an off-the-shelf Arduino? Sounds great!  </p>
+<p>The code is available <a href="http://synack.net/svn/adbduino/">on bbraun's SVN</a>, so I grabbed an Arduino off my dead project pile and got to work.</p>
+<h1>Making the adbduino adapter</h1>
+<p>The provided .osm file for the circuit board needs <a href="https://www.osmondpcb.com/">Osmond</a> to be opened.<br>
+Opening it, it's all pretty simple however, no need for extra resistors or anything:  </p>
+<p><img alt="adbduino circuit board" src="https://tvc-16.science/images/adb/osmond.png"><br>
+The PCB has spots for two ADB connectors, but the second one is really just meant to enable passthrough to other ADB devices if you have any.<br>
+Since I wasn't sure this stuff would actually still work, I breadboarded an abomination with just one connector.<br>
+<img alt="end my life" src="https://tvc-16.science/images/adb/adapter.jpg">  </p>
+<p>The original project used a Pro Mini, but the Nano I had on hand is essentially the same thing, so no problem on that front.  </p>
+<p>Hooked it up to the ol' IIvx, and heck, it works! With some caveats.  </p>
+<h1>Using n' troubleshooting</h1>
+<p>My first major issue came with the mouse I was using -- It was struggling to synchronize itself with the ADB bus, essentially wrecking havoc on the Mac with random movements and clicks when moved.<br>
+<img alt="end my life" src="https://tvc-16.science/images/adb/adbduino-early.jpg"><br>
+When eventually synced however(which could be helped by arcane methods such as <sup><sub> flipping the mouse over and repeatedly pressing caps lock</sup></sub>), it ran fine.  </p>
+<p>Thankfully, just switching out the mouse for an old USB model with a USB-&gt;PS/2 adapter fixed everything.<br>
+I don't recommend buying new PS/2 mice from AliExpress if you really need them!  </p>
+<p>The other big issue I had came from the keyboard skipping keys and occasionally staying "stuck" on the last keypress, resulting in a text a bit like <code>thissssssssss</code>.<br>
+Some debugging with the Serial monitor later, there were essentially three potential cases going on when releasing a key:  </p>
+<div class="highlight"><pre><span></span><code><span class="err">A) 0x3C (key pressed) -&gt; 0x3D (key released)  </span>
+<span class="err">B) 0x3C (key pressed) -&gt; 0xFF (keyboard error)  </span>
+<span class="err">C) 0x3C (key pressed) -&gt; 0xFF (keyboard error) -&gt; 0x3C (key pressed)</span>
+</code></pre></div>
+
+
+<p>Case A is the normal one, B skipped the key, and C was causing the stuck key problem.<br>
+This is <strong>totally</strong> the keyboard's fault (heck, I've had this one since Windows 98), but since this solution is about being as cheap as I can possibly be, I'd rather try to fix this through software. <em>aww yeah it's arduino hacking time</em>  </p>
+<iframe width="516" height="290" src="https://www.youtube.com/embed/1ZsETdpmvR0" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+<p>...Well that's what I'd like to say, but I'm far from being good at hardware programming and dropped my bitwise operators, so I only managed a half-fix.  </p>
+<ul>
+<li>By <a href="https://github.com/Difegue/Chaotic-Realm/blob/8c8afceb654f921774d88ac99e36613b679c1b9f/adbduino/sketch/adbuino.ino#L313">storing the last pressed keycode</a>, we can recalculate its keyup variant and send that to ADB instead when we encounter a <code>0xFF</code> error code. This fixes case B!  </li>
+<li>Case C is fixed by adding a <a href="https://github.com/Difegue/Chaotic-Realm/blob/8c8afceb654f921774d88ac99e36613b679c1b9f/adbduino/sketch/adbuino.ino#L455">timer check</a> so that a further keypress is dropped if it comes too soon for human hands.  </li>
+</ul>
+<p>Adding timers is pretty sloppy and nearly breaks the ADB implementation since the protocol is super dependent on timing, but commenting out all the <code>Serial.print</code> debug calls makes it fast enough to pass! <sup><sub> damn I'm good at programming</sup></sub></p>
+<p>Although just dropping this bugged keypress fucks with the keyboard's internal state, so the next time said key is pressed for real, it'll be <strong>skipped</strong>.<br>
+This could be solved by sending some extra stuff on the PS/2 side of things but ehhhhhh, good enough. This is much less annoying for casual use than the stuck keys.  </p>
+<h1>Spare thoughts</h1>
+<p><img alt="I retrobright'd this powermac and it looks pretty darn good now" src="https://tvc-16.science/images/adb/adbduino-final.jpg">  </p>
+<p>Building this thing cost me around <strong>5€</strong> to get an ADB cable, some PS/2 connectors and the PS/2 mouse, which eventually proved itself to be useless.<br>
+If you don't own spare PS/2 devices or an Arduino from a dead project, the total cost probably rises to 10€ or so.<br>
+The ADB connector itself was salvaged from an old destroyed PowerBook dock, but any female S-video connector will do, as they both use DIN-4.  </p>
+<p>All around, this is much cheaper than buying a real ADB keyboard or a USB adapter! Although it certainly isn't flawless.<br>
+The issues I had seem more related to my PS/2 hardware being old than the adapter itself, however.  </p>
+<p>You can find my hacked-up version of the adbduino sketch <a href="https://github.com/Difegue/Chaotic-Realm/tree/master/adbduino">here</a>.  </p>
+  </div><!-- /.entry-content -->
+  <a class="containerBox">
+    <img src="https://tvc-16.science/theme/img/button2.svg" class="img-responsive">
+    <div class="text-box pink-button">
+      <span class=" button-text pink-shadow">Comments</span>
+    </div>
+  </a> <br /><br /><br /><br /><br /><br /><br /><br />
+  <script src="https://utteranc.es/client.js" repo="difegue/TVC-16" issue-term="url" theme="github-light"
+    crossorigin="anonymous" async>
+  </script>
+</section>
+      </div>
+    </div>
+    <div class="bot-border project-background"></div>
+
+    <br />
+    <br />
+    <br />
+
+  </div>
+
+  <footer id="contentinfo" class="body" style="position:relative; overflow:hidden">
+    <div class="top-border hello-background"></div>
+    <div class="wrapper hello-background">
+      <div class="text">
+
+        <a class="containerBox">
+          <img src="https://tvc-16.science/theme/img/button1.svg" class="img-responsive">
+          <div class="text-box blue-button">
+            <span class=" button-text blue-shadow">About</span>
+          </div>
+        </a>
+
+        <div class="scroll-left">
+          <p>
+            <script language="JavaScript">
+              //never forget grugeisti ;_;7
+              var r_text = new Array();
+              r_text[0] = "This is COOL";
+              r_text[1] = "TOP-SHELF BLOG DEVICE";
+              r_text[2] = "ACCELERATED PORTFOLIO SYSTEM";
+              r_text[3] = "Lookin' cool !";
+              r_text[4] = "ENHANCED SVG GRAPHICS";
+              r_text[5] = "HIGH-SPEED CHEAP VPS";
+              r_text[6] = "DELUXE UPTIME EXPERIENCE";
+              r_text[7] = "BEST-IN-CLASS SCROLLING TEXT";
+              r_text[8] = "HIGH GRADE MULTICONTAINER SETUP";
+              var i = Math.floor(9 * Math.random())
+              document.write(r_text[i]);
+            </script>
+          </p>
+        </div>
+        Runnin' straight down the information highway in a 3$ Vultr VPS. <br /><br />
+        Typefaces used: <a href="https://rsms.me/inter/">Inter</a>, <a
+          href="https://blog.marsnev.com/2017/03/font-lemonmilk.html">Lemon/Milk</a>,
+        <a href="https://fonts.google.com/specimen/VT323">VT323</a>.
+        Built using <a href="https://github.com/difegue" rel="me"> Github Actions</a> and Pelican. <br />
+        You can talk to me on <a rel="me" href="https://bsky.app/profile/difegue.bsky.social">Bluesky</a> or <a rel="me"
+          href="https://kolektiva.social/@Difegue">Mastodon</a> if that's your thing.
+
+      </div>
+    </div>
+    <div class="bot-border hello-background"></div>
+  </footer><!-- /#contentinfo -->
+
+  <br />
+  <br />
+  <br />
+
+  <div class="footer-container" title="This COOL SYSTEM has been running...for some time now.">
+    <span class="footer-text">Uptime:
+      <br>
+      <span id="uptime">XXX days </span>
+    </span>
+    <img src="https://tvc-16.science/theme/img/footer.svg" class="footer-image">
+  </div>
+
+  <script src="https://tvc-16.science/theme/index.js"></script>
+</body>
+
+</html>

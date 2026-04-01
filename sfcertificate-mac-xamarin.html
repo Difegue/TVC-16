@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Blogopolis - Display a X509 Certificate with SFCertificatePanel on Xamarin.Mac</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <link
+    href="https://tvc-16.science/feeds/all.atom.xml"
+    type="application/atom+xml" rel="alternate" title="Blogopolis Full Atom Feed" />
+  <link
+    href="https://tvc-16.science/feeds/software.atom.xml"
+    type="application/atom+xml" rel="alternate" title="Blogopolis Categories Atom Feed" />
+
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js'></script>
+  <script src='https://storage.ko-fi.com/cdn/scripts/overlay-widget.js'></script>
+  <script data-goatcounter="https://dingus.tvc-16.science/count" async src="//dingus.tvc-16.science/count.js"></script>
+
+  <link rel="apple-touch-icon" sizes="180x180" href="https://tvc-16.science/theme/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="https://tvc-16.science/theme/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="https://tvc-16.science/theme/favicon-16x16.png">
+  <link rel="manifest" href="https://tvc-16.science/theme/site.webmanifest">
+  <link rel="mask-icon" href="https://tvc-16.science/theme/safari-pinned-tab.svg" color="#f040b0">
+  <link rel="webmention" href="https://webmention.io/tvc-16.science/webmention" />
+  <link rel="pingback" href="https://webmention.io/tvc-16.science/xmlrpc" />
+  <meta name="msapplication-TileColor" content="#f1c711">
+  <meta name="theme-color" content="#f1c711">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta property="og:title" content="Display a X509 Certificate with SFCertificatePanel on Xamarin.Mac - Blogopolis" />
+<meta property="og:type" content="article" />
+<meta property="og:description" content="<p>Nobody ever cares about Certificate UIs...but I do. (Or at least I had to)</p>" />
+<meta property="og:url" content="https://tvc-16.science/sfcertificate-mac-xamarin.html" />
+<meta property="og:image" content="https://tvc-16.science/images/certs/appkit-cert.png" />
+
+  <link href="https://fonts.googleapis.com/css?family=Monoton" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=VT323" rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/bluesky-comments@0.9.0/dist/bluesky-comments.css">
+  <link rel="stylesheet" href="https://tvc-16.science/theme/css/style.css">
+  <link rel="stylesheet" href="https://tvc-16.science/theme/css/pygment.css">
+
+
+
+
+<meta name="twitter:card" content="summary_large_image">
+<meta property="og:title" content="Display a X509 Certificate with SFCertificatePanel on Xamarin.Mac - Blogopolis" />
+<meta property="og:type" content="article" />
+<meta property="og:description" content="<p>Nobody ever cares about Certificate UIs...but I do. (Or at least I had to)</p>" />
+<meta property="og:url" content="https://tvc-16.science/sfcertificate-mac-xamarin.html" />
+<meta property="og:image" content="https://tvc-16.science/images/certs/appkit-cert.png" />
+
+<meta name="tags" content="macos" />
+<meta name="tags" content="c#" />
+<meta name="tags" content="xamarin" />
+<meta name="tags" content=".net" />
+<meta name="tags" content="certificate" />
+<meta name="tags" content="sfcertificatepanel" />
+<meta name="tags" content="x509certificate2ui" />
+
+</head>
+
+<body id="index" class="home">
+
+  <canvas id="stage"></canvas>
+  <header id="banner" class="body">
+    <center><img height="170px" src="https://tvc-16.science/theme/img/logotype.svg" /></center>
+  </header><!-- /#banner -->
+
+  <div id="mainText">
+
+    <h2 class="subtitle">
+
+      <a style="color:black !important" href="/projects.html">Projects</a>
+      🔸
+      <a style="color:black !important" href="/">Articles</a>
+      🔸
+      <a style="color:black !important" href="/categories.html">Categories</a>
+      🔸
+
+    </h2><!-- /#menu -->
+
+    <div class="top-border project-background"></div>
+    <div class="wrapper project-background">
+      <div class="text">
+<section id="content" class="body" style="max-width: 900px;margin-left: auto;margin-right: auto;">
+  <header>
+    <h2 class="entry-title">
+      <a href="https://tvc-16.science/sfcertificate-mac-xamarin.html" rel="bookmark" title="Permalink to Display a X509 Certificate with SFCertificatePanel on Xamarin.Mac">
+        Display a X509 Certificate with SFCertificatePanel on Xamarin.Mac
+      </a>
+    </h2>
+    
+  </header>
+  <footer class="post-info terminal-text">
+    <time class="published" datetime="2021-12-17T00:00:00+01:00">
+      Fri 17 December 2021
+    </time>
+    <address class="vcard author">
+      By       <a class="url fn" href="https://tvc-16.science/author/difegue.html">Difegue</a>
+    </address>
+    <div class="category">
+      Category: <a href="https://tvc-16.science/category/software.html">Software</a>
+    </div>
+    <div class="tags">
+      Tags:
+      <a href="https://tvc-16.science/tag/macos.html">macos</a>
+      <a href="https://tvc-16.science/tag/c.html">c#</a>
+      <a href="https://tvc-16.science/tag/xamarin.html">xamarin</a>
+      <a href="https://tvc-16.science/tag/net.html">.net</a>
+      <a href="https://tvc-16.science/tag/certificate.html">certificate</a>
+      <a href="https://tvc-16.science/tag/sfcertificatepanel.html">sfcertificatepanel</a>
+      <a href="https://tvc-16.science/tag/x509certificate2ui.html">x509certificate2ui</a>
+    </div>
+    <div class="summary">
+      <p>Nobody ever cares about Certificate UIs...but I do. (Or at least I had to)</p>
+    </div>
+
+  </footer><!-- /.post-info -->
+  <div class="entry-content">
+    <p>Showing the details of a <a href="https://en.wikipedia.org/wiki/X.509">X.509 certificate</a> on Windows is fairly simple through the <a href="https://docs.microsoft.com/en-us/dotnet/api/system.security.cryptography.x509certificates.x509certificate2ui?view=dotnet-plat-ext-6.0">X509Certificate2UI</a> class, which wraps the native Win32 certificate UI:  </p>
+<p><img alt="The Win32 certificate details window" src="https://tvc-16.science/images/certs/win32-cert.png"></p>
+<p>Doing the same on macOS proves to be much less documented, but not that hard!  </p>
+<h1>SFCertificatePanel</h1>
+<p><img alt="A SFCertificatePanel." src="https://tvc-16.science/images/certs/appkit-cert.png"></p>
+<p><a href="https://developer.apple.com/documentation/securityinterface/sfcertificatepanel?language=objc">SFCertificatePanel</a> is the AppKit class that handles displaying Certificates and certificate chains.  </p>
+<p>It's...not very well exposed but fairly easy to use:  </p>
+<div class="highlight"><pre><span></span><code><span class="c1">// Objective-C, show Modal</span>
+<span class="c1">// trustCertificates is a NSArray of SecCertificate objects</span>
+<span class="p">[[</span><span class="n">SFCertificatePanel</span> <span class="n">sharedCertificatePanel</span><span class="p">]</span> <span class="nl">runModalForCertificates</span><span class="p">:</span><span class="n">trustCertificates</span> <span class="nl">showGroup</span><span class="p">:</span><span class="nb">YES</span><span class="p">];</span>
+</code></pre></div>
+
+
+<div class="highlight"><pre><span></span><code><span class="c1">// Swift, show Sheet in a parent window</span>
+<span class="n">DispatchQueue</span><span class="p">.</span><span class="n">main</span><span class="p">.</span><span class="n">async</span> <span class="p">{</span>
+      <span class="kd">let</span> <span class="nv">certData</span> <span class="p">=</span> <span class="c1">//read certificate file</span>
+      <span class="kd">let</span> <span class="nv">cert</span> <span class="p">=</span> <span class="n">SecCertificateCreateWithData</span><span class="p">(</span><span class="n">kCFAllocatorDefault</span><span class="p">,</span> <span class="n">certData</span><span class="p">!</span> <span class="k">as</span> <span class="n">CFData</span><span class="p">)</span>
+      <span class="n">SFCertificatePanel</span><span class="p">.</span><span class="n">shared</span><span class="p">().</span><span class="n">beginSheet</span><span class="p">(</span><span class="k">for</span><span class="p">:</span> <span class="kc">self</span><span class="p">.</span><span class="n">view</span><span class="p">.</span><span class="n">window</span><span class="p">,</span> <span class="n">modalDelegate</span><span class="p">:</span> <span class="kc">nil</span><span class="p">,</span> <span class="n">didEnd</span><span class="p">:</span> <span class="kc">nil</span><span class="p">,</span> <span class="n">contextInfo</span><span class="p">:</span> <span class="kc">nil</span><span class="p">,</span> <span class="n">certificates</span><span class="p">:</span> <span class="p">[</span><span class="n">cert</span><span class="p">!],</span> <span class="n">showGroup</span><span class="p">:</span> <span class="kc">false</span><span class="p">)</span>
+    <span class="p">}</span>
+</code></pre></div>
+
+
+<p>The Panel can show details for either a single <a href="https://developer.apple.com/documentation/security/seccertificateref?language=objc">SecCertificate</a>, an array of them symbolizing a Certificate chain, or a <a href="https://developer.apple.com/documentation/security/sectrustref?language=objc">SecTrust</a> object.</p>
+<h1>Usage from a Xamarin.Mac app</h1>
+<p>Sadly, Xamarin.Mac does not <a href="https://github.com/xamarin/xamarin-macios/issues/4177">wrap the SecurityInterface</a> library that contains this class, so we have to dig a bit deeper to call on it.  </p>
+<p>Using <code>objc_msgSend</code>, we can essentially <a href="http://jonathanpeppers.com/Blog/xamarin-ios-under-the-hood-calling-objective-c-from-csharp">call Objective-C methods</a> on any class we want, including the unwrapped ones:  </p>
+<div class="highlight"><pre><span></span><code><span class="k">public</span> <span class="k">static</span> <span class="k">class</span> <span class="nc">SecurityInterface</span>
+    <span class="p">{</span>
+        <span class="c1">// https://developer.apple.com/documentation/securityinterface/sfcertificatepanel</span>
+        <span class="k">static</span> <span class="n">Class</span> <span class="n">_sfCertificatePanelClass</span> <span class="p">=</span> <span class="k">new</span> <span class="n">Class</span><span class="p">(</span><span class="s">&quot;SFCertificatePanel&quot;</span><span class="p">);</span>
+        <span class="k">static</span> <span class="n">Selector</span> <span class="n">_sharedCertificatePanelSelector</span> <span class="p">=</span> <span class="k">new</span> <span class="n">Selector</span><span class="p">(</span><span class="s">&quot;sharedCertificatePanel&quot;</span><span class="p">);</span>
+        <span class="k">static</span> <span class="n">Selector</span> <span class="n">_runModalForCertificatesSelector</span> <span class="p">=</span> <span class="k">new</span> <span class="n">Selector</span><span class="p">(</span><span class="s">&quot;runModalForCertificates:showGroup:&quot;</span><span class="p">);</span>
+        <span class="k">static</span> <span class="n">Selector</span> <span class="n">_beginSheetForWindowSelector</span> <span class="p">=</span> <span class="k">new</span> <span class="n">Selector</span><span class="p">(</span><span class="s">&quot;beginSheetForWindow:modalDelegate:didEndSelector:contextInfo:certificates:showGroup:&quot;</span><span class="p">);</span>
+
+        <span class="c1">// Since we&#39;re not doing a full Xamarin binding project for SecurityInterface.framework,</span>
+        <span class="c1">// We need to re-declare some of the ObjC messaging functions since they&#39;re normally hidden from us.</span>
+        <span class="c1">// (http://jonathanpeppers.com/Blog/xamarin-ios-under-the-hood-calling-objective-c-from-csharp)</span>
+<span class="na">        [DllImport(Constants.ObjectiveCLibrary, EntryPoint = &quot;objc_msgSend&quot;)]</span>
+        <span class="k">extern</span> <span class="k">static</span> <span class="n">IntPtr</span> <span class="nf">IntPtr_objc_msgSend</span><span class="p">(</span><span class="n">IntPtr</span> <span class="n">receiver</span><span class="p">,</span> <span class="n">IntPtr</span> <span class="n">selector</span><span class="p">);</span>
+<span class="na">        [DllImport(Constants.ObjectiveCLibrary, EntryPoint = &quot;objc_msgSend&quot;)]</span>
+        <span class="k">extern</span> <span class="k">static</span> <span class="k">global</span><span class="p">::</span><span class="n">System</span><span class="p">.</span><span class="n">nint</span> <span class="n">nint_objc_msgSend_IntPtr_bool</span><span class="p">(</span><span class="n">IntPtr</span> <span class="n">receiver</span><span class="p">,</span> <span class="n">IntPtr</span> <span class="n">selector</span><span class="p">,</span> <span class="n">IntPtr</span> <span class="n">arg1</span><span class="p">,</span> <span class="kt">bool</span> <span class="n">arg2</span><span class="p">);</span>
+<span class="na">        [DllImport(Constants.ObjectiveCLibrary, EntryPoint = &quot;objc_msgSend&quot;)]</span>
+        <span class="k">extern</span> <span class="k">static</span> <span class="k">void</span> <span class="nf">void_objc_msgSend_IntPtr_IntPtr_IntPtr_IntPtr_bool</span><span class="p">(</span><span class="n">IntPtr</span> <span class="n">receiver</span><span class="p">,</span> <span class="n">IntPtr</span> <span class="n">selector</span><span class="p">,</span> <span class="n">IntPtr</span> <span class="n">arg1</span><span class="p">,</span> <span class="n">IntPtr</span> <span class="n">arg2</span><span class="p">,</span> <span class="n">IntPtr</span> <span class="n">arg3</span><span class="p">,</span> <span class="n">IntPtr</span> <span class="n">arg4</span><span class="p">,</span> <span class="n">IntPtr</span> <span class="n">arg5</span><span class="p">,</span> <span class="kt">bool</span> <span class="n">arg6</span><span class="p">);</span>
+
+
+        <span class="c1">// + (SFCertificatePanel *)sharedCertificatePanel;</span>
+        <span class="k">public</span> <span class="k">static</span> <span class="n">IntPtr</span> <span class="nf">GetSharedCertificatePanel</span><span class="p">()</span> <span class="p">=&gt;</span>
+            <span class="n">IntPtr_objc_msgSend</span><span class="p">(</span><span class="n">_sfCertificatePanelClass</span><span class="p">.</span><span class="n">Handle</span><span class="p">,</span> <span class="n">_sharedCertificatePanelSelector</span><span class="p">.</span><span class="n">Handle</span><span class="p">);</span>
+
+        <span class="c1">//- (NSInteger)runModalForCertificates:(NSArray *)certificates showGroup:(BOOL)showGroup;</span>
+        <span class="k">public</span> <span class="k">static</span> <span class="n">nint</span> <span class="nf">RunModalForCertificates</span><span class="p">(</span><span class="n">IntPtr</span> <span class="n">certificatePanel</span><span class="p">,</span> <span class="n">NSArray</span> <span class="n">certificates</span><span class="p">,</span> <span class="kt">bool</span> <span class="n">showGroup</span><span class="p">)</span> <span class="p">=&gt;</span>
+            <span class="n">nint_objc_msgSend_IntPtr_bool</span><span class="p">(</span><span class="n">certificatePanel</span><span class="p">,</span> <span class="n">_runModalForCertificatesSelector</span><span class="p">.</span><span class="n">Handle</span><span class="p">,</span> <span class="n">certificates</span><span class="p">.</span><span class="n">Handle</span><span class="p">,</span> <span class="n">showGroup</span><span class="p">);</span>
+
+        <span class="c1">// - (void)beginSheetForWindow:(NSWindow *)docWindow modalDelegate:(id)delegate didEndSelector:(SEL)didEndSelector contextInfo:(void *)contextInfo certificates:(NSArray *)certificates showGroup:(BOOL)showGroup;</span>
+        <span class="c1">// delegate, didEndSelector and contextInfo are unmapped. (IntPtr.Zero)</span>
+        <span class="k">public</span> <span class="k">static</span> <span class="k">void</span> <span class="nf">BeginCertificateSheetForWindow</span><span class="p">(</span><span class="n">IntPtr</span> <span class="n">certificatePanel</span><span class="p">,</span> <span class="n">IntPtr</span> <span class="n">windowHandle</span><span class="p">,</span> <span class="n">NSArray</span> <span class="n">certificates</span><span class="p">,</span> <span class="kt">bool</span> <span class="n">showGroup</span><span class="p">)</span> <span class="p">=&gt;</span>
+            <span class="n">void_objc_msgSend_IntPtr_IntPtr_IntPtr_IntPtr_bool</span><span class="p">(</span><span class="n">certificatePanel</span><span class="p">,</span> <span class="n">_beginSheetForWindowSelector</span><span class="p">.</span><span class="n">Handle</span><span class="p">,</span> <span class="n">windowHandle</span><span class="p">,</span>
+                <span class="n">IntPtr</span><span class="p">.</span><span class="n">Zero</span><span class="p">,</span> <span class="n">IntPtr</span><span class="p">.</span><span class="n">Zero</span><span class="p">,</span> <span class="n">IntPtr</span><span class="p">.</span><span class="n">Zero</span><span class="p">,</span> <span class="n">certificates</span><span class="p">.</span><span class="n">Handle</span><span class="p">,</span> <span class="n">showGroup</span><span class="p">);</span>
+    <span class="p">}</span>
+</code></pre></div>
+
+
+<p>(A full-on <a href="https://docs.microsoft.com/en-us/xamarin/cross-platform/macios/binding/?context=xamarin/mac">Xamarin Binding Library</a> would obviously be cleaner than this, but it's not worth the effort considering we're not using all of SecurityInterface...)  </p>
+<p>With those few methods on hand, we can easily invoke a SFCertificatePanel from .NET code:  </p>
+<div class="highlight"><pre><span></span><code><span class="k">private</span> <span class="k">void</span> <span class="nf">DisplayCertificate</span><span class="p">(</span><span class="n">X509Certificate2</span> <span class="n">certificate</span><span class="p">,</span> <span class="n">IntPtr</span> <span class="n">windowParent</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="k">using</span> <span class="p">(</span><span class="kt">var</span> <span class="n">sc</span> <span class="p">=</span> <span class="k">new</span> <span class="n">SecCertificate</span><span class="p">(</span><span class="n">certificate</span><span class="p">))</span>
+  <span class="p">{</span>
+      <span class="c1">// Put the certificate in a NSArray for compliance with the API</span>
+      <span class="n">NSArray</span> <span class="n">certificates</span> <span class="p">=</span> <span class="n">NSArray</span><span class="p">.</span><span class="n">FromNSObjects</span><span class="p">(</span><span class="n">sc</span><span class="p">);</span>
+
+      <span class="kt">var</span> <span class="n">certificatePanel</span> <span class="p">=</span> <span class="n">SecurityInterface</span><span class="p">.</span><span class="n">GetSharedCertificatePanel</span><span class="p">();</span>
+
+      <span class="k">if</span> <span class="p">(</span><span class="n">windowParent</span> <span class="p">==</span> <span class="n">IntPtr</span><span class="p">.</span><span class="n">Zero</span><span class="p">)</span>
+          <span class="n">SecurityInterface</span><span class="p">.</span><span class="n">RunModalForCertificates</span><span class="p">(</span><span class="n">certificatePanel</span><span class="p">,</span> <span class="n">certificates</span><span class="p">,</span> <span class="k">true</span><span class="p">);</span>
+      <span class="k">else</span>
+      <span class="p">{</span>
+          <span class="n">SecurityInterface</span><span class="p">.</span><span class="n">BeginCertificateSheetForWindow</span><span class="p">(</span><span class="n">certificatePanel</span><span class="p">,</span> <span class="n">windowParent</span><span class="p">,</span> <span class="n">certificates</span><span class="p">,</span> <span class="k">true</span><span class="p">);</span>
+      <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+
+
+<p>And things just work! Although there are a few issues...  </p>
+<h2>Mono and X509Certificate2</h2>
+<p>Since we're still using a version of Xamarin that relies on <a href="https://github.com/mono/mono/blob/main/mcs/class/System/System.Security.Cryptography.X509Certificates/X509Certificate2.cs">Mono</a> instead of .NET 6, the X509Certificate2 class isn't fully implemented and won't show full certificate chains:<br>
+<img alt="A lone, single certificate" src="https://tvc-16.science/images/certs/no-chain.png"><br>
+This is troublesome if you want to show a certificate chain where some intermediates are not in the system keychain: it will show as untrusted...even though the full chain is valid!  </p>
+<p>The easiest solution would be to move to .NET 6, but as that's not quite available yet, we have to bypass X509Certificate2 entirely and load the certificate using only macOS APIs:  </p>
+<div class="highlight"><pre><span></span><code><span class="kt">var</span> <span class="n">pfx</span> <span class="p">=</span> <span class="p">[...]</span> <span class="c1">// class that contains both path to a .pfx certificate file and its password </span>
+<span class="kt">var</span> <span class="n">options</span> <span class="p">=</span> <span class="k">new</span> <span class="n">NSMutableDictionary</span>
+<span class="p">{</span>
+<span class="na">    [SecImportExport.Passphrase]</span> <span class="p">=</span> <span class="k">new</span> <span class="n">NSString</span><span class="p">(</span><span class="n">pfx</span><span class="p">.</span><span class="n">Password</span><span class="p">),</span>
+    <span class="c1">// ImportPkcs12 imports the given certificate to the Keychain by default.</span>
+    <span class="c1">// Since we just want to check the certificate, we can avoid this behavior by setting ImportExportKeychain to nil.</span>
+    <span class="c1">// (or an empty NSObject, since passing null isn&#39;t allowed here)</span>
+<span class="na">    [new NSString(&quot;kSecImportExportKeychain&quot;)]</span> <span class="p">=</span> <span class="k">new</span> <span class="n">NSObject</span><span class="p">()</span>
+<span class="p">};</span>
+
+<span class="c1">// Use SecImportExport to get SecCertificateRefs from the .pfx file</span>
+<span class="kt">var</span> <span class="n">status</span> <span class="p">=</span> <span class="n">SecImportExport</span><span class="p">.</span><span class="n">ImportPkcs12</span><span class="p">(</span><span class="n">NSData</span><span class="p">.</span><span class="n">FromFile</span><span class="p">(</span><span class="n">pfx</span><span class="p">.</span><span class="n">FilePath</span><span class="p">),</span> <span class="n">options</span><span class="p">,</span> <span class="k">out</span> <span class="kt">var</span> <span class="n">outData</span><span class="p">);</span>
+<span class="k">if</span> <span class="p">(</span><span class="n">status</span> <span class="p">==</span> <span class="n">SecStatusCode</span><span class="p">.</span><span class="n">Success</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="kt">var</span> <span class="n">certificateInfo</span> <span class="p">=</span> <span class="n">outData</span><span class="p">[</span><span class="m">0</span><span class="p">];</span>
+
+    <span class="c1">// Get the chain as an array of SecCertificates</span>
+    <span class="kt">var</span> <span class="n">chain</span> <span class="p">=</span> <span class="n">certificateInfo</span><span class="p">[</span><span class="s">&quot;chain&quot;</span><span class="p">]</span> <span class="k">as</span> <span class="n">NSArray</span><span class="p">;</span>
+
+    <span class="c1">// Proceed as we did before</span>
+    <span class="kt">var</span> <span class="n">certificatePanel</span> <span class="p">=</span> <span class="n">SecurityInterface</span><span class="p">.</span><span class="n">GetSharedCertificatePanel</span><span class="p">();</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="n">windowParent</span> <span class="p">==</span> <span class="n">IntPtr</span><span class="p">.</span><span class="n">Zero</span><span class="p">)</span>
+        <span class="n">SecurityInterface</span><span class="p">.</span><span class="n">RunModalForCertificates</span><span class="p">(</span><span class="n">certificatePanel</span><span class="p">,</span> <span class="n">chain</span><span class="p">,</span> <span class="k">true</span><span class="p">);</span>
+    <span class="k">else</span>
+    <span class="p">{</span>
+        <span class="n">SecurityInterface</span><span class="p">.</span><span class="n">BeginCertificateSheetForWindow</span><span class="p">(</span><span class="n">certificatePanel</span><span class="p">,</span> <span class="n">windowParent</span><span class="p">,</span> <span class="n">chain</span><span class="p">,</span> <span class="k">true</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+
+
+<p>And then we get a full chain!  </p>
+<p><img alt="A certificate and his family 😊" src="https://tvc-16.science/images/certs/yes-chain.png">  </p>
+<p>The first time, at least.</p>
+<h2>Showing the panel multiple times</h2>
+<p>There seems to be a weird bug with the shared Certificate Panel on Big Sur where if you show it multiple times, the top part showing the certificate chain doesn't show anymore and stays blank. 😔   </p>
+<p>To solve this, we have to <strong>instantiate</strong> the panel each time we want to show it.<br>
+This requires a few more modifications to our static SecurityInterface class:  </p>
+<div class="highlight"><pre><span></span><code><span class="c1">/// &lt;summary&gt;</span>
+<span class="c1">/// Instantiate a SFCertificatePanel object, wrapped in the Xamarin container.</span>
+<span class="c1">/// We can&#39;t use sharedCertificatePanel: since it has display issues if we show a certificate chain multiple times.</span>
+<span class="c1">/// </span>
+<span class="c1">/// From the Apple documentation (https://developer.apple.com/documentation/securityinterface/sfcertificatepanel/1543245-shared): </span>
+<span class="c1">/// If your application can display multiple certificate panels or sheets at once, you must allocate separate object instances</span>
+<span class="c1">/// (using the alloc class method inherited from NSObject) and initialize them (using the init() instance method,</span>
+<span class="c1">/// also inherited from NSObject) instead of using this class method.</span>
+<span class="c1">/// &lt;/summary&gt;</span>
+<span class="c1">/// &lt;returns&gt;&lt;/returns&gt;</span>
+<span class="k">public</span> <span class="k">static</span> <span class="n">NSObject</span> <span class="nf">CreateCertificatePanel</span><span class="p">()</span> <span class="p">=&gt;</span> <span class="n">Runtime</span><span class="p">.</span><span class="n">GetNSObject</span><span class="p">(</span>
+    <span class="n">IntPtr_objc_msgSend</span><span class="p">(</span><span class="n">IntPtr_objc_msgSend</span><span class="p">(</span><span class="n">_sfCertificatePanelClass</span><span class="p">.</span><span class="n">Handle</span><span class="p">,</span> <span class="n">Selector</span><span class="p">.</span><span class="n">GetHandle</span><span class="p">(</span><span class="s">&quot;alloc&quot;</span><span class="p">)),</span> <span class="n">Selector</span><span class="p">.</span><span class="n">GetHandle</span><span class="p">(</span><span class="s">&quot;init&quot;</span><span class="p">)));</span>
+
+<span class="c1">//- (NSInteger)runModalForCertificates:(NSArray *)certificates showGroup:(BOOL)showGroup;</span>
+<span class="k">public</span> <span class="k">static</span> <span class="n">nint</span> <span class="nf">RunModalForCertificates</span><span class="p">(</span><span class="n">NSObject</span> <span class="n">certificatePanel</span><span class="p">,</span> <span class="n">NSArray</span> <span class="n">certificates</span><span class="p">,</span> <span class="kt">bool</span> <span class="n">showGroup</span><span class="p">)</span> <span class="p">=&gt;</span>
+    <span class="n">nint_objc_msgSend_IntPtr_bool</span><span class="p">(</span><span class="n">certificatePanel</span><span class="p">.</span><span class="n">Handle</span><span class="p">,</span> <span class="n">_runModalForCertificatesSelector</span><span class="p">.</span><span class="n">Handle</span><span class="p">,</span> <span class="n">certificates</span><span class="p">.</span><span class="n">Handle</span><span class="p">,</span> <span class="n">showGroup</span><span class="p">);</span>
+
+<span class="c1">// - (void)beginSheetForWindow:(NSWindow *)docWindow modalDelegate:(id)delegate didEndSelector:(SEL)didEndSelector contextInfo:(void *)contextInfo certificates:(NSArray *)certificates showGroup:(BOOL)showGroup;</span>
+<span class="c1">// delegate, didEndSelector and contextInfo are unmapped. (IntPtr.Zero)</span>
+<span class="k">public</span> <span class="k">static</span> <span class="k">void</span> <span class="nf">BeginCertificateSheetForWindow</span><span class="p">(</span><span class="n">NSObject</span> <span class="n">certificatePanel</span><span class="p">,</span> <span class="n">IntPtr</span> <span class="n">windowHandle</span><span class="p">,</span> <span class="n">NSArray</span> <span class="n">certificates</span><span class="p">,</span> <span class="kt">bool</span> <span class="n">showGroup</span><span class="p">)</span> <span class="p">=&gt;</span>
+    <span class="n">void_objc_msgSend_IntPtr_IntPtr_IntPtr_IntPtr_bool</span><span class="p">(</span><span class="n">certificatePanel</span><span class="p">.</span><span class="n">Handle</span><span class="p">,</span> <span class="n">_beginSheetForWindowSelector</span><span class="p">.</span><span class="n">Handle</span><span class="p">,</span> <span class="n">windowHandle</span><span class="p">,</span>
+        <span class="n">IntPtr</span><span class="p">.</span><span class="n">Zero</span><span class="p">,</span> <span class="n">IntPtr</span><span class="p">.</span><span class="n">Zero</span><span class="p">,</span> <span class="n">IntPtr</span><span class="p">.</span><span class="n">Zero</span><span class="p">,</span> <span class="n">certificates</span><span class="p">.</span><span class="n">Handle</span><span class="p">,</span> <span class="n">showGroup</span><span class="p">);</span>
+</code></pre></div>
+
+
+<p>In this block of code, we now instantiate a SFCertificatePanel using the regular objc alloc/init selectors, and wrap it into a Xamarin NSObject to make the code <em>slightly</em> clearer. (although it doesn't help that much...)  </p>
+<p>Using the new methods, we can now show the certificate panel multiple times without any issues:  </p>
+<div class="highlight"><pre><span></span><code><span class="c1">// Make sure to deinitialize the created CertificatePanel.</span>
+<span class="c1">// We use xamarin&#39;s built-in dispose for this, which calls the objc &quot;release&quot; selector on its own.</span>
+<span class="k">using</span> <span class="p">(</span><span class="kt">var</span> <span class="n">certificatePanel</span> <span class="p">=</span> <span class="n">SecurityInterface</span><span class="p">.</span><span class="n">CreateCertificatePanel</span><span class="p">())</span>
+<span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">windowParent</span> <span class="p">==</span> <span class="n">IntPtr</span><span class="p">.</span><span class="n">Zero</span><span class="p">)</span>
+        <span class="n">SecurityInterface</span><span class="p">.</span><span class="n">RunModalForCertificates</span><span class="p">(</span><span class="n">certificatePanel</span><span class="p">,</span> <span class="n">chain</span><span class="p">,</span> <span class="k">true</span><span class="p">);</span>
+    <span class="k">else</span>
+        <span class="n">SecurityInterface</span><span class="p">.</span><span class="n">BeginCertificateSheetForWindow</span><span class="p">(</span><span class="n">certificatePanel</span><span class="p">,</span> <span class="n">windowParent</span><span class="p">,</span> <span class="n">chain</span><span class="p">,</span> <span class="k">true</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
+
+
+<h1>Closing thoughts</h1>
+<p>I added syntax highlighting to the blog after writing this article since all the giant blobs of <code>objc_msgSend</code> are already unreadable enough 😅  </p>
+<p>It was simple enough:  </p>
+<div class="highlight"><pre><span></span><code>pygmentize -S perldoc -f html -a .highlight &gt; theme/static/css/pygment.css
+</code></pre></div>
+
+
+<p>Followed by adding this new CSS into the headers of the template.  </p>
+  </div><!-- /.entry-content -->
+  <a class="containerBox">
+    <img src="https://tvc-16.science/theme/img/button2.svg" class="img-responsive">
+    <div class="text-box pink-button">
+      <span class=" button-text pink-shadow">Comments</span>
+    </div>
+  </a> <br /><br /><br /><br /><br /><br /><br /><br />
+  <script src="https://utteranc.es/client.js" repo="difegue/TVC-16" issue-term="url" theme="github-light"
+    crossorigin="anonymous" async>
+  </script>
+</section>
+      </div>
+    </div>
+    <div class="bot-border project-background"></div>
+
+    <br />
+    <br />
+    <br />
+
+  </div>
+
+  <footer id="contentinfo" class="body" style="position:relative; overflow:hidden">
+    <div class="top-border hello-background"></div>
+    <div class="wrapper hello-background">
+      <div class="text">
+
+        <a class="containerBox">
+          <img src="https://tvc-16.science/theme/img/button1.svg" class="img-responsive">
+          <div class="text-box blue-button">
+            <span class=" button-text blue-shadow">About</span>
+          </div>
+        </a>
+
+        <div class="scroll-left">
+          <p>
+            <script language="JavaScript">
+              //never forget grugeisti ;_;7
+              var r_text = new Array();
+              r_text[0] = "This is COOL";
+              r_text[1] = "TOP-SHELF BLOG DEVICE";
+              r_text[2] = "ACCELERATED PORTFOLIO SYSTEM";
+              r_text[3] = "Lookin' cool !";
+              r_text[4] = "ENHANCED SVG GRAPHICS";
+              r_text[5] = "HIGH-SPEED CHEAP VPS";
+              r_text[6] = "DELUXE UPTIME EXPERIENCE";
+              r_text[7] = "BEST-IN-CLASS SCROLLING TEXT";
+              r_text[8] = "HIGH GRADE MULTICONTAINER SETUP";
+              var i = Math.floor(9 * Math.random())
+              document.write(r_text[i]);
+            </script>
+          </p>
+        </div>
+        Runnin' straight down the information highway in a 3$ Vultr VPS. <br /><br />
+        Typefaces used: <a href="https://rsms.me/inter/">Inter</a>, <a
+          href="https://blog.marsnev.com/2017/03/font-lemonmilk.html">Lemon/Milk</a>,
+        <a href="https://fonts.google.com/specimen/VT323">VT323</a>.
+        Built using <a href="https://github.com/difegue" rel="me"> Github Actions</a> and Pelican. <br />
+        You can talk to me on <a rel="me" href="https://bsky.app/profile/difegue.bsky.social">Bluesky</a> or <a rel="me"
+          href="https://kolektiva.social/@Difegue">Mastodon</a> if that's your thing.
+
+      </div>
+    </div>
+    <div class="bot-border hello-background"></div>
+  </footer><!-- /#contentinfo -->
+
+  <br />
+  <br />
+  <br />
+
+  <div class="footer-container" title="This COOL SYSTEM has been running...for some time now.">
+    <span class="footer-text">Uptime:
+      <br>
+      <span id="uptime">XXX days </span>
+    </span>
+    <img src="https://tvc-16.science/theme/img/footer.svg" class="footer-image">
+  </div>
+
+  <script src="https://tvc-16.science/theme/index.js"></script>
+</body>
+
+</html>

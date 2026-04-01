@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Blogopolis - Masquerading a WSL Distro as a Windows Port, Part 1</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <link
+    href="https://tvc-16.science/feeds/all.atom.xml"
+    type="application/atom+xml" rel="alternate" title="Blogopolis Full Atom Feed" />
+  <link
+    href="https://tvc-16.science/feeds/lanraragi.atom.xml"
+    type="application/atom+xml" rel="alternate" title="Blogopolis Categories Atom Feed" />
+
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js'></script>
+  <script src='https://storage.ko-fi.com/cdn/scripts/overlay-widget.js'></script>
+  <script data-goatcounter="https://dingus.tvc-16.science/count" async src="//dingus.tvc-16.science/count.js"></script>
+
+  <link rel="apple-touch-icon" sizes="180x180" href="https://tvc-16.science/theme/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="https://tvc-16.science/theme/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="https://tvc-16.science/theme/favicon-16x16.png">
+  <link rel="manifest" href="https://tvc-16.science/theme/site.webmanifest">
+  <link rel="mask-icon" href="https://tvc-16.science/theme/safari-pinned-tab.svg" color="#f040b0">
+  <link rel="webmention" href="https://webmention.io/tvc-16.science/webmention" />
+  <link rel="pingback" href="https://webmention.io/tvc-16.science/xmlrpc" />
+  <meta name="msapplication-TileColor" content="#f1c711">
+  <meta name="theme-color" content="#f1c711">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta property="og:title" content="Masquerading a WSL Distro as a Windows Port, Part 1 - Blogopolis" />
+<meta property="og:type" content="article" />
+<meta property="og:description" content="<p>That's cheating! But is it really seamless?</p>" />
+<meta property="og:url" content="https://tvc-16.science/wsl-karen-1.html" />
+<meta property="og:image" content="https://tvc-16.science/images/karen.jpg" />
+
+  <link href="https://fonts.googleapis.com/css?family=Monoton" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=VT323" rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/bluesky-comments@0.9.0/dist/bluesky-comments.css">
+  <link rel="stylesheet" href="https://tvc-16.science/theme/css/style.css">
+  <link rel="stylesheet" href="https://tvc-16.science/theme/css/pygment.css">
+
+
+
+
+<meta name="twitter:card" content="summary_large_image">
+<meta property="og:title" content="Masquerading a WSL Distro as a Windows Port, Part 1 - Blogopolis" />
+<meta property="og:type" content="article" />
+<meta property="og:description" content="<p>That's cheating! But is it really seamless?</p>" />
+<meta property="og:url" content="https://tvc-16.science/wsl-karen-1.html" />
+<meta property="og:image" content="https://tvc-16.science/images/karen.jpg" />
+
+<meta name="tags" content="wsl" />
+<meta name="tags" content="github actions" />
+
+</head>
+
+<body id="index" class="home">
+
+  <canvas id="stage"></canvas>
+  <header id="banner" class="body">
+    <center><img height="170px" src="https://tvc-16.science/theme/img/logotype.svg" /></center>
+  </header><!-- /#banner -->
+
+  <div id="mainText">
+
+    <h2 class="subtitle">
+
+      <a style="color:black !important" href="/projects.html">Projects</a>
+      🔸
+      <a style="color:black !important" href="/">Articles</a>
+      🔸
+      <a style="color:black !important" href="/categories.html">Categories</a>
+      🔸
+
+    </h2><!-- /#menu -->
+
+    <div class="top-border project-background"></div>
+    <div class="wrapper project-background">
+      <div class="text">
+<section id="content" class="body" style="max-width: 900px;margin-left: auto;margin-right: auto;">
+  <header>
+    <h2 class="entry-title">
+      <a href="https://tvc-16.science/wsl-karen-1.html" rel="bookmark" title="Permalink to Masquerading a WSL Distro as a Windows Port, Part 1">
+        Masquerading a WSL Distro as a Windows Port, Part 1
+      </a>
+    </h2>
+    
+  </header>
+  <footer class="post-info terminal-text">
+    <time class="published" datetime="2019-06-05T00:00:00+02:00">
+      Wed 05 June 2019
+    </time>
+    <address class="vcard author">
+      By       <a class="url fn" href="https://tvc-16.science/author/difegue.html">Difegue</a>
+    </address>
+    <div class="category">
+      Category: <a href="https://tvc-16.science/category/lanraragi.html">LANraragi</a>
+    </div>
+    <div class="tags">
+      Tags:
+      <a href="https://tvc-16.science/tag/wsl.html">wsl</a>
+      <a href="https://tvc-16.science/tag/github-actions.html">github actions</a>
+    </div>
+    <div class="summary">
+      <p>That's cheating! But is it really seamless?</p>
+    </div>
+
+  </footer><!-- /.post-info -->
+  <div class="entry-content">
+    <p>One of the major complaints I often get with <a href="https://github.com/Difegue/LANraragi">LANraragi</a> is that it's a major pain to install. And I tend to agree!<br>
+The software runs as a web server through <a href="http://mojolicious.org">Mojolicious</a>, paired with a Redis database.  </p>
+<p>Thanks to the power of Docker images, I've made it much easier for Linux users, but Windows users were still stuck dealing with Virtual Machines or the handy-but-not-really-stable <a href="https://docs.docker.com/docker-for-windows/">Docker for Windows.</a> (Which is pretty much a VM too, all things considered.)  </p>
+<p>I got requests for a good Windows version often enough that at one brief point I hacked up a full source port of the app:<br>
+<img alt="peak 2016 here lads" src="https://tvc-16.science/images/quickstarter.jpg"><br>
+It relied on a Redis port <a href="https://github.com/microsoftarchive/redis">made and subsequently abandoned by Microsoft</a>, and a <strong>lot</strong> of batch file glue.<br>
+Lovely, but hey it worked! Until some dude strolled along with his Shift-JIS encoded Windows OS and subsequently broke the entire archive detection code.<br>
+<img alt="i fucking hate codepages" src="https://tvc-16.science/images/coolmeme.jpg"><br>
+Then Mojolicious itself dropped Windows support, things happened, and I pretty much had to kill the thing because it wasn't even standing on its own anymore.  </p>
+<p>Meanwhile, <a href="https://docs.microsoft.com/en-us/windows/wsl/about">WSL</a> was making headlines. I've been using it for a while already to do dev work on LANraragi and it's solid. I read <a href="https://medium.com/@hoxunn/wsl-docker-custom-distro-2-0-730fd97fe72e">this blogpost</a> recently, which put a crazy and certainly unintended spin on the concept in my head:  </p>
+<h2>Why not just ship WSL as a Windows port?</h2>
+<p>Generating lightweight WSL distros out of Docker images seemed easy with my current workflow, and past that it'd just be a matter of providing users an easy, Windows-like interface to the server stowed away in the distro.  </p>
+<p>I'd basically have three big parts to work on for this:  </p>
+<ul>
+<li>👉 <strong>Build</strong> a WSL distro (basically just a Linux rootfs) out of my existing Docker image  </li>
+<li>👉 <strong>Register</strong> said distro on the user's computer through the WSL API, and install a basic GUI tool  </li>
+<li>👉 Use the GUI tool to <strong>interop</strong> with the distro, mapping Windows directories and settings to the Linux world and starting the webserver  </li>
+</ul>
+<p>I'll spoil you the results by saying it <em>totally heckin' works</em> and is currently out in beta:<br>
+<img alt="bazinger z" src="https://tvc-16.science/images/karen.jpg">  </p>
+<p>One codebase, putting out Docker images used by both Linux and Windows users in "slightly" different ways.<br>
+I'll dedicate the rest of this blogpost - and its followup - to depicting the major hiccups I encountered building this thing out.</p>
+<h1>Building the WSL distro in Github Actions</h1>
+<p>I do all the continuous integration for LANraragi in <a href="https://github.com/features/actions">Github Actions</a> these days, so it seemed an easy choice to add the WSL distro build to it.<br>
+According to Nunix's blogpost, it's really just a matter of running <a href="https://docs.docker.com/engine/reference/commandline/export/"><code>docker export</code></a> on the images I'm already building.<br>
+Said command gives out a .tar containing the full Linux filesystem, for readymade import into WSL. Should be easy, righ-</p>
+<div class="highlight"><pre><span></span><code><span class="err">Error response from daemon: This Docker operation is forbidden by GitHub Actions,</span>
+<span class="err">you can find documentation at https://developer.github.com/actions/</span>
+</code></pre></div>
+
+
+<p>There's actually no warning about this anywhere in the Actions documentation, but since Actions run in premade Docker environments, a few Docker commands are <a href="https://github.com/actions/docker/issues/7#issuecomment-459808907">locked out</a> to prevent potential sandbox escapes.  </p>
+<p>And of course, the all-essential <code>export</code> is part of those. I had to switch to using <a href="https://docs.docker.com/engine/reference/commandline/save/"><code>docker save</code></a>, which also exports your image as a .tar archive, but <strong>not</strong> as a ready-to-use filesystem.<br>
+Instead, it exports each layer of the Docker image as a separate .tar, then bundles up all of those.  </p>
+<p><img alt="bazinger z" src="https://tvc-16.science/images/export_vs_save.png"><br>
+This is convenient for reimporting into Docker itself, but not at all for what I want here.  </p>
+<p>The hackjob solution I ended up using was to manually squash all the layers post-save:  </p>
+<div class="highlight"><pre><span></span><code><span class="o">#</span> <span class="n">Export</span> <span class="n">image</span> <span class="k">and</span> <span class="k">extract</span> <span class="n">the</span> <span class="n">resulting</span> <span class="n">tarball</span>
+<span class="n">docker</span> <span class="n">save</span> <span class="c1">--output save.tar difegue/lanraragi</span>
+<span class="n">tar</span> <span class="o">-</span><span class="n">xf</span> <span class="n">save</span><span class="p">.</span><span class="n">tar</span> <span class="c1">--wildcards &quot;*.tar&quot;</span>
+<span class="n">mkdir</span> <span class="n">squashed</span>
+
+<span class="o">#</span> <span class="n">Find</span> <span class="k">all</span> <span class="p">.</span><span class="n">tar</span> <span class="n">files</span><span class="p">,</span> <span class="k">and</span> <span class="n">export</span> <span class="n">them</span> <span class="k">to</span> <span class="n">the</span> <span class="n">same</span> <span class="n">squashed</span> <span class="n">folder</span><span class="p">,</span> <span class="k">then</span> <span class="n">repack</span> <span class="n">this</span> <span class="k">as</span> <span class="n">a</span> <span class="p">.</span><span class="n">tar</span>
+<span class="n">find</span> <span class="p">.</span> <span class="o">-</span><span class="n">mindepth</span> <span class="mi">2</span> <span class="o">-</span><span class="k">type</span> <span class="n">f</span> <span class="o">-</span><span class="n">iname</span> <span class="ss">&quot;*.tar&quot;</span> <span class="o">-</span><span class="n">print0</span> <span class="o">-</span><span class="k">exec</span> <span class="n">tar</span> <span class="o">-</span><span class="n">xf</span> <span class="err">{}</span> <span class="o">-</span><span class="k">C</span> <span class="n">squashed</span> <span class="err">\</span><span class="p">;</span> 
+<span class="n">find</span> <span class="n">squashed</span> <span class="o">-</span><span class="n">printf</span> <span class="ss">&quot;%P\n&quot;</span> <span class="o">-</span><span class="k">type</span> <span class="n">f</span> <span class="o">-</span><span class="n">o</span> <span class="o">-</span><span class="k">type</span> <span class="n">l</span> <span class="o">-</span><span class="n">o</span> <span class="o">-</span><span class="k">type</span> <span class="n">d</span> <span class="o">|</span> <span class="n">tar</span> <span class="o">-</span><span class="n">cf</span> <span class="n">package</span><span class="p">.</span><span class="n">tar</span> <span class="c1">--no-recursion -C squashed -T -</span>
+</code></pre></div>
+
+
+<p>Well, got my distro. What now?</p>
+<h1>Installing a WSL distro seamlessly to the enduser's machine</h1>
+<p>Unlike with my previous foray, I didn't(couldn't) bother supporting Windows 7 or 8 here.<br>
+It's straight bleedin' edge Windows 10, which means <strong>PowerShell</strong> is free game instead of wrangling old .bat scripts.  </p>
+<p>You can check the full source for the install/uninstall scripts <a href="https://github.com/Difegue/Karen/blob/master/Karen/Karen-Installer.ps1">here</a>  and <a href="https://github.com/Difegue/Karen/blob/master/Karen/Karen-Uninstaller.ps1">here.</a><br>
+I haven't bothered wrapping those in proper executable installers yet: Writing .MSIs is a pain!<br>
+(I don't envy macOS devs often, but I sure could use something like <a href="https://sveinbjorn.org/platypus">Platypus</a> to quickly wrap scripts in nice-looking executables.)</p>
+<p>I initially wrote the scripts fully using <code>wsl.exe</code> to unregister/register/terminate the LANraragi distro, but quickly realized that as nice as <code>wsl.exe</code> was, it's completely useless in Windows 10 versions under 1903, the April 2019 Update.<br>
+Here's a quick breakdown of available WSL command tools in Win10 and their featureset alongside versions.  </p>
+<table>
+<thead>
+<tr>
+<th>Win10 version/Tool</th>
+<th>wsl.exe</th>
+<th>wslconfig.exe</th>
+<th>wslapi.h (direct API call)</th>
+<th>lxrun</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1709 (Fall CU)</td>
+<td>Execute commands in a distro</td>
+<td>List distros, unregister, set as default</td>
+<td>List, register/unregister, execute commands</td>
+<td>(Ubuntu only) Install/Uninstall, Update</td>
+</tr>
+<tr>
+<td>1803 (RS4)</td>
+<td>Nothing new</td>
+<td>Nothing new</td>
+<td>Nothing new</td>
+<td>Dead</td>
+</tr>
+<tr>
+<td>1809 (RS5)</td>
+<td>Nothing new</td>
+<td>Terminate a running distro</td>
+<td>Nothing new</td>
+<td>Dead</td>
+</tr>
+<tr>
+<td>1903 (You are here)</td>
+<td>List distros, register/unregister, terminate, set as default</td>
+<td>Nothing new</td>
+<td>Nothing new</td>
+<td>Dead</td>
+</tr>
+</tbody>
+</table>
+<p>"Registering" a distro in WSL terms means basically unpacking the Linux filesystem somewhere and registering the resulting folder as containing a Linux distribution.  </p>
+<p><code>wslconfig.exe</code> is a more capable alternative for older Windows versions, but it doesn't allow registering a distro.<br>
+As for direct API calls, the <a href="https://docs.microsoft.com/en-us/windows/desktop/api/wslapi/nf-wslapi-wslregisterdistribution">registration function</a> doesn't allow you to pick a folder to unpack the distro to.  </p>
+<p>Since I wanted to target at least 1803, the latest LTSC release, I ended up bundling <a href="https://github.com/DDoSolitary/LxRunOffline">LxRunOffline</a> alongside the installer to perform the distro registration easily. It also features a nice progress bar <code>wsl.exe</code> doesn't have, so at least it looks good. 👀  </p>
+<p><img alt="lookin cool unspecified open source software to use on wsl" src="https://tvc-16.science/images/ps.png">  </p>
+<p>Past this, I'm basically just doing usual Installer-y things: Copying the GUI executable to a designated folder in AppData, adding a Start Menu shortcut, checking WSL is installed and that we're on a 64-bit OS, the works.</p>
+<p>More on the GUI tool itself in the <a href="https://tvc-16.science/wsl-karen-2.html">next blog post!</a></p>
+  </div><!-- /.entry-content -->
+  <a class="containerBox">
+    <img src="https://tvc-16.science/theme/img/button2.svg" class="img-responsive">
+    <div class="text-box pink-button">
+      <span class=" button-text pink-shadow">Comments</span>
+    </div>
+  </a> <br /><br /><br /><br /><br /><br /><br /><br />
+  <script src="https://utteranc.es/client.js" repo="difegue/TVC-16" issue-term="url" theme="github-light"
+    crossorigin="anonymous" async>
+  </script>
+</section>
+      </div>
+    </div>
+    <div class="bot-border project-background"></div>
+
+    <br />
+    <br />
+    <br />
+
+  </div>
+
+  <footer id="contentinfo" class="body" style="position:relative; overflow:hidden">
+    <div class="top-border hello-background"></div>
+    <div class="wrapper hello-background">
+      <div class="text">
+
+        <a class="containerBox">
+          <img src="https://tvc-16.science/theme/img/button1.svg" class="img-responsive">
+          <div class="text-box blue-button">
+            <span class=" button-text blue-shadow">About</span>
+          </div>
+        </a>
+
+        <div class="scroll-left">
+          <p>
+            <script language="JavaScript">
+              //never forget grugeisti ;_;7
+              var r_text = new Array();
+              r_text[0] = "This is COOL";
+              r_text[1] = "TOP-SHELF BLOG DEVICE";
+              r_text[2] = "ACCELERATED PORTFOLIO SYSTEM";
+              r_text[3] = "Lookin' cool !";
+              r_text[4] = "ENHANCED SVG GRAPHICS";
+              r_text[5] = "HIGH-SPEED CHEAP VPS";
+              r_text[6] = "DELUXE UPTIME EXPERIENCE";
+              r_text[7] = "BEST-IN-CLASS SCROLLING TEXT";
+              r_text[8] = "HIGH GRADE MULTICONTAINER SETUP";
+              var i = Math.floor(9 * Math.random())
+              document.write(r_text[i]);
+            </script>
+          </p>
+        </div>
+        Runnin' straight down the information highway in a 3$ Vultr VPS. <br /><br />
+        Typefaces used: <a href="https://rsms.me/inter/">Inter</a>, <a
+          href="https://blog.marsnev.com/2017/03/font-lemonmilk.html">Lemon/Milk</a>,
+        <a href="https://fonts.google.com/specimen/VT323">VT323</a>.
+        Built using <a href="https://github.com/difegue" rel="me"> Github Actions</a> and Pelican. <br />
+        You can talk to me on <a rel="me" href="https://bsky.app/profile/difegue.bsky.social">Bluesky</a> or <a rel="me"
+          href="https://kolektiva.social/@Difegue">Mastodon</a> if that's your thing.
+
+      </div>
+    </div>
+    <div class="bot-border hello-background"></div>
+  </footer><!-- /#contentinfo -->
+
+  <br />
+  <br />
+  <br />
+
+  <div class="footer-container" title="This COOL SYSTEM has been running...for some time now.">
+    <span class="footer-text">Uptime:
+      <br>
+      <span id="uptime">XXX days </span>
+    </span>
+    <img src="https://tvc-16.science/theme/img/footer.svg" class="footer-image">
+  </div>
+
+  <script src="https://tvc-16.science/theme/index.js"></script>
+</body>
+
+</html>
