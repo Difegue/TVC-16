@@ -32,7 +32,7 @@ Maybe fuck around and send some memes to his printer, or drop a file into a fold
 
 The very [user-oriented interface](https://www.fastcompany.com/91044923/watching-susan-kare-explain-the-mac-ux-in-1984-is-the-most-relaxing-thing-ever) of the classic Mac OS accentuates this feeling a **lot** -- It's incredibly easy to customize the names, icons and positions of every single file in your Zone, so every user's tiny network ends up looking very personal.  
 
-I mean, do you know of **any other network** where you can just fullscreen Big Challenges smoking the boof<sup id="ref-3">[***](#note-2)</sup> in the File Explorer as a set of 34 custom icons glued to one another??  
+I mean, do you know of **any other network** where you can just fullscreen Big Challenges smoking the boof<sup id="ref-3">[***](#note-3)</sup> in the File Explorer as a set of 34 custom icons glued to one another??  
 ![Another Mac OS 9 screenshot, showing TalkCrawler indexing a bunch of AppleTalk zones and a shared folder with... Big Challenges smoking the boof! hell yeah!](images/globaltalk/talkcrawler.png)  
 You can just spend **hours** looking through the Zone list, connecting to different oldass computers across the world named "_Glorbo's death star Performa 600_", where they're sharing a pack of Simpsons icons and a text file saying  
 > hello! thank you for visiting computer  
