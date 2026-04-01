@@ -32,7 +32,7 @@ Those things are expensive too... I might just start hunting for CRT corpses jus
  
 While the monitor was torn down though, I also finally replaced the hackjob video cable I made for it 6 years ago.  
 ![](./images/globaltalk/performaredux1.jpg)  
-This CRT came with hardwired video out of the factory, so adding an actual DB15 socket there is an actual upgrade!  
+This CRT came with hardwired video out of the factory, so adding a DB15 socket there is an actual upgrade!  
 There's no space to put it in the monitor chassis itself, so you need a little breakout box that protrudes out.  
 
 I grabbed a failed 3D printed box I had to house the socket and wires; I could've made a better scaled box for this, but I already had this print laying around that wasn't doing anything 🤷  
@@ -59,6 +59,7 @@ It's always fun seeing terminal emulators in an OS that absolutely did not have 
 ![flynn telnet client running on the centris 650 connected to a BBS](./images/globaltalk/flynn.jpg)  
 and...oh it's fucking claude code. oh thats gore in my comfort retrocomputing environment i cant escape this bloody thing no matter where i go this is software hell and we're all living in it happily wearing our badges of shame as we grow dependent on a heavily subsidized slot machine 
 
+See you next year! Maybe next time I'll go for more CRT pain and try to repair my [Portrait Display](https://www.cultofmac.com/apple-history/macintosh-portrait-display).  
 
 #
 
