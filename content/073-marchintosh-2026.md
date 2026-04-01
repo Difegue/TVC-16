@@ -51,6 +51,8 @@ My [thoughts from last year](./globaltalk.html) on the _cool factor_ of this net
 
 This year, you could have an [After Dark screensaver](https://bitbang.social/@kalleboo/116267934997465916) styled after _fsn_ <sub>the file manager not the visual novel</sub> that shows you all the Zones in the network, alongside the usual chat programs and online games.  
 
+Speaking of games, [transfer point](https://robotspacer.software/transfer-point.html) has fully released, and can be played either on real hardware or in an emulator. I'm def going to give that a deeper look later as a fellow [multi-document interface adventure game](./funtography.html) enjoyer. 
+
 There's even a little [wplace-like](https://bitbang.social/@kalleboo/116302182454732958) you can use this year -- It closes in about 12 hours from this blog's posting so you still have time to go make a silly doodle if you want!  
 ![GlobalTalk Canvas in its nearly final form](./images/globaltalk/canvas.png)  
  
