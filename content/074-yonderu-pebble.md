@@ -5,7 +5,7 @@ Tags: nintendo, nintendo ds, warioware, doujinsoft, pebble, smartwatch, comics
 Slug: yonderu-pebble
 Authors: Difegue
 HeroImage: images/doujinsoft/pebble.jpg
-BskyPost: at://difegue.tvc-16.science/app.bsky.feed.post/3lugupqum4c2z
+BskyPost: at://difegue.tvc-16.science/app.bsky.feed.post/3mkqzmhjhbs2k
 Summary: it's officially the spring of wario
 
 If you've read the [original Yonderu](./yonderu.html) announcement you've probably seen this coming, so uh yeah! It's Wario comix on your wrist! **Cool!**  
