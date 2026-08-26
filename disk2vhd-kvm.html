@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Blogopolis - Cloning a running Windows PC to a KVM virtual machine image</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <link
+    href="https://tvc-16.science/feeds/all.atom.xml"
+    type="application/atom+xml" rel="alternate" title="Blogopolis Full Atom Feed" />
+  <link
+    href="https://tvc-16.science/feeds/cool-tricks.atom.xml"
+    type="application/atom+xml" rel="alternate" title="Blogopolis Categories Atom Feed" />
+
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js'></script>
+  <script src='https://storage.ko-fi.com/cdn/scripts/overlay-widget.js'></script>
+  <script data-goatcounter="https://dingus.tvc-16.science/count" async src="//dingus.tvc-16.science/count.js"></script>
+
+  <link rel="apple-touch-icon" sizes="180x180" href="https://tvc-16.science/theme/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="https://tvc-16.science/theme/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="https://tvc-16.science/theme/favicon-16x16.png">
+  <link rel="manifest" href="https://tvc-16.science/theme/site.webmanifest">
+  <link rel="mask-icon" href="https://tvc-16.science/theme/safari-pinned-tab.svg" color="#f040b0">
+  <link rel="webmention" href="https://webmention.io/tvc-16.science/webmention" />
+  <link rel="pingback" href="https://webmention.io/tvc-16.science/xmlrpc" />
+  <meta name="msapplication-TileColor" content="#f1c711">
+  <meta name="theme-color" content="#f1c711">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta property="og:title" content="Cloning a running Windows PC to a KVM virtual machine image - Blogopolis" />
+<meta property="og:type" content="article" />
+<meta property="og:description" content="" />
+<meta property="og:url" content="https://tvc-16.science/disk2vhd-kvm.html" />
+<meta property="og:image" content="https://tvc-16.science/images/crt-wsl2.jpg" />
+
+  <link href="https://fonts.googleapis.com/css?family=Monoton" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=VT323" rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/bluesky-comments@0.9.0/dist/bluesky-comments.css">
+  <link rel="stylesheet" href="https://tvc-16.science/theme/css/style.css">
+  <link rel="stylesheet" href="https://tvc-16.science/theme/css/pygment.css">
+
+
+
+
+<meta name="twitter:card" content="summary_large_image">
+<meta property="og:title" content="Cloning a running Windows PC to a KVM virtual machine image - Blogopolis" />
+<meta property="og:type" content="article" />
+<meta property="og:description" content="" />
+<meta property="og:url" content="https://tvc-16.science/disk2vhd-kvm.html" />
+<meta property="og:image" content="https://tvc-16.science/images/crt-wsl2.jpg" />
+
+<meta name="tags" content="windows" />
+<meta name="tags" content="kvm" />
+<meta name="tags" content="sysinternals" />
+<meta name="tags" content="disk2vhd" />
+
+</head>
+
+<body id="index" class="home">
+
+  <canvas id="stage"></canvas>
+  <header id="banner" class="body">
+    <center><img height="170px" src="https://tvc-16.science/theme/img/logotype.svg" /></center>
+  </header><!-- /#banner -->
+
+  <div id="mainText">
+
+    <h2 class="subtitle">
+
+      <a style="color:black !important" href="/projects.html">Projects</a>
+      🔸
+      <a style="color:black !important" href="/">Articles</a>
+      🔸
+      <a style="color:black !important" href="/categories.html">Categories</a>
+      🔸
+
+    </h2><!-- /#menu -->
+
+    <div class="top-border project-background"></div>
+    <div class="wrapper project-background">
+      <div class="text">
+<section id="content" class="body" style="max-width: 900px;margin-left: auto;margin-right: auto;">
+  <header>
+    <h2 class="entry-title">
+      <a href="https://tvc-16.science/disk2vhd-kvm.html" rel="bookmark" title="Permalink to Cloning a running Windows PC to a KVM virtual machine image">
+        Cloning a running Windows PC to a KVM virtual machine image
+      </a>
+    </h2>
+    
+  </header>
+  <footer class="post-info terminal-text">
+    <time class="published" datetime="2026-05-02T20:00:00+02:00">
+      Sat 02 May 2026
+    </time>
+    <address class="vcard author">
+      By       <a class="url fn" href="https://tvc-16.science/author/difegue.html">Difegue</a>
+    </address>
+    <div class="category">
+      Category: <a href="https://tvc-16.science/category/cool-tricks.html">Cool Tricks</a>
+    </div>
+    <div class="tags">
+      Tags:
+      <a href="https://tvc-16.science/tag/windows.html">windows</a>
+      <a href="https://tvc-16.science/tag/kvm.html">kvm</a>
+      <a href="https://tvc-16.science/tag/sysinternals.html">sysinternals</a>
+      <a href="https://tvc-16.science/tag/disk2vhd.html">disk2vhd</a>
+    </div>
+
+  </footer><!-- /.post-info -->
+  <div class="entry-content">
+    <p>If you have a running Windows PC you want to virtualize due to aging/dying hardware, a good solution is to migrate it to your homelab that's probably running Linux.<br>
+I had to do this recently for a W11 machine, and while none of the steps here are new, I thought it'd be worthwhile to collate all the information in one spot.  </p>
+<h1>Use Disk2vhd to snapshot the install</h1>
+<p><a href="https://learn.microsoft.com/en-us/sysinternals/downloads/disk2vhd">Disk2vhd</a> is an interesting tool to use here as it allows you to snapshot the disk to VHD while Windows is still running, instead of having to turn the machine off and dump the disk.    </p>
+<blockquote>
+<p>The difference between Disk2vhd and other physical-to-virtual tools is that you can run Disk2vhd on a system that’s online. Disk2vhd uses Windows' Volume Snapshot capability, introduced in Windows XP, to create consistent point-in-time snapshots of the volumes you want to include in a conversion.  </p>
+</blockquote>
+<p><img alt="Disk2vhd screenshot" src="https://learn.microsoft.com/en-us/sysinternals/downloads/media/disk2vhd/20131218_disk2vhd_v2.0.png">  </p>
+<p>The snapshot will take a long time depending on disk size, but this works just fine. I did check the "<em>Use Vhdx</em>" box as snapshotting wouldn't work otherwise.  </p>
+<p>You <em>might</em> want to install the <a href="https://virtio-win.github.io/Knowledge-Base/Driver-installation.html">KVM drivers</a> to the physical Windows machine before snapshotting it, as otherwise you'll have to sideload these later on.  </p>
+<h1>Convert the VHDX image to QCow2</h1>
+<p>Once you have your VHDX, you can convert it to a KVM-sanctioned format on a Linux machine:  </p>
+<div class="highlight"><pre><span></span><code><span class="err">qemu-img convert -O qcow2 Windows.vhdx Windows.qcow2</span>
+</code></pre></div>
+
+
+<p>This will take a similarly long time depending on disk size. You can verify the basic size of the image afterwards:  </p>
+<div class="highlight"><pre><span></span><code><span class="n">qemu</span><span class="o">-</span><span class="n">img</span> <span class="n">info</span> <span class="n">Windows</span><span class="p">.</span><span class="n">qcow2</span>  
+
+<span class="n">image</span><span class="p">:</span> <span class="n">Windows</span><span class="p">.</span><span class="n">qcow2</span>
+<span class="n">file</span> <span class="n">format</span><span class="p">:</span> <span class="n">qcow2</span>
+<span class="n">virtual</span> <span class="k">size</span><span class="p">:</span> <span class="mi">1</span><span class="p">.</span><span class="mi">86</span> <span class="n">TiB</span> <span class="p">(</span><span class="mi">2048408248320</span> <span class="n">bytes</span><span class="p">)</span>
+<span class="n">disk</span> <span class="k">size</span><span class="p">:</span> <span class="mi">728</span> <span class="n">GiB</span>
+<span class="n">cluster_size</span><span class="p">:</span> <span class="mi">65536</span>
+<span class="n">Format</span> <span class="k">specific</span> <span class="n">information</span><span class="p">:</span>
+    <span class="n">compat</span><span class="p">:</span> <span class="mi">1</span><span class="p">.</span><span class="mi">1</span>
+    <span class="n">compression</span> <span class="k">type</span><span class="p">:</span> <span class="n">zlib</span>
+    <span class="n">lazy</span> <span class="n">refcounts</span><span class="p">:</span> <span class="k">false</span>
+    <span class="n">refcount</span> <span class="n">bits</span><span class="p">:</span> <span class="mi">16</span>
+    <span class="n">corrupt</span><span class="p">:</span> <span class="k">false</span>
+    <span class="n">extended</span> <span class="n">l2</span><span class="p">:</span> <span class="k">false</span>
+<span class="n">Child</span> <span class="n">node</span> <span class="s1">&#39;/file&#39;</span><span class="p">:</span>
+    <span class="n">filename</span><span class="p">:</span> <span class="n">Windows</span><span class="p">.</span><span class="n">qcow2</span>
+    <span class="n">protocol</span> <span class="k">type</span><span class="p">:</span> <span class="n">file</span>
+    <span class="n">file</span> <span class="k">length</span><span class="p">:</span> <span class="mi">728</span> <span class="n">GiB</span> <span class="p">(</span><span class="mi">782145486848</span> <span class="n">bytes</span><span class="p">)</span>
+    <span class="n">disk</span> <span class="k">size</span><span class="p">:</span> <span class="mi">728</span> <span class="n">GiB</span>
+    <span class="n">Format</span> <span class="k">specific</span> <span class="n">information</span><span class="p">:</span>
+        <span class="n">extent</span> <span class="k">size</span> <span class="n">hint</span><span class="p">:</span> <span class="mi">1048576</span>
+</code></pre></div>
+
+
+<p>And check the partition map makes sense:  </p>
+<div class="highlight"><pre><span></span><code><span class="n">sudo</span> <span class="n">modprobe</span> <span class="o">-</span><span class="n">i</span> <span class="n">nbd</span>
+<span class="n">sudo</span> <span class="n">qemu</span><span class="o">-</span><span class="n">nbd</span> <span class="o">-</span><span class="n">n</span> <span class="o">-</span><span class="n">r</span> <span class="o">-</span><span class="k">c</span> <span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">nbd0</span> <span class="n">Windows</span><span class="p">.</span><span class="n">qcow2</span>
+
+<span class="n">sudo</span> <span class="n">fdisk</span> <span class="o">-</span><span class="n">l</span> <span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">nbd0</span>
+<span class="n">Disk</span> <span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">nbd0</span><span class="p">:</span> <span class="mi">1</span><span class="p">.</span><span class="mi">86</span> <span class="n">TiB</span><span class="p">,</span> <span class="mi">2048408248320</span> <span class="n">bytes</span><span class="p">,</span> <span class="mi">4000797360</span> <span class="n">sectors</span>
+<span class="n">Units</span><span class="p">:</span> <span class="n">sectors</span> <span class="k">of</span> <span class="mi">1</span> <span class="o">*</span> <span class="mi">512</span> <span class="o">=</span> <span class="mi">512</span> <span class="n">bytes</span>
+<span class="n">Sector</span> <span class="k">size</span> <span class="p">(</span><span class="n">logical</span><span class="o">/</span><span class="n">physical</span><span class="p">):</span> <span class="mi">512</span> <span class="n">bytes</span> <span class="o">/</span> <span class="mi">512</span> <span class="n">bytes</span>
+<span class="n">I</span><span class="o">/</span><span class="n">O</span> <span class="k">size</span> <span class="p">(</span><span class="n">minimum</span><span class="o">/</span><span class="n">optimal</span><span class="p">):</span> <span class="mi">512</span> <span class="n">bytes</span> <span class="o">/</span> <span class="mi">131072</span> <span class="n">bytes</span>
+<span class="n">Disklabel</span> <span class="k">type</span><span class="p">:</span> <span class="n">gpt</span>
+<span class="n">Disk</span> <span class="n">identifier</span><span class="p">:</span> <span class="mi">5</span><span class="n">DFD9739</span><span class="o">-</span><span class="n">AC1D</span><span class="o">-</span><span class="mi">420</span><span class="k">C</span><span class="o">-</span><span class="mi">8</span><span class="n">AB9</span><span class="o">-</span><span class="mi">7</span><span class="n">C69DD2A4571</span>
+
+<span class="n">Device</span>           <span class="k">Start</span>        <span class="k">End</span>    <span class="n">Sectors</span>  <span class="k">Size</span> <span class="k">Type</span>
+<span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">nbd0p1</span>       <span class="mi">2048</span>     <span class="mi">534527</span>     <span class="mi">532480</span>  <span class="mi">260</span><span class="n">M</span> <span class="n">EFI</span> <span class="k">System</span>
+<span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">nbd0p2</span>     <span class="mi">534528</span>     <span class="mi">567295</span>      <span class="mi">32768</span>   <span class="mi">16</span><span class="n">M</span> <span class="n">Microsoft</span> <span class="n">reserved</span>
+<span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">nbd0p3</span>     <span class="mi">567296</span> <span class="mi">3931336703</span> <span class="mi">3930769408</span>  <span class="mi">1</span><span class="p">.</span><span class="mi">8</span><span class="n">T</span> <span class="n">Microsoft</span> <span class="n">basic</span> <span class="k">data</span>
+<span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">nbd0p4</span> <span class="mi">3931336704</span> <span class="mi">3933677567</span>    <span class="mi">2340864</span>  <span class="mi">1</span><span class="p">.</span><span class="mi">1</span><span class="k">G</span> <span class="n">Windows</span> <span class="n">recovery</span> <span class="n">environment</span>
+<span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">nbd0p5</span> <span class="mi">3933677568</span> <span class="mi">3935774719</span>    <span class="mi">2097152</span>    <span class="mi">1</span><span class="k">G</span> <span class="n">Microsoft</span> <span class="n">basic</span> <span class="k">data</span>
+<span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">nbd0p6</span> <span class="mi">3935774720</span> <span class="mi">4000786431</span>   <span class="mi">65011712</span>   <span class="mi">31</span><span class="k">G</span> <span class="n">Microsoft</span> <span class="n">basic</span> <span class="k">data</span>
+</code></pre></div>
+
+
+<h1>Create a VM with your image and inject the virtio drivers</h1>
+<p>It's very likely that the image as it stands isn't bootable, even if you set it up with UEFI.<br>
+Personally, the image had two issues: <strong>Missing KVM drivers</strong>, and a <strong>busted EFI bootloader</strong> partition.<br>
+So the following steps are meant to get you to a bootable VM after creation.  </p>
+<p>If you sideloaded the KVM drivers at snapshot time, you might not need to do all that, but I haven't tried it so 🤷<br>
+When creating the VM, assign two CD images to it: A Windows installer disk, and the KVM driver disk.</p>
+<div class="highlight"><pre><span></span><code><span class="err">sudo virt-install --name virtual-windows --memory 32000 --vcpus 8 --cpu host --os-variant=win10 \</span>
+<span class="err">--features kvm_hidden=on --machine q35 \</span>
+<span class="err">--cdrom=ISOs/Win11_24H2_x64.iso \</span>
+<span class="err">--cdrom=ISOs/virtio-win.iso \ </span>
+<span class="err">--disk path=Windows.qcow2,size=100,bus=virtio,format=qcow2 \</span>
+<span class="err">--boot uefi --graphics spice --channel spicevmc --video qxl --network network=default,model=virtio --noautoconsole \</span>
+<span class="err">--features hyperv_relaxed=on,hyperv_vapic=on,hyperv_spinlocks=on,hyperv_spinlocks_retries=8191 </span>
+</code></pre></div>
+
+
+<h2>Sidequest: Accessing the VM remotely</h2>
+<p>By default KVM allows you to access the VM via SPICE, but only locally. If you're running all this on your homelab, you'll need to edit the VM settings like so:  </p>
+<div class="highlight"><pre><span></span><code>virsh edit virtual-windows  
+
+<span class="c">&lt;!-- Edit the following to have the spice server listen for remote connections; You might also want to add in a password in this case. --&gt;</span>
+<span class="nt">&lt;graphics</span> <span class="na">type=</span><span class="s">&#39;spice&#39;</span> <span class="na">autoport=</span><span class="s">&#39;yes&#39;</span> <span class="na">listen=</span><span class="s">&#39;0.0.0.0&#39;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;listen</span> <span class="na">type=</span><span class="s">&#39;address&#39;</span> <span class="na">address=</span><span class="s">&#39;0.0.0.0&#39;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;image</span> <span class="na">compression=</span><span class="s">&#39;off&#39;</span><span class="nt">/&gt;</span>
+<span class="nt">&lt;/graphics&gt;</span>
+</code></pre></div>
+
+
+<p>Boot to the Windows installer and use it to get a command line going.<br>
+<img alt="" src="https://www.winhelponline.com/blog/wp-content/uploads/2016/05/winre%20(3).png">  </p>
+<p>You'll likely notice if you run <code>diskpart</code> that Windows doesn't see your VM's disk.<br>
+This can be solved by loading in the virtio storage driver (assuming the CD for it is in the D: drive):  </p>
+<div class="highlight"><pre><span></span><code><span class="err">drvload D:\viostor\w11\amd64\viostor.inf</span>
+</code></pre></div>
+
+
+<p>Once you have that and the disk shows up, you can sideload the same storage driver to the VM:  </p>
+<div class="highlight"><pre><span></span><code><span class="err">dism /Image:C:\ /Add-Driver /Driver:D:\viostor\w11\amd64</span>
+</code></pre></div>
+
+
+<h1>Repair the EFI bootloader</h1>
+<p>(This is basically a copypaste of <a href="https://www.winhelponline.com/blog/rebuild-efi-partition-bcd-boot-files/">this article</a>)<br>
+At this stage, you can verify if Windows will boot as-is by running <code>bcdedit</code> -- If that gives you an error, you likely need to remake the EFI partition.  </p>
+<p>Use diskpart to find the EFI partition (will be around 200 megs), and assign it a drive letter. (partition 3 / drive Y: here)  </p>
+<div class="highlight"><pre><span></span><code><span class="err">diskpart</span>
+<span class="err">list disk</span>
+<span class="err">select disk 0</span>
+<span class="err">list partition</span>
+<span class="err">select volume 3</span>
+<span class="err">assign letter=y</span>
+<span class="err">exit</span>
+</code></pre></div>
+
+
+<p>Wipe the partition, then rebuild the bootloader in there:  </p>
+<div class="highlight"><pre><span></span><code><span class="err">format y: /fs:FAT32 /q</span>
+<span class="err">bcdboot C\Windows /s Y: /f UEFI</span>
+</code></pre></div>
+
+
+<p>After all that, <code>bcdedit</code> should show the correct boot order, pointed at your C: drive.<br>
+Just reboot the VM and you should be good to go! You'll likely want to install the rest of the virtIO drivers from D: once you make it into Windows.    </p>
+  </div><!-- /.entry-content -->
+  <a class="containerBox">
+    <img src="https://tvc-16.science/theme/img/button2.svg" class="img-responsive">
+    <div class="text-box pink-button">
+      <span class=" button-text pink-shadow">Comments</span>
+    </div>
+  </a> <br /><br /><br /><br /><br /><br /><br /><br />
+  <script src="https://utteranc.es/client.js" repo="difegue/TVC-16" issue-term="url" theme="github-light"
+    crossorigin="anonymous" async>
+  </script>
+</section>
+      </div>
+    </div>
+    <div class="bot-border project-background"></div>
+
+    <br />
+    <br />
+    <br />
+
+  </div>
+
+  <footer id="contentinfo" class="body" style="position:relative; overflow:hidden">
+    <div class="top-border hello-background"></div>
+    <div class="wrapper hello-background">
+      <div class="text">
+
+        <a class="containerBox">
+          <img src="https://tvc-16.science/theme/img/button1.svg" class="img-responsive">
+          <div class="text-box blue-button">
+            <span class=" button-text blue-shadow">About</span>
+          </div>
+        </a>
+
+        <div class="scroll-left">
+          <p>
+            <script language="JavaScript">
+              //never forget grugeisti ;_;7
+              var r_text = new Array();
+              r_text[0] = "This is COOL";
+              r_text[1] = "TOP-SHELF BLOG DEVICE";
+              r_text[2] = "ACCELERATED PORTFOLIO SYSTEM";
+              r_text[3] = "Lookin' cool !";
+              r_text[4] = "ENHANCED SVG GRAPHICS";
+              r_text[5] = "HIGH-SPEED CHEAP VPS";
+              r_text[6] = "DELUXE UPTIME EXPERIENCE";
+              r_text[7] = "BEST-IN-CLASS SCROLLING TEXT";
+              r_text[8] = "HIGH GRADE MULTICONTAINER SETUP";
+              var i = Math.floor(9 * Math.random())
+              document.write(r_text[i]);
+            </script>
+          </p>
+        </div>
+        Runnin' straight down the information highway in a 3$ Vultr VPS. <br /><br />
+        Typefaces used: <a href="https://rsms.me/inter/">Inter</a>, <a
+          href="https://blog.marsnev.com/2017/03/font-lemonmilk.html">Lemon/Milk</a>,
+        <a href="https://fonts.google.com/specimen/VT323">VT323</a>.
+        Built using <a href="https://github.com/difegue" rel="me"> Github Actions</a> and Pelican. <br />
+        You can talk to me on <a rel="me" href="https://bsky.app/profile/difegue.bsky.social">Bluesky</a> or <a rel="me"
+          href="https://kolektiva.social/@Difegue">Mastodon</a> if that's your thing. <br/>
+
+        Find a RSS feed <a href="https://tvc-16.science/feeds/all.atom.xml"> here.</a>  
+
+      </div>
+    </div>
+    <div class="bot-border hello-background"></div>
+  </footer><!-- /#contentinfo -->
+
+  <br />
+  <br />
+  <br />
+
+  <div class="footer-container" title="This COOL SYSTEM has been running...for some time now.">
+    <span class="footer-text">Uptime:
+      <br>
+      <span id="uptime">XXX days </span>
+    </span>
+    <img src="https://tvc-16.science/theme/img/footer.svg" class="footer-image">
+  </div>
+
+  <script src="https://tvc-16.science/theme/index.js"></script>
+</body>
+
+</html>
