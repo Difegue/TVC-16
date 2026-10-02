@@ -6,7 +6,7 @@ Slug: difstage
 Authors: Difegue
 HeroImage: images/difstage/multi_fig.jpg
 BskyPost: at://difegue.tvc-16.science/app.bsky.feed.post/3lugupqum4c2z
-Summary: 
+Summary: Print 10 of them, chain them up, make the epic battle fanfic of your dreams fr
 
 I own a bunch of anime action figures. I really got into Max Factory's [figmas](https://myfigurecollection.net/entry/23356) back in 2012 or so, alongside the other 1/12 figures like S.H.Figuarts or Revoltechs<sup id="ref-1">[*](#note-1)</sup>.  
 
@@ -30,7 +30,7 @@ This [blogpost from the era](https://arcticukitsu.com/Blog/?p=262) explains how 
 ![A difStage set, in marble PLA](/images/difstage/parts.jpg)  
 A set comes with:  
 
-- one base stand   
+- one base stand (10x10cm)  
 - a connector part to place another stand next to one of the four sides  
 - another connector part to place a separate stand, except vertically  
 - four "skirt" parts to hide the sides you're not connecting anything to  
